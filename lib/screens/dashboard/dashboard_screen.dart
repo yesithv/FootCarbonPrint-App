@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../core/constants/emission_factors.dart';
 import '../../core/theme/app_colors.dart';
 import '../../providers/footprint_provider.dart';
-import '../action_plan/action_plan_screen.dart';
+import '../shell/main_shell.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -16,11 +16,15 @@ class DashboardScreen extends StatelessWidget {
       backgroundColor: AppColors.background,
       body: Consumer<FootprintProvider>(
         builder: (context, provider, _) {
+          if (provider.completedCount == 0) {
+            return _EmptyState(
+              onGoToTest: () => MainShell.of(context)?.goToTab(0),
+            );
+          }
           final fp = provider.footprint;
           return CustomScrollView(
             slivers: [
-              _AppBarSliver(
-                  level: fp.levelLabel, emoji: fp.levelEmoji),
+              _AppBarSliver(level: fp.levelLabel, emoji: fp.levelEmoji),
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
                 sliver: SliverList(
@@ -34,11 +38,8 @@ class DashboardScreen extends StatelessWidget {
                     _BenchmarkCard(total: fp.totalCO2),
                     const SizedBox(height: 28),
                     ElevatedButton.icon(
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const ActionPlanScreen()),
-                      ),
+                      onPressed: () =>
+                          MainShell.of(context)?.goToTab(2),
                       icon: const Icon(Icons.emoji_events_rounded),
                       label: const Text('Ver mi Plan de Acción'),
                     ),
@@ -48,6 +49,56 @@ class DashboardScreen extends StatelessWidget {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class _EmptyState extends StatelessWidget {
+  final VoidCallback? onGoToTest;
+  const _EmptyState({this.onGoToTest});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(40),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(28),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withAlpha(15),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.bar_chart_rounded,
+                  size: 64, color: AppColors.primary),
+            ),
+            const SizedBox(height: 28),
+            Text(
+              'Aún no tienes resultados',
+              style: GoogleFonts.inter(
+                  fontSize: 22, fontWeight: FontWeight.w800),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Completa al menos un módulo del test para ver tu huella de carbono aquí.',
+              style: GoogleFonts.inter(
+                  fontSize: 15,
+                  color: AppColors.textSecondary,
+                  height: 1.5),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 32),
+            ElevatedButton.icon(
+              onPressed: onGoToTest,
+              icon: const Icon(Icons.assignment_rounded),
+              label: const Text('Ir al test'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -63,11 +114,8 @@ class _AppBarSliver extends StatelessWidget {
     return SliverAppBar(
       expandedHeight: 120,
       pinned: true,
+      automaticallyImplyLeading: false,
       backgroundColor: AppColors.primary,
-      leading: IconButton(
-        onPressed: () => Navigator.pop(context),
-        icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
-      ),
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
         title: Row(
