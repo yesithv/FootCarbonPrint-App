@@ -1,0 +1,219 @@
+🌍 Concepto de la app
+Nombre sugerido: CarbonTrack / EcoPulse / Huella360
+👉 Objetivo:
+Permitir al usuario medir, entender y reducir su huella de carbono mediante un test inteligente, visualizaciones claras y acciones personalizadas.
+
+🧠 1. Módulo principal: Auto-test inteligente
+🧾 Flujo del test (tipo onboarding + evaluación periódica)
+Dividido por categorías:
+🚗 Transporte
+
+¿Usas carro, moto, transporte público, bici o caminas?
+Km promedio por día
+Tipo de combustible (gasolina, diésel, eléctrico)
+Frecuencia de vuelos (domésticos/internacionales)
+
+🏠 Energía en el hogar
+
+Tipo de vivienda (casa, apto)
+Consumo mensual (opcional: subir factura)
+Energía: ¿Red eléctrica, solar?
+Uso de aire acondicionado, calefacción
+
+🍔 Alimentación
+
+Tipo de dieta:
+
+Alta en carne
+Mixta
+Vegetariana
+Vegana
+
+
+Frecuencia de consumo de carne roja
+Consumo de productos locales vs importados
+
+🛍️ Consumo y estilo de vida
+
+Compras mensuales (ropa, tecnología)
+Uso de fast fashion
+Preferencia por productos sostenibles
+Uso de empaques desechables
+
+♻️ Residuos
+
+Separación de basura
+Reciclaje
+Compostaje
+Uso de plásticos de un solo uso
+
+
+📊 2. Motor de cálculo de huella de carbono
+👉 Funcionalidad clave:
+
+Convertir respuestas en CO₂ equivalente (kg o toneladas/año)
+
+👉 Output:
+
+Resultado total
+Resultado por categoría
+
+💡 Ejemplo de resultado:
+
+Total: 3.2 t CO₂/año
+Transporte: 45%
+Alimentación: 25%
+Energía: 20%
+Consumo: 10%
+
+
+📈 3. Dashboard visual (UX clave)
+📊 Elementos:
+
+Gráfico circular (breakdown)
+Indicador tipo “semáforo”:
+
+Verde: bajo impacto
+Amarillo: medio
+Rojo: alto
+
+
+
+📍 Benchmark:
+
+Compararte contra:
+
+Promedio país (Colombia)
+Promedio global
+Objetivo sostenible recomendado
+
+
+
+
+🧭 4. Diagnóstico personalizado (lo MÁS importante)
+👉 La app no solo mide… explica el porqué
+Ejemplo:
+
+"Tu mayor impacto proviene del transporte (uso frecuente de vehículo a gasolina)"
+
+
+✅ 5. Plan de acción personalizado
+🎯 Recomendaciones automáticas:
+
+Cambiar 2 días de carne → impacto -X kg CO₂
+Usar transporte público 1 vez/semana
+Reducir compras de ropa en 30%
+Sustituir vuelos cortos por otros medios
+
+👉 Cada recomendación incluye:
+
+Impacto estimado
+Dificultad (baja/media/alta)
+
+
+🎮 6. Gamificación (clave para engagement)
+
+Sistema de puntos (“EcoPoints”)
+Niveles:
+
+Novato 🌱
+Consciente 🌍
+Experto verde 🌳
+
+
+Retos:
+
+“Semana sin plástico”
+“7 días sin carne”
+
+
+
+
+📅 7. Seguimiento y evolución
+
+Gráfica de progreso mensual
+Alertas:
+
+“Tu huella aumentó este mes”
+“Reduciste 10% ¡bien hecho!”
+
+
+
+
+🔗 8. Integraciones inteligentes (nivel avanzado)
+
+Sincronización con:
+
+Google Maps → calcular transporte real
+Apps bancarias → analizar consumo
+Facturas digitales → energía real
+
+
+
+
+📸 9. Escaneo y automatización
+
+Escanear factura de luz → extraer consumo
+Escanear productos → estimar impacto ecológico
+
+
+🌎 10. Módulo educativo
+
+Micro-contenidos:
+
+“¿Por qué la carne genera más CO₂?”
+“Impacto de los vuelos”
+
+
+Tips diarios
+Videos cortos
+
+
+💰 11. Compensación de huella (opcional)
+
+Calcula cuánto debes compensar
+Integración con:
+
+Programas de reforestación
+Créditos de carbono
+
+
+
+
+🧑‍💼 12. Perfil y objetivos
+
+Objetivo personal:
+
+“Reducir 20% en 6 meses”
+
+
+Logros alcanzados
+Historial de cambios
+
+
+⚙️ 13. Extras que marcan diferencia
+✅ Modo offline básico
+✅ Datos adaptados a Bogotá/altura (transporte, clima, energía)
+✅ Notificaciones “eco inteligentes”
+✅ Score simple tipo:
+
+“Tu nivel ambiental: 68/100”
+
+
+🧩 Arquitectura funcional simplificada
+
+Frontend: Flutter / React Native
+Backend: API de cálculo + base de factores de emisión
+IA: recomendaciones personalizadas
+Data: tablas de CO₂ por actividad (IPCC / bases públicas)
+
+
+🚀 Diferencial clave de tu app
+👉 No es solo un “tracker”, es:
+
+Diagnóstico + educación + acción + seguimiento
+
+
+Si quieres, en el siguiente paso puedo diseñarte:
+✅ el flujo UX completo pantalla por pantalla (tipo app real)
+✅ o el modelo de datos + algoritmo de cálculo de CO₂ listo para implementar

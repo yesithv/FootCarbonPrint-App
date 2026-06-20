@@ -1,0 +1,140 @@
+🌱 CarbonCheck — App de Diagnóstico de Huella de Carbono
+
+👤 VOZ DEL USUARIO (Lo que quiero como persona que quiere conocer su huella)
+
+"Quiero entender cuánto contamino con mi vida cotidiana, sin necesidad de ser experto. Quiero que sea rápido, visual, y que me diga exactamente qué puedo mejorar y cuánto impacto tendría si lo hago."
+
+
+🌍 VOZ DEL ESPECIALISTA (Lo que la app debe medir y cómo)
+La huella de carbono personal se compone de 5 grandes categorías, cada una con su peso relativo:
+CategoríaPeso aproximado en la huella personalTransporte28–35%Alimentación25–30%Energía del hogar20–25%Consumo y compras10–15%Residuos5–8%
+
+📱 FUNCIONALIDADES DETALLADAS
+
+1. 🧭 Onboarding Inteligente
+¿Qué quiere el usuario? Empezar sin fricciones y entender de qué se trata en menos de 60 segundos.
+¿Qué propone el especialista?
+
+Pantalla de bienvenida con el concepto de huella de carbono explicado en lenguaje simple y una analogía visual (ej: "Tu huella = árboles que necesitarías para compensarla").
+Selector de perfil inicial: Urbano / Rural / Mixto — esto ajusta los factores de emisión locales.
+Selector de país/región para aplicar factores de emisión correctos (la red eléctrica de Colombia emite muy diferente a la de Alemania).
+Meta opcional: "¿Qué te motivó a conocer tu huella?" → Opciones como ahorrar dinero, cuidar el planeta, prepararse para compensar.
+
+
+2. 📋 Auto-Test por Módulos (El corazón de la app)
+Un cuestionario dividido en bloques temáticos, no lineal, con progreso visible. El usuario puede completarlo en varias sesiones.
+🚗 Módulo 1 — Transporte
+Preguntas clave:
+
+¿Cuál es tu medio de transporte principal? (auto propio, moto, bus, metro, bici, a pie)
+Si tienes auto: ¿gasolina, diésel, híbrido, eléctrico? ¿Cuántos km/semana recorres?
+¿Con qué frecuencia vuelas? (doméstico / internacional) — número de vuelos al año y duración aproximada.
+¿Usas transporte compartido (Uber Pool, bus, etc.)?
+
+Cálculo: kgCO₂ por km según tipo de vehículo × distancia semanal × 52 semanas.
+
+🥩 Módulo 2 — Alimentación
+Preguntas clave:
+
+¿Cuántas veces a la semana consumes carne de res / cerdo / pollo / pescado?
+¿Eres vegetariano, vegano, omnívoro o flexitariano?
+¿Qué porcentaje de tu comida es procesada / ultraprocesada?
+¿Compras productos de temporada y locales o importados?
+¿Cuánta comida desperdicias a la semana? (nada / algo / bastante)
+
+Cálculo: La carne de res emite ~27 kgCO₂ por kg producido. El desperdicio alimentario duplica la huella de ese alimento.
+
+🏠 Módulo 3 — Hogar y Energía
+Preguntas clave:
+
+¿Cuántas personas viven en tu hogar?
+¿Cuál es tu fuente de energía principal? (red eléctrica, gas natural, leña, paneles solares)
+¿Usas ducha caliente? ¿Cuánto tiempo promedio?
+¿Tienes aire acondicionado / calefacción? ¿Cuántas horas al día?
+¿Separas residuos? ¿Reciclas o compostas?
+Electrodomésticos: tipo de nevera, lavadora de ropa (fría/caliente), número de televisores.
+
+Cálculo: kWh mensual estimado × factor de emisión de la red eléctrica local (en Colombia es relativamente bajo por la hidroeléctrica, pero variable).
+
+🛍️ Módulo 4 — Consumo y Compras
+Preguntas clave:
+
+¿Cuántas prendas de ropa nueva compras al mes?
+¿Compras electrónicos frecuentemente? (celular nuevo cada año, tablets, etc.)
+¿Usas productos de un solo uso (botellas plásticas, pitillos, bolsas)?
+¿Con qué frecuencia compras por e-commerce con envío express (aéreo)?
+¿Reparas o reutilizas objetos o prefieres reemplazarlos?
+
+
+♻️ Módulo 5 — Residuos
+Preguntas clave:
+
+¿Separas la basura en casa?
+¿Compostas residuos orgánicos?
+¿Cuántas bolsas de basura generas a la semana?
+¿Tienes acceso a reciclaje en tu municipio?
+
+
+3. 📊 Dashboard de Resultados
+¿Qué quiere el usuario? Ver su resultado de forma clara, compararlo con algo y saber si está bien o mal.
+Funcionalidades:
+
+Resultado total en tCO₂/año con una escala visual de semáforo (verde / amarillo / rojo).
+Gráfico de torta desglosado por las 5 categorías → el usuario ve de un vistazo su mayor fuente de emisiones.
+Comparativa contextual:
+
+Promedio mundial (~4.7 tCO₂/persona/año según PNUMA)
+Promedio de su país (Colombia ~1.8 tCO₂/persona/año)
+Meta del Acuerdo de París (≤2 tCO₂/persona/año para 2050)
+
+
+Equivalencias visuales y emotivas: "Tu huella equivale a cargar 847 smartphones durante un año" o "a plantar 23 árboles para compensarla".
+
+
+4. 💡 Plan de Acción Personalizado
+¿Qué quiere el usuario? Que no solo le digan que contamina, sino qué hacer y qué impacto tendría.
+Funcionalidades:
+
+Lista de recomendaciones priorizadas por impacto real (no genéricas), ordenadas de mayor a menor reducción potencial.
+Para cada recomendación: "Si haces esto, reduces tu huella en X%".
+Ejemplo: "Dejar de comer carne de res 3 días a la semana → −0.4 tCO₂/año (−12% de tu huella actual)".
+Clasificación de recomendaciones por facilidad: Fácil / Moderado / Requiere inversión.
+Opción de guardar un compromiso y recibir recordatorio para reevaluar en 3 meses.
+
+
+5. 🔁 Seguimiento en el Tiempo (Tracker)
+
+Test recurrente cada 3 o 6 meses con comparativa de evolución.
+Gráfico de línea de tendencia: ¿está bajando tu huella?
+Insignias o logros por reducción (gamificación leve y no invasiva).
+Diario de acciones: el usuario puede registrar acciones concretas (ej: "Fui en bici hoy") y ver el acumulado de CO₂ ahorrado.
+
+
+6. 🌳 Módulo de Compensación (Opcional / Premium)
+
+Calculadora de cuántos árboles necesitas plantar para ser carbono neutro.
+Integración informativa con iniciativas de reforestación locales (en Colombia: Visión Amazonía, etc.).
+Opción de conectar con organizaciones de compensación certificadas (Gold Standard, Verra VCS).
+
+
+7. 🔔 Notificaciones Inteligentes
+
+"Esta semana usaste más el carro que la semana pasada. ¿Puedes combinar viajes?"
+Recordatorios contextuales según el módulo donde más emite el usuario.
+Alertas estacionales: "Con el calor de esta semana, el aire acondicionado puede representar hasta el 40% de tu consumo."
+
+
+8. 🌐 Componente Social (Opcional)
+
+Compararte con amigos (de forma anónima o consensuada).
+Retos grupales: "Este mes, el grupo reduce un 10% en transporte".
+Compartir tu progreso en redes con gráfico generado por la app.
+
+
+🏗️ Stack Sugerido para tu Ecosistema
+Dado que ya tienes Flutter + Spring Boot + Angular, esta app encaja perfectamente:
+
+Flutter → App móvil del auto-test y dashboard.
+Spring Boot → API de cálculo de huella (los factores de emisión cambian por país, se actualizan vía backend).
+Angular + PrimeNG → Panel admin para que el especialista ambiental configure los factores de emisión, preguntas del test y umbrales por región.
+PostgreSQL multi-tenant → Cada usuario tiene su historial de tests aislado.

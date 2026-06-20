@@ -1,0 +1,112 @@
+App de Diagnóstico de Huella de Carbono — Especificación Funcional
+Concepto General
+Nombre sugerido: CarbonCheck / EcoHuella / Mi Huella
+
+Una app de autodiagnóstico que guía al usuario a través de un cuestionario estructurado por categorías de vida, calcula su huella de carbono anual en CO₂eq, la compara con promedios globales/locales y entrega un plan de acción personalizado.
+
+Módulos Funcionales
+1. Onboarding & Perfil
+Registro rápido (email, Google, Apple ID)
+Perfil básico: país, ciudad, número de personas en el hogar, rango de ingreso (opcional, para calibrar estimaciones)
+Selección de unidades: métrico/imperial
+2. Auto-Test por Categorías (núcleo de la app)
+El test se divide en 6 categorías, cada una con preguntas progresivas (de lo general a lo específico):
+
+🚗 Transporte
+Pregunta	Tipo de input
+¿Tienes auto propio?	Sí/No
+Tipo de combustible (gasolina, diésel, híbrido, eléctrico)	Selector
+Km promedio por semana	Slider numérico
+Vuelos por año (corto, medio, largo radio)	Contador por tipo
+Uso de transporte público (días/semana)	Slider
+Viajes en moto / taxi / ridesharing	Frecuencia
+🏠 Hogar & Energía
+Pregunta	Tipo
+Tipo de vivienda (apartamento / casa)	Selector
+m² del hogar	Input numérico
+Fuente de energía principal (red eléctrica, solar, mixta)	Selector
+Consumo mensual de electricidad (kWh o valor en factura)	Input
+Uso de gas natural / propano / leña	Frecuencia + cantidad
+Climatización: AC / calefacción (horas/día)	Slider
+🍔 Alimentación
+Pregunta	Tipo
+Dieta (carnívora, omnívora, flexitariana, vegetariana, vegana)	Selector visual
+Consumo de carne roja (veces/semana)	Slider
+Consumo de lácteos	Frecuencia
+Porcentaje de alimentos locales / de temporada	Slider estimado
+Desperdicio de comida (% estimado)	Selector
+🛍️ Consumo & Compras
+Pregunta	Tipo
+Frecuencia de compra de ropa nueva	Selector
+Porcentaje de ropa de segunda mano	Slider
+Compras en línea (paquetes/mes)	Contador
+Dispositivos electrónicos nuevos por año	Contador
+Uso de productos plásticos de un solo uso	Frecuencia
+♻️ Residuos
+Pregunta	Tipo
+¿Separas residuos para reciclaje?	Sí/No/Parcial
+Bolsas de basura generadas por semana	Selector
+¿Compostas residuos orgánicos?	Sí/No
+Frecuencia de disposición de electrónicos (e-waste)	Selector
+💧 Agua
+Pregunta	Tipo
+Minutos promedio de ducha	Slider
+Ducha fría / tibia / caliente	Selector
+Riego de jardín / zonas verdes	Sí/No + frecuencia
+Consumo estimado en litros/día (si aplica)	Input opcional
+3. Motor de Cálculo
+Algoritmo basado en factores de emisión estándar: IPCC, EPA, GHG Protocol
+Factor de emisión ajustado por país (la matriz energética varía: Colombia ≠ Alemania)
+Resultado expresado en:
+toneladas CO₂eq / año
+Desglose por categoría (gráfico de torta / barras)
+Comparativa inmediata:
+Promedio global (~4.7 t CO₂eq/año)
+Promedio de tu país
+Meta del Acuerdo de París (≤2 t CO₂eq/año para 2050)
+4. Dashboard de Resultados
+Medalla/badge según nivel: 🌿 Verde / 🟡 Moderado / 🔴 Alto / 💀 Crítico
+Historia del resultado en línea de tiempo (si el usuario repite el test)
+5. Plan de Acción Personalizado
+Basado en las categorías con mayor impacto, la app sugiere top 5 acciones concretas ordenadas por:
+
+Impacto de reducción (t CO₂eq que se ahorran)
+Dificultad de implementación (fácil / media / difícil)
+Ejemplos:
+
+"Reducir 1 vuelo de larga distancia = −1.5 t CO₂eq"
+"Cambiar a dieta flexitariana = −0.8 t CO₂eq/año"
+"Instalar ducha de bajo flujo = −0.1 t CO₂eq/año"
+Cada acción incluye: descripción, recurso externo, botón "Me comprometo" (con recordatorio)
+
+6. Compensación de Carbono (monetización / alianzas)
+Integración con proyectos certificados de compensación (reforestación, energías renovables)
+Cálculo de costo estimado para neutralizar la huella
+Vinculación con organizaciones locales verificadas
+7. Seguimiento & Gamificación
+Test recurrente: mensual / trimestral / anual
+Gráfico de evolución de huella en el tiempo
+Retos semanales: "Esta semana no uses bolsas plásticas"
+Logros desbloqueables (badges)
+Comparativa opcional con amigos (modo social privado)
+Notificaciones push suaves de recordatorio
+8. Educación Contextual
+Tooltips explicativos en cada pregunta ("¿Por qué importa esto?")
+Mini-artículos por categoría
+Equivalencias visuales: "Tu huella equivale a plantar 412 árboles al año"
+Flujo de Usuario Principal
+
+Stack Tecnológico Sugerido
+Componente	Opción
+Frontend móvil	React Native / Flutter
+Backend	Node.js + Supabase o Firebase
+Factores de emisión	Base de datos propia (IPCC + Ecoinvent)
+Autenticación	Auth0 / Firebase Auth
+Notificaciones	Firebase Cloud Messaging
+Analytics	Mixpanel / Amplitude
+Consideraciones Clave de Diseño
+El test no debe tomar más de 7 minutos — máximo 35 preguntas totales
+Valores por defecto inteligentes para usuarios que no saben sus consumos exactos
+Diseño accesible — lenguaje no culpabilizador, enfocado en posibilidades de mejora
+Privacidad first — los datos de consumo son sensibles, opción de uso offline
+Localización — factores de emisión y comparativas ajustadas por país
