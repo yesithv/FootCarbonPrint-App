@@ -14,7 +14,7 @@ class FootCarbonPrintApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => FootprintProvider(),
+      create: (_) => FootprintProvider()..load(),
       child: MaterialApp(
         title: 'FootCarbonPrint',
         debugShowCheckedModeBanner: false,

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../providers/footprint_provider.dart';
+import '../shell/main_shell.dart';
 
 class ActionPlanScreen extends StatelessWidget {
   const ActionPlanScreen({super.key});
@@ -14,13 +15,15 @@ class ActionPlanScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Plan de Acción'),
         backgroundColor: AppColors.background,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_rounded),
-        ),
+        automaticallyImplyLeading: false,
       ),
       body: Consumer<FootprintProvider>(
         builder: (context, provider, _) {
+          if (provider.completedCount == 0) {
+            return _EmptyState(
+              onGoToTest: () => MainShell.of(context)?.goToTab(0),
+            );
+          }
           final fp = provider.footprint;
           final actions = _buildActions(fp.breakdown, fp.totalCO2);
           return ListView(
@@ -150,6 +153,56 @@ class ActionPlanScreen extends StatelessWidget {
 
     all.sort((a, b) => b.reduction.compareTo(a.reduction));
     return all.take(6).toList();
+  }
+}
+
+class _EmptyState extends StatelessWidget {
+  final VoidCallback? onGoToTest;
+  const _EmptyState({this.onGoToTest});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(40),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(28),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withAlpha(15),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.emoji_events_rounded,
+                  size: 64, color: AppColors.primary),
+            ),
+            const SizedBox(height: 28),
+            Text(
+              'Aún no tienes plan',
+              style: GoogleFonts.inter(
+                  fontSize: 22, fontWeight: FontWeight.w800),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Completa al menos un módulo del test para ver tu plan de acción personalizado.',
+              style: GoogleFonts.inter(
+                  fontSize: 15,
+                  color: AppColors.textSecondary,
+                  height: 1.5),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 32),
+            ElevatedButton.icon(
+              onPressed: onGoToTest,
+              icon: const Icon(Icons.assignment_rounded),
+              label: const Text('Ir al test'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

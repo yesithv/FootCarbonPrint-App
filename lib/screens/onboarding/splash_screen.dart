@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../core/theme/app_colors.dart';
-import '../test/test_hub_screen.dart';
+import '../../providers/footprint_provider.dart';
+import '../shell/main_shell.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -30,17 +32,29 @@ class _SplashScreenState extends State<SplashScreen>
       CurvedAnimation(parent: _controller, curve: Curves.elasticOut),
     );
     _controller.forward();
-    Future.delayed(const Duration(milliseconds: 2400), () {
-      if (!mounted) return;
-      Navigator.of(context).pushReplacement(
-        PageRouteBuilder(
-          pageBuilder: (_, __, ___) => const OnboardingScreen(),
-          transitionsBuilder: (_, anim, __, child) =>
-              FadeTransition(opacity: anim, child: child),
-          transitionDuration: const Duration(milliseconds: 600),
-        ),
-      );
-    });
+
+    Future.delayed(const Duration(milliseconds: 2200), _navigate);
+  }
+
+  void _navigate() {
+    if (!mounted) return;
+    final provider = context.read<FootprintProvider>();
+
+    Widget next;
+    if (!provider.onboardingComplete) {
+      next = const OnboardingScreen();
+    } else {
+      next = const MainShell();
+    }
+
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        pageBuilder: (_, __, ___) => next,
+        transitionsBuilder: (_, anim, __, child) =>
+            FadeTransition(opacity: anim, child: child),
+        transitionDuration: const Duration(milliseconds: 500),
+      ),
+    );
   }
 
   @override
@@ -68,11 +82,8 @@ class _SplashScreenState extends State<SplashScreen>
                     color: Colors.white.withAlpha(30),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    Icons.eco_rounded,
-                    size: 56,
-                    color: Colors.white,
-                  ),
+                  child: const Icon(Icons.eco_rounded,
+                      size: 56, color: Colors.white),
                 ),
                 const SizedBox(height: 24),
                 Text(
@@ -88,10 +99,7 @@ class _SplashScreenState extends State<SplashScreen>
                 Text(
                   'Conoce tu Huella. Cambia tu Mundo.',
                   style: GoogleFonts.inter(
-                    fontSize: 14,
-                    color: Colors.white70,
-                    fontWeight: FontWeight.w400,
-                  ),
+                      fontSize: 14, color: Colors.white70),
                 ),
               ],
             ),
@@ -144,10 +152,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const TestHubScreen()),
-      );
+      _finish();
     }
+  }
+
+  void _finish() {
+    context.read<FootprintProvider>().completeOnboarding();
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => const MainShell()),
+    );
   }
 
   @override
@@ -199,14 +212,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   if (_currentPage < _slides.length - 1) ...[
                     const SizedBox(height: 12),
                     TextButton(
-                      onPressed: () => Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                            builder: (_) => const TestHubScreen()),
-                      ),
-                      child: Text(
-                        'Saltar',
-                        style: TextStyle(color: AppColors.textHint),
-                      ),
+                      onPressed: _finish,
+                      child: Text('Saltar',
+                          style: TextStyle(color: AppColors.textHint)),
                     ),
                   ],
                 ],
@@ -224,13 +232,11 @@ class _OnboardingSlide {
   final Color color;
   final String title;
   final String subtitle;
-
-  const _OnboardingSlide({
-    required this.icon,
-    required this.color,
-    required this.title,
-    required this.subtitle,
-  });
+  const _OnboardingSlide(
+      {required this.icon,
+      required this.color,
+      required this.title,
+      required this.subtitle});
 }
 
 class _SlideView extends StatelessWidget {

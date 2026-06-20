@@ -1,72 +1,92 @@
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/carbon_footprint.dart';
 
 class FootprintProvider extends ChangeNotifier {
-  final CarbonFootprint _footprint = CarbonFootprint();
-  int _currentOnboardingPage = 0;
+  CarbonFootprint _footprint = CarbonFootprint();
   bool _onboardingComplete = false;
-  String _userName = '';
-  String _country = 'Colombia';
+  bool _loaded = false;
 
   CarbonFootprint get footprint => _footprint;
-  int get currentOnboardingPage => _currentOnboardingPage;
   bool get onboardingComplete => _onboardingComplete;
-  String get userName => _userName;
-  String get country => _country;
+  bool get loaded => _loaded;
 
-  void setUserName(String name) {
-    _userName = name;
+  Future<void> load() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    _onboardingComplete = prefs.getBool('onboarding_complete') ?? false;
+
+    final data = prefs.getString('footprint');
+    if (data != null) {
+      try {
+        _footprint = CarbonFootprint.fromJson(json.decode(data));
+      } catch (_) {
+        _footprint = CarbonFootprint();
+      }
+    }
+
+    _loaded = true;
     notifyListeners();
   }
 
-  void setCountry(String country) {
-    _country = country;
-    notifyListeners();
+  Future<void> _persist() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('footprint', json.encode(_footprint.toJson()));
   }
 
   void completeOnboarding() {
     _onboardingComplete = true;
-    notifyListeners();
-  }
-
-  void setOnboardingPage(int page) {
-    _currentOnboardingPage = page;
+    SharedPreferences.getInstance()
+        .then((p) => p.setBool('onboarding_complete', true));
     notifyListeners();
   }
 
   void updateTransport(TransportData data) {
     _footprint.transport = data;
     _footprint.completedModules.add('transport');
+    _persist();
     notifyListeners();
   }
 
   void updateFood(FoodData data) {
     _footprint.food = data;
     _footprint.completedModules.add('food');
+    _persist();
     notifyListeners();
   }
 
   void updateHome(HomeData data) {
     _footprint.home = data;
     _footprint.completedModules.add('home');
+    _persist();
     notifyListeners();
   }
 
   void updateShopping(ShoppingData data) {
     _footprint.shopping = data;
     _footprint.completedModules.add('shopping');
+    _persist();
     notifyListeners();
   }
 
   void updateWaste(WasteData data) {
     _footprint.waste = data;
     _footprint.completedModules.add('waste');
+    _persist();
     notifyListeners();
   }
 
   void updateWater(WaterData data) {
     _footprint.water = data;
     _footprint.completedModules.add('water');
+    _persist();
+    notifyListeners();
+  }
+
+  void resetAll() {
+    _footprint = CarbonFootprint();
+    _persist();
     notifyListeners();
   }
 

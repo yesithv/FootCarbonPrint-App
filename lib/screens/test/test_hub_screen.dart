@@ -9,7 +9,7 @@ import 'modules/home_module.dart';
 import 'modules/shopping_module.dart';
 import 'modules/waste_module.dart';
 import 'modules/water_module.dart';
-import '../dashboard/dashboard_screen.dart';
+import '../shell/main_shell.dart';
 
 class TestHubScreen extends StatelessWidget {
   const TestHubScreen({super.key});
@@ -48,11 +48,8 @@ class TestHubScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
                       child: ElevatedButton.icon(
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const DashboardScreen()),
-                        ),
+                        onPressed: () =>
+                            MainShell.of(context)?.goToTab(1),
                         icon: const Icon(Icons.bar_chart_rounded),
                         label: const Text('Ver mi Huella de Carbono'),
                       ),

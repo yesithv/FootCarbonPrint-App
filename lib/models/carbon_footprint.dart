@@ -1,7 +1,7 @@
 import '../core/constants/emission_factors.dart';
 
 class TransportData {
-  String vehicle; // gasoline, diesel, hybrid, electric, motorcycle, bus, bicycle, walking
+  String vehicle;
   double weeklyKm;
   int shortFlights;
   int mediumFlights;
@@ -36,13 +36,31 @@ class TransportData {
         longFlights * EmissionFactors.flightLong;
     return (driving + flights) / 1000;
   }
+
+  Map<String, dynamic> toJson() => {
+        'vehicle': vehicle,
+        'weeklyKm': weeklyKm,
+        'shortFlights': shortFlights,
+        'mediumFlights': mediumFlights,
+        'longFlights': longFlights,
+        'usesPublicTransport': usesPublicTransport,
+      };
+
+  factory TransportData.fromJson(Map<String, dynamic> j) => TransportData(
+        vehicle: j['vehicle'] ?? 'bus',
+        weeklyKm: (j['weeklyKm'] ?? 50).toDouble(),
+        shortFlights: j['shortFlights'] ?? 0,
+        mediumFlights: j['mediumFlights'] ?? 0,
+        longFlights: j['longFlights'] ?? 0,
+        usesPublicTransport: j['usesPublicTransport'] ?? false,
+      );
 }
 
 class FoodData {
-  String diet; // carnivore, omnivore, flexitarian, vegetarian, vegan
+  String diet;
   int beefServingsPerWeek;
   bool localFood;
-  double foodWaste; // 0.0 - 1.0
+  double foodWaste;
 
   FoodData({
     this.diet = 'omnivore',
@@ -65,10 +83,24 @@ class FoodData {
     final wasteExtra = foodWaste * 0.3;
     return base + beefExtra + localDiscount + wasteExtra;
   }
+
+  Map<String, dynamic> toJson() => {
+        'diet': diet,
+        'beefServingsPerWeek': beefServingsPerWeek,
+        'localFood': localFood,
+        'foodWaste': foodWaste,
+      };
+
+  factory FoodData.fromJson(Map<String, dynamic> j) => FoodData(
+        diet: j['diet'] ?? 'omnivore',
+        beefServingsPerWeek: j['beefServingsPerWeek'] ?? 3,
+        localFood: j['localFood'] ?? false,
+        foodWaste: (j['foodWaste'] ?? 0.2).toDouble(),
+      );
 }
 
 class HomeData {
-  String energySource; // grid, solar, gas, mixed
+  String energySource;
   double monthlyKwh;
   int householdMembers;
   bool hasAC;
@@ -95,6 +127,22 @@ class HomeData {
     }
     return base;
   }
+
+  Map<String, dynamic> toJson() => {
+        'energySource': energySource,
+        'monthlyKwh': monthlyKwh,
+        'householdMembers': householdMembers,
+        'hasAC': hasAC,
+        'acHoursPerDay': acHoursPerDay,
+      };
+
+  factory HomeData.fromJson(Map<String, dynamic> j) => HomeData(
+        energySource: j['energySource'] ?? 'grid',
+        monthlyKwh: (j['monthlyKwh'] ?? 200).toDouble(),
+        householdMembers: j['householdMembers'] ?? 3,
+        hasAC: j['hasAC'] ?? false,
+        acHoursPerDay: (j['acHoursPerDay'] ?? 0).toDouble(),
+      );
 }
 
 class ShoppingData {
@@ -119,6 +167,20 @@ class ShoppingData {
     final secondHandDiscount = buysSecondHand ? -0.1 : 0.0;
     return clothing + electronics + packages + secondHandDiscount;
   }
+
+  Map<String, dynamic> toJson() => {
+        'clothingItemsPerMonth': clothingItemsPerMonth,
+        'electronicsPerYear': electronicsPerYear,
+        'onlinePackagesPerMonth': onlinePackagesPerMonth,
+        'buysSecondHand': buysSecondHand,
+      };
+
+  factory ShoppingData.fromJson(Map<String, dynamic> j) => ShoppingData(
+        clothingItemsPerMonth: j['clothingItemsPerMonth'] ?? 2,
+        electronicsPerYear: j['electronicsPerYear'] ?? 1,
+        onlinePackagesPerMonth: j['onlinePackagesPerMonth'] ?? 4,
+        buysSecondHand: j['buysSecondHand'] ?? false,
+      );
 }
 
 class WasteData {
@@ -138,11 +200,23 @@ class WasteData {
     if (composts) base *= 0.8;
     return base;
   }
+
+  Map<String, dynamic> toJson() => {
+        'separatesWaste': separatesWaste,
+        'composts': composts,
+        'wasteBagsPerWeek': wasteBagsPerWeek,
+      };
+
+  factory WasteData.fromJson(Map<String, dynamic> j) => WasteData(
+        separatesWaste: j['separatesWaste'] ?? false,
+        composts: j['composts'] ?? false,
+        wasteBagsPerWeek: j['wasteBagsPerWeek'] ?? 2,
+      );
 }
 
 class WaterData {
   double showerMinutes;
-  String showerTemp; // cold, warm, hot
+  String showerTemp;
   bool hasGarden;
 
   WaterData({
@@ -158,6 +232,18 @@ class WaterData {
     final garden = hasGarden ? 0.05 : 0.0;
     return shower + garden;
   }
+
+  Map<String, dynamic> toJson() => {
+        'showerMinutes': showerMinutes,
+        'showerTemp': showerTemp,
+        'hasGarden': hasGarden,
+      };
+
+  factory WaterData.fromJson(Map<String, dynamic> j) => WaterData(
+        showerMinutes: (j['showerMinutes'] ?? 8).toDouble(),
+        showerTemp: j['showerTemp'] ?? 'warm',
+        hasGarden: j['hasGarden'] ?? false,
+      );
 }
 
 class CarbonFootprint {
@@ -167,7 +253,6 @@ class CarbonFootprint {
   ShoppingData shopping;
   WasteData waste;
   WaterData water;
-
   Set<String> completedModules;
 
   CarbonFootprint()
@@ -207,31 +292,21 @@ class CarbonFootprint {
 
   String get levelLabel {
     switch (level) {
-      case 'champion':
-        return 'Campeón Verde';
-      case 'conscious':
-        return 'Consciente';
-      case 'ontrack':
-        return 'En Camino';
-      case 'high':
-        return 'Alto Impacto';
-      default:
-        return 'Crítico';
+      case 'champion': return 'Campeón Verde';
+      case 'conscious': return 'Consciente';
+      case 'ontrack': return 'En Camino';
+      case 'high': return 'Alto Impacto';
+      default: return 'Crítico';
     }
   }
 
   String get levelEmoji {
     switch (level) {
-      case 'champion':
-        return '🌿';
-      case 'conscious':
-        return '🌍';
-      case 'ontrack':
-        return '🟡';
-      case 'high':
-        return '🔴';
-      default:
-        return '💀';
+      case 'champion': return '🌿';
+      case 'conscious': return '🌍';
+      case 'ontrack': return '🟡';
+      case 'high': return '🔴';
+      default: return '💀';
     }
   }
 
@@ -244,4 +319,33 @@ class CarbonFootprint {
           100);
 
   bool get isBelowParisTarget => totalCO2 <= EmissionFactors.parisTarget;
+
+  Map<String, dynamic> toJson() => {
+        'transport': transport.toJson(),
+        'food': food.toJson(),
+        'home': home.toJson(),
+        'shopping': shopping.toJson(),
+        'waste': waste.toJson(),
+        'water': water.toJson(),
+        'completedModules': completedModules.toList(),
+      };
+
+  factory CarbonFootprint.fromJson(Map<String, dynamic> j) {
+    final fp = CarbonFootprint();
+    if (j['transport'] != null) {
+      fp.transport = TransportData.fromJson(j['transport']);
+    }
+    if (j['food'] != null) fp.food = FoodData.fromJson(j['food']);
+    if (j['home'] != null) fp.home = HomeData.fromJson(j['home']);
+    if (j['shopping'] != null) {
+      fp.shopping = ShoppingData.fromJson(j['shopping']);
+    }
+    if (j['waste'] != null) fp.waste = WasteData.fromJson(j['waste']);
+    if (j['water'] != null) fp.water = WaterData.fromJson(j['water']);
+    if (j['completedModules'] != null) {
+      fp.completedModules =
+          Set<String>.from(j['completedModules'] as List);
+    }
+    return fp;
+  }
 }
