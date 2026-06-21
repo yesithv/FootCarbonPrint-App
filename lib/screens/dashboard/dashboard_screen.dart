@@ -32,6 +32,7 @@ class DashboardScreen extends StatelessWidget {
               _AppBarSliver(
                 level: context.l10n.localizedFootprintLevel(fp.level),
                 emoji: fp.levelEmoji,
+                userName: provider.userName,
               ),
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
@@ -124,32 +125,102 @@ class _EmptyState extends StatelessWidget {
 class _AppBarSliver extends StatelessWidget {
   final String level;
   final String emoji;
-  const _AppBarSliver({required this.level, required this.emoji});
+  final String userName;
+  const _AppBarSliver(
+      {required this.level, required this.emoji, required this.userName});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final greeting = userName.isNotEmpty
+        ? l10n.greetingWithName(userName)
+        : l10n.greetingEmpty;
+
     return SliverAppBar(
       expandedHeight: 120,
       pinned: true,
       automaticallyImplyLeading: false,
       backgroundColor: AppColors.primary,
+      actions: [
+        IconButton(
+          onPressed: () => _showNameDialog(context),
+          icon: Icon(
+            userName.isEmpty
+                ? Icons.person_add_rounded
+                : Icons.edit_rounded,
+            color: Colors.white70,
+            size: 20,
+          ),
+          tooltip: userName.isEmpty ? l10n.addYourName : l10n.nameDialogTitle,
+        ),
+      ],
       flexibleSpace: FlexibleSpaceBar(
-        titlePadding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+        titlePadding: const EdgeInsets.fromLTRB(20, 0, 80, 16),
         title: Row(
           children: [
-            Text(emoji, style: const TextStyle(fontSize: 22)),
+            Text(emoji, style: const TextStyle(fontSize: 20)),
             const SizedBox(width: 8),
-            Text(
-              context.l10n.dashAppBarTitle,
-              style: GoogleFonts.inter(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
+            Flexible(
+              child: Text(
+                greeting,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.inter(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
               ),
             ),
           ],
         ),
         background: Container(color: AppColors.primary),
+      ),
+    );
+  }
+
+  void _showNameDialog(BuildContext context) {
+    final l10n = context.l10n;
+    final provider = context.read<FootprintProvider>();
+    final ctrl = TextEditingController(text: provider.userName);
+
+    showDialog<void>(
+      context: context,
+      builder: (_) => AlertDialog(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text(
+          l10n.nameDialogTitle,
+          style:
+              GoogleFonts.inter(fontWeight: FontWeight.w800, fontSize: 18),
+        ),
+        content: TextField(
+          controller: ctrl,
+          autofocus: true,
+          textCapitalization: TextCapitalization.words,
+          decoration: InputDecoration(
+            hintText: l10n.nameDialogHint,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12)),
+            prefixIcon: const Icon(Icons.person_rounded),
+          ),
+          onSubmitted: (v) {
+            provider.setUserName(v);
+            Navigator.pop(context);
+          },
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(l10n.cancel),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              provider.setUserName(ctrl.text);
+              Navigator.pop(context);
+            },
+            child: Text(l10n.save),
+          ),
+        ],
       ),
     );
   }

@@ -887,6 +887,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tempHotSub => 'Full heater';
 
   @override
+  String get cancel => 'Cancel';
+
+  @override
+  String greetingWithName(String name) {
+    return 'Hello, $name 👋';
+  }
+
+  @override
+  String get greetingEmpty => 'Hello 👋';
+
+  @override
+  String get addYourName => 'Add your name';
+
+  @override
+  String get nameDialogTitle => 'What\'s your name?';
+
+  @override
+  String get nameDialogHint => 'Your name';
+
+  @override
+  String get nameOnCard => 'name on card';
+
+  @override
   String get historyTitle => 'Your footprint evolution';
 
   @override

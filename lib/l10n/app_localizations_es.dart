@@ -888,6 +888,29 @@ class AppLocalizationsEs extends AppLocalizations {
   String get tempHotSub => 'Calentador máximo';
 
   @override
+  String get cancel => 'Cancelar';
+
+  @override
+  String greetingWithName(String name) {
+    return 'Hola, $name 👋';
+  }
+
+  @override
+  String get greetingEmpty => 'Hola 👋';
+
+  @override
+  String get addYourName => 'Añade tu nombre';
+
+  @override
+  String get nameDialogTitle => '¿Cómo te llamas?';
+
+  @override
+  String get nameDialogHint => 'Tu nombre';
+
+  @override
+  String get nameOnCard => 'nombre en la tarjeta';
+
+  @override
   String get historyTitle => 'Evolución de tu huella';
 
   @override

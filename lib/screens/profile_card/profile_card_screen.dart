@@ -133,6 +133,7 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
                     child: _ShareCard(
                       provider: provider,
                       photoBytes: _photoBytes,
+                      userName: provider.userName,
                     ),
                   ),
                 ),
@@ -188,8 +189,10 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
 class _ShareCard extends StatelessWidget {
   final FootprintProvider provider;
   final Uint8List? photoBytes;
+  final String userName;
 
-  const _ShareCard({required this.provider, this.photoBytes});
+  const _ShareCard(
+      {required this.provider, this.photoBytes, required this.userName});
 
   List<Color> _gradientFor(EcoLevel level) {
     switch (level.name) {
@@ -268,7 +271,20 @@ class _ShareCard extends StatelessWidget {
                   levelEmoji: fp.levelEmoji,
                   levelColor: level.color,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 10),
+                if (userName.isNotEmpty) ...[
+                  Text(
+                    userName,
+                    style: GoogleFonts.inter(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white,
+                      letterSpacing: -0.3,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                ] else
+                  const SizedBox(height: 8),
                 _LevelBadge(
                   levelEmoji: level.emoji,
                   levelName: l10n.localizedEcoLevelName(level),

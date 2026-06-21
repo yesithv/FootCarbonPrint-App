@@ -355,6 +355,17 @@
   "tempHot": "Hot",
   "tempHotSub": "Full heater",
 
+  "cancel": "Cancel",
+  "greetingWithName": "Hello, {name} 👋",
+  "@greetingWithName": {
+    "placeholders": {"name": {"type": "String"}}
+  },
+  "greetingEmpty": "Hello 👋",
+  "addYourName": "Add your name",
+  "nameDialogTitle": "What's your name?",
+  "nameDialogHint": "Your name",
+  "nameOnCard": "name on card",
+
   "historyTitle": "Your footprint evolution",
   "historyMeasurements": "{n} measurements",
   "@historyMeasurements": {

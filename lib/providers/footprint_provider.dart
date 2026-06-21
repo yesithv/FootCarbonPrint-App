@@ -7,15 +7,18 @@ class FootprintProvider extends ChangeNotifier {
   CarbonFootprint _footprint = CarbonFootprint();
   bool _onboardingComplete = false;
   bool _loaded = false;
+  String _userName = '';
 
   CarbonFootprint get footprint => _footprint;
   bool get onboardingComplete => _onboardingComplete;
   bool get loaded => _loaded;
+  String get userName => _userName;
 
   Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
 
     _onboardingComplete = prefs.getBool('onboarding_complete') ?? false;
+    _userName = prefs.getString('user_name') ?? '';
 
     final data = prefs.getString('footprint');
     if (data != null) {
@@ -27,6 +30,13 @@ class FootprintProvider extends ChangeNotifier {
     }
 
     _loaded = true;
+    notifyListeners();
+  }
+
+  Future<void> setUserName(String name) async {
+    _userName = name.trim();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_name', _userName);
     notifyListeners();
   }
 

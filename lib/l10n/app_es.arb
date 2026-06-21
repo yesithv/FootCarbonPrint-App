@@ -355,6 +355,17 @@
   "tempHot": "Caliente",
   "tempHotSub": "Calentador máximo",
 
+  "cancel": "Cancelar",
+  "greetingWithName": "Hola, {name} 👋",
+  "@greetingWithName": {
+    "placeholders": {"name": {"type": "String"}}
+  },
+  "greetingEmpty": "Hola 👋",
+  "addYourName": "Añade tu nombre",
+  "nameDialogTitle": "¿Cómo te llamas?",
+  "nameDialogHint": "Tu nombre",
+  "nameOnCard": "nombre en la tarjeta",
+
   "historyTitle": "Evolución de tu huella",
   "historyMeasurements": "{n} mediciones",
   "@historyMeasurements": {

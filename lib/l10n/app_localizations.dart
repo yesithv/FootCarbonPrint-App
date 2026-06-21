@@ -1730,6 +1730,48 @@ abstract class AppLocalizations {
   /// **'Calentador máximo'**
   String get tempHotSub;
 
+  /// No description provided for @cancel.
+  ///
+  /// In es, this message translates to:
+  /// **'Cancelar'**
+  String get cancel;
+
+  /// No description provided for @greetingWithName.
+  ///
+  /// In es, this message translates to:
+  /// **'Hola, {name} 👋'**
+  String greetingWithName(String name);
+
+  /// No description provided for @greetingEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'Hola 👋'**
+  String get greetingEmpty;
+
+  /// No description provided for @addYourName.
+  ///
+  /// In es, this message translates to:
+  /// **'Añade tu nombre'**
+  String get addYourName;
+
+  /// No description provided for @nameDialogTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Cómo te llamas?'**
+  String get nameDialogTitle;
+
+  /// No description provided for @nameDialogHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu nombre'**
+  String get nameDialogHint;
+
+  /// No description provided for @nameOnCard.
+  ///
+  /// In es, this message translates to:
+  /// **'nombre en la tarjeta'**
+  String get nameOnCard;
+
   /// No description provided for @historyTitle.
   ///
   /// In es, this message translates to:
