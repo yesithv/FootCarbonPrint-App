@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
+import '../../l10n/app_localizations.dart';
 import '../../providers/footprint_provider.dart';
 
 class LearnScreen extends StatefulWidget {
@@ -15,71 +17,93 @@ class _LearnScreenState extends State<LearnScreen> {
   final PageController _ctrl = PageController();
   int _page = 0;
 
-  static final _lessons = [
-    _Lesson(
-      emoji: '🌡️',
-      gradient: [Color(0xFFE53935), Color(0xFFFF7043)],
-      title: 'El planeta\ntiene fiebre',
-      body:
-          'Imagina que la Tierra es tu cuerpo. Cuando tienes fiebre de solo 1°C, ya te sientes muy mal. La Tierra ya tiene 1.2°C más que hace 150 años… y sigue subiendo cada año.',
-      factLabel: 'DATO',
-      fact: '2023 fue el año más caluroso jamás registrado. Los 10 más calurosos de la historia han sido en los últimos 10 años.',
-      visual: _ThermometerVisual(),
-    ),
-    _Lesson(
-      emoji: '💨',
-      gradient: [Color(0xFF1565C0), Color(0xFF0288D1)],
-      title: 'El gas\ninvisible',
-      body:
-          'Cuando quemas gasolina, gas o carbón — o cuando se descompone comida — se libera CO₂. Este gas actúa como una manta: deja entrar el calor del sol, pero no lo deja salir. El planeta se calienta.',
-      factLabel: 'ANALOGÍA',
-      fact: 'Es como dejar el carro encendido dentro de un garaje cerrado. Solo que el garaje es toda la atmósfera de la Tierra.',
-      visual: _GreenhouseVisual(),
-    ),
-    _Lesson(
-      emoji: '👣',
-      gradient: [Color(0xFF2E7D32), Color(0xFF43A047)],
-      title: 'Tu huella\npersonal',
-      body:
-          'La "huella de carbono" es el total de CO₂ que produces tú en un año. Incluye todo lo que consumes: el bus que tomas, la hamburguesa que comes, la camiseta que compras, la ducha caliente que te das.',
-      factLabel: 'EN COLOMBIA',
-      fact: 'Un colombiano produce en promedio 1.8 toneladas de CO₂ al año. El promedio mundial es 4.7 t. La meta para salvar el planeta es llegar a 2 t antes de 2030.',
-      visual: _FootprintVisual(),
-    ),
-    _Lesson(
-      emoji: '📊',
-      gradient: [Color(0xFF6A1B9A), Color(0xFFAB47BC)],
-      title: '¿De dónde\nviene?',
-      body:
-          'No solo los carros contaminan. Tu huella viene de 6 grandes categorías de tu vida cotidiana. Algunas sorprenden: la carne de res emite más CO₂ que manejar un carro.',
-      factLabel: 'LAS 6 CATEGORÍAS',
-      fact: 'Transporte y alimentación juntos representan más del 55% de tu huella total.',
-      visual: _CategoriesVisual(),
-    ),
-    _Lesson(
-      emoji: '⚖️',
-      gradient: [Color(0xFF00695C), Color(0xFF26A69A)],
-      title: '¿Cuánto\nes mucho?',
-      body:
-          'Hay una meta global: para evitar los peores efectos del cambio climático, cada persona en el mundo necesita llegar a menos de 2 toneladas de CO₂ por año para 2030.',
-      factLabel: 'COMPARATIVA',
-      fact: 'Un ciudadano de EE.UU. produce 15 t/año. Un alemán: 9 t. Un colombiano: 1.8 t. Pero la calidad de vida no tiene que bajar para reducir la huella.',
-      visual: _ComparisonVisual(),
-    ),
-    _Lesson(
-      emoji: '🚀',
-      gradient: [Color(0xFF1B5E20), Color(0xFF388E3C)],
-      title: 'Tú puedes\ncambiar algo',
-      body:
-          'No necesitas ser un activista ni cambiar tu vida de un día para otro. Pequeños cambios en tus hábitos de transporte, alimentación y hogar pueden reducir tu huella hasta un 40%.',
-      factLabel: 'EL PRIMER PASO',
-      fact: 'Conocer tu huella es el primer paso. Lo que no se mide, no se puede mejorar. ¡Haz el test ahora!',
-      visual: _ActionsVisual(),
-    ),
-  ];
+  static List<_Lesson> _buildLessons(AppLocalizations l10n) => [
+        _Lesson(
+          emoji: '🌡️',
+          gradient: const [Color(0xFFE53935), Color(0xFFFF7043)],
+          title: l10n.l1Title,
+          body: l10n.l1Body,
+          factLabel: l10n.l1FactLabel,
+          fact: l10n.l1Fact,
+          visual: _ThermometerVisual(
+            tempLow: l10n.l1TempLow,
+            tempNow: l10n.l1TempNow,
+            tempHeat: l10n.l1TempHeat,
+            tempCrisis: l10n.l1TempCrisis,
+          ),
+        ),
+        _Lesson(
+          emoji: '💨',
+          gradient: const [Color(0xFF1565C0), Color(0xFF0288D1)],
+          title: l10n.l2Title,
+          body: l10n.l2Body,
+          factLabel: l10n.l2FactLabel,
+          fact: l10n.l2Fact,
+          visual: _GreenhouseVisual(
+            step1: l10n.l2Step1,
+            step2: l10n.l2Step2,
+            step3: l10n.l2Step3,
+            result: l10n.l2Result,
+          ),
+        ),
+        _Lesson(
+          emoji: '👣',
+          gradient: const [Color(0xFF2E7D32), Color(0xFF43A047)],
+          title: l10n.l3Title,
+          body: l10n.l3Body,
+          factLabel: l10n.l3FactLabel,
+          fact: l10n.l3Fact,
+          visual: _FootprintVisual(
+            colombiaLabel: l10n.l3ColombiaLabel,
+            worldLabel: l10n.l3WorldLabel,
+            targetLabel: l10n.l3TargetLabel,
+          ),
+        ),
+        _Lesson(
+          emoji: '📊',
+          gradient: const [Color(0xFF6A1B9A), Color(0xFFAB47BC)],
+          title: l10n.l4Title,
+          body: l10n.l4Body,
+          factLabel: l10n.l4FactLabel,
+          fact: l10n.l4Fact,
+          visual: _CategoriesVisual(
+            transport: l10n.modTransport,
+            food: l10n.modFood,
+            home: l10n.modHome,
+            shopping: l10n.modShopping,
+            waste: l10n.modWaste,
+            water: l10n.modWater,
+          ),
+        ),
+        _Lesson(
+          emoji: '⚖️',
+          gradient: const [Color(0xFF00695C), Color(0xFF26A69A)],
+          title: l10n.l5Title,
+          body: l10n.l5Body,
+          factLabel: l10n.l5FactLabel,
+          fact: l10n.l5Fact,
+          visual: const _ComparisonVisual(),
+        ),
+        _Lesson(
+          emoji: '🚀',
+          gradient: const [Color(0xFF1B5E20), Color(0xFF388E3C)],
+          title: l10n.l6Title,
+          body: l10n.l6Body,
+          factLabel: l10n.l6FactLabel,
+          fact: l10n.l6Fact,
+          visual: _ActionsVisual(
+            actionsLabel: l10n.l6ActionsLabel,
+            action1: l10n.l6Action1,
+            action2: l10n.l6Action2,
+            action3: l10n.l6Action3,
+            action4: l10n.l6Action4,
+          ),
+        ),
+      ];
 
-  void _next() {
-    if (_page < _lessons.length - 1) {
+  void _next(AppLocalizations l10n) {
+    final lessons = _buildLessons(l10n);
+    if (_page < lessons.length - 1) {
       _ctrl.nextPage(
           duration: const Duration(milliseconds: 350), curve: Curves.easeInOut);
     } else {
@@ -101,7 +125,9 @@ class _LearnScreenState extends State<LearnScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final lesson = _lessons[_page];
+    final l10n = context.l10n;
+    final lessons = _buildLessons(l10n);
+    final lesson = lessons[_page];
     return Scaffold(
       body: AnimatedContainer(
         duration: const Duration(milliseconds: 400),
@@ -117,22 +143,26 @@ class _LearnScreenState extends State<LearnScreen> {
             children: [
               _TopBar(
                 page: _page,
-                total: _lessons.length,
+                total: lessons.length,
+                title: l10n.learnGuideTitle,
                 onClose: () => Navigator.of(context).pop(),
               ),
               Expanded(
                 child: PageView.builder(
                   controller: _ctrl,
-                  itemCount: _lessons.length,
+                  itemCount: lessons.length,
                   onPageChanged: (i) => setState(() => _page = i),
-                  itemBuilder: (_, i) => _LessonPage(lesson: _lessons[i]),
+                  itemBuilder: (_, i) => _LessonPage(lesson: lessons[i]),
                 ),
               ),
               _BottomNav(
                 page: _page,
-                total: _lessons.length,
-                onNext: _next,
+                total: lessons.length,
+                onNext: () => _next(l10n),
                 onPrev: _page > 0 ? _prev : null,
+                nextLabel: _page == lessons.length - 1
+                    ? l10n.startTestNow
+                    : l10n.learnNext,
               ),
             ],
           ),
@@ -145,10 +175,14 @@ class _LearnScreenState extends State<LearnScreen> {
 class _TopBar extends StatelessWidget {
   final int page;
   final int total;
+  final String title;
   final VoidCallback onClose;
 
   const _TopBar(
-      {required this.page, required this.total, required this.onClose});
+      {required this.page,
+      required this.total,
+      required this.title,
+      required this.onClose});
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +195,7 @@ class _TopBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Guía de Huella de Carbono',
+                  title,
                   style: GoogleFonts.inter(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -279,16 +313,17 @@ class _BottomNav extends StatelessWidget {
   final int total;
   final VoidCallback onNext;
   final VoidCallback? onPrev;
+  final String nextLabel;
 
   const _BottomNav(
       {required this.page,
       required this.total,
       required this.onNext,
+      required this.nextLabel,
       this.onPrev});
 
   @override
   Widget build(BuildContext context) {
-    final isLast = page == total - 1;
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
       child: Row(
@@ -319,7 +354,7 @@ class _BottomNav extends StatelessWidget {
                 elevation: 0,
               ),
               child: Text(
-                isLast ? '¡Hacer el test ahora! 🚀' : 'Siguiente →',
+                nextLabel,
                 style: GoogleFonts.inter(
                     fontSize: 15, fontWeight: FontWeight.w700),
               ),
@@ -343,15 +378,25 @@ class _BottomNav extends StatelessWidget {
 // ─── Visuales por lección ────────────────────────────────────────────────────
 
 class _ThermometerVisual extends StatelessWidget {
-  const _ThermometerVisual();
+  final String tempLow;
+  final String tempNow;
+  final String tempHeat;
+  final String tempCrisis;
+
+  const _ThermometerVisual({
+    required this.tempLow,
+    required this.tempNow,
+    required this.tempHeat,
+    required this.tempCrisis,
+  });
 
   @override
   Widget build(BuildContext context) {
     final levels = [
-      _TempLevel('+0.5°C', 'Leve derretimiento de glaciares', 0.2, false),
-      _TempLevel('+1.2°C', 'Donde estamos hoy 📍', 0.45, true),
-      _TempLevel('+2°C', 'Olas de calor extremas', 0.65, false),
-      _TempLevel('+4°C', 'Civilización en riesgo', 1.0, false),
+      _TempLevel('+0.5°C', tempLow, 0.2, false),
+      _TempLevel('+1.2°C', tempNow, 0.45, true),
+      _TempLevel('+2°C', tempHeat, 0.65, false),
+      _TempLevel('+4°C', tempCrisis, 1.0, false),
     ];
     return Container(
       padding: const EdgeInsets.all(16),
@@ -421,7 +466,17 @@ class _TempLevel {
 }
 
 class _GreenhouseVisual extends StatelessWidget {
-  const _GreenhouseVisual();
+  final String step1;
+  final String step2;
+  final String step3;
+  final String result;
+
+  const _GreenhouseVisual({
+    required this.step1,
+    required this.step2,
+    required this.step3,
+    required this.result,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -436,13 +491,13 @@ class _GreenhouseVisual extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _Step('☀️', 'Sol envía\ncalor'),
+              _Step('☀️', step1),
               const Icon(Icons.arrow_forward_rounded,
                   color: Colors.white70, size: 20),
-              _Step('🌍', 'Tierra\nrecibe'),
+              _Step('🌍', step2),
               const Icon(Icons.arrow_forward_rounded,
                   color: Colors.white70, size: 20),
-              _Step('💨', 'CO₂ atrapa\nel calor'),
+              _Step('💨', step3),
             ],
           ),
           const SizedBox(height: 12),
@@ -453,7 +508,7 @@ class _GreenhouseVisual extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
-              '🌡️ El calor no puede escapar → temperatura sube',
+              result,
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
                   fontSize: 13,
@@ -489,7 +544,15 @@ class _Step extends StatelessWidget {
 }
 
 class _FootprintVisual extends StatelessWidget {
-  const _FootprintVisual();
+  final String colombiaLabel;
+  final String worldLabel;
+  final String targetLabel;
+
+  const _FootprintVisual({
+    required this.colombiaLabel,
+    required this.worldLabel,
+    required this.targetLabel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -504,7 +567,7 @@ class _FootprintVisual extends StatelessWidget {
           Expanded(
             child: _FootprintNum(
               '1.8 t',
-              'Colombia\npromedio',
+              colombiaLabel,
               Colors.white,
               isHighlight: false,
             ),
@@ -513,7 +576,7 @@ class _FootprintVisual extends StatelessWidget {
           Expanded(
             child: _FootprintNum(
               '4.7 t',
-              'Mundo\npromedio',
+              worldLabel,
               Colors.white70,
               isHighlight: false,
             ),
@@ -522,7 +585,7 @@ class _FootprintVisual extends StatelessWidget {
           Expanded(
             child: _FootprintNum(
               '2.0 t',
-              'Meta\n2030 🎯',
+              targetLabel,
               Colors.white,
               isHighlight: true,
             ),
@@ -564,19 +627,33 @@ class _FootprintNum extends StatelessWidget {
 }
 
 class _CategoriesVisual extends StatelessWidget {
-  const _CategoriesVisual();
+  final String transport;
+  final String food;
+  final String home;
+  final String shopping;
+  final String waste;
+  final String water;
 
-  static const _cats = [
-    _Cat('🚗', 'Transporte', 0.32, AppColors.transport),
-    _Cat('🍽️', 'Alimentación', 0.26, AppColors.food),
-    _Cat('🏠', 'Hogar', 0.22, AppColors.home),
-    _Cat('🛍️', 'Consumo', 0.12, AppColors.shopping),
-    _Cat('♻️', 'Residuos', 0.05, AppColors.waste),
-    _Cat('💧', 'Agua', 0.03, AppColors.water),
-  ];
+  const _CategoriesVisual({
+    required this.transport,
+    required this.food,
+    required this.home,
+    required this.shopping,
+    required this.waste,
+    required this.water,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final cats = [
+      _Cat('🚗', transport, 0.32, AppColors.transport),
+      _Cat('🍽️', food, 0.26, AppColors.food),
+      _Cat('🏠', home, 0.22, AppColors.home),
+      _Cat('🛍️', shopping, 0.12, AppColors.shopping),
+      _Cat('♻️', waste, 0.05, AppColors.waste),
+      _Cat('💧', water, 0.03, AppColors.water),
+    ];
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -584,7 +661,7 @@ class _CategoriesVisual extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
-        children: _cats
+        children: cats
             .map((c) => Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Row(
@@ -712,17 +789,29 @@ class _Country {
 }
 
 class _ActionsVisual extends StatelessWidget {
-  const _ActionsVisual();
+  final String actionsLabel;
+  final String action1;
+  final String action2;
+  final String action3;
+  final String action4;
 
-  static const _actions = [
-    _QuickAction('🥗', 'Comer menos carne', '−0.8 t/año'),
-    _QuickAction('🚌', 'Usar transporte público', '−0.35 t/año'),
-    _QuickAction('✈️', 'Evitar 1 vuelo largo', '−1.5 t/año'),
-    _QuickAction('💡', 'Cambiar a LED', '−0.15 t/año'),
-  ];
+  const _ActionsVisual({
+    required this.actionsLabel,
+    required this.action1,
+    required this.action2,
+    required this.action3,
+    required this.action4,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final actions = [
+      _QuickAction('🥗', action1, '−0.8 t/año'),
+      _QuickAction('🚌', action2, '−0.35 t/año'),
+      _QuickAction('✈️', action3, '−1.5 t/año'),
+      _QuickAction('💡', action4, '−0.15 t/año'),
+    ];
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -733,7 +822,7 @@ class _ActionsVisual extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Acciones de alto impacto:',
+            actionsLabel,
             style: GoogleFonts.inter(
               fontSize: 12,
               fontWeight: FontWeight.w700,
@@ -741,7 +830,7 @@ class _ActionsVisual extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          ..._actions.map(
+          ...actions.map(
             (a) => Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: Row(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
+import '../../l10n/app_localizations.dart';
 import '../../providers/footprint_provider.dart';
 import '../shell/main_shell.dart';
 
@@ -10,10 +12,11 @@ class ActionPlanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Plan de Acción'),
+        title: Text(l10n.actionPlanTitle),
         backgroundColor: AppColors.background,
         automaticallyImplyLeading: false,
       ),
@@ -25,20 +28,20 @@ class ActionPlanScreen extends StatelessWidget {
             );
           }
           final fp = provider.footprint;
-          final actions = _buildActions(fp.breakdown, fp.totalCO2);
+          final actions = _buildActions(l10n, fp.breakdown, fp.totalCO2);
           return ListView(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
             children: [
               _HeaderSection(total: fp.totalCO2),
               const SizedBox(height: 24),
               Text(
-                'Tus top acciones por impacto',
+                l10n.actionsTitle,
                 style: GoogleFonts.inter(
                     fontSize: 18, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 4),
               Text(
-                'Ordenadas de mayor a menor reducción potencial',
+                l10n.actionsSub,
                 style: GoogleFonts.inter(
                     fontSize: 13, color: AppColors.textSecondary),
               ),
@@ -48,7 +51,7 @@ class ActionPlanScreen extends StatelessWidget {
                     child: _ActionCard(action: a),
                   )),
               const SizedBox(height: 8),
-              _ChallengesSection(),
+              const _ChallengesSection(),
             ],
           );
         },
@@ -57,107 +60,97 @@ class ActionPlanScreen extends StatelessWidget {
   }
 
   List<_Action> _buildActions(
-      Map<String, double> breakdown, double total) {
+      AppLocalizations l10n, Map<String, double> breakdown, double total) {
     final all = [
       _Action(
         id: 'flight',
         emoji: '✈️',
-        title: 'Eliminar 1 vuelo largo al año',
+        title: l10n.actionFlightTitle,
         reduction: 1.5,
-        difficulty: 'Media',
-        category: 'Transporte',
+        category: l10n.modTransport,
         color: AppColors.transport,
-        description: 'Un vuelo de larga distancia emite más CO₂ que 2 meses en auto.',
+        description: l10n.actionFlightDesc,
       ),
       _Action(
         id: 'flexitarian',
         emoji: '🥗',
-        title: 'Adoptar dieta flexitariana',
+        title: l10n.actionFlexitarianTitle,
         reduction: 0.8,
-        difficulty: 'Media',
-        category: 'Alimentación',
+        category: l10n.modFood,
         color: AppColors.food,
-        description: 'Reducir carne a 2–3 veces por semana genera un gran impacto.',
+        description: l10n.actionFlexitarianDesc,
       ),
       _Action(
         id: 'public_transport',
         emoji: '🚌',
-        title: 'Usar transporte público 2 días/semana',
+        title: l10n.actionPublicTransportTitle,
         reduction: 0.35,
-        difficulty: 'Baja',
-        category: 'Transporte',
+        category: l10n.modTransport,
         color: AppColors.transport,
-        description: 'Dejar el auto 2 días evita ~350 kg CO₂ al año.',
+        description: l10n.actionPublicTransportDesc,
       ),
       _Action(
         id: 'less_beef',
         emoji: '🥩',
-        title: 'Dejar carne de res 3 días/semana',
+        title: l10n.actionLessBeefTitle,
         reduction: 0.4,
-        difficulty: 'Baja',
-        category: 'Alimentación',
+        category: l10n.modFood,
         color: AppColors.food,
-        description: 'La carne de res emite 27 kgCO₂/kg — la más alta de todos los alimentos.',
+        description: l10n.actionLessBeefDesc,
       ),
       _Action(
         id: 'led',
         emoji: '💡',
-        title: 'Cambiar a bombillas LED',
+        title: l10n.actionLedTitle,
         reduction: 0.15,
-        difficulty: 'Baja',
-        category: 'Hogar',
+        category: l10n.modHome,
         color: AppColors.home,
-        description: 'Las LED consumen 75% menos energía que las incandescentes.',
+        description: l10n.actionLedDesc,
       ),
       _Action(
         id: 'short_shower',
         emoji: '🛁',
-        title: 'Duchas de máximo 5 minutos',
+        title: l10n.actionShortShowerTitle,
         reduction: 0.1,
-        difficulty: 'Baja',
-        category: 'Agua',
+        category: l10n.modWater,
         color: AppColors.water,
-        description: 'Reducir la ducha a 5 min con agua caliente evita 100 kgCO₂/año.',
+        description: l10n.actionShortShowerDesc,
       ),
       _Action(
         id: 'recycle',
         emoji: '♻️',
-        title: 'Separar residuos para reciclaje',
+        title: l10n.actionRecycleTitle,
         reduction: 0.12,
-        difficulty: 'Baja',
-        category: 'Residuos',
+        category: l10n.modWaste,
         color: AppColors.waste,
-        description: 'El reciclaje evita la descomposición anaeróbica que genera metano.',
+        description: l10n.actionRecycleDesc,
       ),
       _Action(
         id: 'secondhand',
         emoji: '👕',
-        title: 'Comprar 50% ropa de segunda mano',
+        title: l10n.actionSecondhandTitle,
         reduction: 0.15,
-        difficulty: 'Baja',
-        category: 'Consumo',
+        category: l10n.modShopping,
         color: AppColors.shopping,
-        description: 'La industria textil es una de las más contaminantes del mundo.',
+        description: l10n.actionSecondhandDesc,
       ),
       _Action(
         id: 'compost',
         emoji: '🌱',
-        title: 'Compostar residuos orgánicos',
+        title: l10n.actionCompostTitle,
         reduction: 0.08,
-        difficulty: 'Baja',
-        category: 'Residuos',
+        category: l10n.modWaste,
         color: AppColors.waste,
-        description: 'El compost evita que los residuos orgánicos generen metano en rellenos.',
+        description: l10n.actionCompostDesc,
       ),
       _Action(
         id: 'bike',
         emoji: '🚴',
-        title: 'Ir en bici o caminar al trabajo',
+        title: l10n.actionBikeTitle,
         reduction: 0.3,
-        difficulty: 'Media',
-        category: 'Transporte',
+        category: l10n.modTransport,
         color: AppColors.transport,
-        description: 'Cero emisiones + beneficios de salud.',
+        description: l10n.actionBikeDesc,
       ),
     ];
 
@@ -172,6 +165,7 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(40),
@@ -189,14 +183,14 @@ class _EmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 28),
             Text(
-              'Aún no tienes plan',
+              l10n.actionPlanEmptyTitle,
               style: GoogleFonts.inter(
                   fontSize: 22, fontWeight: FontWeight.w800),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
             Text(
-              'Completa al menos un módulo del test para ver tu plan de acción personalizado.',
+              l10n.actionPlanEmptySub,
               style: GoogleFonts.inter(
                   fontSize: 15,
                   color: AppColors.textSecondary,
@@ -207,7 +201,7 @@ class _EmptyState extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: onGoToTest,
               icon: const Icon(Icons.assignment_rounded),
-              label: const Text('Ir al test'),
+              label: Text(l10n.goToTest),
             ),
           ],
         ),
@@ -222,7 +216,8 @@ class _HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final potential = 2.5;
+    final l10n = context.l10n;
+    const potential = 2.5;
     final reduced = (total - potential).clamp(0.0, total);
     final pct = total > 0 ? (reduced / total * 100) : 0;
 
@@ -240,7 +235,7 @@ class _HeaderSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '¿Cuánto puedes reducir?',
+            l10n.reductionTitle,
             style: GoogleFonts.inter(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
@@ -256,7 +251,7 @@ class _HeaderSection extends StatelessWidget {
             ),
           ),
           Text(
-            'hasta un ${pct.round()}% con las acciones de abajo',
+            l10n.reductionSub(pct.round()),
             style: GoogleFonts.inter(fontSize: 13, color: Colors.white70),
           ),
           const SizedBox(height: 16),
@@ -303,6 +298,7 @@ class _ActionCardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final a = action;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
@@ -370,8 +366,6 @@ class _ActionCardContent extends StatelessWidget {
                   color: a.color.withAlpha(40),
                   textColor: a.color,
                 ),
-                const SizedBox(width: 8),
-                _DifficultyTag(difficulty: a.difficulty),
                 const Spacer(),
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
@@ -386,13 +380,13 @@ class _ActionCardContent extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                      committed ? '✓ Comprometido' : 'Me comprometo',
-                      style: GoogleFonts.inter(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        color: committed ? Colors.white : a.color,
+                        committed ? l10n.committedLabel : l10n.commit,
+                        style: GoogleFonts.inter(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          color: committed ? Colors.white : a.color,
+                        ),
                       ),
-                    ),
                       if (committed) ...[
                         const SizedBox(width: 4),
                         Text('+15 pts',
@@ -440,47 +434,17 @@ class _Tag extends StatelessWidget {
   }
 }
 
-class _DifficultyTag extends StatelessWidget {
-  final String difficulty;
-  const _DifficultyTag({required this.difficulty});
-
-  Color get color => difficulty == 'Baja'
-      ? AppColors.green
-      : difficulty == 'Media'
-          ? AppColors.yellow
-          : AppColors.red;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: color.withAlpha(20),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withAlpha(80)),
-      ),
-      child: Text(
-        difficulty,
-        style: GoogleFonts.inter(
-          fontSize: 11,
-          fontWeight: FontWeight.w600,
-          color: color,
-        ),
-      ),
-    );
-  }
-}
-
 class _ChallengesSection extends StatelessWidget {
   const _ChallengesSection();
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final challenges = [
-      _Challenge('🌱', 'Semana sin plástico de un solo uso'),
-      _Challenge('🥦', '7 días sin carne roja'),
-      _Challenge('🚴', 'Ve en bici o camina 3 días esta semana'),
-      _Challenge('🚿', 'Ducha de máximo 5 minutos por 5 días'),
+      _Challenge('🌱', l10n.challenge1),
+      _Challenge('🥦', l10n.challenge2),
+      _Challenge('🚴', l10n.challenge3),
+      _Challenge('🚿', l10n.challenge4),
     ];
 
     return Column(
@@ -488,13 +452,13 @@ class _ChallengesSection extends StatelessWidget {
       children: [
         const SizedBox(height: 8),
         Text(
-          'Retos semanales 🎯',
+          l10n.challengesTitle,
           style: GoogleFonts.inter(
               fontSize: 18, fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 4),
         Text(
-          'Pequeños cambios con gran impacto',
+          l10n.challengesSub,
           style: GoogleFonts.inter(
               fontSize: 13, color: AppColors.textSecondary),
         ),
@@ -582,7 +546,6 @@ class _Action {
   final String emoji;
   final String title;
   final double reduction;
-  final String difficulty;
   final String category;
   final Color color;
   final String description;
@@ -592,7 +555,6 @@ class _Action {
     required this.emoji,
     required this.title,
     required this.reduction,
-    required this.difficulty,
     required this.category,
     required this.color,
     required this.description,

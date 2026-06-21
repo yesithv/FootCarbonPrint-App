@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../providers/footprint_provider.dart';
 import '../test/test_hub_screen.dart';
@@ -23,6 +24,7 @@ class MainShellState extends State<MainShell> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Consumer<FootprintProvider>(
       builder: (context, provider, _) {
         final hasData = provider.completedCount > 0;
@@ -45,11 +47,11 @@ class MainShellState extends State<MainShell> {
             surfaceTintColor: Colors.transparent,
             indicatorColor: AppColors.primary.withAlpha(20),
             destinations: [
-              const NavigationDestination(
-                icon: Icon(Icons.assignment_outlined),
-                selectedIcon: Icon(Icons.assignment_rounded,
+              NavigationDestination(
+                icon: const Icon(Icons.assignment_outlined),
+                selectedIcon: const Icon(Icons.assignment_rounded,
                     color: AppColors.primary),
-                label: 'Mi Test',
+                label: l10n.tabTest,
               ),
               NavigationDestination(
                 icon: Badge(
@@ -61,7 +63,7 @@ class MainShellState extends State<MainShell> {
                 ),
                 selectedIcon: const Icon(Icons.bar_chart_rounded,
                     color: AppColors.primary),
-                label: 'Mi Huella',
+                label: l10n.tabFootprint,
               ),
               NavigationDestination(
                 icon: Badge(
@@ -73,7 +75,7 @@ class MainShellState extends State<MainShell> {
                 ),
                 selectedIcon: const Icon(Icons.emoji_events_rounded,
                     color: AppColors.primary),
-                label: 'Plan',
+                label: l10n.tabPlan,
               ),
             ],
           ),

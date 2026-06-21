@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../core/l10n/l10n_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../models/carbon_footprint.dart';
 import '../../../providers/footprint_provider.dart';
@@ -18,12 +19,6 @@ class _WaterModuleState extends State<WaterModule> {
   String _showerTemp = 'warm';
   bool _hasGarden = false;
 
-  final _temps = [
-    _TempOption('cold', 'Fría', '🧊', 'Sin calentador'),
-    _TempOption('warm', 'Tibia', '🚿', 'Calentador moderado'),
-    _TempOption('hot', 'Caliente', '🔥', 'Calentador máximo'),
-  ];
-
   void _save() {
     context.read<FootprintProvider>().updateWater(WaterData(
           showerMinutes: _showerMinutes,
@@ -35,16 +30,23 @@ class _WaterModuleState extends State<WaterModule> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final temps = [
+      _TempOption('cold', l10n.tempCold, '🧊', l10n.tempColdSub),
+      _TempOption('warm', l10n.tempWarm, '🚿', l10n.tempWarmSub),
+      _TempOption('hot', l10n.tempHot, '🔥', l10n.tempHotSub),
+    ];
+
     return ModuleScaffold(
-      title: 'Agua',
+      title: l10n.waterModuleTitle,
       icon: Icons.water_drop_rounded,
       color: AppColors.water,
-      weight: '~3% de tu huella',
+      weight: l10n.waterModuleWeight,
       onSave: _save,
       children: [
         QuestionCard(
-          question: '¿Cuántos minutos dura tu ducha promedio?',
-          hint: '${_showerMinutes.round()} minutos',
+          question: l10n.waterQ1,
+          hint: l10n.waterMinutesHint(_showerMinutes.round()),
           child: Slider(
             value: _showerMinutes,
             min: 2,
@@ -55,9 +57,9 @@ class _WaterModuleState extends State<WaterModule> {
           ),
         ),
         QuestionCard(
-          question: '¿A qué temperatura te duchas normalmente?',
+          question: l10n.waterQ2,
           child: Row(
-            children: _temps
+            children: temps
                 .map((t) => Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -113,9 +115,9 @@ class _WaterModuleState extends State<WaterModule> {
           ),
         ),
         QuestionCard(
-          question: '¿Riegas jardín o zonas verdes en casa?',
+          question: l10n.waterQ3,
           child: SwitchListTile(
-            title: const Text('Sí, tengo jardín o riego plantas'),
+            title: Text(l10n.waterGardenTitle),
             value: _hasGarden,
             onChanged: (v) => setState(() => _hasGarden = v),
             activeColor: AppColors.water,
@@ -149,6 +151,7 @@ class _Co2Preview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -168,8 +171,8 @@ class _Co2Preview extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 20, fontWeight: FontWeight.w800, color: color),
               ),
-              const Text('Estimado de este módulo',
-                  style: TextStyle(
+              Text(l10n.moduleEstimate,
+                  style: const TextStyle(
                       fontSize: 12, color: AppColors.textSecondary)),
             ],
           ),

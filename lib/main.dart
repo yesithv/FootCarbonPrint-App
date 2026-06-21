@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
+import 'l10n/app_localizations.dart';
 import 'providers/footprint_provider.dart';
 import 'screens/onboarding/splash_screen.dart';
 
@@ -19,6 +20,8 @@ class FootCarbonPrintApp extends StatelessWidget {
         title: 'FootCarbonPrint',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: const SplashScreen(),
       ),
     );

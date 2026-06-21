@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../core/l10n/l10n_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../models/carbon_footprint.dart';
 import '../../../providers/footprint_provider.dart';
@@ -29,16 +30,17 @@ class _WasteModuleState extends State<WasteModule> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return ModuleScaffold(
-      title: 'Residuos',
+      title: l10n.wasteModuleTitle,
       icon: Icons.recycling_rounded,
       color: AppColors.waste,
-      weight: '5–8% de tu huella',
+      weight: l10n.wasteModuleWeight,
       onSave: _save,
       children: [
         QuestionCard(
-          question: '¿Cuántas bolsas de basura generas por semana?',
-          hint: '${_bagsPerWeek.round()} bolsa${_bagsPerWeek >= 2 ? 's' : ''}',
+          question: l10n.wasteQ1,
+          hint: l10n.wasteBagsHint(_bagsPerWeek.round(), _bagsPerWeek >= 2 ? 's' : ''),
           child: Slider(
             value: _bagsPerWeek,
             min: 0,
@@ -49,20 +51,20 @@ class _WasteModuleState extends State<WasteModule> {
           ),
         ),
         QuestionCard(
-          question: '¿Separas los residuos para reciclaje?',
+          question: l10n.wasteQ2,
           child: SwitchListTile(
-            title: const Text('Sí, separo plástico, papel y vidrio'),
-            subtitle: const Text('Reduce tu huella de residuos un 30%'),
+            title: Text(l10n.wasteSeparateTitle),
+            subtitle: Text(l10n.wasteSeparateSub),
             value: _separates,
             onChanged: (v) => setState(() => _separates = v),
             activeColor: AppColors.waste,
           ),
         ),
         QuestionCard(
-          question: '¿Compostas residuos orgánicos?',
+          question: l10n.wasteQ3,
           child: SwitchListTile(
-            title: const Text('Sí, hago compost'),
-            subtitle: const Text('Reduce emisiones de metano del relleno'),
+            title: Text(l10n.wasteCompostTitle),
+            subtitle: Text(l10n.wasteCompostSub),
             value: _composts,
             onChanged: (v) => setState(() => _composts = v),
             activeColor: AppColors.waste,
@@ -88,6 +90,7 @@ class _Co2Preview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -107,8 +110,8 @@ class _Co2Preview extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 20, fontWeight: FontWeight.w800, color: color),
               ),
-              const Text('Estimado de este módulo',
-                  style: TextStyle(
+              Text(l10n.moduleEstimate,
+                  style: const TextStyle(
                       fontSize: 12, color: AppColors.textSecondary)),
             ],
           ),

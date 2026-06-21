@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../core/l10n/l10n_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../models/carbon_footprint.dart';
 import '../../../providers/footprint_provider.dart';
@@ -20,13 +21,6 @@ class _HomeModuleState extends State<HomeModule> {
   bool _hasAC = false;
   double _acHours = 4;
 
-  final _energySources = [
-    _EnergyOption('grid', 'Red eléctrica', Icons.electrical_services_rounded),
-    _EnergyOption('solar', 'Solar', Icons.wb_sunny_rounded),
-    _EnergyOption('gas', 'Gas natural', Icons.local_fire_department_rounded),
-    _EnergyOption('mixed', 'Mixto', Icons.device_hub_rounded),
-  ];
-
   void _save() {
     context.read<FootprintProvider>().updateHome(HomeData(
           energySource: _energySource,
@@ -40,16 +34,24 @@ class _HomeModuleState extends State<HomeModule> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final energySources = [
+      _EnergyOption('grid', l10n.energyGrid, Icons.electrical_services_rounded),
+      _EnergyOption('solar', l10n.energySolar, Icons.wb_sunny_rounded),
+      _EnergyOption('gas', l10n.energyGas, Icons.local_fire_department_rounded),
+      _EnergyOption('mixed', l10n.energyMixed, Icons.device_hub_rounded),
+    ];
+
     return ModuleScaffold(
-      title: 'Hogar y Energía',
+      title: l10n.homeModuleTitle,
       icon: Icons.home_rounded,
       color: AppColors.home,
-      weight: '20–25% de tu huella',
+      weight: l10n.homeModuleWeight,
       onSave: _save,
       children: [
         QuestionCard(
-          question: '¿Cuántas personas viven en tu hogar?',
-          hint: '$_householdMembers persona${_householdMembers > 1 ? 's' : ''}',
+          question: l10n.homeQ1,
+          hint: l10n.homePersonsHint(_householdMembers, _householdMembers > 1 ? 's' : ''),
           child: Slider(
             value: _householdMembers.toDouble(),
             min: 1,
@@ -60,11 +62,11 @@ class _HomeModuleState extends State<HomeModule> {
           ),
         ),
         QuestionCard(
-          question: '¿Cuál es tu fuente de energía principal?',
+          question: l10n.homeQ2,
           child: Wrap(
             spacing: 10,
             runSpacing: 10,
-            children: _energySources
+            children: energySources
                 .map((e) => ChoiceChip(
                       label: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -93,8 +95,8 @@ class _HomeModuleState extends State<HomeModule> {
           ),
         ),
         QuestionCard(
-          question: '¿Cuántos kWh consumes al mes?',
-          hint: '${_monthlyKwh.round()} kWh',
+          question: l10n.homeQ3,
+          hint: l10n.homeKwhHint(_monthlyKwh.round()),
           child: Column(
             children: [
               Slider(
@@ -104,19 +106,19 @@ class _HomeModuleState extends State<HomeModule> {
                 divisions: 30,
                 onChanged: (v) => setState(() => _monthlyKwh = v),
               ),
-              const Text(
-                'Promedio hogar Colombia: 170–250 kWh/mes',
-                style: TextStyle(fontSize: 11, color: AppColors.textHint),
+              Text(
+                l10n.homeKwhAvg,
+                style: const TextStyle(fontSize: 11, color: AppColors.textHint),
               ),
             ],
           ),
         ),
         QuestionCard(
-          question: '¿Tienes aire acondicionado o calefacción?',
+          question: l10n.homeQ4,
           child: Column(
             children: [
               SwitchListTile(
-                title: const Text('Sí, uso AC / calefacción'),
+                title: Text(l10n.homeACTitle),
                 value: _hasAC,
                 onChanged: (v) => setState(() => _hasAC = v),
                 activeColor: AppColors.home,
@@ -124,7 +126,7 @@ class _HomeModuleState extends State<HomeModule> {
               if (_hasAC) ...[
                 const SizedBox(height: 8),
                 Text(
-                  '${_acHours.round()} horas/día',
+                  l10n.homeACHoursHint(_acHours.round()),
                   style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       color: AppColors.home),
@@ -169,6 +171,7 @@ class _Co2Preview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -188,8 +191,8 @@ class _Co2Preview extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 20, fontWeight: FontWeight.w800, color: color),
               ),
-              const Text('Estimado de este módulo',
-                  style: TextStyle(
+              Text(l10n.moduleEstimate,
+                  style: const TextStyle(
                       fontSize: 12, color: AppColors.textSecondary)),
             ],
           ),

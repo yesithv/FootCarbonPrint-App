@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../core/l10n/l10n_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../models/carbon_footprint.dart';
 import '../../../providers/footprint_provider.dart';
@@ -19,16 +20,6 @@ class _FoodModuleState extends State<FoodModule> {
   bool _localFood = false;
   double _foodWaste = 0.2;
 
-  final _diets = [
-    _DietOption('vegan', 'Vegano', '🌱', 'Solo plantas'),
-    _DietOption('vegetarian', 'Vegetariano', '🥦', 'Sin carne'),
-    _DietOption('flexitarian', 'Flexitariano', '🥗', 'Poca carne'),
-    _DietOption('omnivore', 'Omnívoro', '🍽️', 'Carne regular'),
-    _DietOption('carnivore', 'Alta en carne', '🥩', 'Carne a diario'),
-  ];
-
-  final _wasteLabels = ['Casi nada', 'Algo', 'Bastante', 'Mucho'];
-
   void _save() {
     context.read<FootprintProvider>().updateFood(FoodData(
           diet: _diet,
@@ -41,17 +32,32 @@ class _FoodModuleState extends State<FoodModule> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final diets = [
+      _DietOption('vegan', l10n.dietVegan, '🌱', l10n.dietVeganSub),
+      _DietOption('vegetarian', l10n.dietVegetarian, '🥦', l10n.dietVegetarianSub),
+      _DietOption('flexitarian', l10n.dietFlexitarian, '🥗', l10n.dietFlexitarianSub),
+      _DietOption('omnivore', l10n.dietOmnivore, '🍽️', l10n.dietOmnivoreSub),
+      _DietOption('carnivore', l10n.dietCarnivore, '🥩', l10n.dietCarnivoreSub),
+    ];
+    final wasteLabels = [
+      l10n.wasteNone,
+      l10n.wasteSome,
+      l10n.wasteLot,
+      l10n.wasteMuch,
+    ];
+
     return ModuleScaffold(
-      title: 'Alimentación',
+      title: l10n.foodModuleTitle,
       icon: Icons.restaurant_rounded,
       color: AppColors.food,
-      weight: '25–30% de tu huella',
+      weight: l10n.foodModuleWeight,
       onSave: _save,
       children: [
         QuestionCard(
-          question: '¿Cómo describirías tu dieta?',
+          question: l10n.foodQ1,
           child: Column(
-            children: _diets
+            children: diets
                 .map((d) => Padding(
                       padding: const EdgeInsets.only(bottom: 8),
                       child: InkWell(
@@ -105,8 +111,8 @@ class _FoodModuleState extends State<FoodModule> {
           ),
         ),
         QuestionCard(
-          question: '¿Cuántas veces comes carne de res por semana?',
-          hint: '${_beefServings.round()} veces',
+          question: l10n.foodQ2,
+          hint: l10n.foodBeefHint(_beefServings.round()),
           child: Slider(
             value: _beefServings,
             min: 0,
@@ -116,7 +122,7 @@ class _FoodModuleState extends State<FoodModule> {
           ),
         ),
         QuestionCard(
-          question: '¿Cuánto desperdicias de comida?',
+          question: l10n.foodQ3,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(4, (i) {
@@ -142,7 +148,7 @@ class _FoodModuleState extends State<FoodModule> {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      _wasteLabels[i],
+                      wasteLabels[i],
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: selected
@@ -160,10 +166,10 @@ class _FoodModuleState extends State<FoodModule> {
           ),
         ),
         QuestionCard(
-          question: '¿Consumes alimentos locales y de temporada?',
+          question: l10n.foodQ4,
           child: SwitchListTile(
-            title: const Text('Principalmente local y de temporada'),
-            subtitle: const Text('Reduce hasta 0.1 tCO₂/año'),
+            title: Text(l10n.foodLocalTitle),
+            subtitle: Text(l10n.foodLocalSub),
             value: _localFood,
             onChanged: (v) => setState(() => _localFood = v),
             activeColor: AppColors.food,
@@ -198,6 +204,7 @@ class _Co2Preview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -217,8 +224,8 @@ class _Co2Preview extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 20, fontWeight: FontWeight.w800, color: color),
               ),
-              const Text('Estimado de este módulo',
-                  style: TextStyle(
+              Text(l10n.moduleEstimate,
+                  style: const TextStyle(
                       fontSize: 12, color: AppColors.textSecondary)),
             ],
           ),

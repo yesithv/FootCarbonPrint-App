@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/emission_factors.dart';
+import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../models/gamification.dart';
 import '../../providers/footprint_provider.dart';
@@ -26,7 +27,10 @@ class DashboardScreen extends StatelessWidget {
           final fp = provider.footprint;
           return CustomScrollView(
             slivers: [
-              _AppBarSliver(level: fp.levelLabel, emoji: fp.levelEmoji),
+              _AppBarSliver(
+                level: context.l10n.localizedFootprintLevel(fp.level),
+                emoji: fp.levelEmoji,
+              ),
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
                 sliver: SliverList(
@@ -43,13 +47,13 @@ class DashboardScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     _BadgesCard(provider: provider),
                     const SizedBox(height: 20),
-                    _ShareCardButton(),
+                    const _ShareCardButton(),
                     const SizedBox(height: 16),
                     ElevatedButton.icon(
                       onPressed: () =>
                           MainShell.of(context)?.goToTab(2),
                       icon: const Icon(Icons.emoji_events_rounded),
-                      label: const Text('Ver mi Plan de Acción'),
+                      label: Text(context.l10n.viewActionPlan),
                     ),
                   ]),
                 ),
@@ -68,6 +72,7 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(40),
@@ -85,14 +90,14 @@ class _EmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 28),
             Text(
-              'Aún no tienes resultados',
+              l10n.dashEmptyTitle,
               style: GoogleFonts.inter(
                   fontSize: 22, fontWeight: FontWeight.w800),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
             Text(
-              'Completa al menos un módulo del test para ver tu huella de carbono aquí.',
+              l10n.dashEmptySub,
               style: GoogleFonts.inter(
                   fontSize: 15,
                   color: AppColors.textSecondary,
@@ -103,7 +108,7 @@ class _EmptyState extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: onGoToTest,
               icon: const Icon(Icons.assignment_rounded),
-              label: const Text('Ir al test'),
+              label: Text(l10n.goToTest),
             ),
           ],
         ),
@@ -131,7 +136,7 @@ class _AppBarSliver extends StatelessWidget {
             Text(emoji, style: const TextStyle(fontSize: 22)),
             const SizedBox(width: 8),
             Text(
-              'Tu Huella de Carbono',
+              context.l10n.dashAppBarTitle,
               style: GoogleFonts.inter(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
@@ -167,6 +172,7 @@ class _TotalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
@@ -188,7 +194,7 @@ class _TotalCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            footprint.levelLabel,
+            l10n.localizedFootprintLevel(footprint.level),
             style: GoogleFonts.inter(
               fontSize: 18,
               fontWeight: FontWeight.w700,
@@ -206,7 +212,7 @@ class _TotalCard extends StatelessWidget {
             ),
           ),
           Text(
-            'toneladas CO₂/año',
+            l10n.co2PerYear,
             style: GoogleFonts.inter(
               fontSize: 16,
               color: Colors.white70,
@@ -224,6 +230,7 @@ class _EquivalencesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -231,7 +238,7 @@ class _EquivalencesCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Tu huella equivale a...',
+              l10n.equivalencesTitle,
               style: GoogleFonts.inter(
                   fontSize: 16, fontWeight: FontWeight.w700),
             ),
@@ -241,19 +248,19 @@ class _EquivalencesCard extends StatelessWidget {
                 _EquivItem(
                   emoji: '🌳',
                   value: '${footprint.treesEquivalent}',
-                  label: 'árboles\ntalados/año',
+                  label: l10n.treesLabel,
                 ),
                 const SizedBox(width: 12),
                 _EquivItem(
                   emoji: '💡',
                   value: '${footprint.lightBulbYears}',
-                  label: 'años de\nbombilla',
+                  label: l10n.bulbYearsLabel,
                 ),
                 const SizedBox(width: 12),
                 _EquivItem(
                   emoji: '📱',
                   value: '${(footprint.totalCO2 * 1000 / 0.082).round()}',
-                  label: 'cargas de\nsmartphone',
+                  label: l10n.phoneChargesLabel,
                 ),
               ],
             ),
@@ -325,6 +332,7 @@ class _PieChartCardState extends State<_PieChartCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final entries = widget.breakdown.entries.toList();
     final total = entries.fold<double>(0, (s, e) => s + e.value);
 
@@ -335,7 +343,7 @@ class _PieChartCardState extends State<_PieChartCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Desglose por categoría',
+              l10n.breakdownTitle,
               style: GoogleFonts.inter(
                   fontSize: 16, fontWeight: FontWeight.w700),
             ),
@@ -393,7 +401,7 @@ class _PieChartCardState extends State<_PieChartCard> {
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      '${e.key} (${e.value.toStringAsFixed(2)}t)',
+                      '${l10n.localizedCategoryName(e.key)} (${e.value.toStringAsFixed(2)}t)',
                       style: GoogleFonts.inter(
                           fontSize: 12,
                           color: AppColors.textSecondary),
@@ -415,6 +423,7 @@ class _BenchmarkCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -422,13 +431,13 @@ class _BenchmarkCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Comparativa global',
+              l10n.benchmarkTitle,
               style: GoogleFonts.inter(
                   fontSize: 16, fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 16),
             _BenchmarkRow(
-              label: 'Tu huella',
+              label: l10n.yourFootprint,
               value: total,
               maxValue: 10,
               color: _colorForValue(total),
@@ -436,21 +445,21 @@ class _BenchmarkCard extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             _BenchmarkRow(
-              label: 'Meta París 2050',
+              label: l10n.parisTarget,
               value: EmissionFactors.parisTarget,
               maxValue: 10,
               color: AppColors.green,
             ),
             const SizedBox(height: 12),
             _BenchmarkRow(
-              label: 'Colombia promedio',
+              label: l10n.colombiaAvg,
               value: EmissionFactors.colombiaAverage,
               maxValue: 10,
               color: const Color(0xFF2196F3),
             ),
             const SizedBox(height: 12),
             _BenchmarkRow(
-              label: 'Promedio mundial',
+              label: l10n.worldAvg,
               value: EmissionFactors.globalAverage,
               maxValue: 10,
               color: AppColors.orange,
@@ -533,6 +542,7 @@ class _GamificationLevelCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final pts = GamificationData.computePoints(provider);
     final level = GamificationData.levelForPoints(pts);
     final next = GamificationData.nextLevel(pts);
@@ -564,7 +574,7 @@ class _GamificationLevelCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        level.name,
+                        l10n.localizedEcoLevelName(level),
                         style: GoogleFonts.inter(
                           fontSize: 18,
                           fontWeight: FontWeight.w800,
@@ -572,7 +582,7 @@ class _GamificationLevelCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '$pts puntos eco',
+                        '$pts ${l10n.ecoPoints}',
                         style: GoogleFonts.inter(
                           fontSize: 13,
                           color: AppColors.textSecondary,
@@ -599,12 +609,12 @@ class _GamificationLevelCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Siguiente: ${next.emoji} ${next.name}',
+                    l10n.nextLevelLabel(next.emoji, l10n.localizedEcoLevelName(next)),
                     style: GoogleFonts.inter(
                         fontSize: 12, color: AppColors.textSecondary),
                   ),
                   Text(
-                    '${next.minPoints - pts} pts más',
+                    l10n.ptsMore(next.minPoints - pts),
                     style: GoogleFonts.inter(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -615,7 +625,7 @@ class _GamificationLevelCard extends StatelessWidget {
               )
             else
               Text(
-                '¡Nivel máximo alcanzado! 🎉',
+                l10n.maxLevelReached,
                 style: GoogleFonts.inter(
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
@@ -635,6 +645,7 @@ class _BadgesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final earned = GamificationData.computeEarnedBadgeIds(provider);
 
     return Card(
@@ -647,7 +658,7 @@ class _BadgesCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Mis logros',
+                  l10n.myAchievements,
                   style: GoogleFonts.inter(
                       fontSize: 16, fontWeight: FontWeight.w700),
                 ),
@@ -679,8 +690,9 @@ class _BadgesCard extends StatelessWidget {
               children: GamificationData.allBadges.map((badge) {
                 final isEarned = earned.contains(badge.id);
                 return Tooltip(
-                  message:
-                      isEarned ? badge.name : '🔒 ${badge.description}',
+                  message: isEarned
+                      ? l10n.localizedBadgeName(badge.id)
+                      : l10n.badgeLocked(l10n.localizedBadgeDesc(badge.id)),
                   child: AnimatedOpacity(
                     opacity: isEarned ? 1.0 : 0.3,
                     duration: const Duration(milliseconds: 300),
@@ -703,7 +715,7 @@ class _BadgesCard extends StatelessWidget {
                               style: const TextStyle(fontSize: 24)),
                           const SizedBox(height: 4),
                           Text(
-                            badge.name,
+                            l10n.localizedBadgeName(badge.id),
                             textAlign: TextAlign.center,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -734,6 +746,7 @@ class _ShareCardButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
@@ -772,7 +785,7 @@ class _ShareCardButton extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Compartir mi nivel',
+                    l10n.shareMyLevel,
                     style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.w800,
@@ -781,7 +794,7 @@ class _ShareCardButton extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    'Descarga tu tarjeta eco y compártela en redes',
+                    l10n.shareSub,
                     style: GoogleFonts.inter(
                         fontSize: 12, color: Colors.white70),
                   ),

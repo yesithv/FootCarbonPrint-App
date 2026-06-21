@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../models/gamification.dart';
 import '../../providers/footprint_provider.dart';
@@ -27,6 +28,7 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
   final _cardKey = GlobalKey();
 
   Future<void> _handlePhotoOption() async {
+    final l10n = context.l10n;
     final choice = await showDialog<bool>(
       context: context,
       barrierDismissible: true,
@@ -34,11 +36,11 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Text(
-          '¿Añadir tu foto?',
+          l10n.photoDialogTitle,
           style: GoogleFonts.inter(fontWeight: FontWeight.w800, fontSize: 18),
         ),
         content: Text(
-          'Puedes personalizar la tarjeta con tu foto de perfil, o dejar el emoji de tu nivel.',
+          l10n.photoDialogContent,
           style: GoogleFonts.inter(
               fontSize: 14, color: AppColors.textSecondary, height: 1.5),
         ),
@@ -47,12 +49,12 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
         actions: [
           OutlinedButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Solo emoji'),
+            child: Text(l10n.emojiOnly),
           ),
           ElevatedButton.icon(
             onPressed: () => Navigator.pop(context, true),
             icon: const Icon(Icons.add_a_photo_rounded, size: 16),
-            label: const Text('Elegir foto'),
+            label: Text(l10n.choosePhoto),
           ),
         ],
       ),
@@ -70,9 +72,9 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
   }
 
   Future<void> _downloadCard() async {
+    final l10n = context.l10n;
     setState(() => _isGenerating = true);
     try {
-      // Wait for widget to fully paint
       await Future.delayed(const Duration(milliseconds: 300));
       final boundary = _cardKey.currentContext!.findRenderObject()
           as RenderRepaintBoundary;
@@ -89,7 +91,7 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('¡Tarjeta descargada! 🌿',
+            content: Text(l10n.cardDownloaded,
                 style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
             backgroundColor: AppColors.primary,
             behavior: SnackBarBehavior.floating,
@@ -105,10 +107,11 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Mi Tarjeta Eco'),
+        title: Text(l10n.profileCardTitle),
         backgroundColor: AppColors.background,
       ),
       body: Consumer<FootprintProvider>(
@@ -118,7 +121,7 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
             child: Column(
               children: [
                 Text(
-                  'Previsualización — comparte tu nivel en redes 🌍',
+                  l10n.profileCardPreview,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                       fontSize: 13, color: AppColors.textSecondary),
@@ -141,7 +144,7 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
                         onPressed: _handlePhotoOption,
                         icon: const Icon(Icons.add_a_photo_rounded, size: 18),
                         label: Text(
-                          _photoBytes == null ? 'Añadir foto' : 'Cambiar foto',
+                          _photoBytes == null ? l10n.addPhoto : l10n.changePhoto,
                         ),
                       ),
                     ),
@@ -158,7 +161,7 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
                               )
                             : const Icon(Icons.download_rounded, size: 18),
                         label: Text(
-                          _isGenerating ? 'Generando...' : 'Descargar PNG',
+                          _isGenerating ? l10n.generating : l10n.downloadPng,
                         ),
                       ),
                     ),
@@ -166,7 +169,7 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'La imagen se descarga en 1080×1080 px,\nideal para Instagram, WhatsApp y Twitter.',
+                  l10n.downloadHint,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                       fontSize: 12, color: AppColors.textHint, height: 1.6),
@@ -210,6 +213,7 @@ class _ShareCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final pts = GamificationData.computePoints(provider);
     final level = GamificationData.levelForPoints(pts);
     final earned = GamificationData.computeEarnedBadgeIds(provider);
@@ -237,9 +241,7 @@ class _ShareCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          // Hexagonal pattern background
           Positioned.fill(child: CustomPaint(painter: _HexPainter())),
-          // Soft glow circle behind avatar
           Positioned(
             top: 60,
             left: 0,
@@ -255,33 +257,34 @@ class _ShareCard extends StatelessWidget {
               ),
             ),
           ),
-          // Main content
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 22),
             child: Column(
               children: [
-                // Top bar: logo + name
-                _TopBar(),
+                const _CardTopBar(),
                 const SizedBox(height: 22),
-                // Avatar
                 _Avatar(
                   photoBytes: photoBytes,
                   levelEmoji: fp.levelEmoji,
                   levelColor: level.color,
                 ),
                 const SizedBox(height: 16),
-                // Level badge
-                _LevelBadge(level: level, pts: pts),
+                _LevelBadge(
+                  levelEmoji: level.emoji,
+                  levelName: l10n.localizedEcoLevelName(level),
+                  levelColor: level.color,
+                  pts: pts,
+                ),
                 const Spacer(),
-                // Stats
                 _StatsRow(
                   co2: fp.totalCO2,
                   modules: provider.completedCount,
                   badges: earned.length,
+                  modulesLabel: l10n.statsModules,
+                  achievementsLabel: l10n.statsAchievements,
                 ),
                 const SizedBox(height: 12),
-                // Footer
-                _Footer(),
+                _CardFooter(footerText: l10n.cardFooterText),
               ],
             ),
           ),
@@ -291,8 +294,8 @@ class _ShareCard extends StatelessWidget {
   }
 }
 
-class _TopBar extends StatelessWidget {
-  const _TopBar();
+class _CardTopBar extends StatelessWidget {
+  const _CardTopBar();
 
   @override
   Widget build(BuildContext context) {
@@ -383,10 +386,17 @@ class _Avatar extends StatelessWidget {
 }
 
 class _LevelBadge extends StatelessWidget {
-  final EcoLevel level;
+  final String levelEmoji;
+  final String levelName;
+  final Color levelColor;
   final int pts;
 
-  const _LevelBadge({required this.level, required this.pts});
+  const _LevelBadge({
+    required this.levelEmoji,
+    required this.levelName,
+    required this.levelColor,
+    required this.pts,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -406,14 +416,14 @@ class _LevelBadge extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(level.emoji, style: const TextStyle(fontSize: 18)),
+          Text(levelEmoji, style: const TextStyle(fontSize: 18)),
           const SizedBox(width: 8),
           Text(
-            level.name,
+            levelName,
             style: GoogleFonts.inter(
               fontSize: 16,
               fontWeight: FontWeight.w800,
-              color: level.color,
+              color: levelColor,
             ),
           ),
           const SizedBox(width: 10),
@@ -421,7 +431,7 @@ class _LevelBadge extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
             decoration: BoxDecoration(
-              color: level.color.withAlpha(18),
+              color: levelColor.withAlpha(18),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
@@ -429,7 +439,7 @@ class _LevelBadge extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
-                color: level.color,
+                color: levelColor,
               ),
             ),
           ),
@@ -443,9 +453,16 @@ class _StatsRow extends StatelessWidget {
   final double co2;
   final int modules;
   final int badges;
+  final String modulesLabel;
+  final String achievementsLabel;
 
-  const _StatsRow(
-      {required this.co2, required this.modules, required this.badges});
+  const _StatsRow({
+    required this.co2,
+    required this.modules,
+    required this.badges,
+    required this.modulesLabel,
+    required this.achievementsLabel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -461,9 +478,9 @@ class _StatsRow extends StatelessWidget {
         children: [
           _Stat(value: '${co2.toStringAsFixed(1)} t', label: 'CO₂/año'),
           _Divider(),
-          _Stat(value: '$modules/6', label: 'Módulos'),
+          _Stat(value: '$modules/6', label: modulesLabel),
           _Divider(),
-          _Stat(value: '$badges/8', label: 'Logros'),
+          _Stat(value: '$badges/8', label: achievementsLabel),
         ],
       ),
     );
@@ -506,8 +523,9 @@ class _Divider extends StatelessWidget {
       Container(width: 1, height: 30, color: Colors.white24);
 }
 
-class _Footer extends StatelessWidget {
-  const _Footer();
+class _CardFooter extends StatelessWidget {
+  final String footerText;
+  const _CardFooter({required this.footerText});
 
   @override
   Widget build(BuildContext context) {
@@ -517,7 +535,7 @@ class _Footer extends StatelessWidget {
         const Icon(Icons.language_rounded, color: Colors.white30, size: 11),
         const SizedBox(width: 4),
         Text(
-          'footcarbonprint.app  •  Conoce tu huella. Cambia tu mundo.',
+          'footcarbonprint.app  •  $footerText',
           style: GoogleFonts.inter(fontSize: 9, color: Colors.white30),
         ),
       ],

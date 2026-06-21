@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../providers/footprint_provider.dart';
 import '../shell/main_shell.dart';
@@ -97,7 +98,7 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Conoce tu Huella. Cambia tu Mundo.',
+                  context.l10n.tagline,
                   style: GoogleFonts.inter(
                       fontSize: 14, color: Colors.white70),
                 ),
@@ -121,32 +122,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<_OnboardingSlide> _slides = [
-    _OnboardingSlide(
-      icon: Icons.public_rounded,
-      color: const Color(0xFF1B5E20),
-      title: '¿Cuánto contaminas\nsin saberlo?',
-      subtitle:
-          'La mayoría de personas emite más CO₂ del que cree. En menos de 7 minutos descubre tu impacto real en el planeta.',
-    ),
-    _OnboardingSlide(
-      icon: Icons.bar_chart_rounded,
-      color: const Color(0xFF0277BD),
-      title: 'Tu huella,\nen datos reales',
-      subtitle:
-          'Calculamos tu huella de carbono anual dividida por categorías: transporte, alimentación, hogar, consumo, residuos y agua.',
-    ),
-    _OnboardingSlide(
-      icon: Icons.emoji_events_rounded,
-      color: const Color(0xFF6A1B9A),
-      title: 'Un plan de acción\nque sí funciona',
-      subtitle:
-          'No solo medimos — te decimos exactamente qué cambiar y cuánto CO₂ ahorras con cada acción. Paso a paso.',
-    ),
-  ];
+  List<_OnboardingSlide> _buildSlides() {
+    final l10n = context.l10n;
+    return [
+      _OnboardingSlide(
+        icon: Icons.public_rounded,
+        color: const Color(0xFF1B5E20),
+        title: l10n.onb1Title,
+        subtitle: l10n.onb1Sub,
+      ),
+      _OnboardingSlide(
+        icon: Icons.bar_chart_rounded,
+        color: const Color(0xFF0277BD),
+        title: l10n.onb2Title,
+        subtitle: l10n.onb2Sub,
+      ),
+      _OnboardingSlide(
+        icon: Icons.emoji_events_rounded,
+        color: const Color(0xFF6A1B9A),
+        title: l10n.onb3Title,
+        subtitle: l10n.onb3Sub,
+      ),
+    ];
+  }
 
   void _next() {
-    if (_currentPage < _slides.length - 1) {
+    final slides = _buildSlides();
+    if (_currentPage < slides.length - 1) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 350),
         curve: Curves.easeInOut,
@@ -165,6 +167,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final slides = _buildSlides();
+    final l10n = context.l10n;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -174,8 +179,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: PageView.builder(
                 controller: _pageController,
                 onPageChanged: (i) => setState(() => _currentPage = i),
-                itemCount: _slides.length,
-                itemBuilder: (_, i) => _SlideView(slide: _slides[i]),
+                itemCount: slides.length,
+                itemBuilder: (_, i) => _SlideView(slide: slides[i]),
               ),
             ),
             Padding(
@@ -185,7 +190,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
-                      _slides.length,
+                      slides.length,
                       (i) => AnimatedContainer(
                         duration: const Duration(milliseconds: 250),
                         margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -204,16 +209,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ElevatedButton(
                     onPressed: _next,
                     child: Text(
-                      _currentPage < _slides.length - 1
-                          ? 'Siguiente'
-                          : '¡Empezar mi test!',
+                      _currentPage < slides.length - 1
+                          ? l10n.next
+                          : l10n.startTest,
                     ),
                   ),
-                  if (_currentPage < _slides.length - 1) ...[
+                  if (_currentPage < slides.length - 1) ...[
                     const SizedBox(height: 12),
                     TextButton(
                       onPressed: _finish,
-                      child: Text('Saltar',
+                      child: Text(l10n.skip,
                           style: TextStyle(color: AppColors.textHint)),
                     ),
                   ],

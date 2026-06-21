@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../core/l10n/l10n_extensions.dart';
 import '../core/theme/app_colors.dart';
 
 class ModuleScaffold extends StatelessWidget {
@@ -91,7 +92,7 @@ class ModuleScaffold extends StatelessWidget {
               backgroundColor: color,
             ),
             onPressed: onSave,
-            child: const Text('Guardar módulo'),
+            child: Text(context.l10n.saveModule),
           ),
         ),
       ),

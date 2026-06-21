@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../providers/footprint_provider.dart';
 import 'modules/transport_module.dart';
@@ -57,7 +58,7 @@ class TestHubScreen extends StatelessWidget {
                         onPressed: () =>
                             MainShell.of(context)?.goToTab(1),
                         icon: const Icon(Icons.bar_chart_rounded),
-                        label: const Text('Ver mi Huella de Carbono'),
+                        label: Text(context.l10n.viewMyFootprint),
                       ),
                     ),
                   ),
@@ -71,53 +72,54 @@ class TestHubScreen extends StatelessWidget {
 
   List<Widget> _buildModules(
       BuildContext context, FootprintProvider provider) {
+    final l10n = context.l10n;
     final defs = [
       _ModuleDef(
         id: 'transport',
-        label: 'Transporte',
+        label: l10n.modTransport,
         icon: Icons.directions_car_rounded,
         color: AppColors.transport,
-        weight: '28–35%',
+        weight: l10n.modTransportWeight,
         screen: const TransportModule(),
       ),
       _ModuleDef(
         id: 'food',
-        label: 'Alimentación',
+        label: l10n.modFood,
         icon: Icons.restaurant_rounded,
         color: AppColors.food,
-        weight: '25–30%',
+        weight: l10n.modFoodWeight,
         screen: const FoodModule(),
       ),
       _ModuleDef(
         id: 'home',
-        label: 'Hogar',
+        label: l10n.modHome,
         icon: Icons.home_rounded,
         color: AppColors.home,
-        weight: '20–25%',
+        weight: l10n.modHomeWeight,
         screen: const HomeModule(),
       ),
       _ModuleDef(
         id: 'shopping',
-        label: 'Consumo',
+        label: l10n.modShopping,
         icon: Icons.shopping_bag_rounded,
         color: AppColors.shopping,
-        weight: '10–15%',
+        weight: l10n.modShoppingWeight,
         screen: const ShoppingModule(),
       ),
       _ModuleDef(
         id: 'waste',
-        label: 'Residuos',
+        label: l10n.modWaste,
         icon: Icons.recycling_rounded,
         color: AppColors.waste,
-        weight: '5–8%',
+        weight: l10n.modWasteWeight,
         screen: const WasteModule(),
       ),
       _ModuleDef(
         id: 'water',
-        label: 'Agua',
+        label: l10n.modWater,
         icon: Icons.water_drop_rounded,
         color: AppColors.water,
-        weight: '~3%',
+        weight: l10n.modWaterWeight,
         screen: const WaterModule(),
       ),
     ];
@@ -141,6 +143,7 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
       child: Column(
@@ -170,7 +173,7 @@ class _Header extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Text(
-            'Tu Auto-Test de\nHuella de Carbono',
+            l10n.testHubTitle,
             style: GoogleFonts.inter(
               fontSize: 26,
               fontWeight: FontWeight.w800,
@@ -180,7 +183,7 @@ class _Header extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Completa los módulos para conocer tu impacto',
+            l10n.testHubSub,
             style: GoogleFonts.inter(
               fontSize: 14,
               color: AppColors.textSecondary,
@@ -201,6 +204,7 @@ class _ProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final pct = completed / total;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -209,7 +213,7 @@ class _ProgressBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '$completed de $total módulos',
+              l10n.modulesProgress(completed, total),
               style: GoogleFonts.inter(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
@@ -271,6 +275,7 @@ class _ModuleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -345,7 +350,7 @@ class _ModuleCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                isComplete ? 'Completado ✓' : 'Tocar para empezar',
+                isComplete ? l10n.completedCheck : l10n.tapToStart,
                 style: GoogleFonts.inter(
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
@@ -368,6 +373,7 @@ class _LearnBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
       child: GestureDetector(
@@ -412,8 +418,8 @@ class _LearnBanner extends StatelessWidget {
                   children: [
                     Text(
                       isFirstTime
-                          ? '¿Primera vez aquí?'
-                          : 'Guía de Huella de Carbono',
+                          ? l10n.learnBannerFirstTitle
+                          : l10n.learnBannerReturnTitle,
                       style: GoogleFonts.inter(
                         fontSize: 14,
                         fontWeight: FontWeight.w800,
@@ -423,8 +429,8 @@ class _LearnBanner extends StatelessWidget {
                     const SizedBox(height: 3),
                     Text(
                       isFirstTime
-                          ? 'Aprende qué es la huella de carbono en 2 minutos'
-                          : 'Repasa los conceptos clave — 6 lecciones visuales',
+                          ? l10n.learnBannerFirstSub
+                          : l10n.learnBannerReturnSub,
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         color: Colors.white70,

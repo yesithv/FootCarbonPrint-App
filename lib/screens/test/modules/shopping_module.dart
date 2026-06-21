@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../core/l10n/l10n_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../models/carbon_footprint.dart';
 import '../../../providers/footprint_provider.dart';
@@ -31,16 +32,17 @@ class _ShoppingModuleState extends State<ShoppingModule> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return ModuleScaffold(
-      title: 'Consumo',
+      title: l10n.shoppingModuleTitle,
       icon: Icons.shopping_bag_rounded,
       color: AppColors.shopping,
-      weight: '10–15% de tu huella',
+      weight: l10n.shoppingModuleWeight,
       onSave: _save,
       children: [
         QuestionCard(
-          question: '¿Cuántas prendas de ropa compras al mes?',
-          hint: '${_clothingPerMonth.round()} prendas',
+          question: l10n.shoppingQ1,
+          hint: l10n.shoppingClothingHint(_clothingPerMonth.round()),
           child: Slider(
             value: _clothingPerMonth,
             min: 0,
@@ -51,8 +53,8 @@ class _ShoppingModuleState extends State<ShoppingModule> {
           ),
         ),
         QuestionCard(
-          question: '¿Dispositivos electrónicos nuevos por año?',
-          hint: '${_electronicsPerYear.round()} dispositivos',
+          question: l10n.shoppingQ2,
+          hint: l10n.shoppingElectronicsHint(_electronicsPerYear.round()),
           child: Slider(
             value: _electronicsPerYear,
             min: 0,
@@ -63,8 +65,8 @@ class _ShoppingModuleState extends State<ShoppingModule> {
           ),
         ),
         QuestionCard(
-          question: '¿Cuántos paquetes de e-commerce recibes al mes?',
-          hint: '${_packagesPerMonth.round()} paquetes',
+          question: l10n.shoppingQ3,
+          hint: l10n.shoppingPackagesHint(_packagesPerMonth.round()),
           child: Slider(
             value: _packagesPerMonth,
             min: 0,
@@ -75,10 +77,10 @@ class _ShoppingModuleState extends State<ShoppingModule> {
           ),
         ),
         QuestionCard(
-          question: '¿Compras ropa o artículos de segunda mano?',
+          question: l10n.shoppingQ4,
           child: SwitchListTile(
-            title: const Text('Sí, compro segunda mano frecuentemente'),
-            subtitle: const Text('Reduce tu huella de consumo hasta 10%'),
+            title: Text(l10n.shoppingSecondHandTitle),
+            subtitle: Text(l10n.shoppingSecondHandSub),
             value: _buysSecondHand,
             onChanged: (v) => setState(() => _buysSecondHand = v),
             activeColor: AppColors.shopping,
@@ -105,6 +107,7 @@ class _Co2Preview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -124,8 +127,8 @@ class _Co2Preview extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 20, fontWeight: FontWeight.w800, color: color),
               ),
-              const Text('Estimado de este módulo',
-                  style: TextStyle(
+              Text(l10n.moduleEstimate,
+                  style: const TextStyle(
                       fontSize: 12, color: AppColors.textSecondary)),
             ],
           ),

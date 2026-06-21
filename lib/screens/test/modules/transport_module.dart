@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../core/l10n/l10n_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../models/carbon_footprint.dart';
 import '../../../providers/footprint_provider.dart';
@@ -20,17 +21,6 @@ class _TransportModuleState extends State<TransportModule> {
   int _mediumFlights = 0;
   int _longFlights = 0;
 
-  final _vehicles = [
-    _VehicleOption('gasoline', 'Gasolina', Icons.local_gas_station_rounded),
-    _VehicleOption('diesel', 'Diésel', Icons.local_gas_station_rounded),
-    _VehicleOption('hybrid', 'Híbrido', Icons.electric_car_rounded),
-    _VehicleOption('electric', 'Eléctrico', Icons.bolt_rounded),
-    _VehicleOption('motorcycle', 'Moto', Icons.two_wheeler_rounded),
-    _VehicleOption('bus', 'Bus/Metro', Icons.directions_bus_rounded),
-    _VehicleOption('bicycle', 'Bicicleta', Icons.pedal_bike_rounded),
-    _VehicleOption('walking', 'A pie', Icons.directions_walk_rounded),
-  ];
-
   void _save() {
     context.read<FootprintProvider>().updateTransport(TransportData(
           vehicle: _vehicle,
@@ -44,19 +34,31 @@ class _TransportModuleState extends State<TransportModule> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final vehicles = [
+      _VehicleOption('gasoline', l10n.vehicleGasoline, Icons.local_gas_station_rounded),
+      _VehicleOption('diesel', l10n.vehicleDiesel, Icons.local_gas_station_rounded),
+      _VehicleOption('hybrid', l10n.vehicleHybrid, Icons.electric_car_rounded),
+      _VehicleOption('electric', l10n.vehicleElectric, Icons.bolt_rounded),
+      _VehicleOption('motorcycle', l10n.vehicleMotorcycle, Icons.two_wheeler_rounded),
+      _VehicleOption('bus', l10n.vehicleBus, Icons.directions_bus_rounded),
+      _VehicleOption('bicycle', l10n.vehicleBicycle, Icons.pedal_bike_rounded),
+      _VehicleOption('walking', l10n.vehicleWalking, Icons.directions_walk_rounded),
+    ];
+
     return ModuleScaffold(
-      title: 'Transporte',
+      title: l10n.transportModuleTitle,
       icon: Icons.directions_car_rounded,
       color: AppColors.transport,
-      weight: '28–35% de tu huella',
+      weight: l10n.transportModuleWeight,
       onSave: _save,
       children: [
         QuestionCard(
-          question: '¿Cuál es tu medio de transporte principal?',
+          question: l10n.transportQ1,
           child: Wrap(
             spacing: 10,
             runSpacing: 10,
-            children: _vehicles
+            children: vehicles
                 .map((v) => ChoiceChip(
                       label: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -84,8 +86,8 @@ class _TransportModuleState extends State<TransportModule> {
           ),
         ),
         QuestionCard(
-          question: '¿Cuántos km recorres por semana?',
-          hint: '${_weeklyKm.round()} km/semana',
+          question: l10n.transportQ2,
+          hint: l10n.transportKmHint(_weeklyKm.round()),
           child: Slider(
             value: _weeklyKm,
             min: 0,
@@ -95,23 +97,23 @@ class _TransportModuleState extends State<TransportModule> {
           ),
         ),
         QuestionCard(
-          question: '¿Cuántos vuelos haces al año?',
+          question: l10n.transportQ3,
           child: Column(
             children: [
               _FlightCounter(
-                label: 'Cortos (< 3h)',
+                label: l10n.flightShort,
                 value: _shortFlights,
                 onChanged: (v) => setState(() => _shortFlights = v),
               ),
               const SizedBox(height: 12),
               _FlightCounter(
-                label: 'Medios (3–6h)',
+                label: l10n.flightMedium,
                 value: _mediumFlights,
                 onChanged: (v) => setState(() => _mediumFlights = v),
               ),
               const SizedBox(height: 12),
               _FlightCounter(
-                label: 'Largos (> 6h)',
+                label: l10n.flightLong,
                 value: _longFlights,
                 onChanged: (v) => setState(() => _longFlights = v),
               ),
@@ -189,6 +191,7 @@ class _Co2Preview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -211,8 +214,8 @@ class _Co2Preview extends StatelessWidget {
                   color: color,
                 ),
               ),
-              const Text('Estimado de este módulo',
-                  style: TextStyle(
+              Text(l10n.moduleEstimate,
+                  style: const TextStyle(
                       fontSize: 12, color: AppColors.textSecondary)),
             ],
           ),
