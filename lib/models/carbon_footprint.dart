@@ -254,6 +254,8 @@ class CarbonFootprint {
   WasteData waste;
   WaterData water;
   Set<String> completedModules;
+  Set<String> committedActions;
+  bool learnGuideCompleted;
 
   CarbonFootprint()
       : transport = TransportData(),
@@ -262,7 +264,9 @@ class CarbonFootprint {
         shopping = ShoppingData(),
         waste = WasteData(),
         water = WaterData(),
-        completedModules = {};
+        completedModules = {},
+        committedActions = {},
+        learnGuideCompleted = false;
 
   double get totalCO2 =>
       transport.annualCO2 +
@@ -328,6 +332,8 @@ class CarbonFootprint {
         'waste': waste.toJson(),
         'water': water.toJson(),
         'completedModules': completedModules.toList(),
+        'committedActions': committedActions.toList(),
+        'learnGuideCompleted': learnGuideCompleted,
       };
 
   factory CarbonFootprint.fromJson(Map<String, dynamic> j) {
@@ -346,6 +352,11 @@ class CarbonFootprint {
       fp.completedModules =
           Set<String>.from(j['completedModules'] as List);
     }
+    if (j['committedActions'] != null) {
+      fp.committedActions =
+          Set<String>.from(j['committedActions'] as List);
+    }
+    fp.learnGuideCompleted = j['learnGuideCompleted'] ?? false;
     return fp;
   }
 }

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/emission_factors.dart';
 import '../../core/theme/app_colors.dart';
+import '../../models/gamification.dart';
 import '../../providers/footprint_provider.dart';
 import '../shell/main_shell.dart';
 
@@ -36,6 +37,10 @@ class DashboardScreen extends StatelessWidget {
                     _PieChartCard(breakdown: fp.breakdown),
                     const SizedBox(height: 20),
                     _BenchmarkCard(total: fp.totalCO2),
+                    const SizedBox(height: 20),
+                    _GamificationLevelCard(provider: provider),
+                    const SizedBox(height: 20),
+                    _BadgesCard(provider: provider),
                     const SizedBox(height: 28),
                     ElevatedButton.icon(
                       onPressed: () =>
@@ -515,6 +520,208 @@ class _BenchmarkRow extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _GamificationLevelCard extends StatelessWidget {
+  final FootprintProvider provider;
+  const _GamificationLevelCard({required this.provider});
+
+  @override
+  Widget build(BuildContext context) {
+    final pts = GamificationData.computePoints(provider);
+    final level = GamificationData.levelForPoints(pts);
+    final next = GamificationData.nextLevel(pts);
+    final progress = GamificationData.levelProgress(pts);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
+                    color: level.color.withAlpha(20),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Text(level.emoji,
+                        style: const TextStyle(fontSize: 26)),
+                  ),
+                ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        level.name,
+                        style: GoogleFonts.inter(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                          color: level.color,
+                        ),
+                      ),
+                      Text(
+                        '$pts puntos eco',
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: LinearProgressIndicator(
+                value: progress,
+                minHeight: 10,
+                backgroundColor: level.color.withAlpha(20),
+                valueColor: AlwaysStoppedAnimation<Color>(level.color),
+              ),
+            ),
+            const SizedBox(height: 8),
+            if (next != null)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Siguiente: ${next.emoji} ${next.name}',
+                    style: GoogleFonts.inter(
+                        fontSize: 12, color: AppColors.textSecondary),
+                  ),
+                  Text(
+                    '${next.minPoints - pts} pts más',
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: level.color,
+                    ),
+                  ),
+                ],
+              )
+            else
+              Text(
+                '¡Nivel máximo alcanzado! 🎉',
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: level.color,
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BadgesCard extends StatelessWidget {
+  final FootprintProvider provider;
+  const _BadgesCard({required this.provider});
+
+  @override
+  Widget build(BuildContext context) {
+    final earned = GamificationData.computeEarnedBadgeIds(provider);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Mis logros',
+                  style: GoogleFonts.inter(
+                      fontSize: 16, fontWeight: FontWeight.w700),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withAlpha(15),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    '${earned.length}/${GamificationData.allBadges.length}',
+                    style: GoogleFonts.inter(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            GridView.count(
+              crossAxisCount: 4,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              children: GamificationData.allBadges.map((badge) {
+                final isEarned = earned.contains(badge.id);
+                return Tooltip(
+                  message:
+                      isEarned ? badge.name : '🔒 ${badge.description}',
+                  child: AnimatedOpacity(
+                    opacity: isEarned ? 1.0 : 0.3,
+                    duration: const Duration(milliseconds: 300),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: isEarned
+                            ? AppColors.primary.withAlpha(12)
+                            : AppColors.background,
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(
+                          color: isEarned
+                              ? AppColors.primary.withAlpha(60)
+                              : Colors.grey.shade200,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(badge.emoji,
+                              style: const TextStyle(fontSize: 24)),
+                          const SizedBox(height: 4),
+                          Text(
+                            badge.name,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.inter(
+                              fontSize: 9,
+                              fontWeight: FontWeight.w600,
+                              color: isEarned
+                                  ? AppColors.textPrimary
+                                  : AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

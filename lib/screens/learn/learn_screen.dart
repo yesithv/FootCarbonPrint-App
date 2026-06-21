@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../core/theme/app_colors.dart';
+import '../../providers/footprint_provider.dart';
 
 class LearnScreen extends StatefulWidget {
   const LearnScreen({super.key});
@@ -81,6 +83,7 @@ class _LearnScreenState extends State<LearnScreen> {
       _ctrl.nextPage(
           duration: const Duration(milliseconds: 350), curve: Curves.easeInOut);
     } else {
+      context.read<FootprintProvider>().completeLearnGuide();
       Navigator.of(context).pop();
     }
   }
