@@ -830,11 +830,59 @@ abstract class AppLocalizations {
   /// **'Cero emisiones + beneficios de salud.'**
   String get actionBikeDesc;
 
+  /// No description provided for @challengeWeekLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Reto de la semana'**
+  String get challengeWeekLabel;
+
+  /// No description provided for @challengeExpiresLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Expira este domingo'**
+  String get challengeExpiresLabel;
+
+  /// No description provided for @challengePts.
+  ///
+  /// In es, this message translates to:
+  /// **'+{pts} pts'**
+  String challengePts(int pts);
+
+  /// No description provided for @challengeMarkDone.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Lo hice! Marcar como completado'**
+  String get challengeMarkDone;
+
+  /// No description provided for @challengeCompletedLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Reto completado esta semana! 🎉'**
+  String get challengeCompletedLabel;
+
+  /// No description provided for @challengeCompletedSub.
+  ///
+  /// In es, this message translates to:
+  /// **'Sumaste +25 pts a tu nivel'**
+  String get challengeCompletedSub;
+
   /// No description provided for @challenge1.
   ///
   /// In es, this message translates to:
   /// **'Semana sin plástico de un solo uso'**
   String get challenge1;
+
+  /// No description provided for @challengeDesc1.
+  ///
+  /// In es, this message translates to:
+  /// **'Lleva bolsa reutilizable y rechaza vasos, pitillos y bolsas de plástico durante 7 días.'**
+  String get challengeDesc1;
+
+  /// No description provided for @challengeEmoji1.
+  ///
+  /// In es, this message translates to:
+  /// **'🛍️'**
+  String get challengeEmoji1;
 
   /// No description provided for @challenge2.
   ///
@@ -842,17 +890,53 @@ abstract class AppLocalizations {
   /// **'7 días sin carne roja'**
   String get challenge2;
 
+  /// No description provided for @challengeDesc2.
+  ///
+  /// In es, this message translates to:
+  /// **'Reemplaza la carne de res por pollo, pescado, legumbres o tofu toda la semana.'**
+  String get challengeDesc2;
+
+  /// No description provided for @challengeEmoji2.
+  ///
+  /// In es, this message translates to:
+  /// **'🥩'**
+  String get challengeEmoji2;
+
   /// No description provided for @challenge3.
   ///
   /// In es, this message translates to:
   /// **'Ve en bici o camina 3 días esta semana'**
   String get challenge3;
 
+  /// No description provided for @challengeDesc3.
+  ///
+  /// In es, this message translates to:
+  /// **'Al menos 3 días esta semana deja el carro y usa bicicleta, patineta o tus pies.'**
+  String get challengeDesc3;
+
+  /// No description provided for @challengeEmoji3.
+  ///
+  /// In es, this message translates to:
+  /// **'🚲'**
+  String get challengeEmoji3;
+
   /// No description provided for @challenge4.
   ///
   /// In es, this message translates to:
   /// **'Ducha de máximo 5 minutos por 5 días'**
   String get challenge4;
+
+  /// No description provided for @challengeDesc4.
+  ///
+  /// In es, this message translates to:
+  /// **'Usa un cronómetro — 5 minutos máximo con agua caliente, durante 5 días seguidos.'**
+  String get challengeDesc4;
+
+  /// No description provided for @challengeEmoji4.
+  ///
+  /// In es, this message translates to:
+  /// **'🚿'**
+  String get challengeEmoji4;
 
   /// No description provided for @learnGuideTitle.
   ///

@@ -400,16 +400,64 @@ class AppLocalizationsEn extends AppLocalizations {
   String get actionBikeDesc => 'Zero emissions + health benefits.';
 
   @override
+  String get challengeWeekLabel => 'Challenge of the week';
+
+  @override
+  String get challengeExpiresLabel => 'Expires this Sunday';
+
+  @override
+  String challengePts(int pts) {
+    return '+$pts pts';
+  }
+
+  @override
+  String get challengeMarkDone => 'I did it! Mark as completed';
+
+  @override
+  String get challengeCompletedLabel => 'Challenge completed this week! 🎉';
+
+  @override
+  String get challengeCompletedSub => 'You earned +25 pts';
+
+  @override
   String get challenge1 => 'One week without single-use plastic';
+
+  @override
+  String get challengeDesc1 =>
+      'Bring a reusable bag and say no to plastic cups, straws, and bags for 7 days.';
+
+  @override
+  String get challengeEmoji1 => '🛍️';
 
   @override
   String get challenge2 => '7 days without red meat';
 
   @override
+  String get challengeDesc2 =>
+      'Replace beef with chicken, fish, legumes, or tofu for the whole week.';
+
+  @override
+  String get challengeEmoji2 => '🥩';
+
+  @override
   String get challenge3 => 'Bike or walk 3 days this week';
 
   @override
+  String get challengeDesc3 =>
+      'At least 3 days this week, leave the car and use a bike, scooter, or your feet.';
+
+  @override
+  String get challengeEmoji3 => '🚲';
+
+  @override
   String get challenge4 => 'Shower in max 5 minutes for 5 days';
+
+  @override
+  String get challengeDesc4 =>
+      'Use a timer — max 5 minutes with hot water, for 5 consecutive days.';
+
+  @override
+  String get challengeEmoji4 => '🚿';
 
   @override
   String get learnGuideTitle => 'Carbon Footprint Guide';

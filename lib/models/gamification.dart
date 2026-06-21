@@ -166,6 +166,7 @@ class GamificationData {
     if (p.completedCount == 6) pts += 50;
     if (p.footprint.learnGuideCompleted) pts += 30;
     pts += p.committedActionsCount * 15;
+    pts += p.completedChallengesCount * 25;
     if (p.completedCount > 0) {
       final t = p.footprint.totalCO2;
       if (t < 1.5) {

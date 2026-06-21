@@ -46,6 +46,8 @@ class DashboardScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     _BenchmarkCard(total: fp.totalCO2),
                     const SizedBox(height: 20),
+                    _WeeklyChallengeCard(provider: provider),
+                    const SizedBox(height: 20),
                     _HistoryCard(history: fp.history),
                     const SizedBox(height: 20),
                     _GamificationLevelCard(provider: provider),
@@ -607,6 +609,205 @@ class _BenchmarkRow extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _WeeklyChallengeCard extends StatelessWidget {
+  final FootprintProvider provider;
+  const _WeeklyChallengeCard({required this.provider});
+
+  String _challengeTitle(int index, dynamic l10n) {
+    switch (index) {
+      case 0: return l10n.challenge1;
+      case 1: return l10n.challenge2;
+      case 2: return l10n.challenge3;
+      default: return l10n.challenge4;
+    }
+  }
+
+  String _challengeDesc(int index, dynamic l10n) {
+    switch (index) {
+      case 0: return l10n.challengeDesc1;
+      case 1: return l10n.challengeDesc2;
+      case 2: return l10n.challengeDesc3;
+      default: return l10n.challengeDesc4;
+    }
+  }
+
+  String _challengeEmoji(int index, dynamic l10n) {
+    switch (index) {
+      case 0: return l10n.challengeEmoji1;
+      case 1: return l10n.challengeEmoji2;
+      case 2: return l10n.challengeEmoji3;
+      default: return l10n.challengeEmoji4;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final idx = provider.currentChallengeIndex;
+    final completed = provider.isCurrentChallengeCompleted;
+
+    final activeColors = [const Color(0xFFF57C00), const Color(0xFFFF8F00)];
+    final doneColors = [const Color(0xFF2E7D32), const Color(0xFF388E3C)];
+    final colors = completed ? doneColors : activeColors;
+
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: colors,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: colors.first.withAlpha(80),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(22),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header row
+            Row(
+              children: [
+                const Text('🔥', style: TextStyle(fontSize: 16)),
+                const SizedBox(width: 6),
+                Text(
+                  l10n.challengeWeekLabel,
+                  style: GoogleFonts.inter(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white70,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                const Spacer(),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withAlpha(30),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    l10n.challengePts(25),
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Emoji + title
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  _challengeEmoji(idx, l10n),
+                  style: const TextStyle(fontSize: 40),
+                ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _challengeTitle(idx, l10n),
+                        style: GoogleFonts.inter(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                          height: 1.2,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        _challengeDesc(idx, l10n),
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          color: Colors.white70,
+                          height: 1.4,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 18),
+            // CTA
+            if (completed)
+              Row(
+                children: [
+                  const Icon(Icons.check_circle_rounded,
+                      color: Colors.white, size: 20),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.challengeCompletedLabel,
+                          style: GoogleFonts.inter(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          l10n.challengeCompletedSub,
+                          style: GoogleFonts.inter(
+                              fontSize: 11, color: Colors.white70),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )
+            else
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => provider.completeCurrentChallenge(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: colors.first,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14)),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    elevation: 0,
+                  ),
+                  child: Text(
+                    l10n.challengeMarkDone,
+                    style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w800, fontSize: 14),
+                  ),
+                ),
+              ),
+            if (!completed) ...[
+              const SizedBox(height: 10),
+              Center(
+                child: Text(
+                  l10n.challengeExpiresLabel,
+                  style: GoogleFonts.inter(
+                      fontSize: 11, color: Colors.white54),
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
     );
   }
 }

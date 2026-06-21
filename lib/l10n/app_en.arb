@@ -154,10 +154,28 @@
   "actionBikeTitle": "Bike or walk to work",
   "actionBikeDesc": "Zero emissions + health benefits.",
 
+  "challengeWeekLabel": "Challenge of the week",
+  "challengeExpiresLabel": "Expires this Sunday",
+  "challengePts": "+{pts} pts",
+  "@challengePts": {
+    "placeholders": {"pts": {"type": "int"}}
+  },
+  "challengeMarkDone": "I did it! Mark as completed",
+  "challengeCompletedLabel": "Challenge completed this week! 🎉",
+  "challengeCompletedSub": "You earned +25 pts",
+
   "challenge1": "One week without single-use plastic",
+  "challengeDesc1": "Bring a reusable bag and say no to plastic cups, straws, and bags for 7 days.",
+  "challengeEmoji1": "🛍️",
   "challenge2": "7 days without red meat",
+  "challengeDesc2": "Replace beef with chicken, fish, legumes, or tofu for the whole week.",
+  "challengeEmoji2": "🥩",
   "challenge3": "Bike or walk 3 days this week",
+  "challengeDesc3": "At least 3 days this week, leave the car and use a bike, scooter, or your feet.",
+  "challengeEmoji3": "🚲",
   "challenge4": "Shower in max 5 minutes for 5 days",
+  "challengeDesc4": "Use a timer — max 5 minutes with hot water, for 5 consecutive days.",
+  "challengeEmoji4": "🚿",
 
   "learnGuideTitle": "Carbon Footprint Guide",
   "learnNext": "Next →",

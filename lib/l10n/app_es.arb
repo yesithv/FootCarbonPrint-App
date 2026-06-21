@@ -154,10 +154,28 @@
   "actionBikeTitle": "Ir en bici o caminar al trabajo",
   "actionBikeDesc": "Cero emisiones + beneficios de salud.",
 
+  "challengeWeekLabel": "Reto de la semana",
+  "challengeExpiresLabel": "Expira este domingo",
+  "challengePts": "+{pts} pts",
+  "@challengePts": {
+    "placeholders": {"pts": {"type": "int"}}
+  },
+  "challengeMarkDone": "¡Lo hice! Marcar como completado",
+  "challengeCompletedLabel": "¡Reto completado esta semana! 🎉",
+  "challengeCompletedSub": "Sumaste +25 pts a tu nivel",
+
   "challenge1": "Semana sin plástico de un solo uso",
+  "challengeDesc1": "Lleva bolsa reutilizable y rechaza vasos, pitillos y bolsas de plástico durante 7 días.",
+  "challengeEmoji1": "🛍️",
   "challenge2": "7 días sin carne roja",
+  "challengeDesc2": "Reemplaza la carne de res por pollo, pescado, legumbres o tofu toda la semana.",
+  "challengeEmoji2": "🥩",
   "challenge3": "Ve en bici o camina 3 días esta semana",
+  "challengeDesc3": "Al menos 3 días esta semana deja el carro y usa bicicleta, patineta o tus pies.",
+  "challengeEmoji3": "🚲",
   "challenge4": "Ducha de máximo 5 minutos por 5 días",
+  "challengeDesc4": "Usa un cronómetro — 5 minutos máximo con agua caliente, durante 5 días seguidos.",
+  "challengeEmoji4": "🚿",
 
   "learnGuideTitle": "Guía de Huella de Carbono",
   "learnNext": "Siguiente →",

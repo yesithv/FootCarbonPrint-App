@@ -402,16 +402,64 @@ class AppLocalizationsEs extends AppLocalizations {
   String get actionBikeDesc => 'Cero emisiones + beneficios de salud.';
 
   @override
+  String get challengeWeekLabel => 'Reto de la semana';
+
+  @override
+  String get challengeExpiresLabel => 'Expira este domingo';
+
+  @override
+  String challengePts(int pts) {
+    return '+$pts pts';
+  }
+
+  @override
+  String get challengeMarkDone => '¡Lo hice! Marcar como completado';
+
+  @override
+  String get challengeCompletedLabel => '¡Reto completado esta semana! 🎉';
+
+  @override
+  String get challengeCompletedSub => 'Sumaste +25 pts a tu nivel';
+
+  @override
   String get challenge1 => 'Semana sin plástico de un solo uso';
+
+  @override
+  String get challengeDesc1 =>
+      'Lleva bolsa reutilizable y rechaza vasos, pitillos y bolsas de plástico durante 7 días.';
+
+  @override
+  String get challengeEmoji1 => '🛍️';
 
   @override
   String get challenge2 => '7 días sin carne roja';
 
   @override
+  String get challengeDesc2 =>
+      'Reemplaza la carne de res por pollo, pescado, legumbres o tofu toda la semana.';
+
+  @override
+  String get challengeEmoji2 => '🥩';
+
+  @override
   String get challenge3 => 'Ve en bici o camina 3 días esta semana';
 
   @override
+  String get challengeDesc3 =>
+      'Al menos 3 días esta semana deja el carro y usa bicicleta, patineta o tus pies.';
+
+  @override
+  String get challengeEmoji3 => '🚲';
+
+  @override
   String get challenge4 => 'Ducha de máximo 5 minutos por 5 días';
+
+  @override
+  String get challengeDesc4 =>
+      'Usa un cronómetro — 5 minutos máximo con agua caliente, durante 5 días seguidos.';
+
+  @override
+  String get challengeEmoji4 => '🚿';
 
   @override
   String get learnGuideTitle => 'Guía de Huella de Carbono';

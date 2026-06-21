@@ -154,4 +154,29 @@ class FootprintProvider extends ChangeNotifier {
     _persist();
     notifyListeners();
   }
+
+  // Weekly challenges
+  int _weekOfYear(DateTime date) {
+    final startOfYear = DateTime(date.year, 1, 1);
+    return (date.difference(startOfYear).inDays / 7).floor();
+  }
+
+  String get currentChallengeKey {
+    final now = DateTime.now();
+    return '${now.year}-${_weekOfYear(now)}';
+  }
+
+  int get currentChallengeIndex => _weekOfYear(DateTime.now()) % 4;
+
+  bool get isCurrentChallengeCompleted =>
+      _footprint.completedChallengePeriods.contains(currentChallengeKey);
+
+  int get completedChallengesCount =>
+      _footprint.completedChallengePeriods.length;
+
+  void completeCurrentChallenge() {
+    _footprint.completedChallengePeriods.add(currentChallengeKey);
+    _persist();
+    notifyListeners();
+  }
 }
