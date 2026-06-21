@@ -6,6 +6,7 @@ import '../../core/constants/emission_factors.dart';
 import '../../core/theme/app_colors.dart';
 import '../../models/gamification.dart';
 import '../../providers/footprint_provider.dart';
+import '../profile_card/profile_card_screen.dart';
 import '../shell/main_shell.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -41,7 +42,9 @@ class DashboardScreen extends StatelessWidget {
                     _GamificationLevelCard(provider: provider),
                     const SizedBox(height: 20),
                     _BadgesCard(provider: provider),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 20),
+                    _ShareCardButton(),
+                    const SizedBox(height: 16),
                     ElevatedButton.icon(
                       onPressed: () =>
                           MainShell.of(context)?.goToTab(2),
@@ -719,6 +722,74 @@ class _BadgesCard extends StatelessWidget {
                 );
               }).toList(),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ShareCardButton extends StatelessWidget {
+  const _ShareCardButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const ProfileCardScreen()),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Color(0xFF1B5E20), Color(0xFF2E7D32)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primary.withAlpha(60),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(25),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Text('🪪', style: TextStyle(fontSize: 22)),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Compartir mi nivel',
+                    style: GoogleFonts.inter(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'Descarga tu tarjeta eco y compártela en redes',
+                    style: GoogleFonts.inter(
+                        fontSize: 12, color: Colors.white70),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios_rounded,
+                color: Colors.white54, size: 16),
           ],
         ),
       ),
