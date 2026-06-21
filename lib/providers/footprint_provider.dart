@@ -42,9 +42,30 @@ class FootprintProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void _recordSnapshot() {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    _footprint.history
+        .removeWhere((s) => _sameDay(s.date, today));
+    _footprint.history.add(FootprintSnapshot(
+      date: today,
+      totalCO2: _footprint.totalCO2,
+      breakdown: Map.from(_footprint.breakdown),
+    ));
+    _footprint.history.sort((a, b) => a.date.compareTo(b.date));
+    if (_footprint.history.length > 52) {
+      _footprint.history =
+          _footprint.history.sublist(_footprint.history.length - 52);
+    }
+  }
+
+  bool _sameDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
+
   void updateTransport(TransportData data) {
     _footprint.transport = data;
     _footprint.completedModules.add('transport');
+    _recordSnapshot();
     _persist();
     notifyListeners();
   }
@@ -52,6 +73,7 @@ class FootprintProvider extends ChangeNotifier {
   void updateFood(FoodData data) {
     _footprint.food = data;
     _footprint.completedModules.add('food');
+    _recordSnapshot();
     _persist();
     notifyListeners();
   }
@@ -59,6 +81,7 @@ class FootprintProvider extends ChangeNotifier {
   void updateHome(HomeData data) {
     _footprint.home = data;
     _footprint.completedModules.add('home');
+    _recordSnapshot();
     _persist();
     notifyListeners();
   }
@@ -66,6 +89,7 @@ class FootprintProvider extends ChangeNotifier {
   void updateShopping(ShoppingData data) {
     _footprint.shopping = data;
     _footprint.completedModules.add('shopping');
+    _recordSnapshot();
     _persist();
     notifyListeners();
   }
@@ -73,6 +97,7 @@ class FootprintProvider extends ChangeNotifier {
   void updateWaste(WasteData data) {
     _footprint.waste = data;
     _footprint.completedModules.add('waste');
+    _recordSnapshot();
     _persist();
     notifyListeners();
   }
@@ -80,6 +105,7 @@ class FootprintProvider extends ChangeNotifier {
   void updateWater(WaterData data) {
     _footprint.water = data;
     _footprint.completedModules.add('water');
+    _recordSnapshot();
     _persist();
     notifyListeners();
   }

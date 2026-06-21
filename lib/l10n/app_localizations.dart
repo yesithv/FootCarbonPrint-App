@@ -1729,6 +1729,54 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Calentador máximo'**
   String get tempHotSub;
+
+  /// No description provided for @historyTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Evolución de tu huella'**
+  String get historyTitle;
+
+  /// No description provided for @historyMeasurements.
+  ///
+  /// In es, this message translates to:
+  /// **'{n} mediciones'**
+  String historyMeasurements(int n);
+
+  /// No description provided for @historyEmptyTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún sin historial'**
+  String get historyEmptyTitle;
+
+  /// No description provided for @historyEmptySub.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualiza tus módulos en distintos días para ver cómo evoluciona tu huella.'**
+  String get historyEmptySub;
+
+  /// No description provided for @historyOneMeasurement.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Primera medición registrada! 🎉'**
+  String get historyOneMeasurement;
+
+  /// No description provided for @historyOneSub.
+  ///
+  /// In es, this message translates to:
+  /// **'Vuelve mañana y actualiza un módulo para ver tu evolución.'**
+  String get historyOneSub;
+
+  /// No description provided for @historyImproved.
+  ///
+  /// In es, this message translates to:
+  /// **'↓ {pct}% desde tu primera medición'**
+  String historyImproved(String pct);
+
+  /// No description provided for @historyWorsened.
+  ///
+  /// In es, this message translates to:
+  /// **'↑ {pct}% desde tu primera medición'**
+  String historyWorsened(String pct);
 }
 
 class _AppLocalizationsDelegate

@@ -885,4 +885,36 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tempHotSub => 'Full heater';
+
+  @override
+  String get historyTitle => 'Your footprint evolution';
+
+  @override
+  String historyMeasurements(int n) {
+    return '$n measurements';
+  }
+
+  @override
+  String get historyEmptyTitle => 'No history yet';
+
+  @override
+  String get historyEmptySub =>
+      'Update your modules on different days to track how your footprint evolves.';
+
+  @override
+  String get historyOneMeasurement => 'First measurement recorded! 🎉';
+
+  @override
+  String get historyOneSub =>
+      'Come back tomorrow and update a module to see your evolution.';
+
+  @override
+  String historyImproved(String pct) {
+    return '↓ $pct% since your first measurement';
+  }
+
+  @override
+  String historyWorsened(String pct) {
+    return '↑ $pct% since your first measurement';
+  }
 }

@@ -353,5 +353,23 @@
   "tempWarm": "Tibia",
   "tempWarmSub": "Calentador moderado",
   "tempHot": "Caliente",
-  "tempHotSub": "Calentador máximo"
+  "tempHotSub": "Calentador máximo",
+
+  "historyTitle": "Evolución de tu huella",
+  "historyMeasurements": "{n} mediciones",
+  "@historyMeasurements": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "historyEmptyTitle": "Aún sin historial",
+  "historyEmptySub": "Actualiza tus módulos en distintos días para ver cómo evoluciona tu huella.",
+  "historyOneMeasurement": "¡Primera medición registrada! 🎉",
+  "historyOneSub": "Vuelve mañana y actualiza un módulo para ver tu evolución.",
+  "historyImproved": "↓ {pct}% desde tu primera medición",
+  "@historyImproved": {
+    "placeholders": {"pct": {"type": "String"}}
+  },
+  "historyWorsened": "↑ {pct}% desde tu primera medición",
+  "@historyWorsened": {
+    "placeholders": {"pct": {"type": "String"}}
+  }
 }

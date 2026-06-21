@@ -1,10 +1,12 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/emission_factors.dart';
 import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
+import '../../models/carbon_footprint.dart';
 import '../../models/gamification.dart';
 import '../../providers/footprint_provider.dart';
 import '../profile_card/profile_card_screen.dart';
@@ -42,6 +44,8 @@ class DashboardScreen extends StatelessWidget {
                     _PieChartCard(breakdown: fp.breakdown),
                     const SizedBox(height: 20),
                     _BenchmarkCard(total: fp.totalCO2),
+                    const SizedBox(height: 20),
+                    _HistoryCard(history: fp.history),
                     const SizedBox(height: 20),
                     _GamificationLevelCard(provider: provider),
                     const SizedBox(height: 20),
@@ -530,6 +534,312 @@ class _BenchmarkRow extends StatelessWidget {
             backgroundColor: color.withAlpha(20),
             valueColor: AlwaysStoppedAnimation<Color>(color),
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class _HistoryCard extends StatelessWidget {
+  final List<FootprintSnapshot> history;
+  const _HistoryCard({required this.history});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  l10n.historyTitle,
+                  style: GoogleFonts.inter(
+                      fontSize: 16, fontWeight: FontWeight.w700),
+                ),
+                if (history.length >= 2)
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withAlpha(15),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      l10n.historyMeasurements(history.length),
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            if (history.isEmpty) _HistoryEmpty(l10n: l10n),
+            if (history.length == 1) _HistoryOne(snapshot: history.first, l10n: l10n),
+            if (history.length >= 2) _HistoryChart(history: history, l10n: l10n),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _HistoryEmpty extends StatelessWidget {
+  final dynamic l10n;
+  const _HistoryEmpty({required this.l10n});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withAlpha(12),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.show_chart_rounded,
+                  size: 36, color: AppColors.primary),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              l10n.historyEmptyTitle,
+              style: GoogleFonts.inter(
+                  fontSize: 15, fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              l10n.historyEmptySub,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.inter(
+                  fontSize: 12,
+                  color: AppColors.textSecondary,
+                  height: 1.5),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _HistoryOne extends StatelessWidget {
+  final FootprintSnapshot snapshot;
+  final dynamic l10n;
+  const _HistoryOne({required this.snapshot, required this.l10n});
+
+  @override
+  Widget build(BuildContext context) {
+    final fmt = DateFormat('d MMM yyyy');
+    return Column(
+      children: [
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withAlpha(15),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: const Icon(Icons.flag_rounded,
+                  color: AppColors.primary, size: 28),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.historyOneMeasurement,
+                    style: GoogleFonts.inter(
+                        fontSize: 14, fontWeight: FontWeight.w700),
+                  ),
+                  Text(
+                    fmt.format(snapshot.date),
+                    style: GoogleFonts.inter(
+                        fontSize: 12, color: AppColors.textSecondary),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              '${snapshot.totalCO2.toStringAsFixed(2)} t',
+              style: GoogleFonts.inter(
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+                color: AppColors.primary,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Text(
+          l10n.historyOneSub,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.inter(
+              fontSize: 11,
+              color: AppColors.textHint,
+              height: 1.5),
+        ),
+      ],
+    );
+  }
+}
+
+class _HistoryChart extends StatelessWidget {
+  final List<FootprintSnapshot> history;
+  final dynamic l10n;
+  const _HistoryChart({required this.history, required this.l10n});
+
+  @override
+  Widget build(BuildContext context) {
+    final first = history.first.totalCO2;
+    final last = history.last.totalCO2;
+    final delta = (last - first) / first * 100;
+    final improved = delta <= 0;
+    final deltaColor = improved ? AppColors.green : AppColors.red;
+    final deltaText = improved
+        ? l10n.historyImproved(delta.abs().toStringAsFixed(1))
+        : l10n.historyWorsened(delta.abs().toStringAsFixed(1));
+
+    final minY =
+        (history.map((s) => s.totalCO2).reduce((a, b) => a < b ? a : b) - 0.5)
+            .clamp(0.0, double.infinity);
+    final maxY =
+        history.map((s) => s.totalCO2).reduce((a, b) => a > b ? a : b) + 0.5;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          decoration: BoxDecoration(
+            color: deltaColor.withAlpha(18),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Text(
+            deltaText,
+            style: GoogleFonts.inter(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: deltaColor,
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        SizedBox(
+          height: 160,
+          child: LineChart(
+            LineChartData(
+              minY: minY,
+              maxY: maxY,
+              lineBarsData: [
+                LineChartBarData(
+                  spots: List.generate(
+                    history.length,
+                    (i) => FlSpot(i.toDouble(), history[i].totalCO2),
+                  ),
+                  isCurved: history.length > 3,
+                  color: AppColors.primary,
+                  barWidth: 2.5,
+                  dotData: FlDotData(
+                    show: true,
+                    getDotPainter: (spot, pct, bar, idx) =>
+                        FlDotCirclePainter(
+                      radius: 4,
+                      color: AppColors.primary,
+                      strokeWidth: 2,
+                      strokeColor: Colors.white,
+                    ),
+                  ),
+                  belowBarData: BarAreaData(
+                    show: true,
+                    color: AppColors.primary.withAlpha(20),
+                  ),
+                ),
+              ],
+              titlesData: FlTitlesData(
+                topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false)),
+                rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false)),
+                leftTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    reservedSize: 40,
+                    getTitlesWidget: (value, meta) => Text(
+                      '${value.toStringAsFixed(1)}t',
+                      style: GoogleFonts.inter(
+                          fontSize: 10,
+                          color: AppColors.textSecondary),
+                    ),
+                  ),
+                ),
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    reservedSize: 28,
+                    interval: history.length > 6
+                        ? (history.length / 4).ceilToDouble()
+                        : 1,
+                    getTitlesWidget: (value, meta) {
+                      final idx = value.round();
+                      if (idx < 0 || idx >= history.length) {
+                        return const SizedBox.shrink();
+                      }
+                      final d = history[idx].date;
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          DateFormat('d/M').format(d),
+                          style: GoogleFonts.inter(
+                              fontSize: 9,
+                              color: AppColors.textSecondary),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              gridData: FlGridData(
+                show: true,
+                drawVerticalLine: false,
+                getDrawingHorizontalLine: (_) => FlLine(
+                  color: Colors.grey.shade200,
+                  strokeWidth: 1,
+                ),
+              ),
+              borderData: FlBorderData(show: false),
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              DateFormat('d MMM yyyy').format(history.first.date),
+              style: GoogleFonts.inter(
+                  fontSize: 10, color: AppColors.textHint),
+            ),
+            Text(
+              DateFormat('d MMM yyyy').format(history.last.date),
+              style: GoogleFonts.inter(
+                  fontSize: 10, color: AppColors.textHint),
+            ),
+          ],
         ),
       ],
     );

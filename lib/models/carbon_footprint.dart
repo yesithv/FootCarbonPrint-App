@@ -1,5 +1,33 @@
 import '../core/constants/emission_factors.dart';
 
+class FootprintSnapshot {
+  final DateTime date;
+  final double totalCO2;
+  final Map<String, double> breakdown;
+
+  FootprintSnapshot({
+    required this.date,
+    required this.totalCO2,
+    required this.breakdown,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'date': date.toIso8601String(),
+        'totalCO2': totalCO2,
+        'breakdown': breakdown,
+      };
+
+  factory FootprintSnapshot.fromJson(Map<String, dynamic> j) =>
+      FootprintSnapshot(
+        date: DateTime.parse(j['date'] as String),
+        totalCO2: (j['totalCO2'] as num).toDouble(),
+        breakdown: Map<String, double>.from(
+          (j['breakdown'] as Map)
+              .map((k, v) => MapEntry(k as String, (v as num).toDouble())),
+        ),
+      );
+}
+
 class TransportData {
   String vehicle;
   double weeklyKm;
@@ -256,6 +284,7 @@ class CarbonFootprint {
   Set<String> completedModules;
   Set<String> committedActions;
   bool learnGuideCompleted;
+  List<FootprintSnapshot> history;
 
   CarbonFootprint()
       : transport = TransportData(),
@@ -266,7 +295,8 @@ class CarbonFootprint {
         water = WaterData(),
         completedModules = {},
         committedActions = {},
-        learnGuideCompleted = false;
+        learnGuideCompleted = false,
+        history = [];
 
   double get totalCO2 =>
       transport.annualCO2 +
@@ -334,6 +364,7 @@ class CarbonFootprint {
         'completedModules': completedModules.toList(),
         'committedActions': committedActions.toList(),
         'learnGuideCompleted': learnGuideCompleted,
+        'history': history.map((s) => s.toJson()).toList(),
       };
 
   factory CarbonFootprint.fromJson(Map<String, dynamic> j) {
@@ -357,6 +388,11 @@ class CarbonFootprint {
           Set<String>.from(j['committedActions'] as List);
     }
     fp.learnGuideCompleted = j['learnGuideCompleted'] ?? false;
+    if (j['history'] != null) {
+      fp.history = (j['history'] as List)
+          .map((s) => FootprintSnapshot.fromJson(s as Map<String, dynamic>))
+          .toList();
+    }
     return fp;
   }
 }

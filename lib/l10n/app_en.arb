@@ -353,5 +353,23 @@
   "tempWarm": "Warm",
   "tempWarmSub": "Moderate heater",
   "tempHot": "Hot",
-  "tempHotSub": "Full heater"
+  "tempHotSub": "Full heater",
+
+  "historyTitle": "Your footprint evolution",
+  "historyMeasurements": "{n} measurements",
+  "@historyMeasurements": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "historyEmptyTitle": "No history yet",
+  "historyEmptySub": "Update your modules on different days to track how your footprint evolves.",
+  "historyOneMeasurement": "First measurement recorded! 🎉",
+  "historyOneSub": "Come back tomorrow and update a module to see your evolution.",
+  "historyImproved": "↓ {pct}% since your first measurement",
+  "@historyImproved": {
+    "placeholders": {"pct": {"type": "String"}}
+  },
+  "historyWorsened": "↑ {pct}% since your first measurement",
+  "@historyWorsened": {
+    "placeholders": {"pct": {"type": "String"}}
+  }
 }
