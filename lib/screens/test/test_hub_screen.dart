@@ -10,6 +10,7 @@ import 'modules/shopping_module.dart';
 import 'modules/waste_module.dart';
 import 'modules/water_module.dart';
 import '../shell/main_shell.dart';
+import '../learn/learn_screen.dart';
 
 class TestHubScreen extends StatelessWidget {
   const TestHubScreen({super.key});
@@ -26,6 +27,11 @@ class TestHubScreen extends StatelessWidget {
               slivers: [
                 SliverToBoxAdapter(
                   child: _Header(provider: provider),
+                ),
+                SliverToBoxAdapter(
+                  child: _LearnBanner(
+                    isFirstTime: provider.completedCount == 0,
+                  ),
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
@@ -348,6 +354,87 @@ class _ModuleCard extends StatelessWidget {
                       : def.color,
                 ),
               ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LearnBanner extends StatelessWidget {
+  final bool isFirstTime;
+  const _LearnBanner({required this.isFirstTime});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+      child: GestureDetector(
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const LearnScreen()),
+        ),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF1B5E20), Color(0xFF388E3C)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(18),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primary.withAlpha(50),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white.withAlpha(25),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  isFirstTime ? '📚' : '🌍',
+                  style: const TextStyle(fontSize: 24),
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      isFirstTime
+                          ? '¿Primera vez aquí?'
+                          : 'Guía de Huella de Carbono',
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      isFirstTime
+                          ? 'Aprende qué es la huella de carbono en 2 minutos'
+                          : 'Repasa los conceptos clave — 6 lecciones visuales',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.arrow_forward_ios_rounded,
+                  color: Colors.white54, size: 16),
             ],
           ),
         ),
