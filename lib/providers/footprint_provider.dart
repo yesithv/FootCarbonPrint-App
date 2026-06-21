@@ -95,4 +95,27 @@ class FootprintProvider extends ChangeNotifier {
 
   int get completedCount => _footprint.completedModules.length;
   double get completionPercent => completedCount / 6;
+
+  // Gamification
+  void toggleCommitAction(String actionId) {
+    if (_footprint.committedActions.contains(actionId)) {
+      _footprint.committedActions.remove(actionId);
+    } else {
+      _footprint.committedActions.add(actionId);
+    }
+    _persist();
+    notifyListeners();
+  }
+
+  bool isActionCommitted(String actionId) =>
+      _footprint.committedActions.contains(actionId);
+
+  int get committedActionsCount => _footprint.committedActions.length;
+
+  void completeLearnGuide() {
+    if (_footprint.learnGuideCompleted) return;
+    _footprint.learnGuideCompleted = true;
+    _persist();
+    notifyListeners();
+  }
 }

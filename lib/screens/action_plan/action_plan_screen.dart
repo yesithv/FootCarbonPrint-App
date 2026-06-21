@@ -60,6 +60,7 @@ class ActionPlanScreen extends StatelessWidget {
       Map<String, double> breakdown, double total) {
     final all = [
       _Action(
+        id: 'flight',
         emoji: '✈️',
         title: 'Eliminar 1 vuelo largo al año',
         reduction: 1.5,
@@ -69,6 +70,7 @@ class ActionPlanScreen extends StatelessWidget {
         description: 'Un vuelo de larga distancia emite más CO₂ que 2 meses en auto.',
       ),
       _Action(
+        id: 'flexitarian',
         emoji: '🥗',
         title: 'Adoptar dieta flexitariana',
         reduction: 0.8,
@@ -78,6 +80,7 @@ class ActionPlanScreen extends StatelessWidget {
         description: 'Reducir carne a 2–3 veces por semana genera un gran impacto.',
       ),
       _Action(
+        id: 'public_transport',
         emoji: '🚌',
         title: 'Usar transporte público 2 días/semana',
         reduction: 0.35,
@@ -87,6 +90,7 @@ class ActionPlanScreen extends StatelessWidget {
         description: 'Dejar el auto 2 días evita ~350 kg CO₂ al año.',
       ),
       _Action(
+        id: 'less_beef',
         emoji: '🥩',
         title: 'Dejar carne de res 3 días/semana',
         reduction: 0.4,
@@ -96,6 +100,7 @@ class ActionPlanScreen extends StatelessWidget {
         description: 'La carne de res emite 27 kgCO₂/kg — la más alta de todos los alimentos.',
       ),
       _Action(
+        id: 'led',
         emoji: '💡',
         title: 'Cambiar a bombillas LED',
         reduction: 0.15,
@@ -105,6 +110,7 @@ class ActionPlanScreen extends StatelessWidget {
         description: 'Las LED consumen 75% menos energía que las incandescentes.',
       ),
       _Action(
+        id: 'short_shower',
         emoji: '🛁',
         title: 'Duchas de máximo 5 minutos',
         reduction: 0.1,
@@ -114,6 +120,7 @@ class ActionPlanScreen extends StatelessWidget {
         description: 'Reducir la ducha a 5 min con agua caliente evita 100 kgCO₂/año.',
       ),
       _Action(
+        id: 'recycle',
         emoji: '♻️',
         title: 'Separar residuos para reciclaje',
         reduction: 0.12,
@@ -123,6 +130,7 @@ class ActionPlanScreen extends StatelessWidget {
         description: 'El reciclaje evita la descomposición anaeróbica que genera metano.',
       ),
       _Action(
+        id: 'secondhand',
         emoji: '👕',
         title: 'Comprar 50% ropa de segunda mano',
         reduction: 0.15,
@@ -132,6 +140,7 @@ class ActionPlanScreen extends StatelessWidget {
         description: 'La industria textil es una de las más contaminantes del mundo.',
       ),
       _Action(
+        id: 'compost',
         emoji: '🌱',
         title: 'Compostar residuos orgánicos',
         reduction: 0.08,
@@ -141,6 +150,7 @@ class ActionPlanScreen extends StatelessWidget {
         description: 'El compost evita que los residuos orgánicos generen metano en rellenos.',
       ),
       _Action(
+        id: 'bike',
         emoji: '🚴',
         title: 'Ir en bici o caminar al trabajo',
         reduction: 0.3,
@@ -266,27 +276,41 @@ class _HeaderSection extends StatelessWidget {
   }
 }
 
-class _ActionCard extends StatefulWidget {
+class _ActionCard extends StatelessWidget {
   final _Action action;
   const _ActionCard({required this.action});
 
   @override
-  State<_ActionCard> createState() => _ActionCardState();
+  Widget build(BuildContext context) {
+    final a = action;
+    return Consumer<FootprintProvider>(
+      builder: (context, provider, _) {
+        final committed = provider.isActionCommitted(a.id);
+        return GestureDetector(
+          onTap: () => provider.toggleCommitAction(a.id),
+          child: _ActionCardContent(action: a, committed: committed),
+        );
+      },
+    );
+  }
 }
 
-class _ActionCardState extends State<_ActionCard> {
-  bool _committed = false;
+class _ActionCardContent extends StatelessWidget {
+  final _Action action;
+  final bool committed;
+  const _ActionCardContent(
+      {required this.action, required this.committed});
 
   @override
   Widget build(BuildContext context) {
-    final a = widget.action;
+    final a = action;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
-        color: _committed ? a.color.withAlpha(15) : Colors.white,
+        color: committed ? a.color.withAlpha(15) : Colors.white,
         borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color: _committed ? a.color : Colors.transparent,
+          color: committed ? a.color : Colors.transparent,
           width: 2,
         ),
         boxShadow: [
@@ -349,26 +373,36 @@ class _ActionCardState extends State<_ActionCard> {
                 const SizedBox(width: 8),
                 _DifficultyTag(difficulty: a.difficulty),
                 const Spacer(),
-                GestureDetector(
-                  onTap: () => setState(() => _committed = !_committed),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: _committed ? a.color : Colors.transparent,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: a.color),
-                    ),
-                    child: Text(
-                      _committed ? '✓ Comprometido' : 'Me comprometo',
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: committed ? a.color : Colors.transparent,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: a.color),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                      committed ? '✓ Comprometido' : 'Me comprometo',
                       style: GoogleFonts.inter(
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
-                        color:
-                            _committed ? Colors.white : a.color,
+                        color: committed ? Colors.white : a.color,
                       ),
                     ),
+                      if (committed) ...[
+                        const SizedBox(width: 4),
+                        Text('+15 pts',
+                            style: GoogleFonts.inter(
+                              fontSize: 9,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white70,
+                            )),
+                      ],
+                    ],
                   ),
                 ),
               ],
@@ -544,6 +578,7 @@ class _ChallengeCardState extends State<_ChallengeCard> {
 }
 
 class _Action {
+  final String id;
   final String emoji;
   final String title;
   final double reduction;
@@ -553,6 +588,7 @@ class _Action {
   final String description;
 
   const _Action({
+    required this.id,
     required this.emoji,
     required this.title,
     required this.reduction,
