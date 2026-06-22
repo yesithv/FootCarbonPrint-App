@@ -12,6 +12,7 @@ import 'modules/waste_module.dart';
 import 'modules/water_module.dart';
 import '../shell/main_shell.dart';
 import '../learn/learn_screen.dart';
+import '../results/results_screen.dart';
 
 class TestHubScreen extends StatelessWidget {
   const TestHubScreen({super.key});
@@ -50,6 +51,37 @@ class TestHubScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (provider.completedCount == 6)
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+                      child: ElevatedButton.icon(
+                        onPressed: () async {
+                          final result =
+                              await Navigator.push<String>(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const ResultsScreen()),
+                          );
+                          if (!context.mounted) return;
+                          if (result == 'dashboard') {
+                            MainShell.of(context)?.goToTab(1);
+                          } else if (result == 'plan') {
+                            MainShell.of(context)?.goToTab(2);
+                          }
+                        },
+                        icon: const Icon(Icons.emoji_events_rounded),
+                        label: Text(context.l10n.resultsViewAgain),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFFFA726),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14)),
+                        ),
+                      ),
+                    ),
+                  ),
                 if (provider.completedCount > 0)
                   SliverToBoxAdapter(
                     child: Padding(
@@ -128,10 +160,29 @@ class TestHubScreen extends StatelessWidget {
         .map((d) => _ModuleCard(
               def: d,
               isComplete: provider.isModuleComplete(d.id),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => d.screen),
-              ),
+              onTap: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => d.screen),
+                );
+                if (!context.mounted) return;
+                final p = context.read<FootprintProvider>();
+                if (p.completedCount == 6 && !p.footprint.resultsViewed) {
+                  p.markResultsViewed();
+                  if (!context.mounted) return;
+                  final result = await Navigator.push<String>(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => const ResultsScreen()),
+                  );
+                  if (!context.mounted) return;
+                  if (result == 'dashboard') {
+                    MainShell.of(context)?.goToTab(1);
+                  } else if (result == 'plan') {
+                    MainShell.of(context)?.goToTab(2);
+                  }
+                }
+              },
             ))
         .toList();
   }

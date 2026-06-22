@@ -1031,4 +1031,52 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get offsetDisclaimer =>
       '* Estimación basada en mercado voluntario de carbono (~\$20/t CO₂) y absorción de árbol maduro (~21 kg CO₂/año).';
+
+  @override
+  String get resultsTitle => '¡Diagnóstico completado!';
+
+  @override
+  String get resultsSub =>
+      'Has completado los 6 módulos de tu huella de carbono';
+
+  @override
+  String get resultsYourFootprint => 'Tu huella de carbono anual';
+
+  @override
+  String get resultsCompareTitle => '¿Cómo te comparas?';
+
+  @override
+  String get resultsYou => 'Tú';
+
+  @override
+  String get resultsParis => 'Obj. París';
+
+  @override
+  String get resultsColombia => 'Colombia';
+
+  @override
+  String get resultsWorld => 'Mundo';
+
+  @override
+  String get resultsTopSources => 'Principales fuentes de emisión';
+
+  @override
+  String get resultsAchievements => 'Tus logros';
+
+  @override
+  String resultsEcoPoints(int points) {
+    return '$points puntos EcoScore';
+  }
+
+  @override
+  String get resultsBadgesUnlocked => 'logros desbloqueados';
+
+  @override
+  String get resultsViewDashboard => 'Ver Dashboard completo';
+
+  @override
+  String get resultsViewPlan => 'Crear mi Plan de Acción';
+
+  @override
+  String get resultsViewAgain => 'Ver mis resultados 🏆';
 }

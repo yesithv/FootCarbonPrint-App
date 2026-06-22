@@ -1969,6 +1969,96 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'* Estimación basada en mercado voluntario de carbono (~\$20/t CO₂) y absorción de árbol maduro (~21 kg CO₂/año).'**
   String get offsetDisclaimer;
+
+  /// No description provided for @resultsTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Diagnóstico completado!'**
+  String get resultsTitle;
+
+  /// No description provided for @resultsSub.
+  ///
+  /// In es, this message translates to:
+  /// **'Has completado los 6 módulos de tu huella de carbono'**
+  String get resultsSub;
+
+  /// No description provided for @resultsYourFootprint.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu huella de carbono anual'**
+  String get resultsYourFootprint;
+
+  /// No description provided for @resultsCompareTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Cómo te comparas?'**
+  String get resultsCompareTitle;
+
+  /// No description provided for @resultsYou.
+  ///
+  /// In es, this message translates to:
+  /// **'Tú'**
+  String get resultsYou;
+
+  /// No description provided for @resultsParis.
+  ///
+  /// In es, this message translates to:
+  /// **'Obj. París'**
+  String get resultsParis;
+
+  /// No description provided for @resultsColombia.
+  ///
+  /// In es, this message translates to:
+  /// **'Colombia'**
+  String get resultsColombia;
+
+  /// No description provided for @resultsWorld.
+  ///
+  /// In es, this message translates to:
+  /// **'Mundo'**
+  String get resultsWorld;
+
+  /// No description provided for @resultsTopSources.
+  ///
+  /// In es, this message translates to:
+  /// **'Principales fuentes de emisión'**
+  String get resultsTopSources;
+
+  /// No description provided for @resultsAchievements.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus logros'**
+  String get resultsAchievements;
+
+  /// No description provided for @resultsEcoPoints.
+  ///
+  /// In es, this message translates to:
+  /// **'{points} puntos EcoScore'**
+  String resultsEcoPoints(int points);
+
+  /// No description provided for @resultsBadgesUnlocked.
+  ///
+  /// In es, this message translates to:
+  /// **'logros desbloqueados'**
+  String get resultsBadgesUnlocked;
+
+  /// No description provided for @resultsViewDashboard.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver Dashboard completo'**
+  String get resultsViewDashboard;
+
+  /// No description provided for @resultsViewPlan.
+  ///
+  /// In es, this message translates to:
+  /// **'Crear mi Plan de Acción'**
+  String get resultsViewPlan;
+
+  /// No description provided for @resultsViewAgain.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver mis resultados 🏆'**
+  String get resultsViewAgain;
 }
 
 class _AppLocalizationsDelegate

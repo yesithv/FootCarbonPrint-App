@@ -421,5 +421,24 @@
   "offsetReduceFirst": "Reduce first, offset later",
   "offsetReduceFirstDesc": "Carbon credits are a complement, not a substitute for reducing your footprint.",
   "offsetPlatformsTitle": "Certified platforms",
-  "offsetDisclaimer": "* Estimate based on the voluntary carbon market (~$20/t CO₂) and mature tree absorption (~21 kg CO₂/year)."
+  "offsetDisclaimer": "* Estimate based on the voluntary carbon market (~$20/t CO₂) and mature tree absorption (~21 kg CO₂/year).",
+
+  "resultsTitle": "Diagnosis complete!",
+  "resultsSub": "You have completed all 6 carbon footprint modules",
+  "resultsYourFootprint": "Your annual carbon footprint",
+  "resultsCompareTitle": "How do you compare?",
+  "resultsYou": "You",
+  "resultsParis": "Paris goal",
+  "resultsColombia": "Colombia",
+  "resultsWorld": "World",
+  "resultsTopSources": "Main emission sources",
+  "resultsAchievements": "Your achievements",
+  "resultsEcoPoints": "{points} EcoScore points",
+  "@resultsEcoPoints": {
+    "placeholders": {"points": {"type": "int"}}
+  },
+  "resultsBadgesUnlocked": "achievements unlocked",
+  "resultsViewDashboard": "View full Dashboard",
+  "resultsViewPlan": "Create my Action Plan",
+  "resultsViewAgain": "See my results 🏆"
 }

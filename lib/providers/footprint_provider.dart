@@ -120,6 +120,11 @@ class FootprintProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void markResultsViewed() {
+    _footprint.resultsViewed = true;
+    _persist();
+  }
+
   void resetAll() {
     _footprint = CarbonFootprint();
     _persist();

@@ -286,6 +286,7 @@ class CarbonFootprint {
   bool learnGuideCompleted;
   List<FootprintSnapshot> history;
   Set<String> completedChallengePeriods;
+  bool resultsViewed;
 
   CarbonFootprint()
       : transport = TransportData(),
@@ -298,7 +299,8 @@ class CarbonFootprint {
         committedActions = {},
         learnGuideCompleted = false,
         history = [],
-        completedChallengePeriods = {};
+        completedChallengePeriods = {},
+        resultsViewed = false;
 
   double get totalCO2 =>
       transport.annualCO2 +
@@ -368,6 +370,7 @@ class CarbonFootprint {
         'learnGuideCompleted': learnGuideCompleted,
         'history': history.map((s) => s.toJson()).toList(),
         'completedChallengePeriods': completedChallengePeriods.toList(),
+        'resultsViewed': resultsViewed,
       };
 
   factory CarbonFootprint.fromJson(Map<String, dynamic> j) {
@@ -400,6 +403,7 @@ class CarbonFootprint {
       fp.completedChallengePeriods =
           Set<String>.from(j['completedChallengePeriods'] as List);
     }
+    fp.resultsViewed = j['resultsViewed'] ?? false;
     return fp;
   }
 }

@@ -421,5 +421,24 @@
   "offsetReduceFirst": "Reduce primero, compensa después",
   "offsetReduceFirstDesc": "Los créditos de carbono son un complemento, no un sustituto de reducir tu huella.",
   "offsetPlatformsTitle": "Plataformas certificadas",
-  "offsetDisclaimer": "* Estimación basada en mercado voluntario de carbono (~$20/t CO₂) y absorción de árbol maduro (~21 kg CO₂/año)."
+  "offsetDisclaimer": "* Estimación basada en mercado voluntario de carbono (~$20/t CO₂) y absorción de árbol maduro (~21 kg CO₂/año).",
+
+  "resultsTitle": "¡Diagnóstico completado!",
+  "resultsSub": "Has completado los 6 módulos de tu huella de carbono",
+  "resultsYourFootprint": "Tu huella de carbono anual",
+  "resultsCompareTitle": "¿Cómo te comparas?",
+  "resultsYou": "Tú",
+  "resultsParis": "Obj. París",
+  "resultsColombia": "Colombia",
+  "resultsWorld": "Mundo",
+  "resultsTopSources": "Principales fuentes de emisión",
+  "resultsAchievements": "Tus logros",
+  "resultsEcoPoints": "{points} puntos EcoScore",
+  "@resultsEcoPoints": {
+    "placeholders": {"points": {"type": "int"}}
+  },
+  "resultsBadgesUnlocked": "logros desbloqueados",
+  "resultsViewDashboard": "Ver Dashboard completo",
+  "resultsViewPlan": "Crear mi Plan de Acción",
+  "resultsViewAgain": "Ver mis resultados 🏆"
 }
