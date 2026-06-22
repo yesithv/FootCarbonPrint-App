@@ -22,6 +22,13 @@ class FootCarbonPrintApp extends StatelessWidget {
         theme: AppTheme.light,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
+        localeResolutionCallback: (locale, supportedLocales) {
+          if (locale == null) return const Locale('en');
+          for (final supported in supportedLocales) {
+            if (supported.languageCode == locale.languageCode) return supported;
+          }
+          return const Locale('en');
+        },
         home: const SplashScreen(),
       ),
     );
