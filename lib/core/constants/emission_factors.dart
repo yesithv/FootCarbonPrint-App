@@ -52,4 +52,8 @@ class EmissionFactors {
   static const globalAverage = 4.7;
   static const colombiaAverage = 1.8;
   static const parisTarget = 2.0;
+
+  // Carbon offset estimates
+  static const treeAbsorptionKgPerYear = 21.0; // mature tree, avg
+  static const carbonCreditPriceUsdPerTonne = 20.0; // voluntary market avg
 }

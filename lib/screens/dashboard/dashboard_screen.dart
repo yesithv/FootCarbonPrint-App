@@ -1,3 +1,6 @@
+// ignore: avoid_web_libraries_in_flutter, deprecated_member_use
+import 'dart:html' as html;
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,6 +56,8 @@ class DashboardScreen extends StatelessWidget {
                     _GamificationLevelCard(provider: provider),
                     const SizedBox(height: 20),
                     _BadgesCard(provider: provider),
+                    const SizedBox(height: 20),
+                    _OffsetCalculatorCard(totalCO2: fp.totalCO2),
                     const SizedBox(height: 20),
                     const _ShareCardButton(),
                     const SizedBox(height: 16),
@@ -1316,6 +1321,262 @@ class _BadgesCard extends StatelessWidget {
                 );
               }).toList(),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _OffsetCalculatorCard extends StatelessWidget {
+  final double totalCO2;
+  const _OffsetCalculatorCard({required this.totalCO2});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final treesNeeded =
+        (totalCO2 * 1000 / EmissionFactors.treeAbsorptionKgPerYear).ceil();
+    final costUsd =
+        (totalCO2 * EmissionFactors.carbonCreditPriceUsdPerTonne).round();
+    final costMonthly = (costUsd / 12).round().clamp(1, 9999);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withAlpha(15),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Text('🌍', style: TextStyle(fontSize: 18)),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.offsetTitle,
+                        style: GoogleFonts.inter(
+                            fontSize: 16, fontWeight: FontWeight.w700),
+                      ),
+                      Text(
+                        l10n.offsetSubtitle,
+                        style: GoogleFonts.inter(
+                            fontSize: 12, color: AppColors.textSecondary),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            // Metrics row
+            Row(
+              children: [
+                Expanded(
+                  child: _OffsetMetric(
+                    emoji: '🌳',
+                    value: l10n.offsetTreesValue(treesNeeded),
+                    label: l10n.offsetTreesLabel,
+                    color: AppColors.primary,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _OffsetMetric(
+                    emoji: '💳',
+                    value: l10n.offsetCostValue(costUsd),
+                    label: '${l10n.offsetCostMonthly(costMonthly)}\n${l10n.offsetCostLabel}',
+                    color: const Color(0xFF1565C0),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Reduce-first warning
+            Container(
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: AppColors.yellow.withAlpha(20),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.yellow.withAlpha(60)),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('⚠️', style: TextStyle(fontSize: 16)),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.offsetReduceFirst,
+                          style: GoogleFonts.inter(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          l10n.offsetReduceFirstDesc,
+                          style: GoogleFonts.inter(
+                              fontSize: 12,
+                              color: AppColors.textSecondary,
+                              height: 1.4),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            // Platforms
+            Text(
+              l10n.offsetPlatformsTitle,
+              style: GoogleFonts.inter(
+                  fontSize: 13, fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 10),
+            const _OffsetPlatformLink(
+              emoji: '🌿',
+              name: 'Gold Standard',
+              description: 'goldstandard.org',
+              url: 'https://www.goldstandard.org',
+            ),
+            const SizedBox(height: 8),
+            const _OffsetPlatformLink(
+              emoji: '🌲',
+              name: 'Pachama',
+              description: 'pachama.com',
+              url: 'https://pachama.com',
+            ),
+            const SizedBox(height: 8),
+            const _OffsetPlatformLink(
+              emoji: '✈️',
+              name: 'atmosfair',
+              description: 'atmosfair.de',
+              url: 'https://www.atmosfair.de',
+            ),
+            const SizedBox(height: 12),
+            Text(
+              l10n.offsetDisclaimer,
+              style: GoogleFonts.inter(
+                  fontSize: 10, color: AppColors.textHint, height: 1.4),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _OffsetMetric extends StatelessWidget {
+  final String emoji;
+  final String value;
+  final String label;
+  final Color color;
+
+  const _OffsetMetric({
+    required this.emoji,
+    required this.value,
+    required this.label,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: color.withAlpha(12),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: color.withAlpha(40)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(emoji, style: const TextStyle(fontSize: 24)),
+          const SizedBox(height: 8),
+          Text(
+            value,
+            style: GoogleFonts.inter(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: color,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: GoogleFonts.inter(
+                fontSize: 11, color: AppColors.textSecondary, height: 1.3),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _OffsetPlatformLink extends StatelessWidget {
+  final String emoji;
+  final String name;
+  final String description;
+  final String url;
+
+  const _OffsetPlatformLink({
+    required this.emoji,
+    required this.name,
+    required this.description,
+    required this.url,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        html.AnchorElement(href: url)
+          ..setAttribute('target', '_blank')
+          ..click();
+      },
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        decoration: BoxDecoration(
+          color: AppColors.background,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.grey.shade200),
+        ),
+        child: Row(
+          children: [
+            Text(emoji, style: const TextStyle(fontSize: 18)),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name,
+                      style: GoogleFonts.inter(
+                          fontSize: 13, fontWeight: FontWeight.w700)),
+                  Text(description,
+                      style: GoogleFonts.inter(
+                          fontSize: 11, color: AppColors.textSecondary)),
+                ],
+              ),
+            ),
+            const Icon(Icons.open_in_new_rounded,
+                size: 16, color: AppColors.textHint),
           ],
         ),
       ),

@@ -989,4 +989,46 @@ class AppLocalizationsEs extends AppLocalizations {
   String historyWorsened(String pct) {
     return '↑ $pct% desde tu primera medición';
   }
+
+  @override
+  String get offsetTitle => '¿Cómo compensar tu huella?';
+
+  @override
+  String get offsetSubtitle =>
+      'Mientras reduces, puedes neutralizar el CO₂ restante';
+
+  @override
+  String offsetTreesValue(int n) {
+    return '$n árboles';
+  }
+
+  @override
+  String get offsetTreesLabel => 'para absorber tu huella anual';
+
+  @override
+  String offsetCostValue(int usd) {
+    return '~$usd USD/año';
+  }
+
+  @override
+  String offsetCostMonthly(int usd) {
+    return '~$usd USD/mes';
+  }
+
+  @override
+  String get offsetCostLabel => 'en créditos de carbono certificados';
+
+  @override
+  String get offsetReduceFirst => 'Reduce primero, compensa después';
+
+  @override
+  String get offsetReduceFirstDesc =>
+      'Los créditos de carbono son un complemento, no un sustituto de reducir tu huella.';
+
+  @override
+  String get offsetPlatformsTitle => 'Plataformas certificadas';
+
+  @override
+  String get offsetDisclaimer =>
+      '* Estimación basada en mercado voluntario de carbono (~\$20/t CO₂) y absorción de árbol maduro (~21 kg CO₂/año).';
 }

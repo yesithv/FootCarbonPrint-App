@@ -988,4 +988,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String historyWorsened(String pct) {
     return '↑ $pct% since your first measurement';
   }
+
+  @override
+  String get offsetTitle => 'How to offset your footprint?';
+
+  @override
+  String get offsetSubtitle =>
+      'While you reduce, you can neutralize the remaining CO₂';
+
+  @override
+  String offsetTreesValue(int n) {
+    return '$n trees';
+  }
+
+  @override
+  String get offsetTreesLabel => 'to absorb your annual footprint';
+
+  @override
+  String offsetCostValue(int usd) {
+    return '~$usd USD/year';
+  }
+
+  @override
+  String offsetCostMonthly(int usd) {
+    return '~$usd USD/month';
+  }
+
+  @override
+  String get offsetCostLabel => 'in certified carbon credits';
+
+  @override
+  String get offsetReduceFirst => 'Reduce first, offset later';
+
+  @override
+  String get offsetReduceFirstDesc =>
+      'Carbon credits are a complement, not a substitute for reducing your footprint.';
+
+  @override
+  String get offsetPlatformsTitle => 'Certified platforms';
+
+  @override
+  String get offsetDisclaimer =>
+      '* Estimate based on the voluntary carbon market (~\$20/t CO₂) and mature tree absorption (~21 kg CO₂/year).';
 }

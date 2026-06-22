@@ -400,5 +400,26 @@
   "historyWorsened": "↑ {pct}% since your first measurement",
   "@historyWorsened": {
     "placeholders": {"pct": {"type": "String"}}
-  }
+  },
+
+  "offsetTitle": "How to offset your footprint?",
+  "offsetSubtitle": "While you reduce, you can neutralize the remaining CO₂",
+  "offsetTreesValue": "{n} trees",
+  "@offsetTreesValue": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "offsetTreesLabel": "to absorb your annual footprint",
+  "offsetCostValue": "~{usd} USD/year",
+  "@offsetCostValue": {
+    "placeholders": {"usd": {"type": "int"}}
+  },
+  "offsetCostMonthly": "~{usd} USD/month",
+  "@offsetCostMonthly": {
+    "placeholders": {"usd": {"type": "int"}}
+  },
+  "offsetCostLabel": "in certified carbon credits",
+  "offsetReduceFirst": "Reduce first, offset later",
+  "offsetReduceFirstDesc": "Carbon credits are a complement, not a substitute for reducing your footprint.",
+  "offsetPlatformsTitle": "Certified platforms",
+  "offsetDisclaimer": "* Estimate based on the voluntary carbon market (~$20/t CO₂) and mature tree absorption (~21 kg CO₂/year)."
 }

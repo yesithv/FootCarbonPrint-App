@@ -1903,6 +1903,72 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'↑ {pct}% desde tu primera medición'**
   String historyWorsened(String pct);
+
+  /// No description provided for @offsetTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Cómo compensar tu huella?'**
+  String get offsetTitle;
+
+  /// No description provided for @offsetSubtitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Mientras reduces, puedes neutralizar el CO₂ restante'**
+  String get offsetSubtitle;
+
+  /// No description provided for @offsetTreesValue.
+  ///
+  /// In es, this message translates to:
+  /// **'{n} árboles'**
+  String offsetTreesValue(int n);
+
+  /// No description provided for @offsetTreesLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'para absorber tu huella anual'**
+  String get offsetTreesLabel;
+
+  /// No description provided for @offsetCostValue.
+  ///
+  /// In es, this message translates to:
+  /// **'~{usd} USD/año'**
+  String offsetCostValue(int usd);
+
+  /// No description provided for @offsetCostMonthly.
+  ///
+  /// In es, this message translates to:
+  /// **'~{usd} USD/mes'**
+  String offsetCostMonthly(int usd);
+
+  /// No description provided for @offsetCostLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'en créditos de carbono certificados'**
+  String get offsetCostLabel;
+
+  /// No description provided for @offsetReduceFirst.
+  ///
+  /// In es, this message translates to:
+  /// **'Reduce primero, compensa después'**
+  String get offsetReduceFirst;
+
+  /// No description provided for @offsetReduceFirstDesc.
+  ///
+  /// In es, this message translates to:
+  /// **'Los créditos de carbono son un complemento, no un sustituto de reducir tu huella.'**
+  String get offsetReduceFirstDesc;
+
+  /// No description provided for @offsetPlatformsTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Plataformas certificadas'**
+  String get offsetPlatformsTitle;
+
+  /// No description provided for @offsetDisclaimer.
+  ///
+  /// In es, this message translates to:
+  /// **'* Estimación basada en mercado voluntario de carbono (~\$20/t CO₂) y absorción de árbol maduro (~21 kg CO₂/año).'**
+  String get offsetDisclaimer;
 }
 
 class _AppLocalizationsDelegate

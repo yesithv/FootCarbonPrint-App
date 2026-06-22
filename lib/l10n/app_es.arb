@@ -400,5 +400,26 @@
   "historyWorsened": "↑ {pct}% desde tu primera medición",
   "@historyWorsened": {
     "placeholders": {"pct": {"type": "String"}}
-  }
+  },
+
+  "offsetTitle": "¿Cómo compensar tu huella?",
+  "offsetSubtitle": "Mientras reduces, puedes neutralizar el CO₂ restante",
+  "offsetTreesValue": "{n} árboles",
+  "@offsetTreesValue": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "offsetTreesLabel": "para absorber tu huella anual",
+  "offsetCostValue": "~{usd} USD/año",
+  "@offsetCostValue": {
+    "placeholders": {"usd": {"type": "int"}}
+  },
+  "offsetCostMonthly": "~{usd} USD/mes",
+  "@offsetCostMonthly": {
+    "placeholders": {"usd": {"type": "int"}}
+  },
+  "offsetCostLabel": "en créditos de carbono certificados",
+  "offsetReduceFirst": "Reduce primero, compensa después",
+  "offsetReduceFirstDesc": "Los créditos de carbono son un complemento, no un sustituto de reducir tu huella.",
+  "offsetPlatformsTitle": "Plataformas certificadas",
+  "offsetDisclaimer": "* Estimación basada en mercado voluntario de carbono (~$20/t CO₂) y absorción de árbol maduro (~21 kg CO₂/año)."
 }
