@@ -2059,6 +2059,18 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Ver mis resultados 🏆'**
   String get resultsViewAgain;
+
+  /// No description provided for @exportResult.
+  ///
+  /// In es, this message translates to:
+  /// **'Exportar imagen'**
+  String get exportResult;
+
+  /// No description provided for @downloadImage.
+  ///
+  /// In es, this message translates to:
+  /// **'Descargar imagen'**
+  String get downloadImage;
 }
 
 class _AppLocalizationsDelegate

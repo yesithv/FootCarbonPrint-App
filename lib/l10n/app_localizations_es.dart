@@ -1079,4 +1079,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get resultsViewAgain => 'Ver mis resultados 🏆';
+
+  @override
+  String get exportResult => 'Exportar imagen';
+
+  @override
+  String get downloadImage => 'Descargar imagen';
 }

@@ -440,5 +440,8 @@
   "resultsBadgesUnlocked": "logros desbloqueados",
   "resultsViewDashboard": "Ver Dashboard completo",
   "resultsViewPlan": "Crear mi Plan de Acción",
-  "resultsViewAgain": "Ver mis resultados 🏆"
+  "resultsViewAgain": "Ver mis resultados 🏆",
+
+  "exportResult": "Exportar imagen",
+  "downloadImage": "Descargar imagen"
 }

@@ -1,5 +1,8 @@
 // ignore: avoid_web_libraries_in_flutter, deprecated_member_use
 import 'dart:html' as html;
+import 'dart:convert';
+import 'dart:ui' as ui;
+import 'package:flutter/rendering.dart' show RenderRepaintBoundary;
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -34,14 +37,16 @@ class DashboardScreen extends StatelessWidget {
             slivers: [
               _AppBarSliver(
                 level: context.l10n.localizedFootprintLevel(fp.level),
-                emoji: fp.levelEmoji,
                 userName: provider.userName,
               ),
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
-                    _TotalCard(footprint: fp),
+                    _TotalCard(
+                      footprint: fp,
+                      onExport: () => _showExportSheet(context, fp),
+                    ),
                     const SizedBox(height: 20),
                     _EquivalencesCard(footprint: fp),
                     const SizedBox(height: 20),
@@ -131,10 +136,8 @@ class _EmptyState extends StatelessWidget {
 
 class _AppBarSliver extends StatelessWidget {
   final String level;
-  final String emoji;
   final String userName;
-  const _AppBarSliver(
-      {required this.level, required this.emoji, required this.userName});
+  const _AppBarSliver({required this.level, required this.userName});
 
   @override
   Widget build(BuildContext context) {
@@ -162,17 +165,32 @@ class _AppBarSliver extends StatelessWidget {
         ),
       ],
       flexibleSpace: FlexibleSpaceBar(
-        titlePadding: const EdgeInsets.fromLTRB(20, 0, 80, 16),
+        titlePadding: const EdgeInsets.fromLTRB(16, 0, 72, 14),
         title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Text(emoji, style: const TextStyle(fontSize: 20)),
+            CircleAvatar(
+              radius: 14,
+              backgroundColor: Colors.white.withAlpha(45),
+              child: userName.isNotEmpty
+                  ? Text(
+                      userName[0].toUpperCase(),
+                      style: GoogleFonts.inter(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                      ),
+                    )
+                  : const Icon(Icons.eco_rounded,
+                      size: 15, color: Colors.white),
+            ),
             const SizedBox(width: 8),
             Flexible(
               child: Text(
                 greeting,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.inter(
-                  fontSize: 15,
+                  fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
                 ),
@@ -180,7 +198,15 @@ class _AppBarSliver extends StatelessWidget {
             ),
           ],
         ),
-        background: Container(color: AppColors.primary),
+        background: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [AppColors.primary, Color(0xFF2E7D32)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -235,7 +261,8 @@ class _AppBarSliver extends StatelessWidget {
 
 class _TotalCard extends StatelessWidget {
   final dynamic footprint;
-  const _TotalCard({required this.footprint});
+  final VoidCallback? onExport;
+  const _TotalCard({required this.footprint, this.onExport});
 
   Color get _levelColor {
     switch (footprint.level) {
@@ -255,53 +282,95 @@ class _TotalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return Container(
-      padding: const EdgeInsets.all(28),
-      decoration: BoxDecoration(
-        color: _levelColor,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: _levelColor.withAlpha(80),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+    final color = _levelColor;
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.fromLTRB(28, 28, 28, 20),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [color, Color.lerp(color, Colors.black, 0.18)!],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: color.withAlpha(90),
+                blurRadius: 24,
+                offset: const Offset(0, 10),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Text(
-            footprint.levelEmoji,
-            style: const TextStyle(fontSize: 48),
+          child: Column(
+            children: [
+              Text(
+                footprint.levelEmoji,
+                style: const TextStyle(fontSize: 52),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                l10n.localizedFootprintLevel(footprint.level),
+                style: GoogleFonts.inter(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white.withAlpha(200),
+                  letterSpacing: 0.3,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                footprint.totalCO2.toStringAsFixed(2),
+                style: GoogleFonts.inter(
+                  fontSize: 60,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  height: 1,
+                ),
+              ),
+              Text(
+                l10n.co2PerYear,
+                style: GoogleFonts.inter(
+                  fontSize: 15,
+                  color: Colors.white.withAlpha(190),
+                ),
+              ),
+              const SizedBox(height: 14),
+              Divider(color: Colors.white.withAlpha(40), thickness: 1),
+              const SizedBox(height: 8),
+              Text(
+                'FootCarbonPrint',
+                style: GoogleFonts.inter(
+                  fontSize: 10,
+                  color: Colors.white.withAlpha(80),
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 12),
-          Text(
-            l10n.localizedFootprintLevel(footprint.level),
-            style: GoogleFonts.inter(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: Colors.white70,
+        ),
+        Positioned(
+          top: 8,
+          right: 8,
+          child: Tooltip(
+            message: l10n.exportResult,
+            child: InkWell(
+              onTap: onExport,
+              borderRadius: BorderRadius.circular(20),
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Icon(
+                  Icons.ios_share_rounded,
+                  color: Colors.white.withAlpha(160),
+                  size: 20,
+                ),
+              ),
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            '${footprint.totalCO2.toStringAsFixed(2)}',
-            style: GoogleFonts.inter(
-              fontSize: 56,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-              height: 1,
-            ),
-          ),
-          Text(
-            l10n.co2PerYear,
-            style: GoogleFonts.inter(
-              fontSize: 16,
-              color: Colors.white70,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -341,7 +410,8 @@ class _EquivalencesCard extends StatelessWidget {
                 const SizedBox(width: 12),
                 _EquivItem(
                   emoji: '📱',
-                  value: '${(footprint.totalCO2 * 1000 / 0.082).round()}',
+                  value: _compactInt(
+                      (footprint.totalCO2 * 1000 / 0.082).round()),
                   label: l10n.phoneChargesLabel,
                 ),
               ],
@@ -1649,6 +1719,320 @@ class _ShareCardButton extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Helpers
+// ──────────────────────────────────────────────────────────────────────────────
+
+String _compactInt(int n) {
+  if (n >= 1000000) return '${(n / 1000000).toStringAsFixed(1)}M';
+  if (n >= 10000) return '${(n / 1000).round()}K';
+  if (n >= 1000) return '${(n / 1000).toStringAsFixed(1)}K';
+  return '$n';
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Export result as image
+// ──────────────────────────────────────────────────────────────────────────────
+
+void _showExportSheet(BuildContext context, CarbonFootprint footprint) {
+  showModalBottomSheet<void>(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (_) => _ExportBottomSheet(footprint: footprint),
+  );
+}
+
+class _ExportBottomSheet extends StatefulWidget {
+  final CarbonFootprint footprint;
+  const _ExportBottomSheet({required this.footprint});
+
+  @override
+  State<_ExportBottomSheet> createState() => _ExportBottomSheetState();
+}
+
+class _ExportBottomSheetState extends State<_ExportBottomSheet> {
+  final _captureKey = GlobalKey();
+  bool _downloading = false;
+
+  Future<void> _download() async {
+    setState(() => _downloading = true);
+    try {
+      final boundary = _captureKey.currentContext?.findRenderObject()
+          as RenderRepaintBoundary?;
+      if (boundary == null) return;
+      final image = await boundary.toImage(pixelRatio: 3.0);
+      final byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+      if (byteData == null) return;
+      final bytes = byteData.buffer.asUint8List();
+      final base64str = base64Encode(bytes);
+      html.AnchorElement()
+        ..href = 'data:image/png;base64,$base64str'
+        ..setAttribute('download', 'mi-huella-carbono.png')
+        ..click();
+      if (mounted) Navigator.pop(context);
+    } catch (e) {
+      debugPrint('Export error: $e');
+    } finally {
+      if (mounted) setState(() => _downloading = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    return Container(
+      decoration: const BoxDecoration(
+        color: AppColors.background,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+      ),
+      padding: const EdgeInsets.fromLTRB(24, 12, 24, 32),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 40, height: 4,
+            margin: const EdgeInsets.only(bottom: 24),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+          RepaintBoundary(
+            key: _captureKey,
+            child: _ResultShareCard(footprint: widget.footprint),
+          ),
+          const SizedBox(height: 24),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: _downloading ? null : _download,
+              icon: _downloading
+                  ? const SizedBox(
+                      width: 16, height: 16,
+                      child: CircularProgressIndicator(
+                          strokeWidth: 2, color: Colors.white))
+                  : const Icon(Icons.download_rounded),
+              label: Text(
+                _downloading ? '...' : l10n.downloadImage,
+                style: GoogleFonts.inter(
+                    fontSize: 15, fontWeight: FontWeight.w700),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16)),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ResultShareCard extends StatelessWidget {
+  final CarbonFootprint footprint;
+  const _ResultShareCard({required this.footprint});
+
+  Color _levelColor(String level) {
+    switch (level) {
+      case 'champion': return AppColors.green;
+      case 'conscious': return const Color(0xFF2196F3);
+      case 'ontrack': return AppColors.yellow;
+      case 'high': return AppColors.orange;
+      default: return AppColors.red;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final fp = footprint;
+    final color = _levelColor(fp.level);
+    final userVal = fp.totalCO2;
+    final maxVal =
+        (userVal > EmissionFactors.globalAverage ? userVal : EmissionFactors.globalAverage) *
+            1.15;
+    final dateStr = DateFormat('MMMM yyyy').format(DateTime.now());
+
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withAlpha(50), width: 1.5),
+      ),
+      clipBehavior: Clip.hardEdge,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Brand header
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [AppColors.primary, Color(0xFF2E7D32)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.eco_rounded, color: Colors.white, size: 18),
+                const SizedBox(width: 8),
+                Text(
+                  'FootCarbonPrint',
+                  style: GoogleFonts.inter(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  dateStr,
+                  style: GoogleFonts.inter(
+                      fontSize: 11, color: Colors.white60),
+                ),
+              ],
+            ),
+          ),
+          // CO₂ result
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 20, 24, 4),
+            child: Column(
+              children: [
+                Text(fp.levelEmoji, style: const TextStyle(fontSize: 40)),
+                const SizedBox(height: 8),
+                Text(
+                  fp.levelLabel,
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: color,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      fp.totalCO2.toStringAsFixed(1),
+                      style: GoogleFonts.inter(
+                        fontSize: 56,
+                        fontWeight: FontWeight.w900,
+                        color: color,
+                        height: 1,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8, left: 4),
+                      child: Text(
+                        't CO₂/año',
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          color: AppColors.textSecondary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          // Comparison bars
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+            child: Column(
+              children: [
+                _ExportCompBar('Tú', userVal, color, maxVal),
+                const SizedBox(height: 6),
+                _ExportCompBar(
+                    'Obj. París', EmissionFactors.parisTarget, AppColors.green, maxVal),
+                const SizedBox(height: 6),
+                _ExportCompBar(
+                    'Colombia', EmissionFactors.colombiaAverage, AppColors.secondary, maxVal),
+                const SizedBox(height: 6),
+                _ExportCompBar(
+                    'Mundo', EmissionFactors.globalAverage, AppColors.orange, maxVal),
+              ],
+            ),
+          ),
+          // Footer
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            color: AppColors.background,
+            child: Text(
+              '🌍  yesithv.github.io/FootCarbonPrint-App',
+              style: GoogleFonts.inter(
+                  fontSize: 10, color: AppColors.textHint),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ExportCompBar extends StatelessWidget {
+  final String label;
+  final double value;
+  final Color color;
+  final double maxVal;
+  const _ExportCompBar(this.label, this.value, this.color, this.maxVal);
+
+  @override
+  Widget build(BuildContext context) {
+    final double frac = (value / maxVal).clamp(0.0, 1.0);
+    return Row(
+      children: [
+        SizedBox(
+          width: 76,
+          child: Text(
+            label,
+            style: GoogleFonts.inter(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textSecondary,
+            ),
+          ),
+        ),
+        Expanded(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: frac,
+              minHeight: 10,
+              backgroundColor: AppColors.accent.withAlpha(30),
+              valueColor: AlwaysStoppedAnimation<Color>(color),
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        SizedBox(
+          width: 34,
+          child: Text(
+            '${value.toStringAsFixed(1)}t',
+            style: GoogleFonts.inter(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
+            textAlign: TextAlign.end,
+          ),
+        ),
+      ],
     );
   }
 }
