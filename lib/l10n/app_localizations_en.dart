@@ -1083,4 +1083,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get downloadImage => 'Download image';
+
+  @override
+  String get tabHome => 'Home';
+
+  @override
+  String get homeWelcomeTitle => 'Know your carbon footprint';
+
+  @override
+  String get homeWelcomeSub =>
+      'Complete the 6 diagnosis modules and discover how you can reduce your impact on the planet.';
+
+  @override
+  String get homeStartTest => 'Start my diagnosis';
+
+  @override
+  String get homeUpdateTest => 'Update my test';
+
+  @override
+  String get homeViewFullFootprint => 'View full analysis';
+
+  @override
+  String homeModulesStatus(int completed) {
+    return '$completed of 6 modules complete';
+  }
 }

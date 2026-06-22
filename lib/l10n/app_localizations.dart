@@ -2071,6 +2071,48 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Descargar imagen'**
   String get downloadImage;
+
+  /// No description provided for @tabHome.
+  ///
+  /// In es, this message translates to:
+  /// **'Inicio'**
+  String get tabHome;
+
+  /// No description provided for @homeWelcomeTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Conoce tu huella de carbono'**
+  String get homeWelcomeTitle;
+
+  /// No description provided for @homeWelcomeSub.
+  ///
+  /// In es, this message translates to:
+  /// **'Completa los 6 módulos del diagnóstico y descubre cómo puedes reducir tu impacto en el planeta.'**
+  String get homeWelcomeSub;
+
+  /// No description provided for @homeStartTest.
+  ///
+  /// In es, this message translates to:
+  /// **'Comenzar mi diagnóstico'**
+  String get homeStartTest;
+
+  /// No description provided for @homeUpdateTest.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar mi test'**
+  String get homeUpdateTest;
+
+  /// No description provided for @homeViewFullFootprint.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver análisis completo'**
+  String get homeViewFullFootprint;
+
+  /// No description provided for @homeModulesStatus.
+  ///
+  /// In es, this message translates to:
+  /// **'{completed} de 6 módulos completados'**
+  String homeModulesStatus(int completed);
 }
 
 class _AppLocalizationsDelegate
