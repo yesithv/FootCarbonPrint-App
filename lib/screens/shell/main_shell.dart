@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../providers/footprint_provider.dart';
-import '../test/test_hub_screen.dart';
+import '../home/home_screen.dart';
 import '../dashboard/dashboard_screen.dart';
 import '../action_plan/action_plan_screen.dart';
 
@@ -33,7 +33,7 @@ class MainShellState extends State<MainShell> {
           body: IndexedStack(
             index: _currentIndex,
             children: const [
-              TestHubScreen(),
+              HomeScreen(),
               DashboardScreen(),
               ActionPlanScreen(),
             ],
@@ -48,10 +48,10 @@ class MainShellState extends State<MainShell> {
             indicatorColor: AppColors.primary.withAlpha(20),
             destinations: [
               NavigationDestination(
-                icon: const Icon(Icons.assignment_outlined),
-                selectedIcon: const Icon(Icons.assignment_rounded,
-                    color: AppColors.primary),
-                label: l10n.tabTest,
+                icon: const Icon(Icons.home_outlined),
+                selectedIcon:
+                    const Icon(Icons.home_rounded, color: AppColors.primary),
+                label: l10n.tabHome,
               ),
               NavigationDestination(
                 icon: Badge(

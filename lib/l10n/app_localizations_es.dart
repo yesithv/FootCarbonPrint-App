@@ -1085,4 +1085,28 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get downloadImage => 'Descargar imagen';
+
+  @override
+  String get tabHome => 'Inicio';
+
+  @override
+  String get homeWelcomeTitle => 'Conoce tu huella de carbono';
+
+  @override
+  String get homeWelcomeSub =>
+      'Completa los 6 módulos del diagnóstico y descubre cómo puedes reducir tu impacto en el planeta.';
+
+  @override
+  String get homeStartTest => 'Comenzar mi diagnóstico';
+
+  @override
+  String get homeUpdateTest => 'Actualizar mi test';
+
+  @override
+  String get homeViewFullFootprint => 'Ver análisis completo';
+
+  @override
+  String homeModulesStatus(int completed) {
+    return '$completed de 6 módulos completados';
+  }
 }

@@ -443,5 +443,16 @@
   "resultsViewAgain": "Ver mis resultados 🏆",
 
   "exportResult": "Exportar imagen",
-  "downloadImage": "Descargar imagen"
+  "downloadImage": "Descargar imagen",
+
+  "tabHome": "Inicio",
+  "homeWelcomeTitle": "Conoce tu huella de carbono",
+  "homeWelcomeSub": "Completa los 6 módulos del diagnóstico y descubre cómo puedes reducir tu impacto en el planeta.",
+  "homeStartTest": "Comenzar mi diagnóstico",
+  "homeUpdateTest": "Actualizar mi test",
+  "homeViewFullFootprint": "Ver análisis completo",
+  "homeModulesStatus": "{completed} de 6 módulos completados",
+  "@homeModulesStatus": {
+    "placeholders": {"completed": {"type": "int"}}
+  }
 }

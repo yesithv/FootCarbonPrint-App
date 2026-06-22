@@ -443,5 +443,16 @@
   "resultsViewAgain": "See my results 🏆",
 
   "exportResult": "Export image",
-  "downloadImage": "Download image"
+  "downloadImage": "Download image",
+
+  "tabHome": "Home",
+  "homeWelcomeTitle": "Know your carbon footprint",
+  "homeWelcomeSub": "Complete the 6 diagnosis modules and discover how you can reduce your impact on the planet.",
+  "homeStartTest": "Start my diagnosis",
+  "homeUpdateTest": "Update my test",
+  "homeViewFullFootprint": "View full analysis",
+  "homeModulesStatus": "{completed} of 6 modules complete",
+  "@homeModulesStatus": {
+    "placeholders": {"completed": {"type": "int"}}
+  }
 }

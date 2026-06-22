@@ -15,12 +15,33 @@ import '../learn/learn_screen.dart';
 import '../results/results_screen.dart';
 
 class TestHubScreen extends StatelessWidget {
-  const TestHubScreen({super.key});
+  final void Function(int tabIndex)? onNavigate;
+  const TestHubScreen({super.key, this.onNavigate});
+
+  void _navigate(BuildContext context, int tab) {
+    if (onNavigate != null) {
+      onNavigate!(tab);
+    } else {
+      MainShell.of(context)?.goToTab(tab);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final canPop = Navigator.of(context).canPop();
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: canPop
+          ? AppBar(
+              backgroundColor: AppColors.background,
+              elevation: 0,
+              scrolledUnderElevation: 0,
+              leading: IconButton(
+                icon: const Icon(Icons.close_rounded),
+                onPressed: () => Navigator.pop(context),
+              ),
+            )
+          : null,
       body: SafeArea(
         child: Consumer<FootprintProvider>(
           builder: (context, provider, _) {
@@ -65,9 +86,9 @@ class TestHubScreen extends StatelessWidget {
                           );
                           if (!context.mounted) return;
                           if (result == 'dashboard') {
-                            MainShell.of(context)?.goToTab(1);
+                            _navigate(context, 1);
                           } else if (result == 'plan') {
-                            MainShell.of(context)?.goToTab(2);
+                            _navigate(context, 2);
                           }
                         },
                         icon: const Icon(Icons.emoji_events_rounded),
@@ -87,8 +108,7 @@ class TestHubScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
                       child: ElevatedButton.icon(
-                        onPressed: () =>
-                            MainShell.of(context)?.goToTab(1),
+                        onPressed: () => _navigate(context, 1),
                         icon: const Icon(Icons.bar_chart_rounded),
                         label: Text(context.l10n.viewMyFootprint),
                       ),
@@ -177,9 +197,9 @@ class TestHubScreen extends StatelessWidget {
                   );
                   if (!context.mounted) return;
                   if (result == 'dashboard') {
-                    MainShell.of(context)?.goToTab(1);
+                    _navigate(context, 1);
                   } else if (result == 'plan') {
-                    MainShell.of(context)?.goToTab(2);
+                    _navigate(context, 2);
                   }
                 }
               },

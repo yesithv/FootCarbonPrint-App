@@ -25,7 +25,7 @@ class ActionPlanScreen extends StatelessWidget {
           if (provider.completedCount == 0) {
             return _EmptyState(
               onGoToTest: () => MainShell.of(context)?.goToTab(0),
-            );
+            ); // goToTab(0) = Home, which has the "start test" button
           }
           final fp = provider.footprint;
           final actions = _buildActions(l10n, fp.breakdown, fp.totalCO2);
