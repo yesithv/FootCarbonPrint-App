@@ -5,8 +5,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
+import 'app_localizations_pt.dart';
 
 // ignore_for_file: type=lint
 
@@ -94,2024 +96,2026 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('de'),
     Locale('en'),
     Locale('es'),
+    Locale('pt'),
   ];
 
   /// No description provided for @appName.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'FootCarbonPrint'**
   String get appName;
 
   /// No description provided for @tagline.
   ///
-  /// In es, this message translates to:
-  /// **'Conoce tu Huella. Cambia tu Mundo.'**
+  /// In en, this message translates to:
+  /// **'Know Your Footprint. Change Your World.'**
   String get tagline;
 
   /// No description provided for @save.
   ///
-  /// In es, this message translates to:
-  /// **'Guardar'**
+  /// In en, this message translates to:
+  /// **'Save'**
   String get save;
 
   /// No description provided for @next.
   ///
-  /// In es, this message translates to:
-  /// **'Siguiente'**
+  /// In en, this message translates to:
+  /// **'Next'**
   String get next;
 
   /// No description provided for @skip.
   ///
-  /// In es, this message translates to:
-  /// **'Saltar'**
+  /// In en, this message translates to:
+  /// **'Skip'**
   String get skip;
 
   /// No description provided for @goToTest.
   ///
-  /// In es, this message translates to:
-  /// **'Ir al test'**
+  /// In en, this message translates to:
+  /// **'Go to test'**
   String get goToTest;
 
   /// No description provided for @startTest.
   ///
-  /// In es, this message translates to:
-  /// **'¡Empezar mi test!'**
+  /// In en, this message translates to:
+  /// **'Start my test!'**
   String get startTest;
 
   /// No description provided for @startTestNow.
   ///
-  /// In es, this message translates to:
-  /// **'¡Hacer el test ahora! 🚀'**
+  /// In en, this message translates to:
+  /// **'Start the test now! 🚀'**
   String get startTestNow;
 
   /// No description provided for @co2PerYear.
   ///
-  /// In es, this message translates to:
-  /// **'toneladas CO₂/año'**
+  /// In en, this message translates to:
+  /// **'tonnes CO₂/year'**
   String get co2PerYear;
 
   /// No description provided for @co2Unit.
   ///
-  /// In es, this message translates to:
-  /// **'t CO₂/año'**
+  /// In en, this message translates to:
+  /// **'t CO₂/year'**
   String get co2Unit;
 
   /// No description provided for @moduleEstimate.
   ///
-  /// In es, this message translates to:
-  /// **'Estimado de este módulo'**
+  /// In en, this message translates to:
+  /// **'Estimated from this module'**
   String get moduleEstimate;
 
   /// No description provided for @saveModule.
   ///
-  /// In es, this message translates to:
-  /// **'Guardar módulo'**
+  /// In en, this message translates to:
+  /// **'Save module'**
   String get saveModule;
 
   /// No description provided for @completedCheck.
   ///
-  /// In es, this message translates to:
-  /// **'Completado ✓'**
+  /// In en, this message translates to:
+  /// **'Completed ✓'**
   String get completedCheck;
 
   /// No description provided for @tapToStart.
   ///
-  /// In es, this message translates to:
-  /// **'Tocar para empezar'**
+  /// In en, this message translates to:
+  /// **'Tap to start'**
   String get tapToStart;
 
   /// No description provided for @onb1Title.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuánto contaminas\nsin saberlo?'**
+  /// In en, this message translates to:
+  /// **'How much do you\npollute without knowing?'**
   String get onb1Title;
 
   /// No description provided for @onb1Sub.
   ///
-  /// In es, this message translates to:
-  /// **'La mayoría de personas emite más CO₂ del que cree. En menos de 7 minutos descubre tu impacto real en el planeta.'**
+  /// In en, this message translates to:
+  /// **'Most people emit more CO₂ than they think. In less than 7 minutes, discover your real impact on the planet.'**
   String get onb1Sub;
 
   /// No description provided for @onb2Title.
   ///
-  /// In es, this message translates to:
-  /// **'Tu huella,\nen datos reales'**
+  /// In en, this message translates to:
+  /// **'Your footprint,\nin real data'**
   String get onb2Title;
 
   /// No description provided for @onb2Sub.
   ///
-  /// In es, this message translates to:
-  /// **'Calculamos tu huella de carbono anual dividida por categorías: transporte, alimentación, hogar, consumo, residuos y agua.'**
+  /// In en, this message translates to:
+  /// **'We calculate your annual carbon footprint broken down by category: transport, food, home, shopping, waste, and water.'**
   String get onb2Sub;
 
   /// No description provided for @onb3Title.
   ///
-  /// In es, this message translates to:
-  /// **'Un plan de acción\nque sí funciona'**
+  /// In en, this message translates to:
+  /// **'An action plan\nthat actually works'**
   String get onb3Title;
 
   /// No description provided for @onb3Sub.
   ///
-  /// In es, this message translates to:
-  /// **'No solo medimos — te decimos exactamente qué cambiar y cuánto CO₂ ahorras con cada acción. Paso a paso.'**
+  /// In en, this message translates to:
+  /// **'We don\'t just measure — we tell you exactly what to change and how much CO₂ you save with each action. Step by step.'**
   String get onb3Sub;
 
   /// No description provided for @tabTest.
   ///
-  /// In es, this message translates to:
-  /// **'Mi Test'**
+  /// In en, this message translates to:
+  /// **'My Test'**
   String get tabTest;
 
   /// No description provided for @tabFootprint.
   ///
-  /// In es, this message translates to:
-  /// **'Mi Huella'**
+  /// In en, this message translates to:
+  /// **'My Footprint'**
   String get tabFootprint;
 
   /// No description provided for @tabPlan.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'Plan'**
   String get tabPlan;
 
   /// No description provided for @testHubTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Tu Auto-Test de\nHuella de Carbono'**
+  /// In en, this message translates to:
+  /// **'Your Carbon\nFootprint Self-Test'**
   String get testHubTitle;
 
   /// No description provided for @testHubSub.
   ///
-  /// In es, this message translates to:
-  /// **'Completa los módulos para conocer tu impacto'**
+  /// In en, this message translates to:
+  /// **'Complete modules to discover your impact'**
   String get testHubSub;
 
   /// No description provided for @modulesProgress.
   ///
-  /// In es, this message translates to:
-  /// **'{completed} de {total} módulos'**
+  /// In en, this message translates to:
+  /// **'{completed} of {total} modules'**
   String modulesProgress(int completed, int total);
 
   /// No description provided for @viewMyFootprint.
   ///
-  /// In es, this message translates to:
-  /// **'Ver mi Huella de Carbono'**
+  /// In en, this message translates to:
+  /// **'View My Carbon Footprint'**
   String get viewMyFootprint;
 
   /// No description provided for @learnBannerFirstTitle.
   ///
-  /// In es, this message translates to:
-  /// **'¿Primera vez aquí?'**
+  /// In en, this message translates to:
+  /// **'First time here?'**
   String get learnBannerFirstTitle;
 
   /// No description provided for @learnBannerFirstSub.
   ///
-  /// In es, this message translates to:
-  /// **'Aprende qué es la huella de carbono en 2 minutos'**
+  /// In en, this message translates to:
+  /// **'Learn about carbon footprint in 2 minutes'**
   String get learnBannerFirstSub;
 
   /// No description provided for @learnBannerReturnTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Guía de Huella de Carbono'**
+  /// In en, this message translates to:
+  /// **'Carbon Footprint Guide'**
   String get learnBannerReturnTitle;
 
   /// No description provided for @learnBannerReturnSub.
   ///
-  /// In es, this message translates to:
-  /// **'Repasa los conceptos clave — 6 lecciones visuales'**
+  /// In en, this message translates to:
+  /// **'Review the key concepts — 6 visual lessons'**
   String get learnBannerReturnSub;
 
   /// No description provided for @modTransport.
   ///
-  /// In es, this message translates to:
-  /// **'Transporte'**
+  /// In en, this message translates to:
+  /// **'Transport'**
   String get modTransport;
 
   /// No description provided for @modTransportWeight.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'28–35%'**
   String get modTransportWeight;
 
   /// No description provided for @modFood.
   ///
-  /// In es, this message translates to:
-  /// **'Alimentación'**
+  /// In en, this message translates to:
+  /// **'Food'**
   String get modFood;
 
   /// No description provided for @modFoodWeight.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'25–30%'**
   String get modFoodWeight;
 
   /// No description provided for @modHome.
   ///
-  /// In es, this message translates to:
-  /// **'Hogar'**
+  /// In en, this message translates to:
+  /// **'Home'**
   String get modHome;
 
   /// No description provided for @modHomeWeight.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'20–25%'**
   String get modHomeWeight;
 
   /// No description provided for @modShopping.
   ///
-  /// In es, this message translates to:
-  /// **'Consumo'**
+  /// In en, this message translates to:
+  /// **'Shopping'**
   String get modShopping;
 
   /// No description provided for @modShoppingWeight.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'10–15%'**
   String get modShoppingWeight;
 
   /// No description provided for @modWaste.
   ///
-  /// In es, this message translates to:
-  /// **'Residuos'**
+  /// In en, this message translates to:
+  /// **'Waste'**
   String get modWaste;
 
   /// No description provided for @modWasteWeight.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'5–8%'**
   String get modWasteWeight;
 
   /// No description provided for @modWater.
   ///
-  /// In es, this message translates to:
-  /// **'Agua'**
+  /// In en, this message translates to:
+  /// **'Water'**
   String get modWater;
 
   /// No description provided for @modWaterWeight.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'~3%'**
   String get modWaterWeight;
 
   /// No description provided for @dashEmptyTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Aún no tienes resultados'**
+  /// In en, this message translates to:
+  /// **'No results yet'**
   String get dashEmptyTitle;
 
   /// No description provided for @dashEmptySub.
   ///
-  /// In es, this message translates to:
-  /// **'Completa al menos un módulo del test para ver tu huella de carbono aquí.'**
+  /// In en, this message translates to:
+  /// **'Complete at least one test module to see your carbon footprint here.'**
   String get dashEmptySub;
 
   /// No description provided for @dashAppBarTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Tu Huella de Carbono'**
+  /// In en, this message translates to:
+  /// **'Your Carbon Footprint'**
   String get dashAppBarTitle;
 
   /// No description provided for @equivalencesTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Tu huella equivale a...'**
+  /// In en, this message translates to:
+  /// **'Your footprint equals...'**
   String get equivalencesTitle;
 
   /// No description provided for @treesLabel.
   ///
-  /// In es, this message translates to:
-  /// **'árboles\ntalados/año'**
+  /// In en, this message translates to:
+  /// **'trees\ncut/year'**
   String get treesLabel;
 
   /// No description provided for @bulbYearsLabel.
   ///
-  /// In es, this message translates to:
-  /// **'años de\nbombilla'**
+  /// In en, this message translates to:
+  /// **'light bulb\nyears'**
   String get bulbYearsLabel;
 
   /// No description provided for @phoneChargesLabel.
   ///
-  /// In es, this message translates to:
-  /// **'cargas de\nsmartphone'**
+  /// In en, this message translates to:
+  /// **'smartphone\ncharges'**
   String get phoneChargesLabel;
 
   /// No description provided for @breakdownTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Desglose por categoría'**
+  /// In en, this message translates to:
+  /// **'Breakdown by category'**
   String get breakdownTitle;
 
   /// No description provided for @benchmarkTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Comparativa global'**
+  /// In en, this message translates to:
+  /// **'Global comparison'**
   String get benchmarkTitle;
 
   /// No description provided for @yourFootprint.
   ///
-  /// In es, this message translates to:
-  /// **'Tu huella'**
+  /// In en, this message translates to:
+  /// **'Your footprint'**
   String get yourFootprint;
 
   /// No description provided for @parisTarget.
   ///
-  /// In es, this message translates to:
-  /// **'Meta París 2050'**
+  /// In en, this message translates to:
+  /// **'Paris 2050 target'**
   String get parisTarget;
 
   /// No description provided for @colombiaAvg.
   ///
-  /// In es, this message translates to:
-  /// **'Colombia promedio'**
+  /// In en, this message translates to:
+  /// **'Colombia average'**
   String get colombiaAvg;
 
   /// No description provided for @worldAvg.
   ///
-  /// In es, this message translates to:
-  /// **'Promedio mundial'**
+  /// In en, this message translates to:
+  /// **'World average'**
   String get worldAvg;
 
   /// No description provided for @viewActionPlan.
   ///
-  /// In es, this message translates to:
-  /// **'Ver mi Plan de Acción'**
+  /// In en, this message translates to:
+  /// **'View Action Plan'**
   String get viewActionPlan;
 
   /// No description provided for @ecoPoints.
   ///
-  /// In es, this message translates to:
-  /// **'puntos eco'**
+  /// In en, this message translates to:
+  /// **'eco points'**
   String get ecoPoints;
 
   /// No description provided for @nextLevelLabel.
   ///
-  /// In es, this message translates to:
-  /// **'Siguiente: {emoji} {name}'**
+  /// In en, this message translates to:
+  /// **'Next: {emoji} {name}'**
   String nextLevelLabel(String emoji, String name);
 
   /// No description provided for @ptsMore.
   ///
-  /// In es, this message translates to:
-  /// **'{pts} pts más'**
+  /// In en, this message translates to:
+  /// **'{pts} pts more'**
   String ptsMore(int pts);
 
   /// No description provided for @maxLevelReached.
   ///
-  /// In es, this message translates to:
-  /// **'¡Nivel máximo alcanzado! 🎉'**
+  /// In en, this message translates to:
+  /// **'Maximum level reached! 🎉'**
   String get maxLevelReached;
 
   /// No description provided for @myAchievements.
   ///
-  /// In es, this message translates to:
-  /// **'Mis logros'**
+  /// In en, this message translates to:
+  /// **'My achievements'**
   String get myAchievements;
 
   /// No description provided for @shareMyLevel.
   ///
-  /// In es, this message translates to:
-  /// **'Compartir mi nivel'**
+  /// In en, this message translates to:
+  /// **'Share my level'**
   String get shareMyLevel;
 
   /// No description provided for @shareSub.
   ///
-  /// In es, this message translates to:
-  /// **'Descarga tu tarjeta eco y compártela en redes'**
+  /// In en, this message translates to:
+  /// **'Download your eco card and share it on social media'**
   String get shareSub;
 
   /// No description provided for @lvlChampion.
   ///
-  /// In es, this message translates to:
-  /// **'Campeón Verde'**
+  /// In en, this message translates to:
+  /// **'Green Champion'**
   String get lvlChampion;
 
   /// No description provided for @lvlConscious.
   ///
-  /// In es, this message translates to:
-  /// **'Consciente'**
+  /// In en, this message translates to:
+  /// **'Conscious'**
   String get lvlConscious;
 
   /// No description provided for @lvlOntrack.
   ///
-  /// In es, this message translates to:
-  /// **'En Camino'**
+  /// In en, this message translates to:
+  /// **'On Track'**
   String get lvlOntrack;
 
   /// No description provided for @lvlHigh.
   ///
-  /// In es, this message translates to:
-  /// **'Alto Impacto'**
+  /// In en, this message translates to:
+  /// **'High Impact'**
   String get lvlHigh;
 
   /// No description provided for @lvlCritical.
   ///
-  /// In es, this message translates to:
-  /// **'Crítico'**
+  /// In en, this message translates to:
+  /// **'Critical'**
   String get lvlCritical;
 
   /// No description provided for @ecoLvlBeginner.
   ///
-  /// In es, this message translates to:
-  /// **'Principiante'**
+  /// In en, this message translates to:
+  /// **'Beginner'**
   String get ecoLvlBeginner;
 
   /// No description provided for @ecoLvlLearner.
   ///
-  /// In es, this message translates to:
-  /// **'Aprendiz'**
+  /// In en, this message translates to:
+  /// **'Learner'**
   String get ecoLvlLearner;
 
   /// No description provided for @ecoLvlConscious.
   ///
-  /// In es, this message translates to:
-  /// **'Consciente'**
+  /// In en, this message translates to:
+  /// **'Conscious'**
   String get ecoLvlConscious;
 
   /// No description provided for @ecoLvlActivist.
   ///
-  /// In es, this message translates to:
-  /// **'Activista'**
+  /// In en, this message translates to:
+  /// **'Activist'**
   String get ecoLvlActivist;
 
   /// No description provided for @ecoLvlChampion.
   ///
-  /// In es, this message translates to:
-  /// **'Eco-Campeón'**
+  /// In en, this message translates to:
+  /// **'Eco-Champion'**
   String get ecoLvlChampion;
 
   /// No description provided for @badgeFirstStep.
   ///
-  /// In es, this message translates to:
-  /// **'Primer Paso'**
+  /// In en, this message translates to:
+  /// **'First Step'**
   String get badgeFirstStep;
 
   /// No description provided for @badgeFirstStepDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Completa tu primer módulo del test'**
+  /// In en, this message translates to:
+  /// **'Complete your first test module'**
   String get badgeFirstStepDesc;
 
   /// No description provided for @badgeExplorer.
   ///
-  /// In es, this message translates to:
-  /// **'Explorador'**
+  /// In en, this message translates to:
+  /// **'Explorer'**
   String get badgeExplorer;
 
   /// No description provided for @badgeExplorerDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Completa 3 módulos del test'**
+  /// In en, this message translates to:
+  /// **'Complete 3 test modules'**
   String get badgeExplorerDesc;
 
   /// No description provided for @badgeCompletionist.
   ///
-  /// In es, this message translates to:
-  /// **'Completista'**
+  /// In en, this message translates to:
+  /// **'Completionist'**
   String get badgeCompletionist;
 
   /// No description provided for @badgeCompletionistDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Completa los 6 módulos del test'**
+  /// In en, this message translates to:
+  /// **'Complete all 6 test modules'**
   String get badgeCompletionistDesc;
 
   /// No description provided for @badgeEducated.
   ///
-  /// In es, this message translates to:
-  /// **'Educado'**
+  /// In en, this message translates to:
+  /// **'Educated'**
   String get badgeEducated;
 
   /// No description provided for @badgeEducatedDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Termina la guía de aprendizaje'**
+  /// In en, this message translates to:
+  /// **'Finish the learning guide'**
   String get badgeEducatedDesc;
 
   /// No description provided for @badgeConscious.
   ///
-  /// In es, this message translates to:
-  /// **'Consciente'**
+  /// In en, this message translates to:
+  /// **'Conscious'**
   String get badgeConscious;
 
   /// No description provided for @badgeConsciousDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Logra una huella menor a 3 toneladas'**
+  /// In en, this message translates to:
+  /// **'Achieve a footprint below 3 tonnes'**
   String get badgeConsciousDesc;
 
   /// No description provided for @badgeChampion.
   ///
-  /// In es, this message translates to:
-  /// **'Huella Ligera'**
+  /// In en, this message translates to:
+  /// **'Light Footprint'**
   String get badgeChampion;
 
   /// No description provided for @badgeChampionDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Logra una huella menor a 1.5 toneladas'**
+  /// In en, this message translates to:
+  /// **'Achieve a footprint below 1.5 tonnes'**
   String get badgeChampionDesc;
 
   /// No description provided for @badgeCommitted.
   ///
-  /// In es, this message translates to:
-  /// **'Comprometido'**
+  /// In en, this message translates to:
+  /// **'Committed'**
   String get badgeCommitted;
 
   /// No description provided for @badgeCommittedDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Comprométete con al menos 1 acción'**
+  /// In en, this message translates to:
+  /// **'Commit to at least 1 action'**
   String get badgeCommittedDesc;
 
   /// No description provided for @badgeActivist.
   ///
-  /// In es, this message translates to:
-  /// **'Activista'**
+  /// In en, this message translates to:
+  /// **'Activist'**
   String get badgeActivist;
 
   /// No description provided for @badgeActivistDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Comprométete con 5 acciones del plan'**
+  /// In en, this message translates to:
+  /// **'Commit to 5 actions from the plan'**
   String get badgeActivistDesc;
 
   /// No description provided for @badgeLocked.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'🔒 {description}'**
   String badgeLocked(String description);
 
   /// No description provided for @actionPlanTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Plan de Acción'**
+  /// In en, this message translates to:
+  /// **'Action Plan'**
   String get actionPlanTitle;
 
   /// No description provided for @actionPlanEmptyTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Aún no tienes plan'**
+  /// In en, this message translates to:
+  /// **'No plan yet'**
   String get actionPlanEmptyTitle;
 
   /// No description provided for @actionPlanEmptySub.
   ///
-  /// In es, this message translates to:
-  /// **'Completa al menos un módulo del test para ver tu plan de acción personalizado.'**
+  /// In en, this message translates to:
+  /// **'Complete at least one test module to see your personalized action plan.'**
   String get actionPlanEmptySub;
 
   /// No description provided for @reductionTitle.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuánto puedes reducir?'**
+  /// In en, this message translates to:
+  /// **'How much can you reduce?'**
   String get reductionTitle;
 
   /// No description provided for @reductionSub.
   ///
-  /// In es, this message translates to:
-  /// **'hasta un {pct}% con las acciones de abajo'**
+  /// In en, this message translates to:
+  /// **'up to {pct}% with the actions below'**
   String reductionSub(int pct);
 
   /// No description provided for @actionsTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Tus top acciones por impacto'**
+  /// In en, this message translates to:
+  /// **'Your top actions by impact'**
   String get actionsTitle;
 
   /// No description provided for @actionsSub.
   ///
-  /// In es, this message translates to:
-  /// **'Ordenadas de mayor a menor reducción potencial'**
+  /// In en, this message translates to:
+  /// **'Sorted from highest to lowest reduction potential'**
   String get actionsSub;
 
   /// No description provided for @commit.
   ///
-  /// In es, this message translates to:
-  /// **'Me comprometo'**
+  /// In en, this message translates to:
+  /// **'I commit'**
   String get commit;
 
   /// No description provided for @committedLabel.
   ///
-  /// In es, this message translates to:
-  /// **'✓ Comprometido'**
+  /// In en, this message translates to:
+  /// **'✓ Committed'**
   String get committedLabel;
 
   /// No description provided for @challengesTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Retos semanales 🎯'**
+  /// In en, this message translates to:
+  /// **'Weekly challenges 🎯'**
   String get challengesTitle;
 
   /// No description provided for @challengesSub.
   ///
-  /// In es, this message translates to:
-  /// **'Pequeños cambios con gran impacto'**
+  /// In en, this message translates to:
+  /// **'Small changes with big impact'**
   String get challengesSub;
 
   /// No description provided for @actionFlightTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Eliminar 1 vuelo largo al año'**
+  /// In en, this message translates to:
+  /// **'Eliminate 1 long-haul flight per year'**
   String get actionFlightTitle;
 
   /// No description provided for @actionFlightDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Un vuelo de larga distancia emite más CO₂ que 2 meses en auto.'**
+  /// In en, this message translates to:
+  /// **'A long-distance flight emits more CO₂ than 2 months of driving.'**
   String get actionFlightDesc;
 
   /// No description provided for @actionFlexitarianTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Adoptar dieta flexitariana'**
+  /// In en, this message translates to:
+  /// **'Adopt a flexitarian diet'**
   String get actionFlexitarianTitle;
 
   /// No description provided for @actionFlexitarianDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Reducir carne a 2–3 veces por semana genera un gran impacto.'**
+  /// In en, this message translates to:
+  /// **'Reducing meat to 2–3 times per week has a huge impact.'**
   String get actionFlexitarianDesc;
 
   /// No description provided for @actionPublicTransportTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Usar transporte público 2 días/semana'**
+  /// In en, this message translates to:
+  /// **'Use public transport 2 days/week'**
   String get actionPublicTransportTitle;
 
   /// No description provided for @actionPublicTransportDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Dejar el auto 2 días evita ~350 kg CO₂ al año.'**
+  /// In en, this message translates to:
+  /// **'Leaving the car 2 days avoids ~350 kg CO₂ per year.'**
   String get actionPublicTransportDesc;
 
   /// No description provided for @actionLessBeefTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Dejar carne de res 3 días/semana'**
+  /// In en, this message translates to:
+  /// **'Skip beef 3 days/week'**
   String get actionLessBeefTitle;
 
   /// No description provided for @actionLessBeefDesc.
   ///
-  /// In es, this message translates to:
-  /// **'La carne de res emite 27 kgCO₂/kg — la más alta de todos los alimentos.'**
+  /// In en, this message translates to:
+  /// **'Beef emits 27 kgCO₂/kg — the highest of all foods.'**
   String get actionLessBeefDesc;
 
   /// No description provided for @actionLedTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Cambiar a bombillas LED'**
+  /// In en, this message translates to:
+  /// **'Switch to LED bulbs'**
   String get actionLedTitle;
 
   /// No description provided for @actionLedDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Las LED consumen 75% menos energía que las incandescentes.'**
+  /// In en, this message translates to:
+  /// **'LEDs use 75% less energy than incandescent bulbs.'**
   String get actionLedDesc;
 
   /// No description provided for @actionShortShowerTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Duchas de máximo 5 minutos'**
+  /// In en, this message translates to:
+  /// **'Showers of max 5 minutes'**
   String get actionShortShowerTitle;
 
   /// No description provided for @actionShortShowerDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Reducir la ducha a 5 min con agua caliente evita 100 kgCO₂/año.'**
+  /// In en, this message translates to:
+  /// **'Reducing your shower to 5 min with hot water saves 100 kgCO₂/year.'**
   String get actionShortShowerDesc;
 
   /// No description provided for @actionRecycleTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Separar residuos para reciclaje'**
+  /// In en, this message translates to:
+  /// **'Separate waste for recycling'**
   String get actionRecycleTitle;
 
   /// No description provided for @actionRecycleDesc.
   ///
-  /// In es, this message translates to:
-  /// **'El reciclaje evita la descomposición anaeróbica que genera metano.'**
+  /// In en, this message translates to:
+  /// **'Recycling prevents anaerobic decomposition that produces methane.'**
   String get actionRecycleDesc;
 
   /// No description provided for @actionSecondhandTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Comprar 50% ropa de segunda mano'**
+  /// In en, this message translates to:
+  /// **'Buy 50% secondhand clothing'**
   String get actionSecondhandTitle;
 
   /// No description provided for @actionSecondhandDesc.
   ///
-  /// In es, this message translates to:
-  /// **'La industria textil es una de las más contaminantes del mundo.'**
+  /// In en, this message translates to:
+  /// **'The textile industry is one of the most polluting in the world.'**
   String get actionSecondhandDesc;
 
   /// No description provided for @actionCompostTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Compostar residuos orgánicos'**
+  /// In en, this message translates to:
+  /// **'Compost organic waste'**
   String get actionCompostTitle;
 
   /// No description provided for @actionCompostDesc.
   ///
-  /// In es, this message translates to:
-  /// **'El compost evita que los residuos orgánicos generen metano en rellenos.'**
+  /// In en, this message translates to:
+  /// **'Composting prevents organic waste from producing methane in landfills.'**
   String get actionCompostDesc;
 
   /// No description provided for @actionBikeTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Ir en bici o caminar al trabajo'**
+  /// In en, this message translates to:
+  /// **'Bike or walk to work'**
   String get actionBikeTitle;
 
   /// No description provided for @actionBikeDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Cero emisiones + beneficios de salud.'**
+  /// In en, this message translates to:
+  /// **'Zero emissions + health benefits.'**
   String get actionBikeDesc;
 
   /// No description provided for @challengeWeekLabel.
   ///
-  /// In es, this message translates to:
-  /// **'Reto de la semana'**
+  /// In en, this message translates to:
+  /// **'Challenge of the week'**
   String get challengeWeekLabel;
 
   /// No description provided for @challengeExpiresLabel.
   ///
-  /// In es, this message translates to:
-  /// **'Expira este domingo'**
+  /// In en, this message translates to:
+  /// **'Expires this Sunday'**
   String get challengeExpiresLabel;
 
   /// No description provided for @challengePts.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'+{pts} pts'**
   String challengePts(int pts);
 
   /// No description provided for @challengeMarkDone.
   ///
-  /// In es, this message translates to:
-  /// **'¡Lo hice! Marcar como completado'**
+  /// In en, this message translates to:
+  /// **'I did it! Mark as completed'**
   String get challengeMarkDone;
 
   /// No description provided for @challengeCompletedLabel.
   ///
-  /// In es, this message translates to:
-  /// **'¡Reto completado esta semana! 🎉'**
+  /// In en, this message translates to:
+  /// **'Challenge completed this week! 🎉'**
   String get challengeCompletedLabel;
 
   /// No description provided for @challengeCompletedSub.
   ///
-  /// In es, this message translates to:
-  /// **'Sumaste +25 pts a tu nivel'**
+  /// In en, this message translates to:
+  /// **'You earned +25 pts'**
   String get challengeCompletedSub;
 
   /// No description provided for @challenge1.
   ///
-  /// In es, this message translates to:
-  /// **'Semana sin plástico de un solo uso'**
+  /// In en, this message translates to:
+  /// **'One week without single-use plastic'**
   String get challenge1;
 
   /// No description provided for @challengeDesc1.
   ///
-  /// In es, this message translates to:
-  /// **'Lleva bolsa reutilizable y rechaza vasos, pitillos y bolsas de plástico durante 7 días.'**
+  /// In en, this message translates to:
+  /// **'Bring a reusable bag and say no to plastic cups, straws, and bags for 7 days.'**
   String get challengeDesc1;
 
   /// No description provided for @challengeEmoji1.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'🛍️'**
   String get challengeEmoji1;
 
   /// No description provided for @challenge2.
   ///
-  /// In es, this message translates to:
-  /// **'7 días sin carne roja'**
+  /// In en, this message translates to:
+  /// **'7 days without red meat'**
   String get challenge2;
 
   /// No description provided for @challengeDesc2.
   ///
-  /// In es, this message translates to:
-  /// **'Reemplaza la carne de res por pollo, pescado, legumbres o tofu toda la semana.'**
+  /// In en, this message translates to:
+  /// **'Replace beef with chicken, fish, legumes, or tofu for the whole week.'**
   String get challengeDesc2;
 
   /// No description provided for @challengeEmoji2.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'🥩'**
   String get challengeEmoji2;
 
   /// No description provided for @challenge3.
   ///
-  /// In es, this message translates to:
-  /// **'Ve en bici o camina 3 días esta semana'**
+  /// In en, this message translates to:
+  /// **'Bike or walk 3 days this week'**
   String get challenge3;
 
   /// No description provided for @challengeDesc3.
   ///
-  /// In es, this message translates to:
-  /// **'Al menos 3 días esta semana deja el carro y usa bicicleta, patineta o tus pies.'**
+  /// In en, this message translates to:
+  /// **'At least 3 days this week, leave the car and use a bike, scooter, or your feet.'**
   String get challengeDesc3;
 
   /// No description provided for @challengeEmoji3.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'🚲'**
   String get challengeEmoji3;
 
   /// No description provided for @challenge4.
   ///
-  /// In es, this message translates to:
-  /// **'Ducha de máximo 5 minutos por 5 días'**
+  /// In en, this message translates to:
+  /// **'Shower in max 5 minutes for 5 days'**
   String get challenge4;
 
   /// No description provided for @challengeDesc4.
   ///
-  /// In es, this message translates to:
-  /// **'Usa un cronómetro — 5 minutos máximo con agua caliente, durante 5 días seguidos.'**
+  /// In en, this message translates to:
+  /// **'Use a timer — max 5 minutes with hot water, for 5 consecutive days.'**
   String get challengeDesc4;
 
   /// No description provided for @challengeEmoji4.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'🚿'**
   String get challengeEmoji4;
 
   /// No description provided for @learnGuideTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Guía de Huella de Carbono'**
+  /// In en, this message translates to:
+  /// **'Carbon Footprint Guide'**
   String get learnGuideTitle;
 
   /// No description provided for @learnNext.
   ///
-  /// In es, this message translates to:
-  /// **'Siguiente →'**
+  /// In en, this message translates to:
+  /// **'Next →'**
   String get learnNext;
 
   /// No description provided for @l1Title.
   ///
-  /// In es, this message translates to:
-  /// **'El planeta\ntiene fiebre'**
+  /// In en, this message translates to:
+  /// **'The planet\nhas a fever'**
   String get l1Title;
 
   /// No description provided for @l1Body.
   ///
-  /// In es, this message translates to:
-  /// **'Imagina que la Tierra es tu cuerpo. Cuando tienes fiebre de solo 1°C, ya te sientes muy mal. La Tierra ya tiene 1.2°C más que hace 150 años… y sigue subiendo cada año.'**
+  /// In en, this message translates to:
+  /// **'Imagine the Earth is your body. When you have a fever of just 1°C, you already feel terrible. The Earth is already 1.2°C warmer than 150 years ago… and it keeps rising every year.'**
   String get l1Body;
 
   /// No description provided for @l1FactLabel.
   ///
-  /// In es, this message translates to:
-  /// **'DATO'**
+  /// In en, this message translates to:
+  /// **'FACT'**
   String get l1FactLabel;
 
   /// No description provided for @l1Fact.
   ///
-  /// In es, this message translates to:
-  /// **'2023 fue el año más caluroso jamás registrado. Los 10 más calurosos de la historia han sido en los últimos 10 años.'**
+  /// In en, this message translates to:
+  /// **'2023 was the hottest year ever recorded. The 10 hottest years in history have all been in the last 10 years.'**
   String get l1Fact;
 
   /// No description provided for @l1TempLow.
   ///
-  /// In es, this message translates to:
-  /// **'Leve derretimiento de glaciares'**
+  /// In en, this message translates to:
+  /// **'Slight glacial melting'**
   String get l1TempLow;
 
   /// No description provided for @l1TempNow.
   ///
-  /// In es, this message translates to:
-  /// **'Donde estamos hoy 📍'**
+  /// In en, this message translates to:
+  /// **'Where we are today 📍'**
   String get l1TempNow;
 
   /// No description provided for @l1TempHeat.
   ///
-  /// In es, this message translates to:
-  /// **'Olas de calor extremas'**
+  /// In en, this message translates to:
+  /// **'Extreme heat waves'**
   String get l1TempHeat;
 
   /// No description provided for @l1TempCrisis.
   ///
-  /// In es, this message translates to:
-  /// **'Civilización en riesgo'**
+  /// In en, this message translates to:
+  /// **'Civilization at risk'**
   String get l1TempCrisis;
 
   /// No description provided for @l2Title.
   ///
-  /// In es, this message translates to:
-  /// **'El gas\ninvisible'**
+  /// In en, this message translates to:
+  /// **'The invisible\ngas'**
   String get l2Title;
 
   /// No description provided for @l2Body.
   ///
-  /// In es, this message translates to:
-  /// **'Cuando quemas gasolina, gas o carbón — o cuando se descompone comida — se libera CO₂. Este gas actúa como una manta: deja entrar el calor del sol, pero no lo deja salir. El planeta se calienta.'**
+  /// In en, this message translates to:
+  /// **'When you burn gasoline, gas or coal — or when food decomposes — CO₂ is released. This gas acts like a blanket: it lets the sun\'s heat in, but doesn\'t let it out. The planet warms.'**
   String get l2Body;
 
   /// No description provided for @l2FactLabel.
   ///
-  /// In es, this message translates to:
-  /// **'ANALOGÍA'**
+  /// In en, this message translates to:
+  /// **'ANALOGY'**
   String get l2FactLabel;
 
   /// No description provided for @l2Fact.
   ///
-  /// In es, this message translates to:
-  /// **'Es como dejar el carro encendido dentro de un garaje cerrado. Solo que el garaje es toda la atmósfera de la Tierra.'**
+  /// In en, this message translates to:
+  /// **'It\'s like leaving the car running inside a closed garage. Except the garage is the entire Earth\'s atmosphere.'**
   String get l2Fact;
 
   /// No description provided for @l2Step1.
   ///
-  /// In es, this message translates to:
-  /// **'Sol envía\ncalor'**
+  /// In en, this message translates to:
+  /// **'Sun sends\nheat'**
   String get l2Step1;
 
   /// No description provided for @l2Step2.
   ///
-  /// In es, this message translates to:
-  /// **'Tierra\nrecibe'**
+  /// In en, this message translates to:
+  /// **'Earth\nreceives'**
   String get l2Step2;
 
   /// No description provided for @l2Step3.
   ///
-  /// In es, this message translates to:
-  /// **'CO₂ atrapa\nel calor'**
+  /// In en, this message translates to:
+  /// **'CO₂ traps\nthe heat'**
   String get l2Step3;
 
   /// No description provided for @l2Result.
   ///
-  /// In es, this message translates to:
-  /// **'🌡️ El calor no puede escapar → temperatura sube'**
+  /// In en, this message translates to:
+  /// **'🌡️ Heat can\'t escape → temperature rises'**
   String get l2Result;
 
   /// No description provided for @l3Title.
   ///
-  /// In es, this message translates to:
-  /// **'Tu huella\npersonal'**
+  /// In en, this message translates to:
+  /// **'Your personal\nfootprint'**
   String get l3Title;
 
   /// No description provided for @l3Body.
   ///
-  /// In es, this message translates to:
-  /// **'La \"huella de carbono\" es el total de CO₂ que produces tú en un año. Incluye todo lo que consumes: el bus que tomas, la hamburguesa que comes, la camiseta que compras, la ducha caliente que te das.'**
+  /// In en, this message translates to:
+  /// **'Your \"carbon footprint\" is the total CO₂ you produce in a year. It includes everything you consume: the bus you take, the burger you eat, the shirt you buy, the hot shower you take.'**
   String get l3Body;
 
   /// No description provided for @l3FactLabel.
   ///
-  /// In es, this message translates to:
-  /// **'EN COLOMBIA'**
+  /// In en, this message translates to:
+  /// **'IN COLOMBIA'**
   String get l3FactLabel;
 
   /// No description provided for @l3Fact.
   ///
-  /// In es, this message translates to:
-  /// **'Un colombiano produce en promedio 1.8 toneladas de CO₂ al año. El promedio mundial es 4.7 t. La meta para salvar el planeta es llegar a 2 t antes de 2030.'**
+  /// In en, this message translates to:
+  /// **'A Colombian produces an average of 1.8 tonnes of CO₂ per year. The world average is 4.7 t. The target to save the planet is to reach 2 t before 2030.'**
   String get l3Fact;
 
   /// No description provided for @l3ColombiaLabel.
   ///
-  /// In es, this message translates to:
-  /// **'Colombia\npromedio'**
+  /// In en, this message translates to:
+  /// **'Colombia\naverage'**
   String get l3ColombiaLabel;
 
   /// No description provided for @l3WorldLabel.
   ///
-  /// In es, this message translates to:
-  /// **'Mundo\npromedio'**
+  /// In en, this message translates to:
+  /// **'World\naverage'**
   String get l3WorldLabel;
 
   /// No description provided for @l3TargetLabel.
   ///
-  /// In es, this message translates to:
-  /// **'Meta\n2030 🎯'**
+  /// In en, this message translates to:
+  /// **'2030\nTarget 🎯'**
   String get l3TargetLabel;
 
   /// No description provided for @l4Title.
   ///
-  /// In es, this message translates to:
-  /// **'¿De dónde\nviene?'**
+  /// In en, this message translates to:
+  /// **'Where does\nit come from?'**
   String get l4Title;
 
   /// No description provided for @l4Body.
   ///
-  /// In es, this message translates to:
-  /// **'No solo los carros contaminan. Tu huella viene de 6 grandes categorías de tu vida cotidiana. Algunas sorprenden: la carne de res emite más CO₂ que manejar un carro.'**
+  /// In en, this message translates to:
+  /// **'It\'s not just cars that pollute. Your footprint comes from 6 major categories of your daily life. Some are surprising: beef emits more CO₂ than driving a car.'**
   String get l4Body;
 
   /// No description provided for @l4FactLabel.
   ///
-  /// In es, this message translates to:
-  /// **'LAS 6 CATEGORÍAS'**
+  /// In en, this message translates to:
+  /// **'THE 6 CATEGORIES'**
   String get l4FactLabel;
 
   /// No description provided for @l4Fact.
   ///
-  /// In es, this message translates to:
-  /// **'Transporte y alimentación juntos representan más del 55% de tu huella total.'**
+  /// In en, this message translates to:
+  /// **'Transport and food together account for more than 55% of your total footprint.'**
   String get l4Fact;
 
   /// No description provided for @l5Title.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuánto\nes mucho?'**
+  /// In en, this message translates to:
+  /// **'How much\nis too much?'**
   String get l5Title;
 
   /// No description provided for @l5Body.
   ///
-  /// In es, this message translates to:
-  /// **'Hay una meta global: para evitar los peores efectos del cambio climático, cada persona en el mundo necesita llegar a menos de 2 toneladas de CO₂ por año para 2030.'**
+  /// In en, this message translates to:
+  /// **'There is a global target: to avoid the worst effects of climate change, every person in the world needs to reach less than 2 tonnes of CO₂ per year by 2030.'**
   String get l5Body;
 
   /// No description provided for @l5FactLabel.
   ///
-  /// In es, this message translates to:
-  /// **'COMPARATIVA'**
+  /// In en, this message translates to:
+  /// **'COMPARISON'**
   String get l5FactLabel;
 
   /// No description provided for @l5Fact.
   ///
-  /// In es, this message translates to:
-  /// **'Un ciudadano de EE.UU. produce 15 t/año. Un alemán: 9 t. Un colombiano: 1.8 t. Pero la calidad de vida no tiene que bajar para reducir la huella.'**
+  /// In en, this message translates to:
+  /// **'A US citizen produces 15 t/year. A German: 9 t. A Colombian: 1.8 t. But quality of life doesn\'t have to drop to reduce your footprint.'**
   String get l5Fact;
 
   /// No description provided for @l6Title.
   ///
-  /// In es, this message translates to:
-  /// **'Tú puedes\ncambiar algo'**
+  /// In en, this message translates to:
+  /// **'You can\nchange something'**
   String get l6Title;
 
   /// No description provided for @l6Body.
   ///
-  /// In es, this message translates to:
-  /// **'No necesitas ser un activista ni cambiar tu vida de un día para otro. Pequeños cambios en tus hábitos de transporte, alimentación y hogar pueden reducir tu huella hasta un 40%.'**
+  /// In en, this message translates to:
+  /// **'You don\'t need to be an activist or change your life overnight. Small changes in your transport, food, and home habits can reduce your footprint by up to 40%.'**
   String get l6Body;
 
   /// No description provided for @l6FactLabel.
   ///
-  /// In es, this message translates to:
-  /// **'EL PRIMER PASO'**
+  /// In en, this message translates to:
+  /// **'THE FIRST STEP'**
   String get l6FactLabel;
 
   /// No description provided for @l6Fact.
   ///
-  /// In es, this message translates to:
-  /// **'Conocer tu huella es el primer paso. Lo que no se mide, no se puede mejorar. ¡Haz el test ahora!'**
+  /// In en, this message translates to:
+  /// **'Knowing your footprint is the first step. What you don\'t measure, you can\'t improve. Take the test now!'**
   String get l6Fact;
 
   /// No description provided for @l6Action1.
   ///
-  /// In es, this message translates to:
-  /// **'Comer menos carne'**
+  /// In en, this message translates to:
+  /// **'Eat less meat'**
   String get l6Action1;
 
   /// No description provided for @l6Action2.
   ///
-  /// In es, this message translates to:
-  /// **'Usar transporte público'**
+  /// In en, this message translates to:
+  /// **'Use public transport'**
   String get l6Action2;
 
   /// No description provided for @l6Action3.
   ///
-  /// In es, this message translates to:
-  /// **'Evitar 1 vuelo largo'**
+  /// In en, this message translates to:
+  /// **'Skip 1 long-haul flight'**
   String get l6Action3;
 
   /// No description provided for @l6Action4.
   ///
-  /// In es, this message translates to:
-  /// **'Cambiar a LED'**
+  /// In en, this message translates to:
+  /// **'Switch to LED'**
   String get l6Action4;
 
   /// No description provided for @l6ActionsLabel.
   ///
-  /// In es, this message translates to:
-  /// **'Acciones de alto impacto:'**
+  /// In en, this message translates to:
+  /// **'High-impact actions:'**
   String get l6ActionsLabel;
 
   /// No description provided for @profileCardTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Mi Tarjeta Eco'**
+  /// In en, this message translates to:
+  /// **'My Eco Card'**
   String get profileCardTitle;
 
   /// No description provided for @profileCardPreview.
   ///
-  /// In es, this message translates to:
-  /// **'Previsualización — comparte tu nivel en redes 🌍'**
+  /// In en, this message translates to:
+  /// **'Preview — share your level on social media 🌍'**
   String get profileCardPreview;
 
   /// No description provided for @photoDialogTitle.
   ///
-  /// In es, this message translates to:
-  /// **'¿Añadir tu foto?'**
+  /// In en, this message translates to:
+  /// **'Add your photo?'**
   String get photoDialogTitle;
 
   /// No description provided for @photoDialogContent.
   ///
-  /// In es, this message translates to:
-  /// **'Puedes personalizar la tarjeta con tu foto de perfil, o dejar el emoji de tu nivel.'**
+  /// In en, this message translates to:
+  /// **'You can personalize the card with your profile photo, or just use your level emoji.'**
   String get photoDialogContent;
 
   /// No description provided for @emojiOnly.
   ///
-  /// In es, this message translates to:
-  /// **'Solo emoji'**
+  /// In en, this message translates to:
+  /// **'Emoji only'**
   String get emojiOnly;
 
   /// No description provided for @choosePhoto.
   ///
-  /// In es, this message translates to:
-  /// **'Elegir foto'**
+  /// In en, this message translates to:
+  /// **'Choose photo'**
   String get choosePhoto;
 
   /// No description provided for @addPhoto.
   ///
-  /// In es, this message translates to:
-  /// **'Añadir foto'**
+  /// In en, this message translates to:
+  /// **'Add photo'**
   String get addPhoto;
 
   /// No description provided for @changePhoto.
   ///
-  /// In es, this message translates to:
-  /// **'Cambiar foto'**
+  /// In en, this message translates to:
+  /// **'Change photo'**
   String get changePhoto;
 
   /// No description provided for @generating.
   ///
-  /// In es, this message translates to:
-  /// **'Generando...'**
+  /// In en, this message translates to:
+  /// **'Generating...'**
   String get generating;
 
   /// No description provided for @downloadPng.
   ///
-  /// In es, this message translates to:
-  /// **'Descargar PNG'**
+  /// In en, this message translates to:
+  /// **'Download PNG'**
   String get downloadPng;
 
   /// No description provided for @cardDownloaded.
   ///
-  /// In es, this message translates to:
-  /// **'¡Tarjeta descargada! 🌿'**
+  /// In en, this message translates to:
+  /// **'Card downloaded! 🌿'**
   String get cardDownloaded;
 
   /// No description provided for @downloadHint.
   ///
-  /// In es, this message translates to:
-  /// **'La imagen se descarga en 1080×1080 px,\nideal para Instagram, WhatsApp y Twitter.'**
+  /// In en, this message translates to:
+  /// **'The image downloads at 1080×1080 px,\nperfect for Instagram, WhatsApp and Twitter.'**
   String get downloadHint;
 
   /// No description provided for @cardFooterText.
   ///
-  /// In es, this message translates to:
-  /// **'Conoce tu huella. Cambia tu mundo.'**
+  /// In en, this message translates to:
+  /// **'Know your footprint. Change your world.'**
   String get cardFooterText;
 
   /// No description provided for @statsModules.
   ///
-  /// In es, this message translates to:
-  /// **'Módulos'**
+  /// In en, this message translates to:
+  /// **'Modules'**
   String get statsModules;
 
   /// No description provided for @statsAchievements.
   ///
-  /// In es, this message translates to:
-  /// **'Logros'**
+  /// In en, this message translates to:
+  /// **'Achievements'**
   String get statsAchievements;
 
   /// No description provided for @transportModuleTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Transporte'**
+  /// In en, this message translates to:
+  /// **'Transport'**
   String get transportModuleTitle;
 
   /// No description provided for @transportModuleWeight.
   ///
-  /// In es, this message translates to:
-  /// **'28–35% de tu huella'**
+  /// In en, this message translates to:
+  /// **'28–35% of your footprint'**
   String get transportModuleWeight;
 
   /// No description provided for @transportQ1.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuál es tu medio de transporte principal?'**
+  /// In en, this message translates to:
+  /// **'What is your main mode of transport?'**
   String get transportQ1;
 
   /// No description provided for @transportQ2.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuántos km recorres por semana?'**
+  /// In en, this message translates to:
+  /// **'How many km do you travel per week?'**
   String get transportQ2;
 
   /// No description provided for @transportKmHint.
   ///
-  /// In es, this message translates to:
-  /// **'{km} km/semana'**
+  /// In en, this message translates to:
+  /// **'{km} km/week'**
   String transportKmHint(int km);
 
   /// No description provided for @transportQ3.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuántos vuelos haces al año?'**
+  /// In en, this message translates to:
+  /// **'How many flights do you take per year?'**
   String get transportQ3;
 
   /// No description provided for @flightShort.
   ///
-  /// In es, this message translates to:
-  /// **'Cortos (< 3h)'**
+  /// In en, this message translates to:
+  /// **'Short (< 3h)'**
   String get flightShort;
 
   /// No description provided for @flightMedium.
   ///
-  /// In es, this message translates to:
-  /// **'Medios (3–6h)'**
+  /// In en, this message translates to:
+  /// **'Medium (3–6h)'**
   String get flightMedium;
 
   /// No description provided for @flightLong.
   ///
-  /// In es, this message translates to:
-  /// **'Largos (> 6h)'**
+  /// In en, this message translates to:
+  /// **'Long (> 6h)'**
   String get flightLong;
 
   /// No description provided for @vehicleGasoline.
   ///
-  /// In es, this message translates to:
-  /// **'Gasolina'**
+  /// In en, this message translates to:
+  /// **'Gasoline'**
   String get vehicleGasoline;
 
   /// No description provided for @vehicleDiesel.
   ///
-  /// In es, this message translates to:
-  /// **'Diésel'**
+  /// In en, this message translates to:
+  /// **'Diesel'**
   String get vehicleDiesel;
 
   /// No description provided for @vehicleHybrid.
   ///
-  /// In es, this message translates to:
-  /// **'Híbrido'**
+  /// In en, this message translates to:
+  /// **'Hybrid'**
   String get vehicleHybrid;
 
   /// No description provided for @vehicleElectric.
   ///
-  /// In es, this message translates to:
-  /// **'Eléctrico'**
+  /// In en, this message translates to:
+  /// **'Electric'**
   String get vehicleElectric;
 
   /// No description provided for @vehicleMotorcycle.
   ///
-  /// In es, this message translates to:
-  /// **'Moto'**
+  /// In en, this message translates to:
+  /// **'Motorcycle'**
   String get vehicleMotorcycle;
 
   /// No description provided for @vehicleBus.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'Bus/Metro'**
   String get vehicleBus;
 
   /// No description provided for @vehicleBicycle.
   ///
-  /// In es, this message translates to:
-  /// **'Bicicleta'**
+  /// In en, this message translates to:
+  /// **'Bicycle'**
   String get vehicleBicycle;
 
   /// No description provided for @vehicleWalking.
   ///
-  /// In es, this message translates to:
-  /// **'A pie'**
+  /// In en, this message translates to:
+  /// **'Walking'**
   String get vehicleWalking;
 
   /// No description provided for @foodModuleTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Alimentación'**
+  /// In en, this message translates to:
+  /// **'Food'**
   String get foodModuleTitle;
 
   /// No description provided for @foodModuleWeight.
   ///
-  /// In es, this message translates to:
-  /// **'25–30% de tu huella'**
+  /// In en, this message translates to:
+  /// **'25–30% of your footprint'**
   String get foodModuleWeight;
 
   /// No description provided for @foodQ1.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cómo describirías tu dieta?'**
+  /// In en, this message translates to:
+  /// **'How would you describe your diet?'**
   String get foodQ1;
 
   /// No description provided for @foodQ2.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuántas veces comes carne de res por semana?'**
+  /// In en, this message translates to:
+  /// **'How many times a week do you eat beef?'**
   String get foodQ2;
 
   /// No description provided for @foodBeefHint.
   ///
-  /// In es, this message translates to:
-  /// **'{n} veces'**
+  /// In en, this message translates to:
+  /// **'{n} times'**
   String foodBeefHint(int n);
 
   /// No description provided for @foodQ3.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuánto desperdicias de comida?'**
+  /// In en, this message translates to:
+  /// **'How much food do you waste?'**
   String get foodQ3;
 
   /// No description provided for @foodQ4.
   ///
-  /// In es, this message translates to:
-  /// **'¿Consumes alimentos locales y de temporada?'**
+  /// In en, this message translates to:
+  /// **'Do you eat local and seasonal food?'**
   String get foodQ4;
 
   /// No description provided for @dietVegan.
   ///
-  /// In es, this message translates to:
-  /// **'Vegano'**
+  /// In en, this message translates to:
+  /// **'Vegan'**
   String get dietVegan;
 
   /// No description provided for @dietVeganSub.
   ///
-  /// In es, this message translates to:
-  /// **'Solo plantas'**
+  /// In en, this message translates to:
+  /// **'Plants only'**
   String get dietVeganSub;
 
   /// No description provided for @dietVegetarian.
   ///
-  /// In es, this message translates to:
-  /// **'Vegetariano'**
+  /// In en, this message translates to:
+  /// **'Vegetarian'**
   String get dietVegetarian;
 
   /// No description provided for @dietVegetarianSub.
   ///
-  /// In es, this message translates to:
-  /// **'Sin carne'**
+  /// In en, this message translates to:
+  /// **'No meat'**
   String get dietVegetarianSub;
 
   /// No description provided for @dietFlexitarian.
   ///
-  /// In es, this message translates to:
-  /// **'Flexitariano'**
+  /// In en, this message translates to:
+  /// **'Flexitarian'**
   String get dietFlexitarian;
 
   /// No description provided for @dietFlexitarianSub.
   ///
-  /// In es, this message translates to:
-  /// **'Poca carne'**
+  /// In en, this message translates to:
+  /// **'Little meat'**
   String get dietFlexitarianSub;
 
   /// No description provided for @dietOmnivore.
   ///
-  /// In es, this message translates to:
-  /// **'Omnívoro'**
+  /// In en, this message translates to:
+  /// **'Omnivore'**
   String get dietOmnivore;
 
   /// No description provided for @dietOmnivoreSub.
   ///
-  /// In es, this message translates to:
-  /// **'Carne regular'**
+  /// In en, this message translates to:
+  /// **'Regular meat'**
   String get dietOmnivoreSub;
 
   /// No description provided for @dietCarnivore.
   ///
-  /// In es, this message translates to:
-  /// **'Alta en carne'**
+  /// In en, this message translates to:
+  /// **'High meat'**
   String get dietCarnivore;
 
   /// No description provided for @dietCarnivoreSub.
   ///
-  /// In es, this message translates to:
-  /// **'Carne a diario'**
+  /// In en, this message translates to:
+  /// **'Meat daily'**
   String get dietCarnivoreSub;
 
   /// No description provided for @wasteNone.
   ///
-  /// In es, this message translates to:
-  /// **'Casi nada'**
+  /// In en, this message translates to:
+  /// **'Almost none'**
   String get wasteNone;
 
   /// No description provided for @wasteSome.
   ///
-  /// In es, this message translates to:
-  /// **'Algo'**
+  /// In en, this message translates to:
+  /// **'Some'**
   String get wasteSome;
 
   /// No description provided for @wasteLot.
   ///
-  /// In es, this message translates to:
-  /// **'Bastante'**
+  /// In en, this message translates to:
+  /// **'Quite a bit'**
   String get wasteLot;
 
   /// No description provided for @wasteMuch.
   ///
-  /// In es, this message translates to:
-  /// **'Mucho'**
+  /// In en, this message translates to:
+  /// **'A lot'**
   String get wasteMuch;
 
   /// No description provided for @foodLocalTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Principalmente local y de temporada'**
+  /// In en, this message translates to:
+  /// **'Mainly local and seasonal'**
   String get foodLocalTitle;
 
   /// No description provided for @foodLocalSub.
   ///
-  /// In es, this message translates to:
-  /// **'Reduce hasta 0.1 tCO₂/año'**
+  /// In en, this message translates to:
+  /// **'Reduces up to 0.1 tCO₂/year'**
   String get foodLocalSub;
 
   /// No description provided for @homeModuleTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Hogar y Energía'**
+  /// In en, this message translates to:
+  /// **'Home & Energy'**
   String get homeModuleTitle;
 
   /// No description provided for @homeModuleWeight.
   ///
-  /// In es, this message translates to:
-  /// **'20–25% de tu huella'**
+  /// In en, this message translates to:
+  /// **'20–25% of your footprint'**
   String get homeModuleWeight;
 
   /// No description provided for @homeQ1.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuántas personas viven en tu hogar?'**
+  /// In en, this message translates to:
+  /// **'How many people live in your home?'**
   String get homeQ1;
 
   /// No description provided for @homePersonsHint.
   ///
-  /// In es, this message translates to:
-  /// **'{n} persona{plural}'**
+  /// In en, this message translates to:
+  /// **'{n} person{plural}'**
   String homePersonsHint(int n, String plural);
 
   /// No description provided for @homeQ2.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuál es tu fuente de energía principal?'**
+  /// In en, this message translates to:
+  /// **'What is your main energy source?'**
   String get homeQ2;
 
   /// No description provided for @homeQ3.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuántos kWh consumes al mes?'**
+  /// In en, this message translates to:
+  /// **'How many kWh do you use per month?'**
   String get homeQ3;
 
   /// No description provided for @homeKwhHint.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'{n} kWh'**
   String homeKwhHint(int n);
 
   /// No description provided for @homeKwhAvg.
   ///
-  /// In es, this message translates to:
-  /// **'Promedio hogar Colombia: 170–250 kWh/mes'**
+  /// In en, this message translates to:
+  /// **'Colombia household average: 170–250 kWh/month'**
   String get homeKwhAvg;
 
   /// No description provided for @homeQ4.
   ///
-  /// In es, this message translates to:
-  /// **'¿Tienes aire acondicionado o calefacción?'**
+  /// In en, this message translates to:
+  /// **'Do you have air conditioning or heating?'**
   String get homeQ4;
 
   /// No description provided for @homeACTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Sí, uso AC / calefacción'**
+  /// In en, this message translates to:
+  /// **'Yes, I use AC / heating'**
   String get homeACTitle;
 
   /// No description provided for @homeACHoursHint.
   ///
-  /// In es, this message translates to:
-  /// **'{n} horas/día'**
+  /// In en, this message translates to:
+  /// **'{n} hours/day'**
   String homeACHoursHint(int n);
 
   /// No description provided for @energyGrid.
   ///
-  /// In es, this message translates to:
-  /// **'Red eléctrica'**
+  /// In en, this message translates to:
+  /// **'Power grid'**
   String get energyGrid;
 
   /// No description provided for @energySolar.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'Solar'**
   String get energySolar;
 
   /// No description provided for @energyGas.
   ///
-  /// In es, this message translates to:
-  /// **'Gas natural'**
+  /// In en, this message translates to:
+  /// **'Natural gas'**
   String get energyGas;
 
   /// No description provided for @energyMixed.
   ///
-  /// In es, this message translates to:
-  /// **'Mixto'**
+  /// In en, this message translates to:
+  /// **'Mixed'**
   String get energyMixed;
 
   /// No description provided for @shoppingModuleTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Consumo'**
+  /// In en, this message translates to:
+  /// **'Shopping'**
   String get shoppingModuleTitle;
 
   /// No description provided for @shoppingModuleWeight.
   ///
-  /// In es, this message translates to:
-  /// **'10–15% de tu huella'**
+  /// In en, this message translates to:
+  /// **'10–15% of your footprint'**
   String get shoppingModuleWeight;
 
   /// No description provided for @shoppingQ1.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuántas prendas de ropa compras al mes?'**
+  /// In en, this message translates to:
+  /// **'How many clothing items do you buy per month?'**
   String get shoppingQ1;
 
   /// No description provided for @shoppingClothingHint.
   ///
-  /// In es, this message translates to:
-  /// **'{n} prendas'**
+  /// In en, this message translates to:
+  /// **'{n} items'**
   String shoppingClothingHint(int n);
 
   /// No description provided for @shoppingQ2.
   ///
-  /// In es, this message translates to:
-  /// **'¿Dispositivos electrónicos nuevos por año?'**
+  /// In en, this message translates to:
+  /// **'New electronic devices per year?'**
   String get shoppingQ2;
 
   /// No description provided for @shoppingElectronicsHint.
   ///
-  /// In es, this message translates to:
-  /// **'{n} dispositivos'**
+  /// In en, this message translates to:
+  /// **'{n} devices'**
   String shoppingElectronicsHint(int n);
 
   /// No description provided for @shoppingQ3.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuántos paquetes de e-commerce recibes al mes?'**
+  /// In en, this message translates to:
+  /// **'How many e-commerce packages do you receive per month?'**
   String get shoppingQ3;
 
   /// No description provided for @shoppingPackagesHint.
   ///
-  /// In es, this message translates to:
-  /// **'{n} paquetes'**
+  /// In en, this message translates to:
+  /// **'{n} packages'**
   String shoppingPackagesHint(int n);
 
   /// No description provided for @shoppingQ4.
   ///
-  /// In es, this message translates to:
-  /// **'¿Compras ropa o artículos de segunda mano?'**
+  /// In en, this message translates to:
+  /// **'Do you buy secondhand clothing or items?'**
   String get shoppingQ4;
 
   /// No description provided for @shoppingSecondHandTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Sí, compro segunda mano frecuentemente'**
+  /// In en, this message translates to:
+  /// **'Yes, I buy secondhand frequently'**
   String get shoppingSecondHandTitle;
 
   /// No description provided for @shoppingSecondHandSub.
   ///
-  /// In es, this message translates to:
-  /// **'Reduce tu huella de consumo hasta 10%'**
+  /// In en, this message translates to:
+  /// **'Reduces your consumption footprint by up to 10%'**
   String get shoppingSecondHandSub;
 
   /// No description provided for @wasteModuleTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Residuos'**
+  /// In en, this message translates to:
+  /// **'Waste'**
   String get wasteModuleTitle;
 
   /// No description provided for @wasteModuleWeight.
   ///
-  /// In es, this message translates to:
-  /// **'5–8% de tu huella'**
+  /// In en, this message translates to:
+  /// **'5–8% of your footprint'**
   String get wasteModuleWeight;
 
   /// No description provided for @wasteQ1.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuántas bolsas de basura generas por semana?'**
+  /// In en, this message translates to:
+  /// **'How many trash bags do you generate per week?'**
   String get wasteQ1;
 
   /// No description provided for @wasteBagsHint.
   ///
-  /// In es, this message translates to:
-  /// **'{n} bolsa{plural}'**
+  /// In en, this message translates to:
+  /// **'{n} bag{plural}'**
   String wasteBagsHint(int n, String plural);
 
   /// No description provided for @wasteQ2.
   ///
-  /// In es, this message translates to:
-  /// **'¿Separas los residuos para reciclaje?'**
+  /// In en, this message translates to:
+  /// **'Do you separate waste for recycling?'**
   String get wasteQ2;
 
   /// No description provided for @wasteSeparateTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Sí, separo plástico, papel y vidrio'**
+  /// In en, this message translates to:
+  /// **'Yes, I separate plastic, paper and glass'**
   String get wasteSeparateTitle;
 
   /// No description provided for @wasteSeparateSub.
   ///
-  /// In es, this message translates to:
-  /// **'Reduce tu huella de residuos un 30%'**
+  /// In en, this message translates to:
+  /// **'Reduces your waste footprint by 30%'**
   String get wasteSeparateSub;
 
   /// No description provided for @wasteQ3.
   ///
-  /// In es, this message translates to:
-  /// **'¿Compostas residuos orgánicos?'**
+  /// In en, this message translates to:
+  /// **'Do you compost organic waste?'**
   String get wasteQ3;
 
   /// No description provided for @wasteCompostTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Sí, hago compost'**
+  /// In en, this message translates to:
+  /// **'Yes, I compost'**
   String get wasteCompostTitle;
 
   /// No description provided for @wasteCompostSub.
   ///
-  /// In es, this message translates to:
-  /// **'Reduce emisiones de metano del relleno'**
+  /// In en, this message translates to:
+  /// **'Reduces methane emissions from landfill'**
   String get wasteCompostSub;
 
   /// No description provided for @waterModuleTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Agua'**
+  /// In en, this message translates to:
+  /// **'Water'**
   String get waterModuleTitle;
 
   /// No description provided for @waterModuleWeight.
   ///
-  /// In es, this message translates to:
-  /// **'~3% de tu huella'**
+  /// In en, this message translates to:
+  /// **'~3% of your footprint'**
   String get waterModuleWeight;
 
   /// No description provided for @waterQ1.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cuántos minutos dura tu ducha promedio?'**
+  /// In en, this message translates to:
+  /// **'How many minutes is your average shower?'**
   String get waterQ1;
 
   /// No description provided for @waterMinutesHint.
   ///
-  /// In es, this message translates to:
-  /// **'{n} minutos'**
+  /// In en, this message translates to:
+  /// **'{n} minutes'**
   String waterMinutesHint(int n);
 
   /// No description provided for @waterQ2.
   ///
-  /// In es, this message translates to:
-  /// **'¿A qué temperatura te duchas normalmente?'**
+  /// In en, this message translates to:
+  /// **'What temperature do you usually shower at?'**
   String get waterQ2;
 
   /// No description provided for @waterQ3.
   ///
-  /// In es, this message translates to:
-  /// **'¿Riegas jardín o zonas verdes en casa?'**
+  /// In en, this message translates to:
+  /// **'Do you water a garden or green areas at home?'**
   String get waterQ3;
 
   /// No description provided for @waterGardenTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Sí, tengo jardín o riego plantas'**
+  /// In en, this message translates to:
+  /// **'Yes, I have a garden or water plants'**
   String get waterGardenTitle;
 
   /// No description provided for @tempCold.
   ///
-  /// In es, this message translates to:
-  /// **'Fría'**
+  /// In en, this message translates to:
+  /// **'Cold'**
   String get tempCold;
 
   /// No description provided for @tempColdSub.
   ///
-  /// In es, this message translates to:
-  /// **'Sin calentador'**
+  /// In en, this message translates to:
+  /// **'No heater'**
   String get tempColdSub;
 
   /// No description provided for @tempWarm.
   ///
-  /// In es, this message translates to:
-  /// **'Tibia'**
+  /// In en, this message translates to:
+  /// **'Warm'**
   String get tempWarm;
 
   /// No description provided for @tempWarmSub.
   ///
-  /// In es, this message translates to:
-  /// **'Calentador moderado'**
+  /// In en, this message translates to:
+  /// **'Moderate heater'**
   String get tempWarmSub;
 
   /// No description provided for @tempHot.
   ///
-  /// In es, this message translates to:
-  /// **'Caliente'**
+  /// In en, this message translates to:
+  /// **'Hot'**
   String get tempHot;
 
   /// No description provided for @tempHotSub.
   ///
-  /// In es, this message translates to:
-  /// **'Calentador máximo'**
+  /// In en, this message translates to:
+  /// **'Full heater'**
   String get tempHotSub;
 
   /// No description provided for @cancel.
   ///
-  /// In es, this message translates to:
-  /// **'Cancelar'**
+  /// In en, this message translates to:
+  /// **'Cancel'**
   String get cancel;
 
   /// No description provided for @greetingWithName.
   ///
-  /// In es, this message translates to:
-  /// **'Hola, {name} 👋'**
+  /// In en, this message translates to:
+  /// **'Hello, {name} 👋'**
   String greetingWithName(String name);
 
   /// No description provided for @greetingEmpty.
   ///
-  /// In es, this message translates to:
-  /// **'Hola 👋'**
+  /// In en, this message translates to:
+  /// **'Hello 👋'**
   String get greetingEmpty;
 
   /// No description provided for @addYourName.
   ///
-  /// In es, this message translates to:
-  /// **'Añade tu nombre'**
+  /// In en, this message translates to:
+  /// **'Add your name'**
   String get addYourName;
 
   /// No description provided for @nameDialogTitle.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cómo te llamas?'**
+  /// In en, this message translates to:
+  /// **'What\'s your name?'**
   String get nameDialogTitle;
 
   /// No description provided for @nameDialogHint.
   ///
-  /// In es, this message translates to:
-  /// **'Tu nombre'**
+  /// In en, this message translates to:
+  /// **'Your name'**
   String get nameDialogHint;
 
   /// No description provided for @nameOnCard.
   ///
-  /// In es, this message translates to:
-  /// **'nombre en la tarjeta'**
+  /// In en, this message translates to:
+  /// **'name on card'**
   String get nameOnCard;
 
   /// No description provided for @historyTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Evolución de tu huella'**
+  /// In en, this message translates to:
+  /// **'Your footprint evolution'**
   String get historyTitle;
 
   /// No description provided for @historyMeasurements.
   ///
-  /// In es, this message translates to:
-  /// **'{n} mediciones'**
+  /// In en, this message translates to:
+  /// **'{n} measurements'**
   String historyMeasurements(int n);
 
   /// No description provided for @historyEmptyTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Aún sin historial'**
+  /// In en, this message translates to:
+  /// **'No history yet'**
   String get historyEmptyTitle;
 
   /// No description provided for @historyEmptySub.
   ///
-  /// In es, this message translates to:
-  /// **'Actualiza tus módulos en distintos días para ver cómo evoluciona tu huella.'**
+  /// In en, this message translates to:
+  /// **'Update your modules on different days to track how your footprint evolves.'**
   String get historyEmptySub;
 
   /// No description provided for @historyOneMeasurement.
   ///
-  /// In es, this message translates to:
-  /// **'¡Primera medición registrada! 🎉'**
+  /// In en, this message translates to:
+  /// **'First measurement recorded! 🎉'**
   String get historyOneMeasurement;
 
   /// No description provided for @historyOneSub.
   ///
-  /// In es, this message translates to:
-  /// **'Vuelve mañana y actualiza un módulo para ver tu evolución.'**
+  /// In en, this message translates to:
+  /// **'Come back tomorrow and update a module to see your evolution.'**
   String get historyOneSub;
 
   /// No description provided for @historyImproved.
   ///
-  /// In es, this message translates to:
-  /// **'↓ {pct}% desde tu primera medición'**
+  /// In en, this message translates to:
+  /// **'↓ {pct}% since your first measurement'**
   String historyImproved(String pct);
 
   /// No description provided for @historyWorsened.
   ///
-  /// In es, this message translates to:
-  /// **'↑ {pct}% desde tu primera medición'**
+  /// In en, this message translates to:
+  /// **'↑ {pct}% since your first measurement'**
   String historyWorsened(String pct);
 
   /// No description provided for @offsetTitle.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cómo compensar tu huella?'**
+  /// In en, this message translates to:
+  /// **'How to offset your footprint?'**
   String get offsetTitle;
 
   /// No description provided for @offsetSubtitle.
   ///
-  /// In es, this message translates to:
-  /// **'Mientras reduces, puedes neutralizar el CO₂ restante'**
+  /// In en, this message translates to:
+  /// **'While you reduce, you can neutralize the remaining CO₂'**
   String get offsetSubtitle;
 
   /// No description provided for @offsetTreesValue.
   ///
-  /// In es, this message translates to:
-  /// **'{n} árboles'**
+  /// In en, this message translates to:
+  /// **'{n} trees'**
   String offsetTreesValue(int n);
 
   /// No description provided for @offsetTreesLabel.
   ///
-  /// In es, this message translates to:
-  /// **'para absorber tu huella anual'**
+  /// In en, this message translates to:
+  /// **'to absorb your annual footprint'**
   String get offsetTreesLabel;
 
   /// No description provided for @offsetCostValue.
   ///
-  /// In es, this message translates to:
-  /// **'~{usd} USD/año'**
+  /// In en, this message translates to:
+  /// **'~{usd} USD/year'**
   String offsetCostValue(int usd);
 
   /// No description provided for @offsetCostMonthly.
   ///
-  /// In es, this message translates to:
-  /// **'~{usd} USD/mes'**
+  /// In en, this message translates to:
+  /// **'~{usd} USD/month'**
   String offsetCostMonthly(int usd);
 
   /// No description provided for @offsetCostLabel.
   ///
-  /// In es, this message translates to:
-  /// **'en créditos de carbono certificados'**
+  /// In en, this message translates to:
+  /// **'in certified carbon credits'**
   String get offsetCostLabel;
 
   /// No description provided for @offsetReduceFirst.
   ///
-  /// In es, this message translates to:
-  /// **'Reduce primero, compensa después'**
+  /// In en, this message translates to:
+  /// **'Reduce first, offset later'**
   String get offsetReduceFirst;
 
   /// No description provided for @offsetReduceFirstDesc.
   ///
-  /// In es, this message translates to:
-  /// **'Los créditos de carbono son un complemento, no un sustituto de reducir tu huella.'**
+  /// In en, this message translates to:
+  /// **'Carbon credits are a complement, not a substitute for reducing your footprint.'**
   String get offsetReduceFirstDesc;
 
   /// No description provided for @offsetPlatformsTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Plataformas certificadas'**
+  /// In en, this message translates to:
+  /// **'Certified platforms'**
   String get offsetPlatformsTitle;
 
   /// No description provided for @offsetDisclaimer.
   ///
-  /// In es, this message translates to:
-  /// **'* Estimación basada en mercado voluntario de carbono (~\$20/t CO₂) y absorción de árbol maduro (~21 kg CO₂/año).'**
+  /// In en, this message translates to:
+  /// **'* Estimate based on the voluntary carbon market (~\$20/t CO₂) and mature tree absorption (~21 kg CO₂/year).'**
   String get offsetDisclaimer;
 
   /// No description provided for @resultsTitle.
   ///
-  /// In es, this message translates to:
-  /// **'¡Diagnóstico completado!'**
+  /// In en, this message translates to:
+  /// **'Diagnosis complete!'**
   String get resultsTitle;
 
   /// No description provided for @resultsSub.
   ///
-  /// In es, this message translates to:
-  /// **'Has completado los 6 módulos de tu huella de carbono'**
+  /// In en, this message translates to:
+  /// **'You have completed all 6 carbon footprint modules'**
   String get resultsSub;
 
   /// No description provided for @resultsYourFootprint.
   ///
-  /// In es, this message translates to:
-  /// **'Tu huella de carbono anual'**
+  /// In en, this message translates to:
+  /// **'Your annual carbon footprint'**
   String get resultsYourFootprint;
 
   /// No description provided for @resultsCompareTitle.
   ///
-  /// In es, this message translates to:
-  /// **'¿Cómo te comparas?'**
+  /// In en, this message translates to:
+  /// **'How do you compare?'**
   String get resultsCompareTitle;
 
   /// No description provided for @resultsYou.
   ///
-  /// In es, this message translates to:
-  /// **'Tú'**
+  /// In en, this message translates to:
+  /// **'You'**
   String get resultsYou;
 
   /// No description provided for @resultsParis.
   ///
-  /// In es, this message translates to:
-  /// **'Obj. París'**
+  /// In en, this message translates to:
+  /// **'Paris goal'**
   String get resultsParis;
 
   /// No description provided for @resultsColombia.
   ///
-  /// In es, this message translates to:
+  /// In en, this message translates to:
   /// **'Colombia'**
   String get resultsColombia;
 
   /// No description provided for @resultsWorld.
   ///
-  /// In es, this message translates to:
-  /// **'Mundo'**
+  /// In en, this message translates to:
+  /// **'World'**
   String get resultsWorld;
 
   /// No description provided for @resultsTopSources.
   ///
-  /// In es, this message translates to:
-  /// **'Principales fuentes de emisión'**
+  /// In en, this message translates to:
+  /// **'Main emission sources'**
   String get resultsTopSources;
 
   /// No description provided for @resultsAchievements.
   ///
-  /// In es, this message translates to:
-  /// **'Tus logros'**
+  /// In en, this message translates to:
+  /// **'Your achievements'**
   String get resultsAchievements;
 
   /// No description provided for @resultsEcoPoints.
   ///
-  /// In es, this message translates to:
-  /// **'{points} puntos EcoScore'**
+  /// In en, this message translates to:
+  /// **'{points} EcoScore points'**
   String resultsEcoPoints(int points);
 
   /// No description provided for @resultsBadgesUnlocked.
   ///
-  /// In es, this message translates to:
-  /// **'logros desbloqueados'**
+  /// In en, this message translates to:
+  /// **'achievements unlocked'**
   String get resultsBadgesUnlocked;
 
   /// No description provided for @resultsViewDashboard.
   ///
-  /// In es, this message translates to:
-  /// **'Ver Dashboard completo'**
+  /// In en, this message translates to:
+  /// **'View full Dashboard'**
   String get resultsViewDashboard;
 
   /// No description provided for @resultsViewPlan.
   ///
-  /// In es, this message translates to:
-  /// **'Crear mi Plan de Acción'**
+  /// In en, this message translates to:
+  /// **'Create my Action Plan'**
   String get resultsViewPlan;
 
   /// No description provided for @resultsViewAgain.
   ///
-  /// In es, this message translates to:
-  /// **'Ver mis resultados 🏆'**
+  /// In en, this message translates to:
+  /// **'See my results 🏆'**
   String get resultsViewAgain;
 
   /// No description provided for @exportResult.
   ///
-  /// In es, this message translates to:
-  /// **'Exportar imagen'**
+  /// In en, this message translates to:
+  /// **'Export image'**
   String get exportResult;
 
   /// No description provided for @downloadImage.
   ///
-  /// In es, this message translates to:
-  /// **'Descargar imagen'**
+  /// In en, this message translates to:
+  /// **'Download image'**
   String get downloadImage;
 
   /// No description provided for @tabHome.
   ///
-  /// In es, this message translates to:
-  /// **'Inicio'**
+  /// In en, this message translates to:
+  /// **'Home'**
   String get tabHome;
 
   /// No description provided for @homeWelcomeTitle.
   ///
-  /// In es, this message translates to:
-  /// **'Conoce tu huella de carbono'**
+  /// In en, this message translates to:
+  /// **'Know your carbon footprint'**
   String get homeWelcomeTitle;
 
   /// No description provided for @homeWelcomeSub.
   ///
-  /// In es, this message translates to:
-  /// **'Completa los 6 módulos del diagnóstico y descubre cómo puedes reducir tu impacto en el planeta.'**
+  /// In en, this message translates to:
+  /// **'Complete the 6 diagnosis modules and discover how you can reduce your impact on the planet.'**
   String get homeWelcomeSub;
 
   /// No description provided for @homeStartTest.
   ///
-  /// In es, this message translates to:
-  /// **'Comenzar mi diagnóstico'**
+  /// In en, this message translates to:
+  /// **'Start my diagnosis'**
   String get homeStartTest;
 
   /// No description provided for @homeUpdateTest.
   ///
-  /// In es, this message translates to:
-  /// **'Actualizar mi test'**
+  /// In en, this message translates to:
+  /// **'Update my test'**
   String get homeUpdateTest;
 
   /// No description provided for @homeViewFullFootprint.
   ///
-  /// In es, this message translates to:
-  /// **'Ver análisis completo'**
+  /// In en, this message translates to:
+  /// **'View full analysis'**
   String get homeViewFullFootprint;
 
   /// No description provided for @homeModulesStatus.
   ///
-  /// In es, this message translates to:
-  /// **'{completed} de 6 módulos completados'**
+  /// In en, this message translates to:
+  /// **'{completed} of 6 modules complete'**
   String homeModulesStatus(int completed);
 }
 
@@ -2126,7 +2130,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'es'].contains(locale.languageCode);
+      <String>['de', 'en', 'es', 'pt'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -2135,10 +2139,14 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'de':
+      return AppLocalizationsDe();
     case 'en':
       return AppLocalizationsEn();
     case 'es':
       return AppLocalizationsEs();
+    case 'pt':
+      return AppLocalizationsPt();
   }
 
   throw FlutterError(

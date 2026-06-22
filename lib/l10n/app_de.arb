@@ -1,0 +1,458 @@
+{
+  "@@locale": "de",
+  "appName": "FootCarbonPrint",
+  "tagline": "Kenne deinen Fußabdruck. Ändere deine Welt.",
+  "save": "Speichern",
+  "next": "Weiter",
+  "skip": "Überspringen",
+  "goToTest": "Zum Test",
+  "startTest": "Meinen Test starten!",
+  "startTestNow": "Test jetzt starten! 🚀",
+  "co2PerYear": "Tonnen CO₂/Jahr",
+  "co2Unit": "t CO₂/Jahr",
+  "moduleEstimate": "Schätzung aus diesem Modul",
+  "saveModule": "Modul speichern",
+  "completedCheck": "Abgeschlossen ✓",
+  "tapToStart": "Tippen zum Starten",
+
+  "onb1Title": "Wie viel verschmutz\ndu ohne es zu wissen?",
+  "onb1Sub": "Die meisten Menschen emittieren mehr CO₂ als sie denken. Entdecke in weniger als 7 Minuten deinen echten Einfluss auf den Planeten.",
+  "onb2Title": "Dein Fußabdruck,\nin echten Daten",
+  "onb2Sub": "Wir berechnen deinen jährlichen CO₂-Fußabdruck aufgeteilt nach Kategorien: Transport, Ernährung, Zuhause, Konsum, Abfall und Wasser.",
+  "onb3Title": "Ein Aktionsplan,\nder wirklich funktioniert",
+  "onb3Sub": "Wir messen nicht nur — wir sagen dir genau, was du ändern sollst und wie viel CO₂ du mit jeder Maßnahme sparst. Schritt für Schritt.",
+
+  "tabTest": "Mein Test",
+  "tabFootprint": "Mein Fußabdruck",
+  "tabPlan": "Plan",
+
+  "testHubTitle": "Dein CO₂-\nFußabdruck-Selbsttest",
+  "testHubSub": "Vervollständige die Module, um deinen Einfluss zu entdecken",
+  "modulesProgress": "{completed} von {total} Modulen",
+  "@modulesProgress": {
+    "placeholders": {
+      "completed": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "viewMyFootprint": "Meinen CO₂-Fußabdruck ansehen",
+  "learnBannerFirstTitle": "Zum ersten Mal hier?",
+  "learnBannerFirstSub": "Lerne in 2 Minuten, was ein CO₂-Fußabdruck ist",
+  "learnBannerReturnTitle": "CO₂-Fußabdruck-Leitfaden",
+  "learnBannerReturnSub": "Die wichtigsten Konzepte — 6 visuelle Lektionen",
+
+  "modTransport": "Transport",
+  "modTransportWeight": "28–35%",
+  "modFood": "Ernährung",
+  "modFoodWeight": "25–30%",
+  "modHome": "Zuhause",
+  "modHomeWeight": "20–25%",
+  "modShopping": "Konsum",
+  "modShoppingWeight": "10–15%",
+  "modWaste": "Abfall",
+  "modWasteWeight": "5–8%",
+  "modWater": "Wasser",
+  "modWaterWeight": "~3%",
+
+  "dashEmptyTitle": "Noch keine Ergebnisse",
+  "dashEmptySub": "Schließe mindestens ein Test-Modul ab, um deinen CO₂-Fußabdruck hier zu sehen.",
+  "dashAppBarTitle": "Dein CO₂-Fußabdruck",
+  "equivalencesTitle": "Dein Fußabdruck entspricht...",
+  "treesLabel": "Bäume\ngefällt/Jahr",
+  "bulbYearsLabel": "Glühbirnen-\njahre",
+  "phoneChargesLabel": "Smartphone-\nladungen",
+  "breakdownTitle": "Aufschlüsselung nach Kategorie",
+  "benchmarkTitle": "Globaler Vergleich",
+  "yourFootprint": "Dein Fußabdruck",
+  "parisTarget": "Paris-Ziel 2050",
+  "colombiaAvg": "Kolumbien Durchschnitt",
+  "worldAvg": "Weltdurchschnitt",
+  "viewActionPlan": "Aktionsplan ansehen",
+  "ecoPoints": "Öko-Punkte",
+  "nextLevelLabel": "Nächste: {emoji} {name}",
+  "@nextLevelLabel": {
+    "placeholders": {
+      "emoji": {"type": "String"},
+      "name": {"type": "String"}
+    }
+  },
+  "ptsMore": "{pts} Pts mehr",
+  "@ptsMore": {
+    "placeholders": {"pts": {"type": "int"}}
+  },
+  "maxLevelReached": "Höchste Stufe erreicht! 🎉",
+  "myAchievements": "Meine Erfolge",
+  "shareMyLevel": "Mein Level teilen",
+  "shareSub": "Lade deine Öko-Karte herunter und teile sie in sozialen Netzwerken",
+
+  "lvlChampion": "Grüner Champion",
+  "lvlConscious": "Bewusst",
+  "lvlOntrack": "Auf dem richtigen Weg",
+  "lvlHigh": "Hoher Einfluss",
+  "lvlCritical": "Kritisch",
+
+  "ecoLvlBeginner": "Anfänger",
+  "ecoLvlLearner": "Lernender",
+  "ecoLvlConscious": "Bewusst",
+  "ecoLvlActivist": "Aktivist",
+  "ecoLvlChampion": "Öko-Champion",
+
+  "badgeFirstStep": "Erster Schritt",
+  "badgeFirstStepDesc": "Schließe dein erstes Test-Modul ab",
+  "badgeExplorer": "Entdecker",
+  "badgeExplorerDesc": "Schließe 3 Test-Module ab",
+  "badgeCompletionist": "Vollender",
+  "badgeCompletionistDesc": "Schließe alle 6 Test-Module ab",
+  "badgeEducated": "Gebildet",
+  "badgeEducatedDesc": "Beende den Lernleitfaden",
+  "badgeConscious": "Bewusst",
+  "badgeConsciousDesc": "Erreiche einen Fußabdruck unter 3 Tonnen",
+  "badgeChampion": "Leichter Fußabdruck",
+  "badgeChampionDesc": "Erreiche einen Fußabdruck unter 1,5 Tonnen",
+  "badgeCommitted": "Engagiert",
+  "badgeCommittedDesc": "Verpflichte dich zu mindestens 1 Maßnahme",
+  "badgeActivist": "Aktivist",
+  "badgeActivistDesc": "Verpflichte dich zu 5 Maßnahmen aus dem Plan",
+  "badgeLocked": "🔒 {description}",
+  "@badgeLocked": {
+    "placeholders": {"description": {"type": "String"}}
+  },
+
+  "actionPlanTitle": "Aktionsplan",
+  "actionPlanEmptyTitle": "Noch kein Plan",
+  "actionPlanEmptySub": "Schließe mindestens ein Test-Modul ab, um deinen personalisierten Aktionsplan zu sehen.",
+  "reductionTitle": "Wie viel kannst du reduzieren?",
+  "reductionSub": "bis zu {pct}% mit den folgenden Maßnahmen",
+  "@reductionSub": {
+    "placeholders": {"pct": {"type": "int"}}
+  },
+  "actionsTitle": "Deine Top-Maßnahmen nach Wirkung",
+  "actionsSub": "Sortiert nach höchstem bis niedrigstem Einsparpotenzial",
+  "commit": "Ich verpflichte mich",
+  "committedLabel": "✓ Verpflichtet",
+  "challengesTitle": "Wöchentliche Herausforderungen 🎯",
+  "challengesSub": "Kleine Veränderungen mit großer Wirkung",
+
+  "actionFlightTitle": "1 Langstreckenflug pro Jahr streichen",
+  "actionFlightDesc": "Ein Langstreckenflug emittiert mehr CO₂ als 2 Monate Autofahren.",
+  "actionFlexitarianTitle": "Flexitarische Ernährung einführen",
+  "actionFlexitarianDesc": "Fleisch auf 2–3 Mal pro Woche reduzieren hat einen großen Einfluss.",
+  "actionPublicTransportTitle": "Öffentliche Verkehrsmittel 2 Tage/Woche",
+  "actionPublicTransportDesc": "Das Auto 2 Tage stehen lassen vermeidet ~350 kg CO₂ pro Jahr.",
+  "actionLessBeefTitle": "3 Tage/Woche kein Rindfleisch",
+  "actionLessBeefDesc": "Rindfleisch emittiert 27 kgCO₂/kg — das höchste aller Lebensmittel.",
+  "actionLedTitle": "Auf LED-Lampen umsteigen",
+  "actionLedDesc": "LEDs verbrauchen 75% weniger Energie als Glühbirnen.",
+  "actionShortShowerTitle": "Duschen max. 5 Minuten",
+  "actionShortShowerDesc": "Die Dusche auf 5 Min mit warmem Wasser zu reduzieren spart 100 kgCO₂/Jahr.",
+  "actionRecycleTitle": "Abfall zum Recycling trennen",
+  "actionRecycleDesc": "Recycling verhindert die anaerobe Zersetzung, die Methan produziert.",
+  "actionSecondhandTitle": "50% Second-Hand-Kleidung kaufen",
+  "actionSecondhandDesc": "Die Textilindustrie ist eine der umweltschädlichsten der Welt.",
+  "actionCompostTitle": "Organische Abfälle kompostieren",
+  "actionCompostDesc": "Kompostieren verhindert, dass organische Abfälle Methan auf Deponien erzeugen.",
+  "actionBikeTitle": "Mit dem Fahrrad oder zu Fuß zur Arbeit",
+  "actionBikeDesc": "Null Emissionen + Gesundheitsvorteile.",
+
+  "challengeWeekLabel": "Herausforderung der Woche",
+  "challengeExpiresLabel": "Läuft diesen Sonntag ab",
+  "challengePts": "+{pts} Pts",
+  "@challengePts": {
+    "placeholders": {"pts": {"type": "int"}}
+  },
+  "challengeMarkDone": "Ich hab's geschafft! Als erledigt markieren",
+  "challengeCompletedLabel": "Herausforderung diese Woche abgeschlossen! 🎉",
+  "challengeCompletedSub": "Du hast +25 Punkte verdient",
+
+  "challenge1": "Eine Woche ohne Einwegplastik",
+  "challengeDesc1": "Bring eine wiederverwendbare Tasche mit und vermeide 7 Tage lang Plastikbecher, Strohhalme und -tüten.",
+  "challengeEmoji1": "🛍️",
+  "challenge2": "7 Tage ohne rotes Fleisch",
+  "challengeDesc2": "Ersetze Rindfleisch für die ganze Woche durch Hühnchen, Fisch, Hülsenfrüchte oder Tofu.",
+  "challengeEmoji2": "🥩",
+  "challenge3": "3 Tage diese Woche Fahrrad oder zu Fuß",
+  "challengeDesc3": "Lass das Auto mindestens 3 Tage stehen und nutze Fahrrad, Roller oder deine Füße.",
+  "challengeEmoji3": "🚲",
+  "challenge4": "5 Tage lang max. 5 Minuten duschen",
+  "challengeDesc4": "Benutze einen Timer — max. 5 Minuten mit warmem Wasser, an 5 aufeinanderfolgenden Tagen.",
+  "challengeEmoji4": "🚿",
+
+  "learnGuideTitle": "CO₂-Fußabdruck-Leitfaden",
+  "learnNext": "Weiter →",
+
+  "l1Title": "Der Planet\nhat Fieber",
+  "l1Body": "Stell dir vor, die Erde wäre dein Körper. Wenn du nur 1°C Fieber hast, fühlst du dich schon schlecht. Die Erde ist bereits 1,2°C wärmer als vor 150 Jahren… und es wird jedes Jahr wärmer.",
+  "l1FactLabel": "FAKT",
+  "l1Fact": "2023 war das wärmste Jahr seit Beginn der Aufzeichnungen. Die 10 heißesten Jahre der Geschichte lagen alle in den letzten 10 Jahren.",
+  "l1TempLow": "Leichtes Abschmelzen von Gletschern",
+  "l1TempNow": "Wo wir heute stehen 📍",
+  "l1TempHeat": "Extreme Hitzewellen",
+  "l1TempCrisis": "Zivilisation in Gefahr",
+
+  "l2Title": "Das unsichtbare\nGas",
+  "l2Body": "Wenn du Benzin, Gas oder Kohle verbrennst — oder wenn Lebensmittel verrotten — wird CO₂ freigesetzt. Dieses Gas wirkt wie eine Decke: Es lässt die Sonnenwärme herein, aber nicht heraus. Der Planet erwärmt sich.",
+  "l2FactLabel": "ANALOGIE",
+  "l2Fact": "Es ist, als würde man das Auto in einer geschlossenen Garage laufen lassen. Nur dass die Garage die gesamte Erdatmosphäre ist.",
+  "l2Step1": "Sonne sendet\nWärme",
+  "l2Step2": "Erde\nempfängt",
+  "l2Step3": "CO₂ hält\ndie Wärme",
+  "l2Result": "🌡️ Wärme kann nicht entweichen → Temperatur steigt",
+
+  "l3Title": "Dein persönlicher\nFußabdruck",
+  "l3Body": "Der \"CO₂-Fußabdruck\" ist das gesamte CO₂, das du in einem Jahr produzierst. Er beinhaltet alles, was du konsumierst: den Bus, den du nimmst, den Burger, den du isst, das Hemd, das du kaufst, die heiße Dusche, die du nimmst.",
+  "l3FactLabel": "IN KOLUMBIEN",
+  "l3Fact": "Ein Kolumbianer produziert durchschnittlich 1,8 Tonnen CO₂ pro Jahr. Der Weltdurchschnitt beträgt 4,7 t. Das Ziel bis 2030 ist, unter 2 t zu kommen.",
+  "l3ColombiaLabel": "Kolumbien\nDurchschnitt",
+  "l3WorldLabel": "Welt\nDurchschnitt",
+  "l3TargetLabel": "Ziel\n2030 🎯",
+
+  "l4Title": "Woher\nkommt es?",
+  "l4Body": "Nicht nur Autos verschmutzen. Dein Fußabdruck kommt aus 6 großen Kategorien deines Alltags. Einige überraschen: Rindfleisch emittiert mehr CO₂ als ein Auto zu fahren.",
+  "l4FactLabel": "DIE 6 KATEGORIEN",
+  "l4Fact": "Transport und Ernährung zusammen machen mehr als 55% deines gesamten Fußabdrucks aus.",
+
+  "l5Title": "Wie viel\nist zu viel?",
+  "l5Body": "Es gibt ein globales Ziel: Um die schlimmsten Folgen des Klimawandels zu vermeiden, muss jeder Mensch bis 2030 unter 2 Tonnen CO₂ pro Jahr kommen.",
+  "l5FactLabel": "VERGLEICH",
+  "l5Fact": "Ein US-Bürger produziert 15 t/Jahr. Ein Deutscher: 9 t. Ein Kolumbianer: 1,8 t. Aber die Lebensqualität muss nicht sinken, um den Fußabdruck zu reduzieren.",
+
+  "l6Title": "Du kannst\netwas ändern",
+  "l6Body": "Du musst kein Aktivist sein oder dein Leben über Nacht ändern. Kleine Veränderungen bei Transport, Ernährung und Wohngewohnheiten können deinen Fußabdruck um bis zu 40% reduzieren.",
+  "l6FactLabel": "DER ERSTE SCHRITT",
+  "l6Fact": "Deinen Fußabdruck zu kennen ist der erste Schritt. Was man nicht misst, kann man nicht verbessern. Mach jetzt den Test!",
+  "l6Action1": "Weniger Fleisch essen",
+  "l6Action2": "Öffentliche Verkehrsmittel nutzen",
+  "l6Action3": "1 Langstreckenflug vermeiden",
+  "l6Action4": "Auf LED umsteigen",
+  "l6ActionsLabel": "Maßnahmen mit hoher Wirkung:",
+
+  "profileCardTitle": "Meine Öko-Karte",
+  "profileCardPreview": "Vorschau — teile dein Level in sozialen Netzwerken 🌍",
+  "photoDialogTitle": "Dein Foto hinzufügen?",
+  "photoDialogContent": "Du kannst die Karte mit deinem Profilbild personalisieren oder einfach das Emoji deines Levels verwenden.",
+  "emojiOnly": "Nur Emoji",
+  "choosePhoto": "Foto auswählen",
+  "addPhoto": "Foto hinzufügen",
+  "changePhoto": "Foto ändern",
+  "generating": "Wird erstellt...",
+  "downloadPng": "PNG herunterladen",
+  "cardDownloaded": "Karte heruntergeladen! 🌿",
+  "downloadHint": "Das Bild wird in 1080×1080 px heruntergeladen,\nideal für Instagram, WhatsApp und Twitter.",
+  "cardFooterText": "Kenne deinen Fußabdruck. Ändere deine Welt.",
+  "statsModules": "Module",
+  "statsAchievements": "Erfolge",
+
+  "transportModuleTitle": "Transport",
+  "transportModuleWeight": "28–35% deines Fußabdrucks",
+  "transportQ1": "Was ist dein wichtigstes Verkehrsmittel?",
+  "transportQ2": "Wie viele km legst du pro Woche zurück?",
+  "transportKmHint": "{km} km/Woche",
+  "@transportKmHint": {
+    "placeholders": {"km": {"type": "int"}}
+  },
+  "transportQ3": "Wie viele Flüge unternimmst du pro Jahr?",
+  "flightShort": "Kurz (< 3h)",
+  "flightMedium": "Mittel (3–6h)",
+  "flightLong": "Lang (> 6h)",
+  "vehicleGasoline": "Benzin",
+  "vehicleDiesel": "Diesel",
+  "vehicleHybrid": "Hybrid",
+  "vehicleElectric": "Elektrisch",
+  "vehicleMotorcycle": "Motorrad",
+  "vehicleBus": "Bus/U-Bahn",
+  "vehicleBicycle": "Fahrrad",
+  "vehicleWalking": "Zu Fuß",
+
+  "foodModuleTitle": "Ernährung",
+  "foodModuleWeight": "25–30% deines Fußabdrucks",
+  "foodQ1": "Wie würdest du deine Ernährung beschreiben?",
+  "foodQ2": "Wie oft pro Woche isst du Rindfleisch?",
+  "foodBeefHint": "{n} Mal",
+  "@foodBeefHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "foodQ3": "Wie viel Lebensmittel verschwendest du?",
+  "foodQ4": "Konsumierst du lokale und saisonale Lebensmittel?",
+  "dietVegan": "Vegan",
+  "dietVeganSub": "Nur Pflanzen",
+  "dietVegetarian": "Vegetarisch",
+  "dietVegetarianSub": "Kein Fleisch",
+  "dietFlexitarian": "Flexitarisch",
+  "dietFlexitarianSub": "Wenig Fleisch",
+  "dietOmnivore": "Omnivor",
+  "dietOmnivoreSub": "Regelmäßig Fleisch",
+  "dietCarnivore": "Fleischreich",
+  "dietCarnivoreSub": "Täglich Fleisch",
+  "wasteNone": "Fast nichts",
+  "wasteSome": "Etwas",
+  "wasteLot": "Ziemlich viel",
+  "wasteMuch": "Sehr viel",
+  "foodLocalTitle": "Hauptsächlich lokal und saisonal",
+  "foodLocalSub": "Reduziert bis zu 0,1 tCO₂/Jahr",
+
+  "homeModuleTitle": "Zuhause & Energie",
+  "homeModuleWeight": "20–25% deines Fußabdrucks",
+  "homeQ1": "Wie viele Personen leben in deinem Haushalt?",
+  "homePersonsHint": "{n} Person{plural}",
+  "@homePersonsHint": {
+    "placeholders": {
+      "n": {"type": "int"},
+      "plural": {"type": "String"}
+    }
+  },
+  "homeQ2": "Was ist deine wichtigste Energiequelle?",
+  "homeQ3": "Wie viele kWh verbrauchst du pro Monat?",
+  "homeKwhHint": "{n} kWh",
+  "@homeKwhHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "homeKwhAvg": "Durchschnittlicher Haushalt: 170–250 kWh/Monat",
+  "homeQ4": "Hast du eine Klimaanlage oder Heizung?",
+  "homeACTitle": "Ja, ich nutze Klimaanlage / Heizung",
+  "homeACHoursHint": "{n} Stunden/Tag",
+  "@homeACHoursHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "energyGrid": "Stromnetz",
+  "energySolar": "Solar",
+  "energyGas": "Erdgas",
+  "energyMixed": "Gemischt",
+
+  "shoppingModuleTitle": "Konsum",
+  "shoppingModuleWeight": "10–15% deines Fußabdrucks",
+  "shoppingQ1": "Wie viele Kleidungsstücke kaufst du pro Monat?",
+  "shoppingClothingHint": "{n} Stück",
+  "@shoppingClothingHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "shoppingQ2": "Neue elektronische Geräte pro Jahr?",
+  "shoppingElectronicsHint": "{n} Geräte",
+  "@shoppingElectronicsHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "shoppingQ3": "Wie viele E-Commerce-Pakete erhältst du pro Monat?",
+  "shoppingPackagesHint": "{n} Pakete",
+  "@shoppingPackagesHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "shoppingQ4": "Kaufst du Kleidung oder Artikel aus zweiter Hand?",
+  "shoppingSecondHandTitle": "Ja, ich kaufe häufig Second-Hand",
+  "shoppingSecondHandSub": "Reduziert deinen Konsumfußabdruck um bis zu 10%",
+
+  "wasteModuleTitle": "Abfall",
+  "wasteModuleWeight": "5–8% deines Fußabdrucks",
+  "wasteQ1": "Wie viele Müllbeutel erzeugst du pro Woche?",
+  "wasteBagsHint": "{n} Beutel{plural}",
+  "@wasteBagsHint": {
+    "placeholders": {
+      "n": {"type": "int"},
+      "plural": {"type": "String"}
+    }
+  },
+  "wasteQ2": "Trennst du Abfall zum Recyceln?",
+  "wasteSeparateTitle": "Ja, ich trenne Plastik, Papier und Glas",
+  "wasteSeparateSub": "Reduziert deinen Abfallfußabdruck um 30%",
+  "wasteQ3": "Kompostierst du organische Abfälle?",
+  "wasteCompostTitle": "Ja, ich kompostiere",
+  "wasteCompostSub": "Reduziert Methanemissionen aus Deponien",
+
+  "waterModuleTitle": "Wasser",
+  "waterModuleWeight": "~3% deines Fußabdrucks",
+  "waterQ1": "Wie viele Minuten dauert deine durchschnittliche Dusche?",
+  "waterMinutesHint": "{n} Minuten",
+  "@waterMinutesHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "waterQ2": "Bei welcher Temperatur duschst du normalerweise?",
+  "waterQ3": "Bewässerst du einen Garten oder Grünflächen zu Hause?",
+  "waterGardenTitle": "Ja, ich habe einen Garten oder bewässere Pflanzen",
+  "tempCold": "Kalt",
+  "tempColdSub": "Ohne Heizung",
+  "tempWarm": "Warm",
+  "tempWarmSub": "Mäßige Heizung",
+  "tempHot": "Heiß",
+  "tempHotSub": "Volle Heizung",
+
+  "cancel": "Abbrechen",
+  "greetingWithName": "Hallo, {name} 👋",
+  "@greetingWithName": {
+    "placeholders": {"name": {"type": "String"}}
+  },
+  "greetingEmpty": "Hallo 👋",
+  "addYourName": "Deinen Namen hinzufügen",
+  "nameDialogTitle": "Wie heißt du?",
+  "nameDialogHint": "Dein Name",
+  "nameOnCard": "Name auf der Karte",
+
+  "historyTitle": "Entwicklung deines Fußabdrucks",
+  "historyMeasurements": "{n} Messungen",
+  "@historyMeasurements": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "historyEmptyTitle": "Noch kein Verlauf",
+  "historyEmptySub": "Aktualisiere deine Module an verschiedenen Tagen, um zu verfolgen, wie sich dein Fußabdruck entwickelt.",
+  "historyOneMeasurement": "Erste Messung aufgezeichnet! 🎉",
+  "historyOneSub": "Komm morgen wieder und aktualisiere ein Modul, um deine Entwicklung zu sehen.",
+  "historyImproved": "↓ {pct}% seit deiner ersten Messung",
+  "@historyImproved": {
+    "placeholders": {"pct": {"type": "String"}}
+  },
+  "historyWorsened": "↑ {pct}% seit deiner ersten Messung",
+  "@historyWorsened": {
+    "placeholders": {"pct": {"type": "String"}}
+  },
+
+  "offsetTitle": "Wie kannst du deinen Fußabdruck ausgleichen?",
+  "offsetSubtitle": "Während du reduzierst, kannst du das verbleibende CO₂ neutralisieren",
+  "offsetTreesValue": "{n} Bäume",
+  "@offsetTreesValue": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "offsetTreesLabel": "um deinen jährlichen Fußabdruck zu absorbieren",
+  "offsetCostValue": "~{usd} USD/Jahr",
+  "@offsetCostValue": {
+    "placeholders": {"usd": {"type": "int"}}
+  },
+  "offsetCostMonthly": "~{usd} USD/Monat",
+  "@offsetCostMonthly": {
+    "placeholders": {"usd": {"type": "int"}}
+  },
+  "offsetCostLabel": "in zertifizierten CO₂-Zertifikaten",
+  "offsetReduceFirst": "Erst reduzieren, dann ausgleichen",
+  "offsetReduceFirstDesc": "CO₂-Zertifikate sind eine Ergänzung, kein Ersatz für die Reduzierung deines Fußabdrucks.",
+  "offsetPlatformsTitle": "Zertifizierte Plattformen",
+  "offsetDisclaimer": "* Schätzung basierend auf dem freiwilligen CO₂-Markt (~$20/t CO₂) und der Absorption eines ausgewachsenen Baumes (~21 kg CO₂/Jahr).",
+
+  "resultsTitle": "Diagnose abgeschlossen!",
+  "resultsSub": "Du hast alle 6 CO₂-Fußabdruck-Module abgeschlossen",
+  "resultsYourFootprint": "Dein jährlicher CO₂-Fußabdruck",
+  "resultsCompareTitle": "Wie schneidest du ab?",
+  "resultsYou": "Du",
+  "resultsParis": "Paris-Ziel",
+  "resultsColombia": "Kolumbien",
+  "resultsWorld": "Welt",
+  "resultsTopSources": "Hauptemissionsquellen",
+  "resultsAchievements": "Deine Erfolge",
+  "resultsEcoPoints": "{points} EcoScore-Punkte",
+  "@resultsEcoPoints": {
+    "placeholders": {"points": {"type": "int"}}
+  },
+  "resultsBadgesUnlocked": "Erfolge freigeschaltet",
+  "resultsViewDashboard": "Vollständiges Dashboard ansehen",
+  "resultsViewPlan": "Meinen Aktionsplan erstellen",
+  "resultsViewAgain": "Meine Ergebnisse ansehen 🏆",
+
+  "exportResult": "Bild exportieren",
+  "downloadImage": "Bild herunterladen",
+
+  "tabHome": "Startseite",
+  "homeWelcomeTitle": "Kenne deinen CO₂-Fußabdruck",
+  "homeWelcomeSub": "Vervollständige die 6 Diagnosemodule und entdecke, wie du deinen Einfluss auf den Planeten reduzieren kannst.",
+  "homeStartTest": "Meine Diagnose starten",
+  "homeUpdateTest": "Meinen Test aktualisieren",
+  "homeViewFullFootprint": "Vollständige Analyse ansehen",
+  "homeModulesStatus": "{completed} von 6 Modulen abgeschlossen",
+  "@homeModulesStatus": {
+    "placeholders": {"completed": {"type": "int"}}
+  }
+}

@@ -1,0 +1,458 @@
+{
+  "@@locale": "pt",
+  "appName": "FootCarbonPrint",
+  "tagline": "Conheça sua pegada. Mude seu mundo.",
+  "save": "Salvar",
+  "next": "Próximo",
+  "skip": "Pular",
+  "goToTest": "Ir para o teste",
+  "startTest": "Começar meu teste!",
+  "startTestNow": "Fazer o teste agora! 🚀",
+  "co2PerYear": "toneladas CO₂/ano",
+  "co2Unit": "t CO₂/ano",
+  "moduleEstimate": "Estimativa deste módulo",
+  "saveModule": "Salvar módulo",
+  "completedCheck": "Concluído ✓",
+  "tapToStart": "Toque para começar",
+
+  "onb1Title": "Quanto você polui\nsem saber?",
+  "onb1Sub": "A maioria das pessoas emite mais CO₂ do que imagina. Em menos de 7 minutos, descubra seu impacto real no planeta.",
+  "onb2Title": "Sua pegada,\nem dados reais",
+  "onb2Sub": "Calculamos sua pegada de carbono anual dividida por categorias: transporte, alimentação, casa, consumo, resíduos e água.",
+  "onb3Title": "Um plano de ação\nque realmente funciona",
+  "onb3Sub": "Não apenas medimos — dizemos exatamente o que mudar e quanto CO₂ você economiza com cada ação. Passo a passo.",
+
+  "tabTest": "Meu Teste",
+  "tabFootprint": "Minha Pegada",
+  "tabPlan": "Plano",
+
+  "testHubTitle": "Seu Autoteste de\nPegada de Carbono",
+  "testHubSub": "Complete os módulos para descobrir seu impacto",
+  "modulesProgress": "{completed} de {total} módulos",
+  "@modulesProgress": {
+    "placeholders": {
+      "completed": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "viewMyFootprint": "Ver Minha Pegada de Carbono",
+  "learnBannerFirstTitle": "Primeira vez aqui?",
+  "learnBannerFirstSub": "Aprenda sobre pegada de carbono em 2 minutos",
+  "learnBannerReturnTitle": "Guia de Pegada de Carbono",
+  "learnBannerReturnSub": "Revise os conceitos-chave — 6 lições visuais",
+
+  "modTransport": "Transporte",
+  "modTransportWeight": "28–35%",
+  "modFood": "Alimentação",
+  "modFoodWeight": "25–30%",
+  "modHome": "Casa",
+  "modHomeWeight": "20–25%",
+  "modShopping": "Consumo",
+  "modShoppingWeight": "10–15%",
+  "modWaste": "Resíduos",
+  "modWasteWeight": "5–8%",
+  "modWater": "Água",
+  "modWaterWeight": "~3%",
+
+  "dashEmptyTitle": "Sem resultados ainda",
+  "dashEmptySub": "Complete pelo menos um módulo do teste para ver sua pegada de carbono aqui.",
+  "dashAppBarTitle": "Sua Pegada de Carbono",
+  "equivalencesTitle": "Sua pegada equivale a...",
+  "treesLabel": "árvores\ncortadas/ano",
+  "bulbYearsLabel": "anos de\nlâmpada",
+  "phoneChargesLabel": "carregamentos\nde smartphone",
+  "breakdownTitle": "Divisão por categoria",
+  "benchmarkTitle": "Comparação global",
+  "yourFootprint": "Sua pegada",
+  "parisTarget": "Meta Paris 2050",
+  "colombiaAvg": "Média da Colômbia",
+  "worldAvg": "Média mundial",
+  "viewActionPlan": "Ver Plano de Ação",
+  "ecoPoints": "pontos eco",
+  "nextLevelLabel": "Próximo: {emoji} {name}",
+  "@nextLevelLabel": {
+    "placeholders": {
+      "emoji": {"type": "String"},
+      "name": {"type": "String"}
+    }
+  },
+  "ptsMore": "{pts} pts a mais",
+  "@ptsMore": {
+    "placeholders": {"pts": {"type": "int"}}
+  },
+  "maxLevelReached": "Nível máximo alcançado! 🎉",
+  "myAchievements": "Minhas conquistas",
+  "shareMyLevel": "Compartilhar meu nível",
+  "shareSub": "Baixe seu cartão eco e compartilhe nas redes sociais",
+
+  "lvlChampion": "Campeão Verde",
+  "lvlConscious": "Consciente",
+  "lvlOntrack": "No Caminho",
+  "lvlHigh": "Alto Impacto",
+  "lvlCritical": "Crítico",
+
+  "ecoLvlBeginner": "Iniciante",
+  "ecoLvlLearner": "Aprendiz",
+  "ecoLvlConscious": "Consciente",
+  "ecoLvlActivist": "Ativista",
+  "ecoLvlChampion": "Eco-Campeão",
+
+  "badgeFirstStep": "Primeiro Passo",
+  "badgeFirstStepDesc": "Complete seu primeiro módulo do teste",
+  "badgeExplorer": "Explorador",
+  "badgeExplorerDesc": "Complete 3 módulos do teste",
+  "badgeCompletionist": "Completista",
+  "badgeCompletionistDesc": "Complete os 6 módulos do teste",
+  "badgeEducated": "Educado",
+  "badgeEducatedDesc": "Termine o guia de aprendizagem",
+  "badgeConscious": "Consciente",
+  "badgeConsciousDesc": "Alcance uma pegada menor que 3 toneladas",
+  "badgeChampion": "Pegada Leve",
+  "badgeChampionDesc": "Alcance uma pegada menor que 1,5 toneladas",
+  "badgeCommitted": "Comprometido",
+  "badgeCommittedDesc": "Comprometa-se com pelo menos 1 ação",
+  "badgeActivist": "Ativista",
+  "badgeActivistDesc": "Comprometa-se com 5 ações do plano",
+  "badgeLocked": "🔒 {description}",
+  "@badgeLocked": {
+    "placeholders": {"description": {"type": "String"}}
+  },
+
+  "actionPlanTitle": "Plano de Ação",
+  "actionPlanEmptyTitle": "Sem plano ainda",
+  "actionPlanEmptySub": "Complete pelo menos um módulo do teste para ver seu plano de ação personalizado.",
+  "reductionTitle": "Quanto você pode reduzir?",
+  "reductionSub": "até {pct}% com as ações abaixo",
+  "@reductionSub": {
+    "placeholders": {"pct": {"type": "int"}}
+  },
+  "actionsTitle": "Suas principais ações por impacto",
+  "actionsSub": "Ordenadas do maior para o menor potencial de redução",
+  "commit": "Me comprometo",
+  "committedLabel": "✓ Comprometido",
+  "challengesTitle": "Desafios semanais 🎯",
+  "challengesSub": "Pequenas mudanças com grande impacto",
+
+  "actionFlightTitle": "Eliminar 1 voo longo por ano",
+  "actionFlightDesc": "Um voo de longa distância emite mais CO₂ do que 2 meses de carro.",
+  "actionFlexitarianTitle": "Adotar dieta flexitariana",
+  "actionFlexitarianDesc": "Reduzir a carne para 2–3 vezes por semana tem um grande impacto.",
+  "actionPublicTransportTitle": "Usar transporte público 2 dias/semana",
+  "actionPublicTransportDesc": "Deixar o carro 2 dias evita ~350 kg CO₂ por ano.",
+  "actionLessBeefTitle": "Evitar carne bovina 3 dias/semana",
+  "actionLessBeefDesc": "A carne bovina emite 27 kgCO₂/kg — a mais alta de todos os alimentos.",
+  "actionLedTitle": "Trocar para lâmpadas LED",
+  "actionLedDesc": "As LEDs consomem 75% menos energia do que as incandescentes.",
+  "actionShortShowerTitle": "Banhos de no máximo 5 minutos",
+  "actionShortShowerDesc": "Reduzir o banho a 5 min com água quente economiza 100 kgCO₂/ano.",
+  "actionRecycleTitle": "Separar resíduos para reciclagem",
+  "actionRecycleDesc": "A reciclagem evita a decomposição anaeróbica que produz metano.",
+  "actionSecondhandTitle": "Comprar 50% de roupas usadas",
+  "actionSecondhandDesc": "A indústria têxtil é uma das mais poluentes do mundo.",
+  "actionCompostTitle": "Compostar resíduos orgânicos",
+  "actionCompostDesc": "A compostagem evita que resíduos orgânicos produzam metano em aterros.",
+  "actionBikeTitle": "Ir de bicicleta ou a pé ao trabalho",
+  "actionBikeDesc": "Zero emissões + benefícios para a saúde.",
+
+  "challengeWeekLabel": "Desafio da semana",
+  "challengeExpiresLabel": "Expira neste domingo",
+  "challengePts": "+{pts} pts",
+  "@challengePts": {
+    "placeholders": {"pts": {"type": "int"}}
+  },
+  "challengeMarkDone": "Fiz isso! Marcar como concluído",
+  "challengeCompletedLabel": "Desafio concluído esta semana! 🎉",
+  "challengeCompletedSub": "Você ganhou +25 pts",
+
+  "challenge1": "Uma semana sem plástico descartável",
+  "challengeDesc1": "Leve uma sacola reutilizável e recuse copos, canudos e sacolas plásticas por 7 dias.",
+  "challengeEmoji1": "🛍️",
+  "challenge2": "7 dias sem carne vermelha",
+  "challengeDesc2": "Substitua a carne bovina por frango, peixe, legumes ou tofu durante a semana.",
+  "challengeEmoji2": "🥩",
+  "challenge3": "Vá de bicicleta ou a pé 3 dias esta semana",
+  "challengeDesc3": "Pelo menos 3 dias esta semana, deixe o carro e use bicicleta, patinete ou seus pés.",
+  "challengeEmoji3": "🚲",
+  "challenge4": "Banho de no máximo 5 minutos por 5 dias",
+  "challengeDesc4": "Use um cronômetro — no máximo 5 minutos com água quente, por 5 dias consecutivos.",
+  "challengeEmoji4": "🚿",
+
+  "learnGuideTitle": "Guia de Pegada de Carbono",
+  "learnNext": "Próximo →",
+
+  "l1Title": "O planeta\nestá com febre",
+  "l1Body": "Imagine que a Terra é o seu corpo. Quando você tem febre de apenas 1°C, já se sente muito mal. A Terra já está 1,2°C mais quente do que há 150 anos… e continua subindo a cada ano.",
+  "l1FactLabel": "FATO",
+  "l1Fact": "2023 foi o ano mais quente já registrado. Os 10 anos mais quentes da história ocorreram nos últimos 10 anos.",
+  "l1TempLow": "Leve derretimento de geleiras",
+  "l1TempNow": "Onde estamos hoje 📍",
+  "l1TempHeat": "Ondas de calor extremas",
+  "l1TempCrisis": "Civilização em risco",
+
+  "l2Title": "O gás\ninvisível",
+  "l2Body": "Quando você queima gasolina, gás ou carvão — ou quando alimentos se decompõem — CO₂ é liberado. Esse gás age como um cobertor: deixa o calor do sol entrar, mas não deixa sair. O planeta esquenta.",
+  "l2FactLabel": "ANALOGIA",
+  "l2Fact": "É como deixar o carro ligado dentro de uma garagem fechada. Só que a garagem é toda a atmosfera da Terra.",
+  "l2Step1": "Sol envia\ncalor",
+  "l2Step2": "Terra\nrecebe",
+  "l2Step3": "CO₂ retém\no calor",
+  "l2Result": "🌡️ O calor não pode escapar → temperatura sobe",
+
+  "l3Title": "Sua pegada\npessoal",
+  "l3Body": "A \"pegada de carbono\" é o total de CO₂ que você produz em um ano. Inclui tudo o que você consome: o ônibus que pega, o hambúrguer que come, a camiseta que compra, o banho quente que toma.",
+  "l3FactLabel": "NA COLÔMBIA",
+  "l3Fact": "Um colombiano produz em média 1,8 toneladas de CO₂ por ano. A média mundial é de 4,7 t. A meta para salvar o planeta é chegar a 2 t antes de 2030.",
+  "l3ColombiaLabel": "Colômbia\nmédia",
+  "l3WorldLabel": "Mundo\nmédia",
+  "l3TargetLabel": "Meta\n2030 🎯",
+
+  "l4Title": "De onde\nvem?",
+  "l4Body": "Não são apenas os carros que poluem. Sua pegada vem de 6 grandes categorias do seu dia a dia. Algumas surpreendem: a carne bovina emite mais CO₂ do que dirigir um carro.",
+  "l4FactLabel": "AS 6 CATEGORIAS",
+  "l4Fact": "Transporte e alimentação juntos representam mais de 55% da sua pegada total.",
+
+  "l5Title": "Quanto\né demais?",
+  "l5Body": "Existe uma meta global: para evitar os piores efeitos das mudanças climáticas, cada pessoa no mundo precisa chegar a menos de 2 toneladas de CO₂ por ano até 2030.",
+  "l5FactLabel": "COMPARAÇÃO",
+  "l5Fact": "Um americano produz 15 t/ano. Um alemão: 9 t. Um colombiano: 1,8 t. Mas a qualidade de vida não precisa cair para reduzir a pegada.",
+
+  "l6Title": "Você pode\nmudar algo",
+  "l6Body": "Você não precisa ser um ativista nem mudar sua vida da noite para o dia. Pequenas mudanças nos seus hábitos de transporte, alimentação e casa podem reduzir sua pegada em até 40%.",
+  "l6FactLabel": "O PRIMEIRO PASSO",
+  "l6Fact": "Conhecer sua pegada é o primeiro passo. O que não se mede, não pode ser melhorado. Faça o teste agora!",
+  "l6Action1": "Comer menos carne",
+  "l6Action2": "Usar transporte público",
+  "l6Action3": "Evitar 1 voo longo",
+  "l6Action4": "Trocar para LED",
+  "l6ActionsLabel": "Ações de alto impacto:",
+
+  "profileCardTitle": "Meu Cartão Eco",
+  "profileCardPreview": "Pré-visualização — compartilhe seu nível nas redes 🌍",
+  "photoDialogTitle": "Adicionar sua foto?",
+  "photoDialogContent": "Você pode personalizar o cartão com sua foto de perfil, ou usar apenas o emoji do seu nível.",
+  "emojiOnly": "Apenas emoji",
+  "choosePhoto": "Escolher foto",
+  "addPhoto": "Adicionar foto",
+  "changePhoto": "Trocar foto",
+  "generating": "Gerando...",
+  "downloadPng": "Baixar PNG",
+  "cardDownloaded": "Cartão baixado! 🌿",
+  "downloadHint": "A imagem é baixada em 1080×1080 px,\nperfeita para Instagram, WhatsApp e Twitter.",
+  "cardFooterText": "Conheça sua pegada. Mude seu mundo.",
+  "statsModules": "Módulos",
+  "statsAchievements": "Conquistas",
+
+  "transportModuleTitle": "Transporte",
+  "transportModuleWeight": "28–35% da sua pegada",
+  "transportQ1": "Qual é o seu principal meio de transporte?",
+  "transportQ2": "Quantos km você percorre por semana?",
+  "transportKmHint": "{km} km/semana",
+  "@transportKmHint": {
+    "placeholders": {"km": {"type": "int"}}
+  },
+  "transportQ3": "Quantos voos você faz por ano?",
+  "flightShort": "Curtos (< 3h)",
+  "flightMedium": "Médios (3–6h)",
+  "flightLong": "Longos (> 6h)",
+  "vehicleGasoline": "Gasolina",
+  "vehicleDiesel": "Diesel",
+  "vehicleHybrid": "Híbrido",
+  "vehicleElectric": "Elétrico",
+  "vehicleMotorcycle": "Moto",
+  "vehicleBus": "Ônibus/Metrô",
+  "vehicleBicycle": "Bicicleta",
+  "vehicleWalking": "A pé",
+
+  "foodModuleTitle": "Alimentação",
+  "foodModuleWeight": "25–30% da sua pegada",
+  "foodQ1": "Como você descreveria sua dieta?",
+  "foodQ2": "Quantas vezes por semana você come carne bovina?",
+  "foodBeefHint": "{n} vezes",
+  "@foodBeefHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "foodQ3": "Quanto alimento você desperdiça?",
+  "foodQ4": "Você consome alimentos locais e sazonais?",
+  "dietVegan": "Vegano",
+  "dietVeganSub": "Apenas plantas",
+  "dietVegetarian": "Vegetariano",
+  "dietVegetarianSub": "Sem carne",
+  "dietFlexitarian": "Flexitariano",
+  "dietFlexitarianSub": "Pouca carne",
+  "dietOmnivore": "Onívoro",
+  "dietOmnivoreSub": "Carne regular",
+  "dietCarnivore": "Rica em carne",
+  "dietCarnivoreSub": "Carne diariamente",
+  "wasteNone": "Quase nada",
+  "wasteSome": "Um pouco",
+  "wasteLot": "Bastante",
+  "wasteMuch": "Muito",
+  "foodLocalTitle": "Principalmente local e sazonal",
+  "foodLocalSub": "Reduz até 0,1 tCO₂/ano",
+
+  "homeModuleTitle": "Casa e Energia",
+  "homeModuleWeight": "20–25% da sua pegada",
+  "homeQ1": "Quantas pessoas moram na sua casa?",
+  "homePersonsHint": "{n} pessoa{plural}",
+  "@homePersonsHint": {
+    "placeholders": {
+      "n": {"type": "int"},
+      "plural": {"type": "String"}
+    }
+  },
+  "homeQ2": "Qual é a sua principal fonte de energia?",
+  "homeQ3": "Quantos kWh você consome por mês?",
+  "homeKwhHint": "{n} kWh",
+  "@homeKwhHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "homeKwhAvg": "Média residencial: 170–250 kWh/mês",
+  "homeQ4": "Você tem ar-condicionado ou aquecimento?",
+  "homeACTitle": "Sim, uso AC / aquecimento",
+  "homeACHoursHint": "{n} horas/dia",
+  "@homeACHoursHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "energyGrid": "Rede elétrica",
+  "energySolar": "Solar",
+  "energyGas": "Gás natural",
+  "energyMixed": "Misto",
+
+  "shoppingModuleTitle": "Consumo",
+  "shoppingModuleWeight": "10–15% da sua pegada",
+  "shoppingQ1": "Quantas peças de roupa você compra por mês?",
+  "shoppingClothingHint": "{n} peças",
+  "@shoppingClothingHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "shoppingQ2": "Dispositivos eletrônicos novos por ano?",
+  "shoppingElectronicsHint": "{n} dispositivos",
+  "@shoppingElectronicsHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "shoppingQ3": "Quantos pacotes de e-commerce você recebe por mês?",
+  "shoppingPackagesHint": "{n} pacotes",
+  "@shoppingPackagesHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "shoppingQ4": "Você compra roupas ou itens de segunda mão?",
+  "shoppingSecondHandTitle": "Sim, compro usado frequentemente",
+  "shoppingSecondHandSub": "Reduz sua pegada de consumo em até 10%",
+
+  "wasteModuleTitle": "Resíduos",
+  "wasteModuleWeight": "5–8% da sua pegada",
+  "wasteQ1": "Quantos sacos de lixo você gera por semana?",
+  "wasteBagsHint": "{n} saco{plural}",
+  "@wasteBagsHint": {
+    "placeholders": {
+      "n": {"type": "int"},
+      "plural": {"type": "String"}
+    }
+  },
+  "wasteQ2": "Você separa os resíduos para reciclagem?",
+  "wasteSeparateTitle": "Sim, separo plástico, papel e vidro",
+  "wasteSeparateSub": "Reduz sua pegada de resíduos em 30%",
+  "wasteQ3": "Você compostiza resíduos orgânicos?",
+  "wasteCompostTitle": "Sim, faço compostagem",
+  "wasteCompostSub": "Reduz emissões de metano do aterro",
+
+  "waterModuleTitle": "Água",
+  "waterModuleWeight": "~3% da sua pegada",
+  "waterQ1": "Quantos minutos dura seu banho médio?",
+  "waterMinutesHint": "{n} minutos",
+  "@waterMinutesHint": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "waterQ2": "Em que temperatura você geralmente toma banho?",
+  "waterQ3": "Você rega jardim ou áreas verdes em casa?",
+  "waterGardenTitle": "Sim, tenho jardim ou rego plantas",
+  "tempCold": "Frio",
+  "tempColdSub": "Sem aquecedor",
+  "tempWarm": "Morno",
+  "tempWarmSub": "Aquecedor moderado",
+  "tempHot": "Quente",
+  "tempHotSub": "Aquecedor máximo",
+
+  "cancel": "Cancelar",
+  "greetingWithName": "Olá, {name} 👋",
+  "@greetingWithName": {
+    "placeholders": {"name": {"type": "String"}}
+  },
+  "greetingEmpty": "Olá 👋",
+  "addYourName": "Adicione seu nome",
+  "nameDialogTitle": "Qual é o seu nome?",
+  "nameDialogHint": "Seu nome",
+  "nameOnCard": "nome no cartão",
+
+  "historyTitle": "Evolução da sua pegada",
+  "historyMeasurements": "{n} medições",
+  "@historyMeasurements": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "historyEmptyTitle": "Sem histórico ainda",
+  "historyEmptySub": "Atualize seus módulos em dias diferentes para acompanhar como sua pegada evolui.",
+  "historyOneMeasurement": "Primeira medição registrada! 🎉",
+  "historyOneSub": "Volte amanhã e atualize um módulo para ver sua evolução.",
+  "historyImproved": "↓ {pct}% desde sua primeira medição",
+  "@historyImproved": {
+    "placeholders": {"pct": {"type": "String"}}
+  },
+  "historyWorsened": "↑ {pct}% desde sua primeira medição",
+  "@historyWorsened": {
+    "placeholders": {"pct": {"type": "String"}}
+  },
+
+  "offsetTitle": "Como compensar sua pegada?",
+  "offsetSubtitle": "Enquanto você reduz, pode neutralizar o CO₂ restante",
+  "offsetTreesValue": "{n} árvores",
+  "@offsetTreesValue": {
+    "placeholders": {"n": {"type": "int"}}
+  },
+  "offsetTreesLabel": "para absorver sua pegada anual",
+  "offsetCostValue": "~{usd} USD/ano",
+  "@offsetCostValue": {
+    "placeholders": {"usd": {"type": "int"}}
+  },
+  "offsetCostMonthly": "~{usd} USD/mês",
+  "@offsetCostMonthly": {
+    "placeholders": {"usd": {"type": "int"}}
+  },
+  "offsetCostLabel": "em créditos de carbono certificados",
+  "offsetReduceFirst": "Reduza primeiro, compense depois",
+  "offsetReduceFirstDesc": "Os créditos de carbono são um complemento, não um substituto para reduzir sua pegada.",
+  "offsetPlatformsTitle": "Plataformas certificadas",
+  "offsetDisclaimer": "* Estimativa baseada no mercado voluntário de carbono (~$20/t CO₂) e absorção de árvore madura (~21 kg CO₂/ano).",
+
+  "resultsTitle": "Diagnóstico concluído!",
+  "resultsSub": "Você completou os 6 módulos da sua pegada de carbono",
+  "resultsYourFootprint": "Sua pegada de carbono anual",
+  "resultsCompareTitle": "Como você se compara?",
+  "resultsYou": "Você",
+  "resultsParis": "Meta Paris",
+  "resultsColombia": "Colômbia",
+  "resultsWorld": "Mundo",
+  "resultsTopSources": "Principais fontes de emissão",
+  "resultsAchievements": "Suas conquistas",
+  "resultsEcoPoints": "{points} pontos EcoScore",
+  "@resultsEcoPoints": {
+    "placeholders": {"points": {"type": "int"}}
+  },
+  "resultsBadgesUnlocked": "conquistas desbloqueadas",
+  "resultsViewDashboard": "Ver Dashboard completo",
+  "resultsViewPlan": "Criar meu Plano de Ação",
+  "resultsViewAgain": "Ver meus resultados 🏆",
+
+  "exportResult": "Exportar imagem",
+  "downloadImage": "Baixar imagem",
+
+  "tabHome": "Início",
+  "homeWelcomeTitle": "Conheça sua pegada de carbono",
+  "homeWelcomeSub": "Complete os 6 módulos do diagnóstico e descubra como você pode reduzir seu impacto no planeta.",
+  "homeStartTest": "Começar meu diagnóstico",
+  "homeUpdateTest": "Atualizar meu teste",
+  "homeViewFullFootprint": "Ver análise completa",
+  "homeModulesStatus": "{completed} de 6 módulos concluídos",
+  "@homeModulesStatus": {
+    "placeholders": {"completed": {"type": "int"}}
+  }
+}
