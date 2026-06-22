@@ -1,11 +1,13 @@
 {
-    "name": "foot_carbon_print",
-    "short_name": "foot_carbon_print",
+    "name": "FootCarbonPrint",
+    "short_name": "FootCarbon",
+    "description": "Conoce tu huella de carbono. Cambia tu mundo.",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#1B5E20",
+    "theme_color": "#1B5E20",
+    "lang": "es",
+    "categories": ["education", "lifestyle"],
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
