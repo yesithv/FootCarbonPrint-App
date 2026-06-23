@@ -83,11 +83,12 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
       if (data == null || !mounted) return;
       final bytes = data.buffer.asUint8List();
       final blob = html.Blob([bytes], 'image/png');
-      final url = html.Url.createObjectUrlFromBlob(blob);
-      html.AnchorElement(href: url)
-        ..setAttribute('download', 'footcarbonprint_nivel.png')
-        ..click();
-      html.Url.revokeObjectUrl(url);
+      final blobUrl = html.Url.createObjectUrlFromBlob(blob);
+      html.window.open(blobUrl, '_blank');
+      Future.delayed(
+        const Duration(seconds: 30),
+        () => html.Url.revokeObjectUrl(blobUrl),
+      );
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

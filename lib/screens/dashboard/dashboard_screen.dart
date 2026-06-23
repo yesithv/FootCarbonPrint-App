@@ -1,6 +1,5 @@
 // ignore: avoid_web_libraries_in_flutter, deprecated_member_use
 import 'dart:html' as html;
-import 'dart:convert';
 import 'dart:ui' as ui;
 import 'package:flutter/rendering.dart' show RenderRepaintBoundary;
 
@@ -1155,11 +1154,7 @@ class _OffsetPlatformLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        html.AnchorElement(href: url)
-          ..setAttribute('target', '_blank')
-          ..click();
-      },
+      onTap: () => html.window.open(url, '_blank'),
       borderRadius: BorderRadius.circular(10),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -1310,11 +1305,13 @@ class _ExportBottomSheetState extends State<_ExportBottomSheet> {
           await image.toByteData(format: ui.ImageByteFormat.png);
       if (byteData == null) return;
       final bytes = byteData.buffer.asUint8List();
-      final base64str = base64Encode(bytes);
-      html.AnchorElement()
-        ..href = 'data:image/png;base64,$base64str'
-        ..setAttribute('download', 'mi-huella-carbono.png')
-        ..click();
+      final blob = html.Blob([bytes], 'image/png');
+      final blobUrl = html.Url.createObjectUrlFromBlob(blob);
+      html.window.open(blobUrl, '_blank');
+      Future.delayed(
+        const Duration(seconds: 30),
+        () => html.Url.revokeObjectUrl(blobUrl),
+      );
       if (mounted) Navigator.pop(context);
     } catch (e) {
       debugPrint('Export error: $e');
