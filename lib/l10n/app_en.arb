@@ -127,7 +127,7 @@
     "placeholders": {"pct": {"type": "int"}}
   },
   "actionsTitle": "Your top actions by impact",
-  "actionsSub": "Sorted from highest to lowest reduction potential",
+  "actionsSub": "Personalized for your footprint — sorted by reduction potential",
   "commit": "I commit",
   "committedLabel": "✓ Committed",
   "challengesTitle": "Weekly challenges 🎯",
@@ -441,6 +441,7 @@
   "resultsViewDashboard": "View full Dashboard",
   "resultsViewPlan": "Create my Action Plan",
   "resultsViewAgain": "See my results 🏆",
+  "shareResult": "Share my result",
 
   "exportResult": "Export image",
   "downloadImage": "Download image",

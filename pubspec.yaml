@@ -21,6 +21,7 @@ dependencies:
   smooth_page_indicator: ^1.2.0
   gap: ^3.0.1
   intl: ^0.20.2
+  confetti: ^0.7.0
 
 dev_dependencies:
   flutter_test:

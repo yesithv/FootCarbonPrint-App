@@ -1,14 +1,36 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/utils/web_share.dart';
 import '../../providers/footprint_provider.dart';
 import '../../models/gamification.dart';
 import '../../core/constants/emission_factors.dart';
 
-class ResultsScreen extends StatelessWidget {
+class ResultsScreen extends StatefulWidget {
   const ResultsScreen({super.key});
+
+  @override
+  State<ResultsScreen> createState() => _ResultsScreenState();
+}
+
+class _ResultsScreenState extends State<ResultsScreen> {
+  late final ConfettiController _confetti;
+
+  @override
+  void initState() {
+    super.initState();
+    _confetti = ConfettiController(duration: const Duration(seconds: 4));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _confetti.play());
+  }
+
+  @override
+  void dispose() {
+    _confetti.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,40 +38,64 @@ class ResultsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(child: _HeroHeader()),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: _MainResultCard(provider: provider),
+      body: Stack(
+        children: [
+          CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(child: _HeroHeader()),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: _MainResultCard(provider: provider),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+                  child: _ComparisonCard(provider: provider),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+                  child: _TopSourcesCard(provider: provider),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+                  child: _AchievementsCard(provider: provider),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+                  child: _CTAButtons(provider: provider),
+                ),
+              ),
+              const SliverPadding(padding: EdgeInsets.only(bottom: 48)),
+            ],
+          ),
+          // Confetti burst from top-center on screen load.
+          Align(
+            alignment: Alignment.topCenter,
+            child: ConfettiWidget(
+              confettiController: _confetti,
+              blastDirectionality: BlastDirectionality.explosive,
+              shouldLoop: false,
+              numberOfParticles: 24,
+              gravity: 0.35,
+              emissionFrequency: 0.04,
+              colors: const [
+                Color(0xFF4CAF50),
+                Color(0xFF2196F3),
+                Color(0xFFFFC107),
+                Color(0xFFE91E63),
+                Color(0xFF9C27B0),
+                Color(0xFF1B5E20),
+              ],
             ),
           ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
-              child: _ComparisonCard(provider: provider),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
-              child: _TopSourcesCard(provider: provider),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
-              child: _AchievementsCard(provider: provider),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
-              child: _CTAButtons(),
-            ),
-          ),
-          const SliverPadding(padding: EdgeInsets.only(bottom: 48)),
         ],
       ),
     );
@@ -188,7 +234,7 @@ class _MainResultCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10, left: 6),
                   child: Text(
-                    'tCO₂/año',
+                    l10n.co2Unit,
                     style: GoogleFonts.inter(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -436,7 +482,7 @@ class _TopSourcesCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              item.key,
+                              l10n.localizedCategoryName(item.key),
                               style: GoogleFonts.inter(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w700,
@@ -528,7 +574,7 @@ class _AchievementsCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            '${level.emoji} ${level.name}',
+            '${level.emoji} ${l10n.localizedEcoLevelName(level)}',
             style: GoogleFonts.inter(
               fontSize: 13,
               color: AppColors.textSecondary,
@@ -542,7 +588,7 @@ class _AchievementsCard extends StatelessWidget {
             children: GamificationData.allBadges.map((badge) {
               final earned = earnedIds.contains(badge.id);
               return Tooltip(
-                message: badge.description,
+                message: l10n.localizedBadgeDesc(badge.id),
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   decoration: BoxDecoration(
@@ -576,7 +622,7 @@ class _AchievementsCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        badge.name,
+                        l10n.localizedBadgeName(badge.id),
                         style: GoogleFonts.inter(
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
@@ -613,6 +659,23 @@ class _AchievementsCard extends StatelessWidget {
 // ──────────────────────────────────────────────────────────────────────────────
 
 class _CTAButtons extends StatelessWidget {
+  final FootprintProvider provider;
+  const _CTAButtons({required this.provider});
+
+  Future<void> _share(BuildContext context) async {
+    final l10n = context.l10n;
+    final fp = provider.footprint;
+    final levelName = l10n.localizedFootprintLevel(fp.level);
+    final text =
+        '${fp.levelEmoji} $levelName — ${fp.totalCO2.toStringAsFixed(1)} ${l10n.co2Unit}. '
+        'Measure yours at FootCarbonPrint!';
+    await shareText(
+      title: 'FootCarbonPrint',
+      text: text,
+      url: 'https://yesithv.github.io/FootCarbonPrint-App/',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -648,6 +711,20 @@ class _CTAButtons extends StatelessWidget {
                 fontSize: 15, fontWeight: FontWeight.w700),
           ),
         ),
+        if (webShareAvailable) ...[
+          const SizedBox(height: 12),
+          TextButton.icon(
+            onPressed: () => _share(context),
+            icon: const Icon(Icons.share_rounded),
+            label: Text(l10n.shareResult),
+            style: TextButton.styleFrom(
+              foregroundColor: AppColors.primary,
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              textStyle: GoogleFonts.inter(
+                  fontSize: 15, fontWeight: FontWeight.w600),
+            ),
+          ),
+        ],
       ],
     );
   }

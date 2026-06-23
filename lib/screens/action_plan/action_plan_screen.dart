@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../core/constants/emission_factors.dart';
 import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../l10n/app_localizations.dart';
+import '../../models/carbon_footprint.dart';
 import '../../providers/footprint_provider.dart';
 import '../shell/main_shell.dart';
 
@@ -25,14 +27,20 @@ class ActionPlanScreen extends StatelessWidget {
           if (provider.completedCount == 0) {
             return _EmptyState(
               onGoToTest: () => MainShell.of(context)?.goToTab(0),
-            ); // goToTab(0) = Home, which has the "start test" button
+            );
           }
           final fp = provider.footprint;
-          final actions = _buildActions(l10n, fp.breakdown, fp.totalCO2);
+          final actions = _buildPersonalizedActions(l10n, fp);
+          final potentialReduction =
+              actions.fold(0.0, (sum, a) => sum + a.reduction);
+
           return ListView(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
             children: [
-              _HeaderSection(total: fp.totalCO2),
+              _HeaderSection(
+                total: fp.totalCO2,
+                potentialReduction: potentialReduction,
+              ),
               const SizedBox(height: 24),
               Text(
                 l10n.actionsTitle,
@@ -59,105 +67,184 @@ class ActionPlanScreen extends StatelessWidget {
     );
   }
 
-  List<_Action> _buildActions(
-      AppLocalizations l10n, Map<String, double> breakdown, double total) {
-    final all = [
-      _Action(
+  // ── Personalized action builder ──────────────────────────────────────────
+  //
+  // Instead of showing a fixed list sorted by hardcoded savings, this method:
+  //   1. Skips actions the user already performs.
+  //   2. Computes realistic savings from the user's own emission values.
+  //   3. Sorts by computed saving and returns the top 6.
+
+  List<_Action> _buildPersonalizedActions(
+      AppLocalizations l10n, CarbonFootprint fp) {
+    final t = fp.transport;
+    final f = fp.food;
+    final h = fp.home;
+    final s = fp.shopping;
+    final w = fp.waste;
+    final wa = fp.water;
+
+    final breakdown = fp.breakdown;
+    final transportCO2 = breakdown['Transporte'] ?? 0.0;
+    final homeCO2 = breakdown['Hogar'] ?? 0.0;
+    final shoppingCO2 = breakdown['Consumo'] ?? 0.0;
+    final wasteCO2 = breakdown['Residuos'] ?? 0.0;
+
+    final actions = <_Action>[];
+
+    // ── TRANSPORT ────────────────────────────────────────────────────────────
+
+    final totalFlights =
+        t.shortFlights + t.mediumFlights + t.longFlights;
+    if (totalFlights > 0) {
+      // Saving = cost of eliminating the longest flight type the user takes.
+      final longestFlight = t.longFlights > 0
+          ? EmissionFactors.flightLong
+          : (t.mediumFlights > 0
+              ? EmissionFactors.flightMedium
+              : EmissionFactors.flightShort);
+      actions.add(_Action(
         id: 'flight',
         emoji: '✈️',
         title: l10n.actionFlightTitle,
-        reduction: 1.5,
+        reduction: (longestFlight / 1000).clamp(0.25, 3.0),
         category: l10n.modTransport,
         color: AppColors.transport,
         description: l10n.actionFlightDesc,
-      ),
-      _Action(
-        id: 'flexitarian',
-        emoji: '🥗',
-        title: l10n.actionFlexitarianTitle,
-        reduction: 0.8,
-        category: l10n.modFood,
-        color: AppColors.food,
-        description: l10n.actionFlexitarianDesc,
-      ),
-      _Action(
+      ));
+    }
+
+    if (['gasoline', 'diesel', 'hybrid', 'motorcycle']
+        .contains(t.vehicle)) {
+      // Switching 2 days/week ≈ 35 % of driving CO₂ avoided.
+      actions.add(_Action(
         id: 'public_transport',
         emoji: '🚌',
         title: l10n.actionPublicTransportTitle,
-        reduction: 0.35,
+        reduction: (transportCO2 * 0.35).clamp(0.10, 1.5),
         category: l10n.modTransport,
         color: AppColors.transport,
         description: l10n.actionPublicTransportDesc,
-      ),
-      _Action(
+      ));
+
+      if (t.vehicle != 'motorcycle') {
+        actions.add(_Action(
+          id: 'bike',
+          emoji: '🚴',
+          title: l10n.actionBikeTitle,
+          reduction: (transportCO2 * 0.20).clamp(0.06, 0.8),
+          category: l10n.modTransport,
+          color: AppColors.transport,
+          description: l10n.actionBikeDesc,
+        ));
+      }
+    }
+
+    // ── FOOD ─────────────────────────────────────────────────────────────────
+
+    if (['omnivore', 'carnivore'].contains(f.diet)) {
+      actions.add(_Action(
+        id: 'flexitarian',
+        emoji: '🥗',
+        title: l10n.actionFlexitarianTitle,
+        reduction: f.diet == 'carnivore' ? 1.2 : 0.8,
+        category: l10n.modFood,
+        color: AppColors.food,
+        description: l10n.actionFlexitarianDesc,
+      ));
+    }
+
+    if (f.beefServingsPerWeek >= 2) {
+      // Cutting beef in half: save half of beef CO₂.
+      final halfBeef = (f.beefServingsPerWeek / 2 * 0.35 * 52) / 1000;
+      actions.add(_Action(
         id: 'less_beef',
         emoji: '🥩',
         title: l10n.actionLessBeefTitle,
-        reduction: 0.4,
+        reduction: halfBeef.clamp(0.09, 1.0),
         category: l10n.modFood,
         color: AppColors.food,
         description: l10n.actionLessBeefDesc,
-      ),
-      _Action(
+      ));
+    }
+
+    // ── HOME ─────────────────────────────────────────────────────────────────
+
+    if (h.energySource != 'solar' && homeCO2 > 0.05) {
+      // LEDs cut lighting ≈ 20 % of home energy.
+      actions.add(_Action(
         id: 'led',
         emoji: '💡',
         title: l10n.actionLedTitle,
-        reduction: 0.15,
+        reduction: (homeCO2 * 0.20).clamp(0.04, 0.30),
         category: l10n.modHome,
         color: AppColors.home,
         description: l10n.actionLedDesc,
-      ),
-      _Action(
+      ));
+    }
+
+    // ── WATER ────────────────────────────────────────────────────────────────
+
+    if (wa.showerTemp != 'cold' && wa.showerMinutes > 5) {
+      final saveMins = wa.showerMinutes - 5;
+      final tempFactor = wa.showerTemp == 'hot' ? 0.4 : 0.2;
+      final saving = (saveMins * 365 * tempFactor) / 1000;
+      actions.add(_Action(
         id: 'short_shower',
-        emoji: '🛁',
+        emoji: '🚿',
         title: l10n.actionShortShowerTitle,
-        reduction: 0.1,
+        reduction: saving.clamp(0.04, 0.40),
         category: l10n.modWater,
         color: AppColors.water,
         description: l10n.actionShortShowerDesc,
-      ),
-      _Action(
+      ));
+    }
+
+    // ── WASTE ────────────────────────────────────────────────────────────────
+
+    if (!w.separatesWaste) {
+      actions.add(_Action(
         id: 'recycle',
         emoji: '♻️',
         title: l10n.actionRecycleTitle,
-        reduction: 0.12,
+        reduction: (wasteCO2 * 0.30).clamp(0.02, 0.20),
         category: l10n.modWaste,
         color: AppColors.waste,
         description: l10n.actionRecycleDesc,
-      ),
-      _Action(
-        id: 'secondhand',
-        emoji: '👕',
-        title: l10n.actionSecondhandTitle,
-        reduction: 0.15,
-        category: l10n.modShopping,
-        color: AppColors.shopping,
-        description: l10n.actionSecondhandDesc,
-      ),
-      _Action(
+      ));
+    }
+
+    if (!w.composts) {
+      actions.add(_Action(
         id: 'compost',
         emoji: '🌱',
         title: l10n.actionCompostTitle,
-        reduction: 0.08,
+        reduction: (wasteCO2 * 0.20).clamp(0.02, 0.12),
         category: l10n.modWaste,
         color: AppColors.waste,
         description: l10n.actionCompostDesc,
-      ),
-      _Action(
-        id: 'bike',
-        emoji: '🚴',
-        title: l10n.actionBikeTitle,
-        reduction: 0.3,
-        category: l10n.modTransport,
-        color: AppColors.transport,
-        description: l10n.actionBikeDesc,
-      ),
-    ];
+      ));
+    }
 
-    all.sort((a, b) => b.reduction.compareTo(a.reduction));
-    return all.take(6).toList();
+    // ── SHOPPING ─────────────────────────────────────────────────────────────
+
+    if (!s.buysSecondHand) {
+      actions.add(_Action(
+        id: 'secondhand',
+        emoji: '👕',
+        title: l10n.actionSecondhandTitle,
+        reduction: (shoppingCO2 * 0.30).clamp(0.04, 0.25),
+        category: l10n.modShopping,
+        color: AppColors.shopping,
+        description: l10n.actionSecondhandDesc,
+      ));
+    }
+
+    actions.sort((a, b) => b.reduction.compareTo(a.reduction));
+    return actions.take(6).toList();
   }
 }
+
+// ── Header ──────────────────────────────────────────────────────────────────
 
 class _EmptyState extends StatelessWidget {
   final VoidCallback? onGoToTest;
@@ -212,13 +299,14 @@ class _EmptyState extends StatelessWidget {
 
 class _HeaderSection extends StatelessWidget {
   final double total;
-  const _HeaderSection({required this.total});
+  final double potentialReduction;
+  const _HeaderSection(
+      {required this.total, required this.potentialReduction});
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    const potential = 2.5;
-    final reduced = (total - potential).clamp(0.0, total);
+    final reduced = potentialReduction.clamp(0.0, total);
     final pct = total > 0 ? (reduced / total * 100) : 0;
 
     return Container(
@@ -243,7 +331,7 @@ class _HeaderSection extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            '${reduced.toStringAsFixed(1)} tCO₂/año',
+            '${reduced.toStringAsFixed(1)} ${l10n.co2Unit}',
             style: GoogleFonts.inter(
               fontSize: 36,
               fontWeight: FontWeight.w900,
@@ -270,6 +358,8 @@ class _HeaderSection extends StatelessWidget {
     );
   }
 }
+
+// ── Action card ──────────────────────────────────────────────────────────────
 
 class _ActionCard extends StatelessWidget {
   final _Action action;
@@ -357,7 +447,7 @@ class _ActionCardContent extends StatelessWidget {
             Row(
               children: [
                 _Tag(
-                  text: '−${a.reduction.toStringAsFixed(1)} tCO₂',
+                  text: '−${a.reduction.toStringAsFixed(1)} t',
                   color: a.color,
                 ),
                 const SizedBox(width: 8),
@@ -433,6 +523,8 @@ class _Tag extends StatelessWidget {
     );
   }
 }
+
+// ── Weekly challenges ────────────────────────────────────────────────────────
 
 class _ChallengesSection extends StatelessWidget {
   const _ChallengesSection();
@@ -540,6 +632,8 @@ class _ChallengeCardState extends State<_ChallengeCard> {
     );
   }
 }
+
+// ── Model ────────────────────────────────────────────────────────────────────
 
 class _Action {
   final String id;

@@ -127,7 +127,7 @@
     "placeholders": {"pct": {"type": "int"}}
   },
   "actionsTitle": "Suas principais ações por impacto",
-  "actionsSub": "Ordenadas do maior para o menor potencial de redução",
+  "actionsSub": "Personalizado para sua pegada — ordenado por potencial de redução",
   "commit": "Me comprometo",
   "committedLabel": "✓ Comprometido",
   "challengesTitle": "Desafios semanais 🎯",
@@ -441,6 +441,7 @@
   "resultsViewDashboard": "Ver Dashboard completo",
   "resultsViewPlan": "Criar meu Plano de Ação",
   "resultsViewAgain": "Ver meus resultados 🏆",
+  "shareResult": "Compartilhar meu resultado",
 
   "exportResult": "Exportar imagem",
   "downloadImage": "Baixar imagem",

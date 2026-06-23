@@ -2064,6 +2064,12 @@ abstract class AppLocalizations {
   /// **'See my results 🏆'**
   String get resultsViewAgain;
 
+  /// No description provided for @shareResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Share my result'**
+  String get shareResult;
+
   /// No description provided for @exportResult.
   ///
   /// In en, this message translates to:
