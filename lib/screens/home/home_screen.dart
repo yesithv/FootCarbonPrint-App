@@ -272,21 +272,11 @@ class _HomeContent extends StatelessWidget {
   }
 }
 
-// ─── Compact summary card (CO₂ + eco level merged) ───────────────────────────
+// ─── Eco level summary card (gamification focus, no CO₂ number) ──────────────
 
 class _HomeSummaryCard extends StatelessWidget {
   final FootprintProvider provider;
   const _HomeSummaryCard({required this.provider});
-
-  Color _fpColor(String level) {
-    switch (level) {
-      case 'champion': return AppColors.green;
-      case 'conscious': return const Color(0xFF2196F3);
-      case 'ontrack': return AppColors.yellow;
-      case 'high': return AppColors.orange;
-      default: return AppColors.red;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -296,142 +286,126 @@ class _HomeSummaryCard extends StatelessWidget {
     final level = GamificationData.levelForPoints(pts);
     final next = GamificationData.nextLevel(pts);
     final progress = GamificationData.levelProgress(pts);
-    final fpColor = _fpColor(fp.level);
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        gradient: LinearGradient(
+          colors: [level.color, Color.lerp(level.color, Colors.black, 0.18)!],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-              color: fpColor.withAlpha(45),
-              blurRadius: 16,
-              offset: const Offset(0, 6)),
+            color: level.color.withAlpha(90),
+            blurRadius: 18,
+            offset: const Offset(0, 7),
+          ),
         ],
       ),
+      padding: const EdgeInsets.fromLTRB(22, 22, 22, 18),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [fpColor, Color.lerp(fpColor, Colors.black, 0.15)!],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(24)),
-            ),
-            padding: const EdgeInsets.fromLTRB(20, 18, 20, 18),
-            child: Row(
-              children: [
-                Text(fp.levelEmoji,
-                    style: const TextStyle(fontSize: 38)),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        l10n.localizedFootprintLevel(fp.level),
-                        style: GoogleFonts.inter(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white70),
-                      ),
-                      const SizedBox(height: 2),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        textBaseline: TextBaseline.alphabetic,
-                        children: [
-                          Text(
-                            fp.totalCO2.toStringAsFixed(2),
-                            style: GoogleFonts.inter(
-                                fontSize: 38,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.white,
-                                height: 1),
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            l10n.co2PerYear,
-                            style: GoogleFonts.inter(
-                                fontSize: 12, color: Colors.white70),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
-            child: Column(
-              children: [
-                Row(
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(level.emoji, style: const TextStyle(fontSize: 52)),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(level.emoji,
-                        style: const TextStyle(fontSize: 20)),
-                    const SizedBox(width: 8),
                     Text(
                       l10n.localizedEcoLevelName(level),
                       style: GoogleFonts.inter(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w800,
-                          color: level.color),
+                        fontSize: 22,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                        height: 1.1,
+                      ),
                     ),
-                    const Spacer(),
+                    const SizedBox(height: 4),
                     Text(
                       '$pts ${l10n.ecoPoints}',
                       style: GoogleFonts.inter(
-                          fontSize: 12, color: AppColors.textSecondary),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white70,
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(6),
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    minHeight: 8,
-                    backgroundColor: level.color.withAlpha(20),
-                    valueColor: AlwaysStoppedAnimation<Color>(level.color),
-                  ),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.white.withAlpha(35),
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                if (next != null) ...[
-                  const SizedBox(height: 6),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        l10n.nextLevelLabel(
-                            next.emoji, l10n.localizedEcoLevelName(next)),
-                        style: GoogleFonts.inter(
-                            fontSize: 11, color: AppColors.textSecondary),
-                      ),
-                      Text(
-                        l10n.ptsMore(next.minPoints - pts),
-                        style: GoogleFonts.inter(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            color: level.color),
-                      ),
-                    ],
-                  ),
-                ] else ...[
-                  const SizedBox(height: 6),
-                  Text(
-                    l10n.maxLevelReached,
-                    style: GoogleFonts.inter(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(fp.levelEmoji,
+                        style: const TextStyle(fontSize: 13)),
+                    const SizedBox(width: 5),
+                    Text(
+                      l10n.localizedFootprintLevel(fp.level),
+                      style: GoogleFonts.inter(
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
-                        color: level.color),
-                  ),
-                ],
-              ],
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: LinearProgressIndicator(
+              value: progress,
+              minHeight: 10,
+              backgroundColor: Colors.white.withAlpha(40),
+              valueColor:
+                  const AlwaysStoppedAnimation<Color>(Colors.white),
             ),
           ),
+          if (next != null) ...[
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  l10n.nextLevelLabel(
+                      next.emoji, l10n.localizedEcoLevelName(next)),
+                  style: GoogleFonts.inter(
+                      fontSize: 11, color: Colors.white70),
+                ),
+                Text(
+                  l10n.ptsMore(next.minPoints - pts),
+                  style: GoogleFonts.inter(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ] else ...[
+            const SizedBox(height: 8),
+            Text(
+              l10n.maxLevelReached,
+              style: GoogleFonts.inter(
+                fontSize: 11,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ],
       ),
     );
