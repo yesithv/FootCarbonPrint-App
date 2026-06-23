@@ -176,28 +176,15 @@ class _AppBarSliver extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(footprint.levelEmoji,
-                style: const TextStyle(fontSize: 16)),
+                style: const TextStyle(fontSize: 14)),
             const SizedBox(width: 6),
-            Flexible(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${footprint.totalCO2.toStringAsFixed(2)} t CO₂',
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.inter(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    levelLabel,
-                    style: GoogleFonts.inter(
-                        fontSize: 10, color: Colors.white70),
-                  ),
-                ],
+            Text(
+              levelLabel,
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.inter(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
               ),
             ),
           ],

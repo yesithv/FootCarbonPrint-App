@@ -281,7 +281,6 @@ class _HomeSummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final fp = provider.footprint;
     final pts = GamificationData.computePoints(provider);
     final level = GamificationData.levelForPoints(pts);
     final next = GamificationData.nextLevel(pts);
@@ -318,6 +317,8 @@ class _HomeSummaryCard extends StatelessWidget {
                   children: [
                     Text(
                       l10n.localizedEcoLevelName(level),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.inter(
                         fontSize: 22,
                         fontWeight: FontWeight.w900,
@@ -332,30 +333,6 @@ class _HomeSummaryCard extends StatelessWidget {
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: Colors.white70,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                decoration: BoxDecoration(
-                  color: Colors.white.withAlpha(35),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(fp.levelEmoji,
-                        style: const TextStyle(fontSize: 13)),
-                    const SizedBox(width: 5),
-                    Text(
-                      l10n.localizedFootprintLevel(fp.level),
-                      style: GoogleFonts.inter(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
                       ),
                     ),
                   ],
