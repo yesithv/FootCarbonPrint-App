@@ -35,18 +35,14 @@ class DashboardScreen extends StatelessWidget {
           return CustomScrollView(
             slivers: [
               _AppBarSliver(
-                level: context.l10n.localizedFootprintLevel(fp.level),
+                footprint: fp,
                 userName: provider.userName,
+                onExport: () => _showExportSheet(context, fp),
               ),
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
-                    _TotalCard(
-                      footprint: fp,
-                      onExport: () => _showExportSheet(context, fp),
-                    ),
-                    const SizedBox(height: 20),
                     _EquivalencesCard(footprint: fp),
                     const SizedBox(height: 20),
                     _PieChartCard(breakdown: fp.breakdown),
@@ -127,29 +123,47 @@ class _EmptyState extends StatelessWidget {
 }
 
 class _AppBarSliver extends StatelessWidget {
-  final String level;
+  final dynamic footprint;
   final String userName;
-  const _AppBarSliver({required this.level, required this.userName});
+  final VoidCallback? onExport;
+  const _AppBarSliver({
+    required this.footprint,
+    required this.userName,
+    this.onExport,
+  });
+
+  Color get _levelColor {
+    switch (footprint.level) {
+      case 'champion': return AppColors.green;
+      case 'conscious': return const Color(0xFF2196F3);
+      case 'ontrack': return AppColors.yellow;
+      case 'high': return AppColors.orange;
+      default: return AppColors.red;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final greeting = userName.isNotEmpty
-        ? l10n.greetingWithName(userName)
-        : l10n.greetingEmpty;
+    final color = _levelColor;
+    final levelLabel = l10n.localizedFootprintLevel(footprint.level);
 
     return SliverAppBar(
-      expandedHeight: 120,
+      expandedHeight: 200,
       pinned: true,
       automaticallyImplyLeading: false,
-      backgroundColor: AppColors.primary,
+      backgroundColor: color,
       actions: [
+        IconButton(
+          onPressed: onExport,
+          icon: const Icon(Icons.ios_share_rounded,
+              color: Colors.white70, size: 20),
+          tooltip: l10n.exportResult,
+        ),
         IconButton(
           onPressed: () => _showNameDialog(context),
           icon: Icon(
-            userName.isEmpty
-                ? Icons.person_add_rounded
-                : Icons.edit_rounded,
+            userName.isEmpty ? Icons.person_add_rounded : Icons.edit_rounded,
             color: Colors.white70,
             size: 20,
           ),
@@ -157,45 +171,112 @@ class _AppBarSliver extends StatelessWidget {
         ),
       ],
       flexibleSpace: FlexibleSpaceBar(
-        titlePadding: const EdgeInsets.fromLTRB(16, 0, 72, 14),
+        titlePadding: const EdgeInsets.fromLTRB(16, 0, 112, 14),
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircleAvatar(
-              radius: 14,
-              backgroundColor: Colors.white.withAlpha(45),
-              child: userName.isNotEmpty
-                  ? Text(
-                      userName[0].toUpperCase(),
-                      style: GoogleFonts.inter(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                      ),
-                    )
-                  : const Icon(Icons.eco_rounded,
-                      size: 15, color: Colors.white),
-            ),
-            const SizedBox(width: 8),
+            Text(footprint.levelEmoji,
+                style: const TextStyle(fontSize: 16)),
+            const SizedBox(width: 6),
             Flexible(
-              child: Text(
-                greeting,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.inter(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${footprint.totalCO2.toStringAsFixed(2)} t CO₂',
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.inter(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    levelLabel,
+                    style: GoogleFonts.inter(
+                        fontSize: 10, color: Colors.white70),
+                  ),
+                ],
               ),
             ),
           ],
         ),
         background: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [AppColors.primary, Color(0xFF2E7D32)],
+              colors: [color, Color.lerp(color, Colors.black, 0.2)!],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
+            ),
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 12, 100, 56),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    l10n.dashAppBarTitle,
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white60,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        footprint.totalCO2.toStringAsFixed(2),
+                        style: GoogleFonts.inter(
+                          fontSize: 48,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.white,
+                          height: 1,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Text(
+                          l10n.co2PerYear,
+                          style: GoogleFonts.inter(
+                              fontSize: 12, color: Colors.white70),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withAlpha(30),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(footprint.levelEmoji,
+                            style: const TextStyle(fontSize: 13)),
+                        const SizedBox(width: 5),
+                        Text(
+                          levelLabel,
+                          style: GoogleFonts.inter(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -247,122 +328,6 @@ class _AppBarSliver extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _TotalCard extends StatelessWidget {
-  final dynamic footprint;
-  final VoidCallback? onExport;
-  const _TotalCard({required this.footprint, this.onExport});
-
-  Color get _levelColor {
-    switch (footprint.level) {
-      case 'champion':
-        return AppColors.green;
-      case 'conscious':
-        return const Color(0xFF2196F3);
-      case 'ontrack':
-        return AppColors.yellow;
-      case 'high':
-        return AppColors.orange;
-      default:
-        return AppColors.red;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    final color = _levelColor;
-    return Stack(
-      children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.fromLTRB(28, 28, 28, 20),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [color, Color.lerp(color, Colors.black, 0.18)!],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(24),
-            boxShadow: [
-              BoxShadow(
-                color: color.withAlpha(90),
-                blurRadius: 24,
-                offset: const Offset(0, 10),
-              ),
-            ],
-          ),
-          child: Column(
-            children: [
-              Text(
-                footprint.levelEmoji,
-                style: const TextStyle(fontSize: 52),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                l10n.localizedFootprintLevel(footprint.level),
-                style: GoogleFonts.inter(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white.withAlpha(200),
-                  letterSpacing: 0.3,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                footprint.totalCO2.toStringAsFixed(2),
-                style: GoogleFonts.inter(
-                  fontSize: 60,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white,
-                  height: 1,
-                ),
-              ),
-              Text(
-                l10n.co2PerYear,
-                style: GoogleFonts.inter(
-                  fontSize: 15,
-                  color: Colors.white.withAlpha(190),
-                ),
-              ),
-              const SizedBox(height: 14),
-              Divider(color: Colors.white.withAlpha(40), thickness: 1),
-              const SizedBox(height: 8),
-              Text(
-                'FootCarbonPrint',
-                style: GoogleFonts.inter(
-                  fontSize: 10,
-                  color: Colors.white.withAlpha(80),
-                  letterSpacing: 1.5,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          top: 8,
-          right: 8,
-          child: Tooltip(
-            message: l10n.exportResult,
-            child: InkWell(
-              onTap: onExport,
-              borderRadius: BorderRadius.circular(20),
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Icon(
-                  Icons.ios_share_rounded,
-                  color: Colors.white.withAlpha(160),
-                  size: 20,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
