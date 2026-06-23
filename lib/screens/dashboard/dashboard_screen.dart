@@ -1391,6 +1391,7 @@ class _ResultShareCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final fp = footprint;
     final color = _levelColor(fp.level);
     final userVal = fp.totalCO2;
@@ -1449,7 +1450,7 @@ class _ResultShareCard extends StatelessWidget {
                 Text(fp.levelEmoji, style: const TextStyle(fontSize: 40)),
                 const SizedBox(height: 8),
                 Text(
-                  fp.levelLabel,
+                  l10n.localizedFootprintLevel(fp.level),
                   style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
@@ -1473,7 +1474,7 @@ class _ResultShareCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8, left: 4),
                       child: Text(
-                        't CO₂/año',
+                        l10n.co2Unit,
                         style: GoogleFonts.inter(
                           fontSize: 14,
                           color: AppColors.textSecondary,

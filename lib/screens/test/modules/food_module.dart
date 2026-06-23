@@ -220,7 +220,7 @@ class _Co2Preview extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${value.toStringAsFixed(2)} t CO₂/año',
+                '${value.toStringAsFixed(2)} ${l10n.co2Unit}',
                 style: TextStyle(
                     fontSize: 20, fontWeight: FontWeight.w800, color: color),
               ),

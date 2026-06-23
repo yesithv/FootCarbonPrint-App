@@ -127,7 +127,7 @@
     "placeholders": {"pct": {"type": "int"}}
   },
   "actionsTitle": "Deine Top-Maßnahmen nach Wirkung",
-  "actionsSub": "Sortiert nach höchstem bis niedrigstem Einsparpotenzial",
+  "actionsSub": "Auf deinen Fußabdruck personalisiert — nach Einsparpotenzial sortiert",
   "commit": "Ich verpflichte mich",
   "committedLabel": "✓ Verpflichtet",
   "challengesTitle": "Wöchentliche Herausforderungen 🎯",
@@ -441,6 +441,7 @@
   "resultsViewDashboard": "Vollständiges Dashboard ansehen",
   "resultsViewPlan": "Meinen Aktionsplan erstellen",
   "resultsViewAgain": "Meine Ergebnisse ansehen 🏆",
+  "shareResult": "Ergebnis teilen",
 
   "exportResult": "Bild exportieren",
   "downloadImage": "Bild herunterladen",

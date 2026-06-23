@@ -4,6 +4,8 @@ import 'dart:ui' as ui;
 // ignore: avoid_web_libraries_in_flutter, deprecated_member_use
 import 'dart:html' as html;
 
+import '../../core/utils/web_share.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -82,24 +84,32 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
       final data = await image.toByteData(format: ui.ImageByteFormat.png);
       if (data == null || !mounted) return;
       final bytes = data.buffer.asUint8List();
-      final blob = html.Blob([bytes], 'image/png');
-      final blobUrl = html.Url.createObjectUrlFromBlob(blob);
-      html.window.open(blobUrl, '_blank');
-      Future.delayed(
-        const Duration(seconds: 30),
-        () => html.Url.revokeObjectUrl(blobUrl),
-      );
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.cardDownloaded,
-                style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
-            backgroundColor: AppColors.primary,
-            behavior: SnackBarBehavior.floating,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          ),
+
+      // Try to share the image file via the Web Share API first (iOS / Android
+      // Chrome). Falls back to opening the blob URL in a new tab.
+      final shared =
+          await shareImage(bytes, 'eco-card.png', title: 'FootCarbonPrint');
+
+      if (!shared) {
+        final blob = html.Blob([bytes], 'image/png');
+        final blobUrl = html.Url.createObjectUrlFromBlob(blob);
+        html.window.open(blobUrl, '_blank');
+        Future.delayed(
+          const Duration(seconds: 30),
+          () => html.Url.revokeObjectUrl(blobUrl),
         );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(l10n.cardDownloaded,
+                  style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
+              backgroundColor: AppColors.primary,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+            ),
+          );
+        }
       }
     } finally {
       if (mounted) setState(() => _isGenerating = false);

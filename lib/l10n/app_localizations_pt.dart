@@ -1081,6 +1081,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get resultsViewAgain => 'Ver meus resultados 🏆';
 
   @override
+  String get shareResult => 'Compartilhar meu resultado';
+
+  @override
   String get exportResult => 'Exportar imagem';
 
   @override
