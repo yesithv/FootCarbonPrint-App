@@ -212,7 +212,7 @@ class _MainResultCard extends StatelessWidget {
                   Text(fp.levelEmoji, style: const TextStyle(fontSize: 18)),
                   const SizedBox(width: 8),
                   Text(
-                    fp.levelLabel,
+                    l10n.localizedFootprintLevel(fp.level),
                     style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
