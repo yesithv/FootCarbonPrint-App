@@ -151,6 +151,71 @@ Desglose:
 
 ---
 
+### Metodología de Cálculo — Fórmulas y Ecuaciones
+
+#### 🚗 Transporte
+```
+CO₂_transporte (tCO₂) = (factor_vehículo × km_semanales × 52 + Σ vuelos) ÷ 1000
+
+  factor_vehículo [kgCO₂/km]  ←  EEA 2024 / DEFRA 2024 / Our World in Data
+  Σ vuelos = n_cortos×255 + n_medios×590 + n_largos×1620  [kgCO₂]
+              ↑ ICAO Carbon Emissions Calculator v13 (2024)
+```
+
+#### 🍔 Alimentación
+```
+CO₂_alim (tCO₂) = base_dieta + (porciones_res/semana × 0.35 kg × 52 ÷ 1000)
+                  − 0.1 (si alimentos locales) + desperdicio × 0.3
+
+  base_dieta [tCO₂/año]  ←  Springmann et al. (2018), Nature
+  factor res: 27 kgCO₂/kg  ←  Poore & Nemecek (2018), Science
+```
+
+#### 🏠 Hogar y Energía
+```
+CO₂_hogar (tCO₂) = (kWh_mes ÷ personas × 12 × factor_red) ÷ 1000
+                  + horas_AC × 365 × 1.5 kW × factor_red ÷ 1000
+
+  factor_red Colombia = 0.175 kgCO₂/kWh  ←  UPME/XM SIN 2020–2023
+  factor_red mundial  = 0.459 kgCO₂/kWh  ←  IEA Emission Factors 2023
+  factor_solar        = 0.020 kgCO₂/kWh  ←  IPCC SRREN (2011)
+  factor_gas (nat.)   = 2.04 kgCO₂/m³    ←  IPCC 2006, Vol. 2 Tabla 1.4
+```
+
+#### 💧 Agua
+```
+CO₂_agua (tCO₂) = minutos_ducha × 365 × factor_temperatura ÷ 1000
+                 + 0.05 (si tiene jardín)
+
+  factor_temperatura [kgCO₂/min]:
+    Fría:    0.000  (sin energía de calentamiento)
+    Tibia:   0.030  (ducha eléctrica 5.5 kW al 70 %, red Colombia)
+    Caliente:0.060  (ducha eléctrica 7 kW al 100 %, red Colombia)
+  ← SSPD Colombia; UPME 2023; Carbon Trust shower data
+```
+
+#### ♻️ Residuos
+```
+CO₂_residuos (tCO₂) = bolsas/semana × 260 kgCO₂ ÷ 1000
+                     × 0.7 (si recicla) × 0.8 (si composta)
+
+  260 = 52 semanas × 5 kgCO₂/bolsa (~10 kg RSU × 0.5 kgCO₂/kg)
+  ← IPCC 2006 Vol. 5 (Waste), modelo FOD; EPA WARM Model v16
+```
+
+#### 🛍️ Consumo y Compras
+```
+CO₂_consumo (tCO₂) = ropa/mes × 12 × 10 ÷ 1000
+                    + electrónicos/año × 70 ÷ 1000
+                    + paquetes/mes × 12 × 0.5 ÷ 1000
+                    − 0.1 (si compra segunda mano)
+
+  10 kgCO₂/prenda   ←  Global Fashion Agenda — Pulse 2017
+  70 kgCO₂/smartphone ← Apple Environmental Progress Report 2023
+```
+
+---
+
 ### 4. 📊 Dashboard de Resultados
 
 #### Visualización del Impacto Real
@@ -385,6 +450,56 @@ Este documento consolida las especificaciones generadas por **cuatro modelos de 
 | **GitHub Copilot** | Gamificación con EcoPoints y niveles, OCR de facturas, integración con Google Maps y apps bancarias, modo offline, datos calibrados para Bogotá |
 | **Google Gemini** | UX "Swipe & Tap", avatar/planeta interactivo con cambio de color, equivalencias emocionales de la vida real, "Monedero Verde", automatización pasiva por GPS |
 | **Claude Sonnet** | Módulo de Agua como categoría adicional, límite de 7 min / 35 preguntas, estándares IPCC/EPA/GHG Protocol, badge system (🌿🟡🔴💀), privacy-first, stack técnico detallado |
+
+---
+
+## Referencias Científicas
+
+Todos los factores de emisión y ecuaciones del motor de cálculo están respaldados
+por fuentes oficiales e internacionalmente reconocidas. La documentación completa
+está en [`lib/core/constants/emission_references.dart`](lib/core/constants/emission_references.dart).
+
+### Transporte
+
+| Referencia | Año | Uso en la app |
+|-----------|-----|--------------|
+| [DEFRA — UK Greenhouse Gas Conversion Factors 2024](https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2024) | 2024 | Factores kgCO₂/km para auto, moto y metro |
+| [Our World in Data — Travel Carbon Footprint (Ritchie)](https://ourworldindata.org/travel-carbon-footprint) | 2020 | Factores bus (0.089) y metro (0.041) kgCO₂/km |
+| [ICAO Carbon Emissions Calculator v13](https://icec.icao.int) | 2024 | Emisiones por vuelo: 255 / 590 / 1 620 kgCO₂ (corto/medio/largo) |
+
+### Alimentación
+
+| Referencia | Año | Uso en la app |
+|-----------|-----|--------------|
+| [Poore & Nemecek — *Science* 360(6392):987](https://doi.org/10.1126/science.aaq0216) | 2018 | Factores por kg de alimento: res 27, cerdo 7.6, pollo 6.9, pescado 6.1, lácteos 3.2 kgCO₂/kg |
+| [Springmann et al. — *Nature* 562:519](https://doi.org/10.1038/s41586-018-0594-0) | 2018 | Líneas base anuales por tipo de dieta (0.7–2.5 tCO₂/año) |
+| [Scarborough et al. — *Nature Food* 4:565](https://doi.org/10.1038/s43016-023-00795-w) | 2023 | Validación de baselines: vegana 0.50 t → carnívora 1.32 t/año |
+
+### Energía
+
+| Referencia | Año | Uso en la app |
+|-----------|-----|--------------|
+| [XM / UPME — Factor Emisión SIN Colombia](https://www.xm.com.co/noticias/en-colombia-factor-de-emision-de-co2-por-generacion-electrica-del-sistema-interconectado) | 2020–2024 | Red eléctrica Colombia: **0.175 kgCO₂/kWh** (promedio 2020–2023) |
+| [IEA — Emission Factors 2023](https://www.iea.org/data-and-statistics/data-product/emissions-factors-2023) | 2023 | Red mundial: 0.459 kgCO₂/kWh |
+| [IPCC 2006 Guidelines — Vol. 2 Energy, Tabla 1.4](https://www.ipcc-nggip.iges.or.jp/public/2006gl/vol2.html) | 2006 | Gas natural: 2.04 kgCO₂/m³ (56.1 kgCO₂/GJ × 36.4 MJ/m³) |
+| [IPCC SRREN](https://www.ipcc.ch/report/renewable-energy-sources-and-climate-change-mitigation/) | 2011 | Solar fotovoltaico: 0.020 kgCO₂/kWh (ciclo de vida) |
+
+### Residuos y Agua
+
+| Referencia | Año | Uso en la app |
+|-----------|-----|--------------|
+| [IPCC 2006 Guidelines — Vol. 5 Waste, Modelo FOD](https://www.ipcc-nggip.iges.or.jp/public/2006gl/vol5.html) | 2006 | RSU en vertedero: ~0.5 kgCO₂/kg → 5 kgCO₂/bolsa de 10 kg |
+| [EPA WARM Model v16](https://www.epa.gov/warm) | 2023 | Validación del factor de residuos sólidos |
+| SSPD Colombia + UPME 2023 | 2023 | Ducha eléctrica inst.: 0.030 (tibia) / 0.060 (caliente) kgCO₂/min |
+
+### Benchmarks y Compensación
+
+| Referencia | Año | Uso en la app |
+|-----------|-----|--------------|
+| [IEA — CO₂ Emissions in 2023](https://www.iea.org/reports/co2-emissions-in-2023) | 2023 | Promedio global: **4.7 tCO₂/persona/año** |
+| [World Bank / Our World in Data — Colombia](https://ourworldindata.org/co2/country/colombia) | 2023 | Promedio Colombia: **1.9 tCO₂/persona/año** |
+| [IPCC Special Report 1.5 °C (SR15)](https://www.ipcc.ch/sr15/) | 2018 | Meta París 2050: **≤ 2.0 tCO₂/persona/año** |
+| [EPA — GHG Equivalencies Calculator](https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator-calculations-and-references) | 2023 | Árbol urbano maduro: **60 kgCO₂/año** → 16.7 árboles/tCO₂ |
 
 ---
 

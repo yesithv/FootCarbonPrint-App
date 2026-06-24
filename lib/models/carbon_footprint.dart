@@ -144,7 +144,7 @@ class HomeData {
 
   double get annualCO2 {
     double factor = EmissionFactors.electricityColombia;
-    if (energySource == 'solar') factor = 0.02;
+    if (energySource == 'solar') factor = EmissionFactors.solarLca;
     if (energySource == 'gas') factor = EmissionFactors.naturalGas / 10;
 
     final perPersonKwh = monthlyKwh / householdMembers;
@@ -254,8 +254,12 @@ class WaterData {
   });
 
   double get annualCO2 {
-    final factors = {'cold': 0.0, 'warm': 0.2, 'hot': 0.4};
-    final factor = factors[showerTemp] ?? 0.2;
+    final factors = {
+      'cold': EmissionFactors.showerColdFactor,
+      'warm': EmissionFactors.showerWarmFactor,
+      'hot':  EmissionFactors.showerHotFactor,
+    };
+    final factor = factors[showerTemp] ?? EmissionFactors.showerWarmFactor;
     final shower = showerMinutes * 365 * factor / 1000;
     final garden = hasGarden ? 0.05 : 0.0;
     return shower + garden;
