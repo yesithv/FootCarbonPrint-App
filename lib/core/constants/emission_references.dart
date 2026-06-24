@@ -73,7 +73,7 @@ class EmissionReferences {
     EmissionReference(
       id: 'food_poore_nemecek_2018',
       category: 'Alimentación',
-      title: 'Reducing food's environmental impacts through producers and consumers',
+      title: "Reducing food's environmental impacts through producers and consumers",
       authors: 'Poore, J. & Nemecek, T.',
       year: 2018,
       description:
