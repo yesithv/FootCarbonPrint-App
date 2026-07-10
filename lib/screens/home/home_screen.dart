@@ -232,10 +232,12 @@ class _HomeAppBar extends StatelessWidget {
     final greeting =
         userName.isNotEmpty ? l10n.greetingWithName(userName) : l10n.greetingEmpty;
 
+    // Compact pinned bar: no expanded height, so scrolling back to the top
+    // never opens an empty stretch of header above the greeting.
     return SliverAppBar(
-      expandedHeight: 120,
       pinned: true,
       automaticallyImplyLeading: false,
+      centerTitle: false,
       backgroundColor: AppColors.primary,
       actions: [
         const _ThemeMenuButton(),
@@ -249,44 +251,41 @@ class _HomeAppBar extends StatelessWidget {
           tooltip: userName.isEmpty ? l10n.addYourName : l10n.nameDialogTitle,
         ),
       ],
-      flexibleSpace: FlexibleSpaceBar(
-        titlePadding: const EdgeInsets.fromLTRB(16, 0, 72, 14),
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircleAvatar(
-              radius: 14,
-              backgroundColor: Colors.white.withAlpha(45),
-              child: userName.isNotEmpty
-                  ? Text(
-                      userName[0].toUpperCase(),
-                      style: GoogleFonts.inter(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white),
-                    )
-                  : const Icon(Icons.eco_rounded, size: 15, color: Colors.white),
+      title: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CircleAvatar(
+            radius: 14,
+            backgroundColor: Colors.white.withAlpha(45),
+            child: userName.isNotEmpty
+                ? Text(
+                    userName[0].toUpperCase(),
+                    style: GoogleFonts.inter(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white),
+                  )
+                : const Icon(Icons.eco_rounded, size: 15, color: Colors.white),
+          ),
+          const SizedBox(width: 8),
+          Flexible(
+            child: Text(
+              greeting,
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.inter(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white),
             ),
-            const SizedBox(width: 8),
-            Flexible(
-              child: Text(
-                greeting,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.inter(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white),
-              ),
-            ),
-          ],
-        ),
-        background: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [AppColors.primary, Color(0xFF2E7D32)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+          ),
+        ],
+      ),
+      flexibleSpace: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [AppColors.primary, Color(0xFF2E7D32)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
         ),
       ),
@@ -311,7 +310,7 @@ class _HomeContent extends StatelessWidget {
       slivers: [
         _HomeAppBar(userName: provider.userName, onEditName: onEditName),
         SliverPadding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
           sliver: SliverList(
             delegate: SliverChildListDelegate([
               _HomeSummaryCard(provider: provider),

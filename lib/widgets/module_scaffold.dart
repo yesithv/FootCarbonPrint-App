@@ -30,6 +30,7 @@ class ModuleScaffold extends StatelessWidget {
           SliverAppBar(
             expandedHeight: 140,
             pinned: true,
+            stretch: true,
             backgroundColor: color,
             leading: IconButton(
               onPressed: () => Navigator.pop(context),

@@ -151,6 +151,7 @@ class _AppBarSliver extends StatelessWidget {
     return SliverAppBar(
       expandedHeight: 200,
       pinned: true,
+      stretch: true,
       automaticallyImplyLeading: false,
       backgroundColor: color,
       actions: [
