@@ -5,6 +5,7 @@ import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../models/gamification.dart';
 import '../../providers/footprint_provider.dart';
+import '../../providers/theme_provider.dart';
 import '../shell/main_shell.dart';
 import '../test/test_hub_screen.dart';
 
@@ -14,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.palette.background,
       body: Consumer<FootprintProvider>(
         builder: (context, provider, _) {
           if (!provider.loaded) {
@@ -138,7 +139,7 @@ class _EmptyHome extends StatelessWidget {
                   l10n.homeWelcomeSub,
                   style: GoogleFonts.inter(
                       fontSize: 15,
-                      color: AppColors.textSecondary,
+                      color: context.palette.textSecondary,
                       height: 1.5),
                   textAlign: TextAlign.center,
                 ),
@@ -164,6 +165,62 @@ class _EmptyHome extends StatelessWidget {
 
 // ─── App Bar ──────────────────────────────────────────────────────────────────
 
+class _ThemeMenuButton extends StatelessWidget {
+  const _ThemeMenuButton();
+
+  static const _options = [
+    (ThemeMode.system, Icons.brightness_auto_rounded),
+    (ThemeMode.light, Icons.light_mode_rounded),
+    (ThemeMode.dark, Icons.dark_mode_rounded),
+  ];
+
+  String _label(BuildContext context, ThemeMode mode) => switch (mode) {
+        ThemeMode.system => context.l10n.themeSystem,
+        ThemeMode.light => context.l10n.themeLight,
+        ThemeMode.dark => context.l10n.themeDark,
+      };
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+    final mode = themeProvider.mode;
+    final currentIcon =
+        _options.firstWhere((o) => o.$1 == mode, orElse: () => _options.first).$2;
+
+    return PopupMenuButton<ThemeMode>(
+      tooltip: context.l10n.themeTooltip,
+      icon: Icon(currentIcon, color: Colors.white70, size: 20),
+      initialValue: mode,
+      onSelected: themeProvider.setMode,
+      itemBuilder: (context) => [
+        for (final (option, icon) in _options)
+          PopupMenuItem(
+            value: option,
+            child: Row(
+              children: [
+                Icon(
+                  icon,
+                  size: 18,
+                  color: option == mode
+                      ? context.palette.primary
+                      : context.palette.textSecondary,
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  _label(context, option),
+                  style: GoogleFonts.inter(
+                    fontWeight:
+                        option == mode ? FontWeight.w700 : FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+}
+
 class _HomeAppBar extends StatelessWidget {
   final String userName;
   final VoidCallback onEditName;
@@ -181,6 +238,7 @@ class _HomeAppBar extends StatelessWidget {
       automaticallyImplyLeading: false,
       backgroundColor: AppColors.primary,
       actions: [
+        const _ThemeMenuButton(),
         IconButton(
           onPressed: onEditName,
           icon: Icon(
@@ -418,7 +476,7 @@ class _AchievementsCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withAlpha(15),
+                    color: context.palette.primary.withAlpha(15),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -426,7 +484,7 @@ class _AchievementsCard extends StatelessWidget {
                     style: GoogleFonts.inter(
                         fontSize: 13,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.primary),
+                        color: context.palette.primary),
                   ),
                 ),
               ],
@@ -450,13 +508,13 @@ class _AchievementsCard extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         color: isEarned
-                            ? AppColors.primary.withAlpha(12)
-                            : AppColors.background,
+                            ? context.palette.primary.withAlpha(12)
+                            : context.palette.background,
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(
                           color: isEarned
-                              ? AppColors.primary.withAlpha(60)
-                              : Colors.grey.shade200,
+                              ? context.palette.primary.withAlpha(60)
+                              : context.palette.textHint.withAlpha(60),
                         ),
                       ),
                       child: Column(
@@ -474,8 +532,8 @@ class _AchievementsCard extends StatelessWidget {
                               fontSize: 9,
                               fontWeight: FontWeight.w600,
                               color: isEarned
-                                  ? AppColors.textPrimary
-                                  : AppColors.textSecondary,
+                                  ? context.palette.textPrimary
+                                  : context.palette.textSecondary,
                             ),
                           ),
                         ],
@@ -714,7 +772,7 @@ class _TestProgressCard extends StatelessWidget {
                   style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
-                      color: AppColors.primary),
+                      color: context.palette.primary),
                 ),
               ],
             ),
@@ -724,9 +782,9 @@ class _TestProgressCard extends StatelessWidget {
               child: LinearProgressIndicator(
                 value: pct,
                 minHeight: 8,
-                backgroundColor: AppColors.accent.withAlpha(80),
+                backgroundColor: context.palette.accent.withAlpha(80),
                 valueColor:
-                    const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                    AlwaysStoppedAnimation<Color>(context.palette.primary),
               ),
             ),
             const SizedBox(height: 16),
@@ -741,8 +799,8 @@ class _TestProgressCard extends StatelessWidget {
                       : l10n.homeUpdateTest,
                 ),
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: AppColors.primary,
-                  side: const BorderSide(color: AppColors.primary),
+                  foregroundColor: context.palette.primary,
+                  side: BorderSide(color: context.palette.primary),
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14)),

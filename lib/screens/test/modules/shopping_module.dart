@@ -36,7 +36,7 @@ class _ShoppingModuleState extends State<ShoppingModule> {
     return ModuleScaffold(
       title: l10n.shoppingModuleTitle,
       icon: Icons.shopping_bag_rounded,
-      color: AppColors.shopping,
+      color: context.palette.shopping,
       weight: l10n.shoppingModuleWeight,
       onSave: _save,
       children: [
@@ -48,7 +48,7 @@ class _ShoppingModuleState extends State<ShoppingModule> {
             min: 0,
             max: 20,
             divisions: 20,
-            activeColor: AppColors.shopping,
+            activeColor: context.palette.shopping,
             onChanged: (v) => setState(() => _clothingPerMonth = v),
           ),
         ),
@@ -60,7 +60,7 @@ class _ShoppingModuleState extends State<ShoppingModule> {
             min: 0,
             max: 10,
             divisions: 10,
-            activeColor: AppColors.shopping,
+            activeColor: context.palette.shopping,
             onChanged: (v) => setState(() => _electronicsPerYear = v),
           ),
         ),
@@ -72,7 +72,7 @@ class _ShoppingModuleState extends State<ShoppingModule> {
             min: 0,
             max: 30,
             divisions: 30,
-            activeColor: AppColors.shopping,
+            activeColor: context.palette.shopping,
             onChanged: (v) => setState(() => _packagesPerMonth = v),
           ),
         ),
@@ -83,7 +83,7 @@ class _ShoppingModuleState extends State<ShoppingModule> {
             subtitle: Text(l10n.shoppingSecondHandSub),
             value: _buysSecondHand,
             onChanged: (v) => setState(() => _buysSecondHand = v),
-            activeColor: AppColors.shopping,
+            activeColor: context.palette.shopping,
           ),
         ),
         _Co2Preview(
@@ -93,7 +93,7 @@ class _ShoppingModuleState extends State<ShoppingModule> {
             onlinePackagesPerMonth: _packagesPerMonth.round(),
             buysSecondHand: _buysSecondHand,
           ).annualCO2,
-          color: AppColors.shopping,
+          color: context.palette.shopping,
         ),
       ],
     );
@@ -128,8 +128,8 @@ class _Co2Preview extends StatelessWidget {
                     fontSize: 20, fontWeight: FontWeight.w800, color: color),
               ),
               Text(l10n.moduleEstimate,
-                  style: const TextStyle(
-                      fontSize: 12, color: AppColors.textSecondary)),
+                  style: TextStyle(
+                      fontSize: 12, color: context.palette.textSecondary)),
             ],
           ),
         ],

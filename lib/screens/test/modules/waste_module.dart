@@ -34,7 +34,7 @@ class _WasteModuleState extends State<WasteModule> {
     return ModuleScaffold(
       title: l10n.wasteModuleTitle,
       icon: Icons.recycling_rounded,
-      color: AppColors.waste,
+      color: context.palette.waste,
       weight: l10n.wasteModuleWeight,
       onSave: _save,
       children: [
@@ -46,7 +46,7 @@ class _WasteModuleState extends State<WasteModule> {
             min: 0,
             max: 10,
             divisions: 10,
-            activeColor: AppColors.waste,
+            activeColor: context.palette.waste,
             onChanged: (v) => setState(() => _bagsPerWeek = v),
           ),
         ),
@@ -57,7 +57,7 @@ class _WasteModuleState extends State<WasteModule> {
             subtitle: Text(l10n.wasteSeparateSub),
             value: _separates,
             onChanged: (v) => setState(() => _separates = v),
-            activeColor: AppColors.waste,
+            activeColor: context.palette.waste,
           ),
         ),
         QuestionCard(
@@ -67,7 +67,7 @@ class _WasteModuleState extends State<WasteModule> {
             subtitle: Text(l10n.wasteCompostSub),
             value: _composts,
             onChanged: (v) => setState(() => _composts = v),
-            activeColor: AppColors.waste,
+            activeColor: context.palette.waste,
           ),
         ),
         _Co2Preview(
@@ -76,7 +76,7 @@ class _WasteModuleState extends State<WasteModule> {
             composts: _composts,
             wasteBagsPerWeek: _bagsPerWeek.round(),
           ).annualCO2,
-          color: AppColors.waste,
+          color: context.palette.waste,
         ),
       ],
     );
@@ -111,8 +111,8 @@ class _Co2Preview extends StatelessWidget {
                     fontSize: 20, fontWeight: FontWeight.w800, color: color),
               ),
               Text(l10n.moduleEstimate,
-                  style: const TextStyle(
-                      fontSize: 12, color: AppColors.textSecondary)),
+                  style: TextStyle(
+                      fontSize: 12, color: context.palette.textSecondary)),
             ],
           ),
         ],

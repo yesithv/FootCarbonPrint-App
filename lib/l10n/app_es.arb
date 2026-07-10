@@ -379,6 +379,10 @@
     "placeholders": {"name": {"type": "String"}}
   },
   "greetingEmpty": "Hola 👋",
+  "themeTooltip": "Cambiar tema",
+  "themeSystem": "Sistema",
+  "themeLight": "Claro",
+  "themeDark": "Oscuro",
   "addYourName": "Añade tu nombre",
   "nameDialogTitle": "¿Cómo te llamas?",
   "nameDialogHint": "Tu nombre",

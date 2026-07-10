@@ -19,7 +19,7 @@ class QuestionCard extends StatelessWidget {
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-      color: Colors.white,
+      color: context.palette.cardBg,
       child: Padding(
         padding: const EdgeInsets.all(18),
         child: Column(
@@ -30,7 +30,7 @@ class QuestionCard extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontSize: 15,
                 fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
+                color: context.palette.textPrimary,
                 height: 1.3,
               ),
             ),
@@ -41,7 +41,7 @@ class QuestionCard extends StatelessWidget {
                 style: GoogleFonts.inter(
                   fontSize: 22,
                   fontWeight: FontWeight.w800,
-                  color: AppColors.primary,
+                  color: context.palette.primary,
                 ),
               ),
             ],

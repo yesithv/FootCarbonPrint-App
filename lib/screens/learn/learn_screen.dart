@@ -646,12 +646,12 @@ class _CategoriesVisual extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cats = [
-      _Cat('🚗', transport, 0.32, AppColors.transport),
-      _Cat('🍽️', food, 0.26, AppColors.food),
-      _Cat('🏠', home, 0.22, AppColors.home),
-      _Cat('🛍️', shopping, 0.12, AppColors.shopping),
-      _Cat('♻️', waste, 0.05, AppColors.waste),
-      _Cat('💧', water, 0.03, AppColors.water),
+      _Cat('🚗', transport, 0.32, context.palette.transport),
+      _Cat('🍽️', food, 0.26, context.palette.food),
+      _Cat('🏠', home, 0.22, context.palette.home),
+      _Cat('🛍️', shopping, 0.12, context.palette.shopping),
+      _Cat('♻️', waste, 0.05, context.palette.waste),
+      _Cat('💧', water, 0.03, context.palette.water),
     ];
 
     return Container(

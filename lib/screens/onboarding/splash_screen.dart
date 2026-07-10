@@ -127,19 +127,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return [
       _OnboardingSlide(
         icon: Icons.public_rounded,
-        color: const Color(0xFF1B5E20),
+        color: context.palette.primary,
         title: l10n.onb1Title,
         subtitle: l10n.onb1Sub,
       ),
       _OnboardingSlide(
         icon: Icons.bar_chart_rounded,
-        color: const Color(0xFF0277BD),
+        color: context.palette.water,
         title: l10n.onb2Title,
         subtitle: l10n.onb2Sub,
       ),
       _OnboardingSlide(
         icon: Icons.emoji_events_rounded,
-        color: const Color(0xFF6A1B9A),
+        color: context.palette.food,
         title: l10n.onb3Title,
         subtitle: l10n.onb3Sub,
       ),
@@ -171,7 +171,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final l10n = context.l10n;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.palette.surface,
       body: SafeArea(
         child: Column(
           children: [
@@ -198,8 +198,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         height: 8,
                         decoration: BoxDecoration(
                           color: i == _currentPage
-                              ? AppColors.primary
-                              : AppColors.accent,
+                              ? context.palette.primary
+                              : context.palette.accent,
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),
@@ -219,7 +219,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     TextButton(
                       onPressed: _finish,
                       child: Text(l10n.skip,
-                          style: TextStyle(color: AppColors.textHint)),
+                          style: TextStyle(color: context.palette.textHint)),
                     ),
                   ],
                 ],
@@ -271,7 +271,7 @@ class _SlideView extends StatelessWidget {
             style: GoogleFonts.inter(
               fontSize: 28,
               fontWeight: FontWeight.w800,
-              color: AppColors.textPrimary,
+              color: context.palette.textPrimary,
               height: 1.2,
             ),
           ),
@@ -281,7 +281,7 @@ class _SlideView extends StatelessWidget {
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(
               fontSize: 16,
-              color: AppColors.textSecondary,
+              color: context.palette.textSecondary,
               height: 1.6,
             ),
           ),

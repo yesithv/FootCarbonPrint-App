@@ -41,16 +41,16 @@ class MainShellState extends State<MainShell> {
           bottomNavigationBar: NavigationBar(
             selectedIndex: _currentIndex,
             onDestinationSelected: (i) => setState(() => _currentIndex = i),
-            backgroundColor: Colors.white,
+            backgroundColor: context.palette.surface,
             elevation: 0,
             shadowColor: Colors.black12,
             surfaceTintColor: Colors.transparent,
-            indicatorColor: AppColors.primary.withAlpha(20),
+            indicatorColor: context.palette.primary.withAlpha(20),
             destinations: [
               NavigationDestination(
                 icon: const Icon(Icons.home_outlined),
                 selectedIcon:
-                    const Icon(Icons.home_rounded, color: AppColors.primary),
+                    Icon(Icons.home_rounded, color: context.palette.primary),
                 label: l10n.tabHome,
               ),
               NavigationDestination(
@@ -61,8 +61,8 @@ class MainShellState extends State<MainShell> {
                       style: TextStyle(fontSize: 10, color: Colors.white)),
                   child: const Icon(Icons.bar_chart_outlined),
                 ),
-                selectedIcon: const Icon(Icons.bar_chart_rounded,
-                    color: AppColors.primary),
+                selectedIcon: Icon(Icons.bar_chart_rounded,
+                    color: context.palette.primary),
                 label: l10n.tabFootprint,
               ),
               NavigationDestination(
@@ -73,8 +73,8 @@ class MainShellState extends State<MainShell> {
                       style: TextStyle(fontSize: 10, color: Colors.white)),
                   child: const Icon(Icons.emoji_events_outlined),
                 ),
-                selectedIcon: const Icon(Icons.emoji_events_rounded,
-                    color: AppColors.primary),
+                selectedIcon: Icon(Icons.emoji_events_rounded,
+                    color: context.palette.primary),
                 label: l10n.tabPlan,
               ),
             ],

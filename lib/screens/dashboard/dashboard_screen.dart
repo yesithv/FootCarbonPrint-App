@@ -22,7 +22,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.palette.background,
       body: Consumer<FootprintProvider>(
         builder: (context, provider, _) {
           if (provider.completedCount == 0) {
@@ -86,11 +86,11 @@ class _EmptyState extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(28),
               decoration: BoxDecoration(
-                color: AppColors.primary.withAlpha(15),
+                color: context.palette.primary.withAlpha(15),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.bar_chart_rounded,
-                  size: 64, color: AppColors.primary),
+              child: Icon(Icons.bar_chart_rounded,
+                  size: 64, color: context.palette.primary),
             ),
             const SizedBox(height: 28),
             Text(
@@ -104,7 +104,7 @@ class _EmptyState extends StatelessWidget {
               l10n.dashEmptySub,
               style: GoogleFonts.inter(
                   fontSize: 15,
-                  color: AppColors.textSecondary,
+                  color: context.palette.textSecondary,
                   height: 1.5),
               textAlign: TextAlign.center,
             ),
@@ -131,20 +131,21 @@ class _AppBarSliver extends StatelessWidget {
     this.onExport,
   });
 
-  Color get _levelColor {
+  Color _levelColor(BuildContext context) {
     switch (footprint.level) {
-      case 'champion': return AppColors.green;
+      case 'champion': return context.palette.green;
       case 'conscious': return const Color(0xFF2196F3);
-      case 'ontrack': return AppColors.yellow;
-      case 'high': return AppColors.orange;
-      default: return AppColors.red;
+      case 'ontrack': return context.palette.yellow;
+      case 'high': return context.palette.orange;
+      default: return context.palette.red;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final color = _levelColor;
+    final color = _levelColor(context);
+    final onColor = context.palette.onCategory;
     final levelLabel = l10n.localizedFootprintLevel(footprint.level);
 
     return SliverAppBar(
@@ -155,15 +156,15 @@ class _AppBarSliver extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: onExport,
-          icon: const Icon(Icons.ios_share_rounded,
-              color: Colors.white70, size: 20),
+          icon: Icon(Icons.ios_share_rounded,
+              color: onColor.withAlpha(180), size: 20),
           tooltip: l10n.exportResult,
         ),
         IconButton(
           onPressed: () => _showNameDialog(context),
           icon: Icon(
             userName.isEmpty ? Icons.person_add_rounded : Icons.edit_rounded,
-            color: Colors.white70,
+            color: onColor.withAlpha(180),
             size: 20,
           ),
           tooltip: userName.isEmpty ? l10n.addYourName : l10n.nameDialogTitle,
@@ -183,7 +184,7 @@ class _AppBarSliver extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontSize: 13,
                 fontWeight: FontWeight.w700,
-                color: Colors.white,
+                color: onColor,
               ),
             ),
           ],
@@ -208,7 +209,7 @@ class _AppBarSliver extends StatelessWidget {
                     style: GoogleFonts.inter(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white60,
+                      color: onColor.withAlpha(160),
                       letterSpacing: 0.5,
                     ),
                   ),
@@ -221,7 +222,7 @@ class _AppBarSliver extends StatelessWidget {
                         style: GoogleFonts.inter(
                           fontSize: 48,
                           fontWeight: FontWeight.w900,
-                          color: Colors.white,
+                          color: onColor,
                           height: 1,
                         ),
                       ),
@@ -231,7 +232,7 @@ class _AppBarSliver extends StatelessWidget {
                         child: Text(
                           l10n.co2PerYear,
                           style: GoogleFonts.inter(
-                              fontSize: 12, color: Colors.white70),
+                              fontSize: 12, color: onColor.withAlpha(180)),
                         ),
                       ),
                     ],
@@ -241,7 +242,7 @@ class _AppBarSliver extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.white.withAlpha(30),
+                      color: onColor.withAlpha(30),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
@@ -255,7 +256,7 @@ class _AppBarSliver extends StatelessWidget {
                           style: GoogleFonts.inter(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                            color: onColor,
                           ),
                         ),
                       ],
@@ -379,7 +380,7 @@ class _EquivItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: AppColors.background,
+          color: context.palette.background,
           borderRadius: BorderRadius.circular(14),
         ),
         child: Column(
@@ -390,13 +391,13 @@ class _EquivItem extends StatelessWidget {
               value,
               style: GoogleFonts.inter(
                   fontSize: 20, fontWeight: FontWeight.w800,
-                  color: AppColors.textPrimary),
+                  color: context.palette.textPrimary),
             ),
             Text(
               label,
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
-                  fontSize: 10, color: AppColors.textSecondary),
+                  fontSize: 10, color: context.palette.textSecondary),
             ),
           ],
         ),
@@ -416,18 +417,17 @@ class _PieChartCard extends StatefulWidget {
 class _PieChartCardState extends State<_PieChartCard> {
   int _touched = -1;
 
-  static const _colors = [
-    AppColors.transport,
-    AppColors.food,
-    AppColors.home,
-    AppColors.shopping,
-    AppColors.waste,
-    AppColors.water,
-  ];
-
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final colors = [
+      context.palette.transport,
+      context.palette.food,
+      context.palette.home,
+      context.palette.shopping,
+      context.palette.waste,
+      context.palette.water,
+    ];
     final entries = widget.breakdown.entries.toList();
     final total = entries.fold<double>(0, (s, e) => s + e.value);
 
@@ -462,7 +462,7 @@ class _PieChartCardState extends State<_PieChartCard> {
                     final isTouched = i == _touched;
                     return PieChartSectionData(
                       value: e.value,
-                      color: _colors[i % _colors.length],
+                      color: colors[i % colors.length],
                       radius: isTouched ? 80 : 65,
                       title: '${pct.round()}%',
                       titleStyle: GoogleFonts.inter(
@@ -490,7 +490,7 @@ class _PieChartCardState extends State<_PieChartCard> {
                       width: 10,
                       height: 10,
                       decoration: BoxDecoration(
-                        color: _colors[i % _colors.length],
+                        color: colors[i % colors.length],
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -499,7 +499,7 @@ class _PieChartCardState extends State<_PieChartCard> {
                       '${l10n.localizedCategoryName(e.key)} (${e.value.toStringAsFixed(2)}t)',
                       style: GoogleFonts.inter(
                           fontSize: 12,
-                          color: AppColors.textSecondary),
+                          color: context.palette.textSecondary),
                     ),
                   ],
                 );
@@ -535,7 +535,7 @@ class _BenchmarkCard extends StatelessWidget {
               label: l10n.yourFootprint,
               value: total,
               maxValue: 10,
-              color: _colorForValue(total),
+              color: _colorForValue(context, total),
               isYou: true,
             ),
             const SizedBox(height: 12),
@@ -543,7 +543,7 @@ class _BenchmarkCard extends StatelessWidget {
               label: l10n.parisTarget,
               value: EmissionFactors.parisTarget,
               maxValue: 10,
-              color: AppColors.green,
+              color: context.palette.green,
             ),
             const SizedBox(height: 12),
             _BenchmarkRow(
@@ -557,7 +557,7 @@ class _BenchmarkCard extends StatelessWidget {
               label: l10n.worldAvg,
               value: EmissionFactors.globalAverage,
               maxValue: 10,
-              color: AppColors.orange,
+              color: context.palette.orange,
             ),
           ],
         ),
@@ -565,12 +565,12 @@ class _BenchmarkCard extends StatelessWidget {
     );
   }
 
-  Color _colorForValue(double v) {
-    if (v < 1.5) return AppColors.green;
+  Color _colorForValue(BuildContext context, double v) {
+    if (v < 1.5) return context.palette.green;
     if (v < 3) return const Color(0xFF2196F3);
-    if (v < 5) return AppColors.yellow;
-    if (v < 8) return AppColors.orange;
-    return AppColors.red;
+    if (v < 5) return context.palette.yellow;
+    if (v < 8) return context.palette.orange;
+    return context.palette.red;
   }
 }
 
@@ -603,7 +603,7 @@ class _BenchmarkRow extends StatelessWidget {
                 fontSize: 13,
                 fontWeight:
                     isYou ? FontWeight.w700 : FontWeight.w400,
-                color: isYou ? color : AppColors.textSecondary,
+                color: isYou ? color : context.palette.textSecondary,
               ),
             ),
             Text(
@@ -658,7 +658,7 @@ class _HistoryCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withAlpha(15),
+                      color: context.palette.primary.withAlpha(15),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
@@ -666,7 +666,7 @@ class _HistoryCard extends StatelessWidget {
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.primary,
+                        color: context.palette.primary,
                       ),
                     ),
                   ),
@@ -697,11 +697,11 @@ class _HistoryEmpty extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: AppColors.primary.withAlpha(12),
+                color: context.palette.primary.withAlpha(12),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.show_chart_rounded,
-                  size: 36, color: AppColors.primary),
+              child: Icon(Icons.show_chart_rounded,
+                  size: 36, color: context.palette.primary),
             ),
             const SizedBox(height: 12),
             Text(
@@ -715,7 +715,7 @@ class _HistoryEmpty extends StatelessWidget {
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
                   fontSize: 12,
-                  color: AppColors.textSecondary,
+                  color: context.palette.textSecondary,
                   height: 1.5),
             ),
           ],
@@ -740,11 +740,11 @@ class _HistoryOne extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppColors.primary.withAlpha(15),
+                color: context.palette.primary.withAlpha(15),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: const Icon(Icons.flag_rounded,
-                  color: AppColors.primary, size: 28),
+              child: Icon(Icons.flag_rounded,
+                  color: context.palette.primary, size: 28),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -759,7 +759,7 @@ class _HistoryOne extends StatelessWidget {
                   Text(
                     fmt.format(snapshot.date),
                     style: GoogleFonts.inter(
-                        fontSize: 12, color: AppColors.textSecondary),
+                        fontSize: 12, color: context.palette.textSecondary),
                   ),
                 ],
               ),
@@ -769,7 +769,7 @@ class _HistoryOne extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
-                color: AppColors.primary,
+                color: context.palette.primary,
               ),
             ),
           ],
@@ -780,7 +780,7 @@ class _HistoryOne extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(
               fontSize: 11,
-              color: AppColors.textHint,
+              color: context.palette.textHint,
               height: 1.5),
         ),
       ],
@@ -799,7 +799,7 @@ class _HistoryChart extends StatelessWidget {
     final last = history.last.totalCO2;
     final delta = (last - first) / first * 100;
     final improved = delta <= 0;
-    final deltaColor = improved ? AppColors.green : AppColors.red;
+    final deltaColor = improved ? context.palette.green : context.palette.red;
     final deltaText = improved
         ? l10n.historyImproved(delta.abs().toStringAsFixed(1))
         : l10n.historyWorsened(delta.abs().toStringAsFixed(1));
@@ -843,21 +843,21 @@ class _HistoryChart extends StatelessWidget {
                     (i) => FlSpot(i.toDouble(), history[i].totalCO2),
                   ),
                   isCurved: history.length > 3,
-                  color: AppColors.primary,
+                  color: context.palette.primary,
                   barWidth: 2.5,
                   dotData: FlDotData(
                     show: true,
                     getDotPainter: (spot, pct, bar, idx) =>
                         FlDotCirclePainter(
                       radius: 4,
-                      color: AppColors.primary,
+                      color: context.palette.primary,
                       strokeWidth: 2,
                       strokeColor: Colors.white,
                     ),
                   ),
                   belowBarData: BarAreaData(
                     show: true,
-                    color: AppColors.primary.withAlpha(20),
+                    color: context.palette.primary.withAlpha(20),
                   ),
                 ),
               ],
@@ -874,7 +874,7 @@ class _HistoryChart extends StatelessWidget {
                       '${value.toStringAsFixed(1)}t',
                       style: GoogleFonts.inter(
                           fontSize: 10,
-                          color: AppColors.textSecondary),
+                          color: context.palette.textSecondary),
                     ),
                   ),
                 ),
@@ -897,7 +897,7 @@ class _HistoryChart extends StatelessWidget {
                           DateFormat('d/M').format(d),
                           style: GoogleFonts.inter(
                               fontSize: 9,
-                              color: AppColors.textSecondary),
+                              color: context.palette.textSecondary),
                         ),
                       );
                     },
@@ -923,12 +923,12 @@ class _HistoryChart extends StatelessWidget {
             Text(
               DateFormat('d MMM yyyy').format(history.first.date),
               style: GoogleFonts.inter(
-                  fontSize: 10, color: AppColors.textHint),
+                  fontSize: 10, color: context.palette.textHint),
             ),
             Text(
               DateFormat('d MMM yyyy').format(history.last.date),
               style: GoogleFonts.inter(
-                  fontSize: 10, color: AppColors.textHint),
+                  fontSize: 10, color: context.palette.textHint),
             ),
           ],
         ),
@@ -962,7 +962,7 @@ class _OffsetCalculatorCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withAlpha(15),
+                    color: context.palette.primary.withAlpha(15),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Text('🌍', style: TextStyle(fontSize: 18)),
@@ -980,7 +980,7 @@ class _OffsetCalculatorCard extends StatelessWidget {
                       Text(
                         l10n.offsetSubtitle,
                         style: GoogleFonts.inter(
-                            fontSize: 12, color: AppColors.textSecondary),
+                            fontSize: 12, color: context.palette.textSecondary),
                       ),
                     ],
                   ),
@@ -996,7 +996,7 @@ class _OffsetCalculatorCard extends StatelessWidget {
                     emoji: '🌳',
                     value: l10n.offsetTreesValue(treesNeeded),
                     label: l10n.offsetTreesLabel,
-                    color: AppColors.primary,
+                    color: context.palette.primary,
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -1015,9 +1015,9 @@ class _OffsetCalculatorCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: AppColors.yellow.withAlpha(20),
+                color: context.palette.yellow.withAlpha(20),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.yellow.withAlpha(60)),
+                border: Border.all(color: context.palette.yellow.withAlpha(60)),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1033,7 +1033,7 @@ class _OffsetCalculatorCard extends StatelessWidget {
                           style: GoogleFonts.inter(
                             fontSize: 13,
                             fontWeight: FontWeight.w700,
-                            color: AppColors.textPrimary,
+                            color: context.palette.textPrimary,
                           ),
                         ),
                         const SizedBox(height: 2),
@@ -1041,7 +1041,7 @@ class _OffsetCalculatorCard extends StatelessWidget {
                           l10n.offsetReduceFirstDesc,
                           style: GoogleFonts.inter(
                               fontSize: 12,
-                              color: AppColors.textSecondary,
+                              color: context.palette.textSecondary,
                               height: 1.4),
                         ),
                       ],
@@ -1082,7 +1082,7 @@ class _OffsetCalculatorCard extends StatelessWidget {
             Text(
               l10n.offsetDisclaimer,
               style: GoogleFonts.inter(
-                  fontSize: 10, color: AppColors.textHint, height: 1.4),
+                  fontSize: 10, color: context.palette.textHint, height: 1.4),
             ),
           ],
         ),
@@ -1130,7 +1130,7 @@ class _OffsetMetric extends StatelessWidget {
           Text(
             label,
             style: GoogleFonts.inter(
-                fontSize: 11, color: AppColors.textSecondary, height: 1.3),
+                fontSize: 11, color: context.palette.textSecondary, height: 1.3),
           ),
         ],
       ),
@@ -1159,7 +1159,7 @@ class _OffsetPlatformLink extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
-          color: AppColors.background,
+          color: context.palette.background,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.grey.shade200),
         ),
@@ -1176,12 +1176,12 @@ class _OffsetPlatformLink extends StatelessWidget {
                           fontSize: 13, fontWeight: FontWeight.w700)),
                   Text(description,
                       style: GoogleFonts.inter(
-                          fontSize: 11, color: AppColors.textSecondary)),
+                          fontSize: 11, color: context.palette.textSecondary)),
                 ],
               ),
             ),
-            const Icon(Icons.open_in_new_rounded,
-                size: 16, color: AppColors.textHint),
+            Icon(Icons.open_in_new_rounded,
+                size: 16, color: context.palette.textHint),
           ],
         ),
       ),
@@ -1211,7 +1211,7 @@ class _ShareCardButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(18),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primary.withAlpha(60),
+              color: context.palette.primary.withAlpha(60),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -1324,9 +1324,9 @@ class _ExportBottomSheetState extends State<_ExportBottomSheet> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.background,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+      decoration: BoxDecoration(
+        color: context.palette.background,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
       ),
       padding: const EdgeInsets.fromLTRB(24, 12, 24, 32),
       child: Column(
@@ -1350,10 +1350,11 @@ class _ExportBottomSheetState extends State<_ExportBottomSheet> {
             child: ElevatedButton.icon(
               onPressed: _downloading ? null : _download,
               icon: _downloading
-                  ? const SizedBox(
+                  ? SizedBox(
                       width: 16, height: 16,
                       child: CircularProgressIndicator(
-                          strokeWidth: 2, color: Colors.white))
+                          strokeWidth: 2,
+                          color: Theme.of(context).colorScheme.onPrimary))
                   : const Icon(Icons.download_rounded),
               label: Text(
                 _downloading ? '...' : l10n.downloadImage,
@@ -1361,8 +1362,6 @@ class _ExportBottomSheetState extends State<_ExportBottomSheet> {
                     fontSize: 15, fontWeight: FontWeight.w700),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16)),
@@ -1379,6 +1378,8 @@ class _ResultShareCard extends StatelessWidget {
   final CarbonFootprint footprint;
   const _ResultShareCard({required this.footprint});
 
+  // The share card is captured as an image, so it keeps the fixed light
+  // palette regardless of the active theme.
   Color _levelColor(String level) {
     switch (level) {
       case 'champion': return AppColors.green;

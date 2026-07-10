@@ -317,7 +317,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get actionsTitle => 'Tus top acciones por impacto';
 
   @override
-  String get actionsSub => 'Ordenadas de mayor a menor reducción potencial';
+  String get actionsSub =>
+      'Personalizado para tu huella — ordenado por potencial de reducción';
 
   @override
   String get commit => 'Me comprometo';
@@ -632,11 +633,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get downloadPng => 'Descargar PNG';
 
   @override
-  String get cardDownloaded => '¡Tarjeta descargada! 🌿';
+  String get cardDownloaded =>
+      'Imagen abierta en tu navegador 🌿 — mantén pulsado para guardarla.';
 
   @override
   String get downloadHint =>
-      'La imagen se descarga en 1080×1080 px,\nideal para Instagram, WhatsApp y Twitter.';
+      'La imagen se abre en tu navegador en 1080×1080 px.\nMantén pulsada la imagen para guardarla en tu dispositivo.';
 
   @override
   String get cardFooterText => 'Conoce tu huella. Cambia tu mundo.';
@@ -945,6 +947,18 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get greetingEmpty => 'Hola 👋';
+
+  @override
+  String get themeTooltip => 'Cambiar tema';
+
+  @override
+  String get themeSystem => 'Sistema';
+
+  @override
+  String get themeLight => 'Claro';
+
+  @override
+  String get themeDark => 'Oscuro';
 
   @override
   String get addYourName => 'Añade tu nombre';
