@@ -37,7 +37,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
     final provider = context.watch<FootprintProvider>();
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.palette.background,
       body: Stack(
         children: [
           CustomScrollView(
@@ -170,18 +170,18 @@ class _MainResultCard extends StatelessWidget {
   final FootprintProvider provider;
   const _MainResultCard({required this.provider});
 
-  Color _levelColor(String level) {
+  Color _levelColor(BuildContext context, String level) {
     switch (level) {
       case 'champion':
-        return AppColors.green;
+        return context.palette.green;
       case 'conscious':
-        return AppColors.secondary;
+        return context.palette.secondary;
       case 'ontrack':
-        return AppColors.yellow;
+        return context.palette.yellow;
       case 'high':
-        return AppColors.orange;
+        return context.palette.orange;
       default:
-        return AppColors.red;
+        return context.palette.red;
     }
   }
 
@@ -189,13 +189,13 @@ class _MainResultCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final fp = provider.footprint;
-    final color = _levelColor(fp.level);
+    final color = _levelColor(context, fp.level);
 
     return Transform.translate(
       offset: const Offset(0, -24),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: context.palette.cardBg,
           borderRadius: BorderRadius.circular(24),
           border: Border.all(color: color.withAlpha(70), width: 2),
           boxShadow: [
@@ -213,7 +213,7 @@ class _MainResultCard extends StatelessWidget {
               l10n.resultsYourFootprint,
               style: GoogleFonts.inter(
                 fontSize: 13,
-                color: AppColors.textSecondary,
+                color: context.palette.textSecondary,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -238,7 +238,7 @@ class _MainResultCard extends StatelessWidget {
                     style: GoogleFonts.inter(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.textSecondary,
+                      color: context.palette.textSecondary,
                     ),
                   ),
                 ),
@@ -283,12 +283,12 @@ class _ComparisonCard extends StatelessWidget {
   final FootprintProvider provider;
   const _ComparisonCard({required this.provider});
 
-  Color _userColor(double v) {
-    if (v < 1.5) return AppColors.green;
-    if (v < 3.0) return AppColors.secondary;
-    if (v < 5.0) return AppColors.yellow;
-    if (v < 8.0) return AppColors.orange;
-    return AppColors.red;
+  Color _userColor(BuildContext context, double v) {
+    if (v < 1.5) return context.palette.green;
+    if (v < 3.0) return context.palette.secondary;
+    if (v < 5.0) return context.palette.yellow;
+    if (v < 8.0) return context.palette.orange;
+    return context.palette.red;
   }
 
   @override
@@ -300,15 +300,16 @@ class _ComparisonCard extends StatelessWidget {
             1.15;
 
     final items = [
-      _CompItem(l10n.resultsYou, userVal, _userColor(userVal), isUser: true),
-      _CompItem(l10n.resultsParis, EmissionFactors.parisTarget, AppColors.green),
-      _CompItem(l10n.resultsColombia, EmissionFactors.colombiaAverage, AppColors.secondary),
-      _CompItem(l10n.resultsWorld, EmissionFactors.globalAverage, AppColors.orange),
+      _CompItem(l10n.resultsYou, userVal, _userColor(context, userVal),
+          isUser: true),
+      _CompItem(l10n.resultsParis, EmissionFactors.parisTarget, context.palette.green),
+      _CompItem(l10n.resultsColombia, EmissionFactors.colombiaAverage, context.palette.secondary),
+      _CompItem(l10n.resultsWorld, EmissionFactors.globalAverage, context.palette.orange),
     ];
 
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: _cardDecoration(),
+      decoration: _cardDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -317,7 +318,7 @@ class _ComparisonCard extends StatelessWidget {
             style: GoogleFonts.inter(
               fontSize: 15,
               fontWeight: FontWeight.w800,
-              color: AppColors.textPrimary,
+              color: context.palette.textPrimary,
             ),
           ),
           const SizedBox(height: 16),
@@ -355,7 +356,7 @@ class _CompBar extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontSize: 12,
                 fontWeight: item.isUser ? FontWeight.w700 : FontWeight.w500,
-                color: item.isUser ? AppColors.textPrimary : AppColors.textSecondary,
+                color: item.isUser ? context.palette.textPrimary : context.palette.textSecondary,
               ),
             ),
           ),
@@ -365,7 +366,7 @@ class _CompBar extends StatelessWidget {
               child: LinearProgressIndicator(
                 value: frac,
                 minHeight: item.isUser ? 16 : 12,
-                backgroundColor: AppColors.accent.withAlpha(35),
+                backgroundColor: context.palette.accent.withAlpha(35),
                 valueColor: AlwaysStoppedAnimation<Color>(item.color),
               ),
             ),
@@ -397,13 +398,13 @@ class _TopSourcesCard extends StatelessWidget {
   final FootprintProvider provider;
   const _TopSourcesCard({required this.provider});
 
-  static const _categoryColors = {
-    'Transporte': AppColors.transport,
-    'Alimentación': AppColors.food,
-    'Hogar': AppColors.home,
-    'Consumo': AppColors.shopping,
-    'Residuos': AppColors.waste,
-    'Agua': AppColors.water,
+  static Map<String, Color> _categoryColors(BuildContext context) => {
+    'Transporte': context.palette.transport,
+    'Alimentación': context.palette.food,
+    'Hogar': context.palette.home,
+    'Consumo': context.palette.shopping,
+    'Residuos': context.palette.waste,
+    'Agua': context.palette.water,
   };
 
   static const _categoryIcons = {
@@ -427,7 +428,7 @@ class _TopSourcesCard extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: _cardDecoration(),
+      decoration: _cardDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -436,14 +437,15 @@ class _TopSourcesCard extends StatelessWidget {
             style: GoogleFonts.inter(
               fontSize: 15,
               fontWeight: FontWeight.w800,
-              color: AppColors.textPrimary,
+              color: context.palette.textPrimary,
             ),
           ),
           const SizedBox(height: 16),
           ...top3.asMap().entries.map((entry) {
             final rank = entry.key + 1;
             final item = entry.value;
-            final color = _categoryColors[item.key] ?? AppColors.primary;
+            final color =
+                _categoryColors(context)[item.key] ?? context.palette.primary;
             final icon = _categoryIcons[item.key] ?? Icons.circle;
             final pct = total > 0 ? (item.value / total * 100).round() : 0;
             final double frac =
@@ -486,7 +488,7 @@ class _TopSourcesCard extends StatelessWidget {
                               style: GoogleFonts.inter(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w700,
-                                color: AppColors.textPrimary,
+                                color: context.palette.textPrimary,
                               ),
                             ),
                             Text(
@@ -539,7 +541,7 @@ class _AchievementsCard extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: _cardDecoration(),
+      decoration: _cardDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -551,7 +553,7 @@ class _AchievementsCard extends StatelessWidget {
                 style: GoogleFonts.inter(
                   fontSize: 15,
                   fontWeight: FontWeight.w800,
-                  color: AppColors.textPrimary,
+                  color: context.palette.textPrimary,
                 ),
               ),
               Container(
@@ -577,7 +579,7 @@ class _AchievementsCard extends StatelessWidget {
             '${level.emoji} ${l10n.localizedEcoLevelName(level)}',
             style: GoogleFonts.inter(
               fontSize: 13,
-              color: AppColors.textSecondary,
+              color: context.palette.textSecondary,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -593,12 +595,12 @@ class _AchievementsCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   decoration: BoxDecoration(
                     color: earned
-                        ? AppColors.primary.withAlpha(14)
+                        ? context.palette.primary.withAlpha(14)
                         : Colors.grey.withAlpha(10),
                     borderRadius: BorderRadius.circular(14),
                     border: Border.all(
                       color: earned
-                          ? AppColors.primary.withAlpha(55)
+                          ? context.palette.primary.withAlpha(55)
                           : Colors.grey.withAlpha(28),
                     ),
                   ),
@@ -627,8 +629,8 @@ class _AchievementsCard extends StatelessWidget {
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
                           color: earned
-                              ? AppColors.textPrimary
-                              : AppColors.textHint,
+                              ? context.palette.textPrimary
+                              : context.palette.textHint,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -644,7 +646,7 @@ class _AchievementsCard extends StatelessWidget {
               '${earnedIds.length}/${GamificationData.allBadges.length} ${l10n.resultsBadgesUnlocked}',
               style: GoogleFonts.inter(
                 fontSize: 12,
-                color: AppColors.textHint,
+                color: context.palette.textHint,
               ),
             ),
           ],
@@ -687,8 +689,6 @@ class _CTAButtons extends StatelessWidget {
           icon: const Icon(Icons.bar_chart_rounded),
           label: Text(l10n.resultsViewDashboard),
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
-            foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -702,8 +702,8 @@ class _CTAButtons extends StatelessWidget {
           icon: const Icon(Icons.emoji_events_rounded),
           label: Text(l10n.resultsViewPlan),
           style: OutlinedButton.styleFrom(
-            foregroundColor: AppColors.primary,
-            side: const BorderSide(color: AppColors.primary, width: 2),
+            foregroundColor: context.palette.primary,
+            side: BorderSide(color: context.palette.primary, width: 2),
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -718,7 +718,7 @@ class _CTAButtons extends StatelessWidget {
             icon: const Icon(Icons.share_rounded),
             label: Text(l10n.shareResult),
             style: TextButton.styleFrom(
-              foregroundColor: AppColors.primary,
+              foregroundColor: context.palette.primary,
               padding: const EdgeInsets.symmetric(vertical: 14),
               textStyle: GoogleFonts.inter(
                   fontSize: 15, fontWeight: FontWeight.w600),
@@ -734,12 +734,12 @@ class _CTAButtons extends StatelessWidget {
 // Shared decoration
 // ──────────────────────────────────────────────────────────────────────────────
 
-BoxDecoration _cardDecoration() => BoxDecoration(
-      color: Colors.white,
+BoxDecoration _cardDecoration(BuildContext context) => BoxDecoration(
+      color: context.palette.cardBg,
       borderRadius: BorderRadius.circular(20),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withAlpha(8),
+          color: Colors.black.withAlpha(context.isDark ? 60 : 8),
           blurRadius: 12,
           offset: const Offset(0, 4),
         ),

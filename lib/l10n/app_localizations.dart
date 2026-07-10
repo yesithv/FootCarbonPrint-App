@@ -687,7 +687,7 @@ abstract class AppLocalizations {
   /// No description provided for @actionsSub.
   ///
   /// In en, this message translates to:
-  /// **'Sorted from highest to lowest reduction potential'**
+  /// **'Personalized for your footprint — sorted by reduction potential'**
   String get actionsSub;
 
   /// No description provided for @commit.
@@ -1257,13 +1257,13 @@ abstract class AppLocalizations {
   /// No description provided for @cardDownloaded.
   ///
   /// In en, this message translates to:
-  /// **'Card downloaded! 🌿'**
+  /// **'Image opened in your browser 🌿 — long-press to save.'**
   String get cardDownloaded;
 
   /// No description provided for @downloadHint.
   ///
   /// In en, this message translates to:
-  /// **'The image downloads at 1080×1080 px,\nperfect for Instagram, WhatsApp and Twitter.'**
+  /// **'The image opens in your browser at 1080×1080 px.\nLong-press it to save to your device.'**
   String get downloadHint;
 
   /// No description provided for @cardFooterText.
@@ -1835,6 +1835,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hello 👋'**
   String get greetingEmpty;
+
+  /// No description provided for @themeTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Change theme'**
+  String get themeTooltip;
+
+  /// No description provided for @themeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get themeSystem;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get themeLight;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get themeDark;
 
   /// No description provided for @addYourName.
   ///

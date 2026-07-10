@@ -316,7 +316,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get actionsTitle => 'Your top actions by impact';
 
   @override
-  String get actionsSub => 'Sorted from highest to lowest reduction potential';
+  String get actionsSub =>
+      'Personalized for your footprint — sorted by reduction potential';
 
   @override
   String get commit => 'I commit';
@@ -630,11 +631,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get downloadPng => 'Download PNG';
 
   @override
-  String get cardDownloaded => 'Card downloaded! 🌿';
+  String get cardDownloaded =>
+      'Image opened in your browser 🌿 — long-press to save.';
 
   @override
   String get downloadHint =>
-      'The image downloads at 1080×1080 px,\nperfect for Instagram, WhatsApp and Twitter.';
+      'The image opens in your browser at 1080×1080 px.\nLong-press it to save to your device.';
 
   @override
   String get cardFooterText => 'Know your footprint. Change your world.';
@@ -944,6 +946,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get greetingEmpty => 'Hello 👋';
+
+  @override
+  String get themeTooltip => 'Change theme';
+
+  @override
+  String get themeSystem => 'System';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDark => 'Dark';
 
   @override
   String get addYourName => 'Add your name';

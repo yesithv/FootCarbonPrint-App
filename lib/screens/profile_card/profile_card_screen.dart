@@ -44,7 +44,7 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
         content: Text(
           l10n.photoDialogContent,
           style: GoogleFonts.inter(
-              fontSize: 14, color: AppColors.textSecondary, height: 1.5),
+              fontSize: 14, color: context.palette.textSecondary, height: 1.5),
         ),
         actionsPadding:
             const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -120,10 +120,10 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.palette.background,
       appBar: AppBar(
         title: Text(l10n.profileCardTitle),
-        backgroundColor: AppColors.background,
+        backgroundColor: context.palette.background,
       ),
       body: Consumer<FootprintProvider>(
         builder: (context, provider, _) {
@@ -135,7 +135,7 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
                   l10n.profileCardPreview,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
-                      fontSize: 13, color: AppColors.textSecondary),
+                      fontSize: 13, color: context.palette.textSecondary),
                 ),
                 const SizedBox(height: 20),
                 Center(
@@ -184,7 +184,7 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
                   l10n.downloadHint,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
-                      fontSize: 12, color: AppColors.textHint, height: 1.6),
+                      fontSize: 12, color: context.palette.textHint, height: 1.6),
                 ),
               ],
             ),

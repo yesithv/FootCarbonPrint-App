@@ -40,7 +40,7 @@ class _WaterModuleState extends State<WaterModule> {
     return ModuleScaffold(
       title: l10n.waterModuleTitle,
       icon: Icons.water_drop_rounded,
-      color: AppColors.water,
+      color: context.palette.water,
       weight: l10n.waterModuleWeight,
       onSave: _save,
       children: [
@@ -52,7 +52,7 @@ class _WaterModuleState extends State<WaterModule> {
             min: 2,
             max: 30,
             divisions: 28,
-            activeColor: AppColors.water,
+            activeColor: context.palette.water,
             onChanged: (v) => setState(() => _showerMinutes = v),
           ),
         ),
@@ -72,13 +72,13 @@ class _WaterModuleState extends State<WaterModule> {
                                 vertical: 14, horizontal: 8),
                             decoration: BoxDecoration(
                               color: _showerTemp == t.id
-                                  ? AppColors.water.withAlpha(20)
-                                  : Colors.grey.shade50,
+                                  ? context.palette.water.withAlpha(20)
+                                  : context.palette.background,
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
                                 color: _showerTemp == t.id
-                                    ? AppColors.water
-                                    : Colors.grey.shade200,
+                                    ? context.palette.water
+                                    : context.palette.textHint.withAlpha(60),
                                 width: 2,
                               ),
                             ),
@@ -93,16 +93,16 @@ class _WaterModuleState extends State<WaterModule> {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w700,
                                     color: _showerTemp == t.id
-                                        ? AppColors.water
-                                        : AppColors.textPrimary,
+                                        ? context.palette.water
+                                        : context.palette.textPrimary,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
                                 Text(
                                   t.sub,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 10,
-                                      color: AppColors.textHint),
+                                      color: context.palette.textHint),
                                   textAlign: TextAlign.center,
                                 ),
                               ],
@@ -120,7 +120,7 @@ class _WaterModuleState extends State<WaterModule> {
             title: Text(l10n.waterGardenTitle),
             value: _hasGarden,
             onChanged: (v) => setState(() => _hasGarden = v),
-            activeColor: AppColors.water,
+            activeColor: context.palette.water,
           ),
         ),
         _Co2Preview(
@@ -129,7 +129,7 @@ class _WaterModuleState extends State<WaterModule> {
             showerTemp: _showerTemp,
             hasGarden: _hasGarden,
           ).annualCO2,
-          color: AppColors.water,
+          color: context.palette.water,
         ),
       ],
     );
@@ -172,8 +172,8 @@ class _Co2Preview extends StatelessWidget {
                     fontSize: 20, fontWeight: FontWeight.w800, color: color),
               ),
               Text(l10n.moduleEstimate,
-                  style: const TextStyle(
-                      fontSize: 12, color: AppColors.textSecondary)),
+                  style: TextStyle(
+                      fontSize: 12, color: context.palette.textSecondary)),
             ],
           ),
         ],

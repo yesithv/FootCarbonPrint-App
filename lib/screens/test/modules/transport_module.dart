@@ -49,7 +49,7 @@ class _TransportModuleState extends State<TransportModule> {
     return ModuleScaffold(
       title: l10n.transportModuleTitle,
       icon: Icons.directions_car_rounded,
-      color: AppColors.transport,
+      color: context.palette.transport,
       weight: l10n.transportModuleWeight,
       onSave: _save,
       children: [
@@ -66,18 +66,18 @@ class _TransportModuleState extends State<TransportModule> {
                           Icon(v.icon,
                               size: 16,
                               color: _vehicle == v.id
-                                  ? Colors.white
-                                  : AppColors.transport),
+                                  ? context.palette.onCategory
+                                  : context.palette.transport),
                           const SizedBox(width: 6),
                           Text(v.label),
                         ],
                       ),
                       selected: _vehicle == v.id,
-                      selectedColor: AppColors.transport,
+                      selectedColor: context.palette.transport,
                       labelStyle: TextStyle(
                         color: _vehicle == v.id
-                            ? Colors.white
-                            : AppColors.textPrimary,
+                            ? context.palette.onCategory
+                            : context.palette.textPrimary,
                         fontWeight: FontWeight.w600,
                       ),
                       onSelected: (_) => setState(() => _vehicle = v.id),
@@ -128,7 +128,7 @@ class _TransportModuleState extends State<TransportModule> {
             mediumFlights: _mediumFlights,
             longFlights: _longFlights,
           ).annualCO2,
-          color: AppColors.transport,
+          color: context.palette.transport,
         ),
       ],
     );
@@ -155,29 +155,29 @@ class _FlightCounter extends StatelessWidget {
       children: [
         Expanded(
           child: Text(label,
-              style: const TextStyle(
-                  fontSize: 14, color: AppColors.textSecondary)),
+              style: TextStyle(
+                  fontSize: 14, color: context.palette.textSecondary)),
         ),
         IconButton(
           onPressed: value > 0 ? () => onChanged(value - 1) : null,
           icon: const Icon(Icons.remove_circle_outline_rounded),
-          color: AppColors.transport,
+          color: context.palette.transport,
         ),
         SizedBox(
           width: 32,
           child: Text(
             '$value',
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary),
+                color: context.palette.textPrimary),
           ),
         ),
         IconButton(
           onPressed: () => onChanged(value + 1),
           icon: const Icon(Icons.add_circle_outline_rounded),
-          color: AppColors.transport,
+          color: context.palette.transport,
         ),
       ],
     );
@@ -215,8 +215,8 @@ class _Co2Preview extends StatelessWidget {
                 ),
               ),
               Text(l10n.moduleEstimate,
-                  style: const TextStyle(
-                      fontSize: 12, color: AppColors.textSecondary)),
+                  style: TextStyle(
+                      fontSize: 12, color: context.palette.textSecondary)),
             ],
           ),
         ],

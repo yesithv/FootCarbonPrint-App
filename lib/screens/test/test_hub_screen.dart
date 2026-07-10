@@ -30,10 +30,10 @@ class TestHubScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final canPop = Navigator.of(context).canPop();
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.palette.background,
       appBar: canPop
           ? AppBar(
-              backgroundColor: AppColors.background,
+              backgroundColor: context.palette.background,
               elevation: 0,
               scrolledUnderElevation: 0,
               leading: IconButton(
@@ -130,7 +130,7 @@ class TestHubScreen extends StatelessWidget {
         id: 'transport',
         label: l10n.modTransport,
         icon: Icons.directions_car_rounded,
-        color: AppColors.transport,
+        color: context.palette.transport,
         weight: l10n.modTransportWeight,
         screen: const TransportModule(),
       ),
@@ -138,7 +138,7 @@ class TestHubScreen extends StatelessWidget {
         id: 'food',
         label: l10n.modFood,
         icon: Icons.restaurant_rounded,
-        color: AppColors.food,
+        color: context.palette.food,
         weight: l10n.modFoodWeight,
         screen: const FoodModule(),
       ),
@@ -146,7 +146,7 @@ class TestHubScreen extends StatelessWidget {
         id: 'home',
         label: l10n.modHome,
         icon: Icons.home_rounded,
-        color: AppColors.home,
+        color: context.palette.home,
         weight: l10n.modHomeWeight,
         screen: const HomeModule(),
       ),
@@ -154,7 +154,7 @@ class TestHubScreen extends StatelessWidget {
         id: 'shopping',
         label: l10n.modShopping,
         icon: Icons.shopping_bag_rounded,
-        color: AppColors.shopping,
+        color: context.palette.shopping,
         weight: l10n.modShoppingWeight,
         screen: const ShoppingModule(),
       ),
@@ -162,7 +162,7 @@ class TestHubScreen extends StatelessWidget {
         id: 'waste',
         label: l10n.modWaste,
         icon: Icons.recycling_rounded,
-        color: AppColors.waste,
+        color: context.palette.waste,
         weight: l10n.modWasteWeight,
         screen: const WasteModule(),
       ),
@@ -170,7 +170,7 @@ class TestHubScreen extends StatelessWidget {
         id: 'water',
         label: l10n.modWater,
         icon: Icons.water_drop_rounded,
-        color: AppColors.water,
+        color: context.palette.water,
         weight: l10n.modWaterWeight,
         screen: const WaterModule(),
       ),
@@ -225,11 +225,11 @@ class _Header extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppColors.primary,
+                  color: context.palette.primary,
                   borderRadius: BorderRadius.circular(14),
                 ),
-                child: const Icon(Icons.eco_rounded,
-                    color: Colors.white, size: 24),
+                child: Icon(Icons.eco_rounded,
+                    color: context.palette.onCategory, size: 24),
               ),
               const SizedBox(width: 12),
               Text(
@@ -237,7 +237,7 @@ class _Header extends StatelessWidget {
                 style: GoogleFonts.inter(
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
-                  color: AppColors.primary,
+                  color: context.palette.primary,
                 ),
               ),
             ],
@@ -248,7 +248,7 @@ class _Header extends StatelessWidget {
             style: GoogleFonts.inter(
               fontSize: 26,
               fontWeight: FontWeight.w800,
-              color: AppColors.textPrimary,
+              color: context.palette.textPrimary,
               height: 1.2,
             ),
           ),
@@ -257,7 +257,7 @@ class _Header extends StatelessWidget {
             l10n.testHubSub,
             style: GoogleFonts.inter(
               fontSize: 14,
-              color: AppColors.textSecondary,
+              color: context.palette.textSecondary,
             ),
           ),
           const SizedBox(height: 20),
@@ -288,14 +288,14 @@ class _ProgressBar extends StatelessWidget {
               style: GoogleFonts.inter(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.textSecondary),
+                  color: context.palette.textSecondary),
             ),
             Text(
               '${(pct * 100).round()}%',
               style: GoogleFonts.inter(
                   fontSize: 13,
                   fontWeight: FontWeight.w700,
-                  color: AppColors.primary),
+                  color: context.palette.primary),
             ),
           ],
         ),
@@ -305,9 +305,9 @@ class _ProgressBar extends StatelessWidget {
           child: LinearProgressIndicator(
             value: pct,
             minHeight: 8,
-            backgroundColor: AppColors.accent.withAlpha(80),
+            backgroundColor: context.palette.accent.withAlpha(80),
             valueColor:
-                const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                AlwaysStoppedAnimation<Color>(context.palette.primary),
           ),
         ),
       ],
@@ -352,7 +352,7 @@ class _ModuleCard extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
-          color: isComplete ? def.color : Colors.white,
+          color: isComplete ? def.color : context.palette.cardBg,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: isComplete ? def.color : def.color.withAlpha(50),
@@ -378,21 +378,21 @@ class _ModuleCard extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: isComplete
-                          ? Colors.white.withAlpha(40)
+                          ? context.palette.onCategory.withAlpha(40)
                           : def.color.withAlpha(20),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
                       def.icon,
-                      color: isComplete ? Colors.white : def.color,
+                      color: isComplete ? context.palette.onCategory : def.color,
                       size: 24,
                     ),
                   ),
                   if (isComplete)
                     Container(
                       padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
+                      decoration: BoxDecoration(
+                        color: context.palette.onCategory,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(Icons.check_rounded,
@@ -406,7 +406,9 @@ class _ModuleCard extends StatelessWidget {
                 style: GoogleFonts.inter(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
-                  color: isComplete ? Colors.white : AppColors.textPrimary,
+                  color: isComplete
+                      ? context.palette.onCategory
+                      : context.palette.textPrimary,
                 ),
               ),
               const SizedBox(height: 4),
@@ -415,8 +417,8 @@ class _ModuleCard extends StatelessWidget {
                 style: GoogleFonts.inter(
                   fontSize: 12,
                   color: isComplete
-                      ? Colors.white70
-                      : AppColors.textSecondary,
+                      ? context.palette.onCategory.withAlpha(180)
+                      : context.palette.textSecondary,
                 ),
               ),
               const SizedBox(height: 8),
@@ -426,7 +428,7 @@ class _ModuleCard extends StatelessWidget {
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
                   color: isComplete
-                      ? Colors.white70
+                      ? context.palette.onCategory.withAlpha(180)
                       : def.color,
                 ),
               ),
@@ -463,7 +465,7 @@ class _LearnBanner extends StatelessWidget {
             borderRadius: BorderRadius.circular(18),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primary.withAlpha(50),
+                color: context.palette.primary.withAlpha(50),
                 blurRadius: 12,
                 offset: const Offset(0, 4),
               ),

@@ -45,7 +45,7 @@ class _HomeModuleState extends State<HomeModule> {
     return ModuleScaffold(
       title: l10n.homeModuleTitle,
       icon: Icons.home_rounded,
-      color: AppColors.home,
+      color: context.palette.home,
       weight: l10n.homeModuleWeight,
       onSave: _save,
       children: [
@@ -74,18 +74,18 @@ class _HomeModuleState extends State<HomeModule> {
                           Icon(e.icon,
                               size: 16,
                               color: _energySource == e.id
-                                  ? Colors.white
-                                  : AppColors.home),
+                                  ? context.palette.onCategory
+                                  : context.palette.home),
                           const SizedBox(width: 6),
                           Text(e.label),
                         ],
                       ),
                       selected: _energySource == e.id,
-                      selectedColor: AppColors.home,
+                      selectedColor: context.palette.home,
                       labelStyle: TextStyle(
                         color: _energySource == e.id
-                            ? Colors.white
-                            : AppColors.textPrimary,
+                            ? context.palette.onCategory
+                            : context.palette.textPrimary,
                         fontWeight: FontWeight.w600,
                       ),
                       onSelected: (_) =>
@@ -108,7 +108,7 @@ class _HomeModuleState extends State<HomeModule> {
               ),
               Text(
                 l10n.homeKwhAvg,
-                style: const TextStyle(fontSize: 11, color: AppColors.textHint),
+                style: TextStyle(fontSize: 11, color: context.palette.textHint),
               ),
             ],
           ),
@@ -121,15 +121,15 @@ class _HomeModuleState extends State<HomeModule> {
                 title: Text(l10n.homeACTitle),
                 value: _hasAC,
                 onChanged: (v) => setState(() => _hasAC = v),
-                activeColor: AppColors.home,
+                activeColor: context.palette.home,
               ),
               if (_hasAC) ...[
                 const SizedBox(height: 8),
                 Text(
                   l10n.homeACHoursHint(_acHours.round()),
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontWeight: FontWeight.w700,
-                      color: AppColors.home),
+                      color: context.palette.home),
                 ),
                 Slider(
                   value: _acHours,
@@ -150,7 +150,7 @@ class _HomeModuleState extends State<HomeModule> {
             hasAC: _hasAC,
             acHoursPerDay: _hasAC ? _acHours : 0,
           ).annualCO2,
-          color: AppColors.home,
+          color: context.palette.home,
         ),
       ],
     );
@@ -192,8 +192,8 @@ class _Co2Preview extends StatelessWidget {
                     fontSize: 20, fontWeight: FontWeight.w800, color: color),
               ),
               Text(l10n.moduleEstimate,
-                  style: const TextStyle(
-                      fontSize: 12, color: AppColors.textSecondary)),
+                  style: TextStyle(
+                      fontSize: 12, color: context.palette.textSecondary)),
             ],
           ),
         ],

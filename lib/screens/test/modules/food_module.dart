@@ -50,7 +50,7 @@ class _FoodModuleState extends State<FoodModule> {
     return ModuleScaffold(
       title: l10n.foodModuleTitle,
       icon: Icons.restaurant_rounded,
-      color: AppColors.food,
+      color: context.palette.food,
       weight: l10n.foodModuleWeight,
       onSave: _save,
       children: [
@@ -69,13 +69,13 @@ class _FoodModuleState extends State<FoodModule> {
                               horizontal: 16, vertical: 14),
                           decoration: BoxDecoration(
                             color: _diet == d.id
-                                ? AppColors.food.withAlpha(20)
-                                : Colors.grey.shade50,
+                                ? context.palette.food.withAlpha(20)
+                                : context.palette.background,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
                               color: _diet == d.id
-                                  ? AppColors.food
-                                  : Colors.grey.shade200,
+                                  ? context.palette.food
+                                  : context.palette.textHint.withAlpha(60),
                               width: 2,
                             ),
                           ),
@@ -90,18 +90,18 @@ class _FoodModuleState extends State<FoodModule> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.w700,
                                           color: _diet == d.id
-                                              ? AppColors.food
-                                              : AppColors.textPrimary)),
+                                              ? context.palette.food
+                                              : context.palette.textPrimary)),
                                   Text(d.sub,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontSize: 12,
-                                          color: AppColors.textSecondary)),
+                                          color: context.palette.textSecondary)),
                                 ],
                               ),
                               const Spacer(),
                               if (_diet == d.id)
                                 Icon(Icons.check_circle_rounded,
-                                    color: AppColors.food),
+                                    color: context.palette.food),
                             ],
                           ),
                         ),
@@ -137,8 +137,8 @@ class _FoodModuleState extends State<FoodModule> {
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: selected
-                            ? AppColors.food
-                            : AppColors.food.withAlpha(15),
+                            ? context.palette.food
+                            : context.palette.food.withAlpha(15),
                         shape: BoxShape.circle,
                       ),
                       child: Text(
@@ -155,8 +155,8 @@ class _FoodModuleState extends State<FoodModule> {
                             ? FontWeight.w700
                             : FontWeight.w400,
                         color: selected
-                            ? AppColors.food
-                            : AppColors.textSecondary,
+                            ? context.palette.food
+                            : context.palette.textSecondary,
                       ),
                     ),
                   ],
@@ -172,7 +172,7 @@ class _FoodModuleState extends State<FoodModule> {
             subtitle: Text(l10n.foodLocalSub),
             value: _localFood,
             onChanged: (v) => setState(() => _localFood = v),
-            activeColor: AppColors.food,
+            activeColor: context.palette.food,
           ),
         ),
         _Co2Preview(
@@ -182,7 +182,7 @@ class _FoodModuleState extends State<FoodModule> {
             localFood: _localFood,
             foodWaste: _foodWaste,
           ).annualCO2,
-          color: AppColors.food,
+          color: context.palette.food,
         ),
       ],
     );
@@ -225,8 +225,8 @@ class _Co2Preview extends StatelessWidget {
                     fontSize: 20, fontWeight: FontWeight.w800, color: color),
               ),
               Text(l10n.moduleEstimate,
-                  style: const TextStyle(
-                      fontSize: 12, color: AppColors.textSecondary)),
+                  style: TextStyle(
+                      fontSize: 12, color: context.palette.textSecondary)),
             ],
           ),
         ],

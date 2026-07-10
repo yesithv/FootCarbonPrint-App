@@ -321,7 +321,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get actionsSub =>
-      'Sortiert nach höchstem bis niedrigstem Einsparpotenzial';
+      'Auf deinen Fußabdruck personalisiert — nach Einsparpotenzial sortiert';
 
   @override
   String get commit => 'Ich verpflichte mich';
@@ -638,11 +638,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get downloadPng => 'PNG herunterladen';
 
   @override
-  String get cardDownloaded => 'Karte heruntergeladen! 🌿';
+  String get cardDownloaded =>
+      'Bild im Browser geöffnet 🌿 — gedrückt halten zum Speichern.';
 
   @override
   String get downloadHint =>
-      'Das Bild wird in 1080×1080 px heruntergeladen,\nideal für Instagram, WhatsApp und Twitter.';
+      'Das Bild öffnet sich im Browser in 1080×1080 px.\nGedrückt halten, um es auf dem Gerät zu speichern.';
 
   @override
   String get cardFooterText => 'Kenne deinen Fußabdruck. Ändere deine Welt.';
@@ -953,6 +954,18 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get greetingEmpty => 'Hallo 👋';
+
+  @override
+  String get themeTooltip => 'Design ändern';
+
+  @override
+  String get themeSystem => 'System';
+
+  @override
+  String get themeLight => 'Hell';
+
+  @override
+  String get themeDark => 'Dunkel';
 
   @override
   String get addYourName => 'Deinen Namen hinzufügen';

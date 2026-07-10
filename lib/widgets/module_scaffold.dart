@@ -24,29 +24,31 @@ class ModuleScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.palette.background,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             expandedHeight: 140,
             pinned: true,
+            stretch: true,
             backgroundColor: color,
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
+              icon: Icon(Icons.arrow_back_rounded,
+                  color: context.palette.onCategory),
             ),
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
               title: Row(
                 children: [
-                  Icon(icon, color: Colors.white, size: 20),
+                  Icon(icon, color: context.palette.onCategory, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     title,
                     style: GoogleFonts.inter(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                      color: context.palette.onCategory,
                     ),
                   ),
                 ],
@@ -57,12 +59,15 @@ class ModuleScaffold extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(icon, color: Colors.white54, size: 48),
+                      Icon(icon,
+                          color: context.palette.onCategory.withAlpha(140),
+                          size: 48),
                       const SizedBox(height: 8),
                       Text(
                         weight,
                         style: GoogleFonts.inter(
-                            fontSize: 13, color: Colors.white60),
+                            fontSize: 13,
+                            color: context.palette.onCategory.withAlpha(160)),
                       ),
                     ],
                   ),
@@ -90,6 +95,7 @@ class ModuleScaffold extends StatelessWidget {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: color,
+              foregroundColor: context.palette.onCategory,
             ),
             onPressed: onSave,
             child: Text(context.l10n.saveModule),

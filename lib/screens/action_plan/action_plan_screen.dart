@@ -16,10 +16,10 @@ class ActionPlanScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.palette.background,
       appBar: AppBar(
         title: Text(l10n.actionPlanTitle),
-        backgroundColor: AppColors.background,
+        backgroundColor: context.palette.background,
         automaticallyImplyLeading: false,
       ),
       body: Consumer<FootprintProvider>(
@@ -30,7 +30,7 @@ class ActionPlanScreen extends StatelessWidget {
             );
           }
           final fp = provider.footprint;
-          final actions = _buildPersonalizedActions(l10n, fp);
+          final actions = _buildPersonalizedActions(context, l10n, fp);
           final potentialReduction =
               actions.fold(0.0, (sum, a) => sum + a.reduction);
 
@@ -51,7 +51,7 @@ class ActionPlanScreen extends StatelessWidget {
               Text(
                 l10n.actionsSub,
                 style: GoogleFonts.inter(
-                    fontSize: 13, color: AppColors.textSecondary),
+                    fontSize: 13, color: context.palette.textSecondary),
               ),
               const SizedBox(height: 16),
               ...actions.map((a) => Padding(
@@ -75,7 +75,7 @@ class ActionPlanScreen extends StatelessWidget {
   //   3. Sorts by computed saving and returns the top 6.
 
   List<_Action> _buildPersonalizedActions(
-      AppLocalizations l10n, CarbonFootprint fp) {
+      BuildContext context, AppLocalizations l10n, CarbonFootprint fp) {
     final t = fp.transport;
     final f = fp.food;
     final h = fp.home;
@@ -108,7 +108,7 @@ class ActionPlanScreen extends StatelessWidget {
         title: l10n.actionFlightTitle,
         reduction: (longestFlight / 1000).clamp(0.25, 3.0),
         category: l10n.modTransport,
-        color: AppColors.transport,
+        color: context.palette.transport,
         description: l10n.actionFlightDesc,
       ));
     }
@@ -122,7 +122,7 @@ class ActionPlanScreen extends StatelessWidget {
         title: l10n.actionPublicTransportTitle,
         reduction: (transportCO2 * 0.35).clamp(0.10, 1.5),
         category: l10n.modTransport,
-        color: AppColors.transport,
+        color: context.palette.transport,
         description: l10n.actionPublicTransportDesc,
       ));
 
@@ -133,7 +133,7 @@ class ActionPlanScreen extends StatelessWidget {
           title: l10n.actionBikeTitle,
           reduction: (transportCO2 * 0.20).clamp(0.06, 0.8),
           category: l10n.modTransport,
-          color: AppColors.transport,
+          color: context.palette.transport,
           description: l10n.actionBikeDesc,
         ));
       }
@@ -148,7 +148,7 @@ class ActionPlanScreen extends StatelessWidget {
         title: l10n.actionFlexitarianTitle,
         reduction: f.diet == 'carnivore' ? 1.2 : 0.8,
         category: l10n.modFood,
-        color: AppColors.food,
+        color: context.palette.food,
         description: l10n.actionFlexitarianDesc,
       ));
     }
@@ -162,7 +162,7 @@ class ActionPlanScreen extends StatelessWidget {
         title: l10n.actionLessBeefTitle,
         reduction: halfBeef.clamp(0.09, 1.0),
         category: l10n.modFood,
-        color: AppColors.food,
+        color: context.palette.food,
         description: l10n.actionLessBeefDesc,
       ));
     }
@@ -177,7 +177,7 @@ class ActionPlanScreen extends StatelessWidget {
         title: l10n.actionLedTitle,
         reduction: (homeCO2 * 0.20).clamp(0.04, 0.30),
         category: l10n.modHome,
-        color: AppColors.home,
+        color: context.palette.home,
         description: l10n.actionLedDesc,
       ));
     }
@@ -194,7 +194,7 @@ class ActionPlanScreen extends StatelessWidget {
         title: l10n.actionShortShowerTitle,
         reduction: saving.clamp(0.04, 0.40),
         category: l10n.modWater,
-        color: AppColors.water,
+        color: context.palette.water,
         description: l10n.actionShortShowerDesc,
       ));
     }
@@ -208,7 +208,7 @@ class ActionPlanScreen extends StatelessWidget {
         title: l10n.actionRecycleTitle,
         reduction: (wasteCO2 * 0.30).clamp(0.02, 0.20),
         category: l10n.modWaste,
-        color: AppColors.waste,
+        color: context.palette.waste,
         description: l10n.actionRecycleDesc,
       ));
     }
@@ -220,7 +220,7 @@ class ActionPlanScreen extends StatelessWidget {
         title: l10n.actionCompostTitle,
         reduction: (wasteCO2 * 0.20).clamp(0.02, 0.12),
         category: l10n.modWaste,
-        color: AppColors.waste,
+        color: context.palette.waste,
         description: l10n.actionCompostDesc,
       ));
     }
@@ -234,7 +234,7 @@ class ActionPlanScreen extends StatelessWidget {
         title: l10n.actionSecondhandTitle,
         reduction: (shoppingCO2 * 0.30).clamp(0.04, 0.25),
         category: l10n.modShopping,
-        color: AppColors.shopping,
+        color: context.palette.shopping,
         description: l10n.actionSecondhandDesc,
       ));
     }
@@ -262,11 +262,11 @@ class _EmptyState extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(28),
               decoration: BoxDecoration(
-                color: AppColors.primary.withAlpha(15),
+                color: context.palette.primary.withAlpha(15),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.emoji_events_rounded,
-                  size: 64, color: AppColors.primary),
+              child: Icon(Icons.emoji_events_rounded,
+                  size: 64, color: context.palette.primary),
             ),
             const SizedBox(height: 28),
             Text(
@@ -280,7 +280,7 @@ class _EmptyState extends StatelessWidget {
               l10n.actionPlanEmptySub,
               style: GoogleFonts.inter(
                   fontSize: 15,
-                  color: AppColors.textSecondary,
+                  color: context.palette.textSecondary,
                   height: 1.5),
               textAlign: TextAlign.center,
             ),
@@ -393,7 +393,9 @@ class _ActionCardContent extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
-        color: committed ? a.color.withAlpha(15) : Colors.white,
+        color: committed
+            ? a.color.withAlpha(15)
+            : context.palette.cardBg,
         borderRadius: BorderRadius.circular(18),
         border: Border.all(
           color: committed ? a.color : Colors.transparent,
@@ -426,7 +428,7 @@ class _ActionCardContent extends StatelessWidget {
                         style: GoogleFonts.inter(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
-                          color: AppColors.textPrimary,
+                          color: context.palette.textPrimary,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -434,7 +436,7 @@ class _ActionCardContent extends StatelessWidget {
                         a.description,
                         style: GoogleFonts.inter(
                           fontSize: 12,
-                          color: AppColors.textSecondary,
+                          color: context.palette.textSecondary,
                           height: 1.4,
                         ),
                       ),
@@ -474,7 +476,7 @@ class _ActionCardContent extends StatelessWidget {
                         style: GoogleFonts.inter(
                           fontSize: 11,
                           fontWeight: FontWeight.w700,
-                          color: committed ? Colors.white : a.color,
+                          color: committed ? context.palette.onCategory : a.color,
                         ),
                       ),
                       if (committed) ...[
@@ -483,7 +485,7 @@ class _ActionCardContent extends StatelessWidget {
                             style: GoogleFonts.inter(
                               fontSize: 9,
                               fontWeight: FontWeight.w700,
-                              color: Colors.white70,
+                              color: context.palette.onCategory.withAlpha(180),
                             )),
                       ],
                     ],
@@ -517,7 +519,7 @@ class _Tag extends StatelessWidget {
         style: GoogleFonts.inter(
           fontSize: 11,
           fontWeight: FontWeight.w700,
-          color: textColor ?? Colors.white,
+          color: textColor ?? context.palette.onCategory,
         ),
       ),
     );
@@ -552,7 +554,7 @@ class _ChallengesSection extends StatelessWidget {
         Text(
           l10n.challengesSub,
           style: GoogleFonts.inter(
-              fontSize: 13, color: AppColors.textSecondary),
+              fontSize: 13, color: context.palette.textSecondary),
         ),
         const SizedBox(height: 16),
         ...challenges.map((c) => _ChallengeCard(challenge: c)),
@@ -590,13 +592,13 @@ class _ChallengeCardState extends State<_ChallengeCard> {
               const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
             color: _done
-                ? AppColors.primary.withAlpha(15)
-                : Colors.white,
+                ? context.palette.primary.withAlpha(15)
+                : context.palette.cardBg,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
               color: _done
-                  ? AppColors.primary
-                  : Colors.grey.shade200,
+                  ? context.palette.primary
+                  : context.palette.textHint.withAlpha(60),
             ),
           ),
           child: Row(
@@ -611,8 +613,8 @@ class _ChallengeCardState extends State<_ChallengeCard> {
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: _done
-                        ? AppColors.primary
-                        : AppColors.textPrimary,
+                        ? context.palette.primary
+                        : context.palette.textPrimary,
                     decoration:
                         _done ? TextDecoration.lineThrough : null,
                   ),
@@ -623,7 +625,7 @@ class _ChallengeCardState extends State<_ChallengeCard> {
                     ? Icons.check_circle_rounded
                     : Icons.circle_outlined,
                 color:
-                    _done ? AppColors.primary : Colors.grey.shade300,
+                    _done ? context.palette.primary : Colors.grey.shade300,
               ),
             ],
           ),

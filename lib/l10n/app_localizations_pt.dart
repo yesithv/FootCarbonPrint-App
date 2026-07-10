@@ -318,7 +318,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get actionsSub =>
-      'Ordenadas do maior para o menor potencial de redução';
+      'Personalizado para sua pegada — ordenado por potencial de redução';
 
   @override
   String get commit => 'Me comprometo';
@@ -633,11 +633,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get downloadPng => 'Baixar PNG';
 
   @override
-  String get cardDownloaded => 'Cartão baixado! 🌿';
+  String get cardDownloaded =>
+      'Imagem aberta no seu navegador 🌿 — mantenha pressionado para salvar.';
 
   @override
   String get downloadHint =>
-      'A imagem é baixada em 1080×1080 px,\nperfeita para Instagram, WhatsApp e Twitter.';
+      'A imagem abre no seu navegador em 1080×1080 px.\nMantenha pressionada para salvá-la no dispositivo.';
 
   @override
   String get cardFooterText => 'Conheça sua pegada. Mude seu mundo.';
@@ -945,6 +946,18 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get greetingEmpty => 'Olá 👋';
+
+  @override
+  String get themeTooltip => 'Mudar tema';
+
+  @override
+  String get themeSystem => 'Sistema';
+
+  @override
+  String get themeLight => 'Claro';
+
+  @override
+  String get themeDark => 'Escuro';
 
   @override
   String get addYourName => 'Adicione seu nome';
