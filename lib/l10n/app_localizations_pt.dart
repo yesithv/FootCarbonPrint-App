@@ -825,6 +825,39 @@ class AppLocalizationsPt extends AppLocalizations {
   String get energyMixed => 'Misto';
 
   @override
+  String get homeQCountry => 'Em que país você mora?';
+
+  @override
+  String get countryWorld => 'Outro (média mundial)';
+
+  @override
+  String get countryCo => 'Colômbia';
+
+  @override
+  String get countryUs => 'Estados Unidos';
+
+  @override
+  String get countryMx => 'México';
+
+  @override
+  String get countryBr => 'Brasil';
+
+  @override
+  String get countryEs => 'Espanha';
+
+  @override
+  String get countryDe => 'Alemanha';
+
+  @override
+  String get countryAr => 'Argentina';
+
+  @override
+  String get countryCl => 'Chile';
+
+  @override
+  String get countryPe => 'Peru';
+
+  @override
   String get shoppingModuleTitle => 'Consumo';
 
   @override

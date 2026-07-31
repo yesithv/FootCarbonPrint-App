@@ -825,6 +825,39 @@ class AppLocalizationsEs extends AppLocalizations {
   String get energyMixed => 'Mixto';
 
   @override
+  String get homeQCountry => '¿En qué país vives?';
+
+  @override
+  String get countryWorld => 'Otro (promedio mundial)';
+
+  @override
+  String get countryCo => 'Colombia';
+
+  @override
+  String get countryUs => 'Estados Unidos';
+
+  @override
+  String get countryMx => 'México';
+
+  @override
+  String get countryBr => 'Brasil';
+
+  @override
+  String get countryEs => 'España';
+
+  @override
+  String get countryDe => 'Alemania';
+
+  @override
+  String get countryAr => 'Argentina';
+
+  @override
+  String get countryCl => 'Chile';
+
+  @override
+  String get countryPe => 'Perú';
+
+  @override
   String get shoppingModuleTitle => 'Consumo';
 
   @override

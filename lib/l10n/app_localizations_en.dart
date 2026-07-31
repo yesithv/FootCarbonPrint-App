@@ -823,6 +823,39 @@ class AppLocalizationsEn extends AppLocalizations {
   String get energyMixed => 'Mixed';
 
   @override
+  String get homeQCountry => 'Which country do you live in?';
+
+  @override
+  String get countryWorld => 'Other (world average)';
+
+  @override
+  String get countryCo => 'Colombia';
+
+  @override
+  String get countryUs => 'United States';
+
+  @override
+  String get countryMx => 'Mexico';
+
+  @override
+  String get countryBr => 'Brazil';
+
+  @override
+  String get countryEs => 'Spain';
+
+  @override
+  String get countryDe => 'Germany';
+
+  @override
+  String get countryAr => 'Argentina';
+
+  @override
+  String get countryCl => 'Chile';
+
+  @override
+  String get countryPe => 'Peru';
+
+  @override
   String get shoppingModuleTitle => 'Shopping';
 
   @override

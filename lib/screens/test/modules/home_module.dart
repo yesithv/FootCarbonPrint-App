@@ -20,6 +20,7 @@ class _HomeModuleState extends State<HomeModule> {
   int _householdMembers = 3;
   bool _hasAC = false;
   double _acHours = 4;
+  String _country = 'co';
 
   void _save() {
     context.read<FootprintProvider>().updateHome(HomeData(
@@ -28,6 +29,7 @@ class _HomeModuleState extends State<HomeModule> {
           householdMembers: _householdMembers,
           hasAC: _hasAC,
           acHoursPerDay: _hasAC ? _acHours : 0,
+          country: _country,
         ));
     Navigator.pop(context);
   }
@@ -40,6 +42,19 @@ class _HomeModuleState extends State<HomeModule> {
       _EnergyOption('solar', l10n.energySolar, Icons.wb_sunny_rounded),
       _EnergyOption('gas', l10n.energyGas, Icons.local_fire_department_rounded),
       _EnergyOption('mixed', l10n.energyMixed, Icons.device_hub_rounded),
+    ];
+
+    final countries = [
+      _CountryOption('co', l10n.countryCo),
+      _CountryOption('us', l10n.countryUs),
+      _CountryOption('mx', l10n.countryMx),
+      _CountryOption('br', l10n.countryBr),
+      _CountryOption('es', l10n.countryEs),
+      _CountryOption('de', l10n.countryDe),
+      _CountryOption('ar', l10n.countryAr),
+      _CountryOption('cl', l10n.countryCl),
+      _CountryOption('pe', l10n.countryPe),
+      _CountryOption('world', l10n.countryWorld),
     ];
 
     return ModuleScaffold(
@@ -59,6 +74,26 @@ class _HomeModuleState extends State<HomeModule> {
             divisions: 9,
             onChanged: (v) =>
                 setState(() => _householdMembers = v.round()),
+          ),
+        ),
+        QuestionCard(
+          question: l10n.homeQCountry,
+          child: DropdownButtonFormField<String>(
+            initialValue: _country,
+            isExpanded: true,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            ),
+            items: countries
+                .map((c) => DropdownMenuItem(
+                      value: c.id,
+                      child: Text(c.label),
+                    ))
+                .toList(),
+            onChanged: (v) =>
+                setState(() => _country = v ?? _country),
           ),
         ),
         QuestionCard(
@@ -149,6 +184,7 @@ class _HomeModuleState extends State<HomeModule> {
             householdMembers: _householdMembers,
             hasAC: _hasAC,
             acHoursPerDay: _hasAC ? _acHours : 0,
+            country: _country,
           ).annualCO2,
           color: context.palette.home,
         ),
@@ -162,6 +198,12 @@ class _EnergyOption {
   final String label;
   final IconData icon;
   const _EnergyOption(this.id, this.label, this.icon);
+}
+
+class _CountryOption {
+  final String id;
+  final String label;
+  const _CountryOption(this.id, this.label);
 }
 
 class _Co2Preview extends StatelessWidget {

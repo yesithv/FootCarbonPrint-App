@@ -36,6 +36,27 @@ class EmissionFactors {
   static const vegetables = 2.0;   // mixed basket incl. transport & processing
   static const vegan      = 1.5;   // plant-based mixed basket
 
+  // Beef consumption model (used on top of the diet baseline).
+  // A typical cooked beef serving ≈ 0.35 kg. Emissions per serving apply the
+  // Poore & Nemecek factor: 0.35 kg × 27 kgCO2e/kg ≈ 9.45 kgCO2e/serving.
+  // The diet baselines below ALREADY include an average beef intake, so the
+  // model only counts the beef that DEVIATES from that assumed average
+  // (see FoodData.annualCO2) to avoid double counting.
+  static const beefPortionKg = 0.35; // kg per serving
+  // Assumed average beef servings/week already embedded in each diet baseline.
+  static const beefAvgServingsByDiet = {
+    'carnivore': 6,
+    'omnivore': 3,
+    'flexitarian': 1,
+    'vegetarian': 0,
+    'vegan': 0,
+  };
+  // Fraction of the diet baseline added back as avoidable waste per unit of the
+  // user's food-waste level (0–1). Basis: FAO/UNEP estimate that food loss &
+  // waste account for ~8–10 % of food-system emissions; scaled so that maximum
+  // reported waste (1.0) adds ~30 % of the diet baseline.
+  static const foodWasteShareOfBaseline = 0.30;
+
   // ── DIET ANNUAL BASELINES ─────────────────────────────────────────────────
   // tCO2e per year from food system only (production + transport + waste).
   // Sources: Springmann et al. (2018) Nature; Scarborough et al. (2023) Nature Food;
@@ -56,10 +77,35 @@ class EmissionFactors {
   static const electricityColombia = 0.175; // updated from 0.126
   static const electricityWorld    = 0.459; // IEA 2022 global average (updated from 0.475)
 
+  // Grid emission factor by country/region — kgCO2e per kWh.
+  // Lets users outside Colombia get a representative factor instead of the very
+  // low Colombian hydro-dominated grid. 'world' is the IEA global average and is
+  // used as the fallback for any unknown selection.
+  // Sources: IEA Emission Factors 2023 (national values); Colombia UPME/XM SIN.
+  static const gridFactorByCountry = {
+    'co': electricityColombia, // Colombia (UPME/XM SIN)
+    'world': electricityWorld, // IEA global average (default fallback)
+    'us': 0.369,               // United States (EPA eGRID / IEA 2023)
+    'mx': 0.423,               // Mexico (IEA 2023)
+    'br': 0.120,               // Brazil (hydro-heavy; IEA 2023)
+    'es': 0.156,               // Spain (IEA 2023)
+    'de': 0.381,               // Germany (IEA 2023)
+    'ar': 0.310,               // Argentina (IEA 2023)
+    'cl': 0.330,               // Chile (IEA 2023)
+    'pe': 0.230,               // Peru (IEA 2023)
+  };
+
   // Natural gas — kgCO2e per m³ at standard conditions (0 °C, 1 atm).
   // Derivation: IPCC 2006 Vol. 2, Table 1.4 (56.1 kgCO2/GJ) × LHV 36.4 MJ/m³ = 2.04 kgCO2/m³
   // Source: IPCC (2006) Guidelines for National GHG Inventories, Vol. 2 Energy, Ch. 1.
   static const naturalGas = 2.04; // per m³
+
+  // Energy content of natural gas — kWh per m³ (higher heating value basis).
+  // Used to convert the per-m³ factor into a per-kWh factor when the user reports
+  // household energy in kWh. 2.04 kgCO2/m³ ÷ 10.55 kWh/m³ ≈ 0.193 kgCO2/kWh,
+  // consistent with IPCC/DEFRA per-kWh natural gas factors (~0.18–0.20).
+  static const naturalGasKwhPerM3 = 10.55;
+  static const naturalGasPerKwh = naturalGas / naturalGasKwhPerM3; // ≈ 0.193
 
   // LPG — kgCO2e per LITRE (not per kg).
   // Source: DEFRA Conversion Factors 2024 (1.557 kgCO2e/L); adjusted for Colombian LPG blend.
@@ -94,6 +140,10 @@ class EmissionFactors {
   static const smartphone   = 70.0;  // matches Apple iPhone LCA (2023)
   static const laptop       = 300.0; // matches Dell Latitude LCA lower bound
 
+  // Last-mile delivery of one average online order/package — kgCO2e.
+  // Source: MIT Real Estate / last-mile logistics studies; ~0.5 kgCO2e/parcel.
+  static const onlinePackageKg = 0.5;
+
   // ── WASTE ─────────────────────────────────────────────────────────────────
   // Annual kgCO2e emitted for 1 bag of waste generated per week.
   // Basis: ~10 kg mixed MSW per bag; landfill EF ≈ 0.5 kgCO2e/kg (organic fraction
@@ -117,4 +167,9 @@ class EmissionFactors {
   //   to be consistent with the EPA-derived multiplier used in the formula.
   static const treeAbsorptionKgPerYear      = 60.0; // EPA urban tree (updated from 21.0)
   static const carbonCreditPriceUsdPerTonne = 20.0; // voluntary carbon market avg (2023)
+
+  // ── EQUIVALENCES ──────────────────────────────────────────────────────────
+  // CO2e emitted per full smartphone charge — kgCO2e.
+  // Basis: ~0.0088 kWh per charge × global grid factor; EPA GHG Equivalencies.
+  static const phoneChargeKg = 0.082;
 }

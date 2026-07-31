@@ -143,7 +143,7 @@ Requirements are grouped by functional category. Each has a stable ID (`FR-<area
 | FR-3.6 | Compute comparison against Paris target, Colombia average, and world average. | ✅ |
 | FR-3.7 | Expose "below Paris target" and "% vs global average" flags. | ✅ |
 | FR-3.8 | Keep emission factors data-driven and documented with scientific references. | ✅ |
-| FR-3.9 | Region-adjustable emission factors selectable at runtime (country selector). | 🟡 |
+| FR-3.9 | Region-adjustable emission factors selectable at runtime (country selector). | ✅ |
 
 ### FR-4 — Results & Evaluation
 

@@ -1614,6 +1614,72 @@ abstract class AppLocalizations {
   /// **'Mixed'**
   String get energyMixed;
 
+  /// No description provided for @homeQCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Which country do you live in?'**
+  String get homeQCountry;
+
+  /// No description provided for @countryWorld.
+  ///
+  /// In en, this message translates to:
+  /// **'Other (world average)'**
+  String get countryWorld;
+
+  /// No description provided for @countryCo.
+  ///
+  /// In en, this message translates to:
+  /// **'Colombia'**
+  String get countryCo;
+
+  /// No description provided for @countryUs.
+  ///
+  /// In en, this message translates to:
+  /// **'United States'**
+  String get countryUs;
+
+  /// No description provided for @countryMx.
+  ///
+  /// In en, this message translates to:
+  /// **'Mexico'**
+  String get countryMx;
+
+  /// No description provided for @countryBr.
+  ///
+  /// In en, this message translates to:
+  /// **'Brazil'**
+  String get countryBr;
+
+  /// No description provided for @countryEs.
+  ///
+  /// In en, this message translates to:
+  /// **'Spain'**
+  String get countryEs;
+
+  /// No description provided for @countryDe.
+  ///
+  /// In en, this message translates to:
+  /// **'Germany'**
+  String get countryDe;
+
+  /// No description provided for @countryAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Argentina'**
+  String get countryAr;
+
+  /// No description provided for @countryCl.
+  ///
+  /// In en, this message translates to:
+  /// **'Chile'**
+  String get countryCl;
+
+  /// No description provided for @countryPe.
+  ///
+  /// In en, this message translates to:
+  /// **'Peru'**
+  String get countryPe;
+
   /// No description provided for @shoppingModuleTitle.
   ///
   /// In en, this message translates to:

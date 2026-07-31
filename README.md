@@ -153,6 +153,20 @@ Desglose:
 
 ### Metodología de Cálculo — Fórmulas y Ecuaciones
 
+Todas las categorías siguen la ecuación base universal que definen las entidades
+oficiales mundiales — **GHG Protocol** (WRI/WBCSD), **ISO 14064/14067** e **IPCC**:
+
+```
+Emisiones = Dato de actividad × Factor de emisión
+Huella total = Σ categorías, expresada en toneladas de CO₂e/año
+
+  · Dato de actividad: km, kWh, m³, porciones, minutos de ducha, etc.
+  · Factor de emisión: kgCO₂e por unidad de actividad (fuentes oficiales).
+  · CO₂e: todos los gases se convierten a CO₂ equivalente con los GWP del IPCC
+          (CO₂ = 1); los factores usados ya incorporan CH₄, N₂O y forzamiento
+          radiativo cuando aplica (p. ej. vuelos de largo alcance).
+```
+
 #### 🚗 Transporte
 ```
 CO₂_transporte (tCO₂) = (factor_vehículo × km_semanales × 52 + Σ vuelos) ÷ 1000
@@ -164,22 +178,37 @@ CO₂_transporte (tCO₂) = (factor_vehículo × km_semanales × 52 + Σ vuelos)
 
 #### 🍔 Alimentación
 ```
-CO₂_alim (tCO₂) = base_dieta + (porciones_res/semana × 0.35 kg × 52 ÷ 1000)
-                  − 0.1 (si alimentos locales) + desperdicio × 0.3
+CO₂_alim (tCO₂) = base_dieta
+                  + (Δporciones_res × 0.35 kg × 27 kgCO₂/kg × 52 ÷ 1000)
+                  − 0.1 (si alimentos locales)
+                  + base_dieta × desperdicio × 0.30
 
-  base_dieta [tCO₂/año]  ←  Springmann et al. (2018), Nature
-  factor res: 27 kgCO₂/kg  ←  Poore & Nemecek (2018), Science
+  Δporciones_res = porciones_res/semana − promedio_dieta
+  base_dieta [tCO₂/año]     ←  Springmann et al. (2018), Nature
+  factor res: 27 kgCO₂/kg   ←  Poore & Nemecek (2018), Science
+
+  La línea base de cada dieta ya incluye un consumo promedio de res, por lo que
+  solo se aplica el factor 27 a las porciones que se DESVÍAN de ese promedio
+  (promedio asumido: carnívora 6, omnívora 3, flexitariana 1, veg. 0). Esto
+  evita el doble conteo y corrige el bug previo que omitía el factor 27.
 ```
 
 #### 🏠 Hogar y Energía
 ```
-CO₂_hogar (tCO₂) = (kWh_mes ÷ personas × 12 × factor_red) ÷ 1000
-                  + horas_AC × 365 × 1.5 kW × factor_red ÷ 1000
+CO₂_hogar (tCO₂) = (kWh_mes ÷ personas × 12 × factor_energía) ÷ 1000
+                  + horas_AC × 365 × 1.5 kW × factor_energía ÷ 1000
 
-  factor_red Colombia = 0.175 kgCO₂/kWh  ←  UPME/XM SIN 2020–2023
-  factor_red mundial  = 0.459 kgCO₂/kWh  ←  IEA Emission Factors 2023
-  factor_solar        = 0.020 kgCO₂/kWh  ←  IPCC SRREN (2011)
-  factor_gas (nat.)   = 2.04 kgCO₂/m³    ←  IPCC 2006, Vol. 2 Tabla 1.4
+  factor_energía depende de la fuente y del PAÍS seleccionado:
+    red/mixto → factor_red[país]  (fallback: mundial 0.459)
+    gas       → 2.04 kgCO₂/m³ ÷ 10.55 kWh/m³ = 0.193 kgCO₂/kWh
+    solar     → 0.020 kgCO₂/kWh
+
+  factor_red por país [kgCO₂/kWh]  ←  IEA Emission Factors 2023 / UPME-XM
+    Colombia 0.175 · EE.UU. 0.369 · México 0.423 · Brasil 0.120 ·
+    España 0.156 · Alemania 0.381 · Argentina 0.310 · Chile 0.330 ·
+    Perú 0.230 · Mundial 0.459
+  factor_solar   ←  IPCC SRREN (2011)
+  factor_gas     ←  IPCC 2006, Vol. 2 Tabla 1.4 (56.1 kgCO₂/GJ → 2.04 kgCO₂/m³)
 ```
 
 #### 💧 Agua
