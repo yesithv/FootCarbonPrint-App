@@ -1,0 +1,17 @@
+# Plantilla para la firma de release. Copia este archivo a `key.properties`
+# (que está ignorado por git) y rellena los valores reales de tu keystore.
+#
+# 1. Genera un keystore (una sola vez, guárdalo en un lugar seguro y NO lo subas a git):
+#
+#    keytool -genkey -v -keystore ~/footcarbonprint-upload.jks \
+#      -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+#
+# 2. Copia este archivo:  cp key.properties.example key.properties
+# 3. Rellena los valores de abajo con la ruta y contraseñas de tu keystore.
+#
+# storeFile puede ser una ruta absoluta o relativa a la carpeta android/.
+
+storePassword=TU_STORE_PASSWORD
+keyPassword=TU_KEY_PASSWORD
+keyAlias=upload
+storeFile=/ruta/absoluta/a/footcarbonprint-upload.jks
