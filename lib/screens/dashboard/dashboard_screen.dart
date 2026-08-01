@@ -13,6 +13,7 @@ import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../models/carbon_footprint.dart';
 import '../../providers/footprint_provider.dart';
+import '../../widgets/stat_tile.dart';
 import '../profile_card/profile_card_screen.dart';
 import '../shell/main_shell.dart';
 
@@ -341,19 +342,19 @@ class _EquivalencesCard extends StatelessWidget {
             const SizedBox(height: 16),
             Row(
               children: [
-                _EquivItem(
+                StatTile(
                   emoji: '🌳',
                   value: '${footprint.treesEquivalent}',
                   label: l10n.treesLabel,
                 ),
                 const SizedBox(width: 12),
-                _EquivItem(
+                StatTile(
                   emoji: '💡',
                   value: '${footprint.lightBulbYears}',
                   label: l10n.bulbYearsLabel,
                 ),
                 const SizedBox(width: 12),
-                _EquivItem(
+                StatTile(
                   emoji: '📱',
                   value: _compactInt((footprint.totalCO2 *
                           1000 /
@@ -370,44 +371,6 @@ class _EquivalencesCard extends StatelessWidget {
   }
 }
 
-class _EquivItem extends StatelessWidget {
-  final String emoji;
-  final String value;
-  final String label;
-  const _EquivItem(
-      {required this.emoji, required this.value, required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: context.palette.background,
-          borderRadius: BorderRadius.circular(14),
-        ),
-        child: Column(
-          children: [
-            Text(emoji, style: const TextStyle(fontSize: 28)),
-            const SizedBox(height: 6),
-            Text(
-              value,
-              style: GoogleFonts.inter(
-                  fontSize: 20, fontWeight: FontWeight.w800,
-                  color: context.palette.textPrimary),
-            ),
-            Text(
-              label,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.inter(
-                  fontSize: 10, color: context.palette.textSecondary),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class _PieChartCard extends StatefulWidget {
   final Map<String, double> breakdown;
