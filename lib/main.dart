@@ -29,11 +29,18 @@ class FootCarbonPrintApp extends StatelessWidget {
           themeMode: themeProvider.mode,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          localeResolutionCallback: (locale, supportedLocales) {
-            if (locale == null) return const Locale('en');
-            for (final supported in supportedLocales) {
-              if (supported.languageCode == locale.languageCode) {
-                return supported;
+          // Auto-select the app language from the device's ordered list of
+          // preferred locales: pick the first one we support (matched by
+          // language code, ignoring region), falling back to English when the
+          // device language isn't among en/es/fr/pt/de.
+          localeListResolutionCallback: (deviceLocales, supportedLocales) {
+            if (deviceLocales != null) {
+              for (final device in deviceLocales) {
+                for (final supported in supportedLocales) {
+                  if (supported.languageCode == device.languageCode) {
+                    return supported;
+                  }
+                }
               }
             }
             return const Locale('en');
