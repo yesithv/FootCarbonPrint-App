@@ -507,6 +507,9 @@ documentación completa está en
   [`docs/FUNCTIONAL_SPECIFICATION.md`](docs/FUNCTIONAL_SPECIFICATION.md)
 - **Sistema de diseño** (paleta light/dark, tipografía, componentes, listo para Figma/Penpot):
   [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md)
+- **Guía de publicación en Google Play** (requisitos, respuestas de Data Safety, política de
+  privacidad lista, copy de la ficha y checklist técnico):
+  [`docs/GOOGLE_PLAY_RELEASE.md`](docs/GOOGLE_PLAY_RELEASE.md)
 
 ---
 
