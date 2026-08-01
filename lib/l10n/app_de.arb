@@ -318,6 +318,18 @@
   "energyGas": "Erdgas",
   "energyMixed": "Gemischt",
 
+  "homeQCountry": "In welchem Land wohnst du?",
+  "countryWorld": "Andere (Weltdurchschnitt)",
+  "countryCo": "Kolumbien",
+  "countryUs": "Vereinigte Staaten",
+  "countryMx": "Mexiko",
+  "countryBr": "Brasilien",
+  "countryEs": "Spanien",
+  "countryDe": "Deutschland",
+  "countryAr": "Argentinien",
+  "countryCl": "Chile",
+  "countryPe": "Peru",
+
   "shoppingModuleTitle": "Konsum",
   "shoppingModuleWeight": "10–15% deines Fußabdrucks",
   "shoppingQ1": "Wie viele Kleidungsstücke kaufst du pro Monat?",

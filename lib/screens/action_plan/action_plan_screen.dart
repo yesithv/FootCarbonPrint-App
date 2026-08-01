@@ -154,8 +154,12 @@ class ActionPlanScreen extends StatelessWidget {
     }
 
     if (f.beefServingsPerWeek >= 2) {
-      // Cutting beef in half: save half of beef CO₂.
-      final halfBeef = (f.beefServingsPerWeek / 2 * 0.35 * 52) / 1000;
+      // Cutting beef in half: save half the servings × real beef factor (27).
+      final halfBeef = (f.beefServingsPerWeek / 2 *
+              EmissionFactors.beefPortionKg *
+              EmissionFactors.beef *
+              52) /
+          1000;
       actions.add(_Action(
         id: 'less_beef',
         emoji: '🥩',
@@ -186,7 +190,9 @@ class ActionPlanScreen extends StatelessWidget {
 
     if (wa.showerTemp != 'cold' && wa.showerMinutes > 5) {
       final saveMins = wa.showerMinutes - 5;
-      final tempFactor = wa.showerTemp == 'hot' ? 0.4 : 0.2;
+      final tempFactor = wa.showerTemp == 'hot'
+          ? EmissionFactors.showerHotFactor
+          : EmissionFactors.showerWarmFactor;
       final saving = (saveMins * 365 * tempFactor) / 1000;
       actions.add(_Action(
         id: 'short_shower',

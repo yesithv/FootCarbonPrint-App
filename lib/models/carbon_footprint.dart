@@ -106,9 +106,28 @@ class FoodData {
       'vegan': EmissionFactors.dietVegan,
     };
     double base = baselines[diet] ?? EmissionFactors.dietOmnivore;
-    final beefExtra = beefServingsPerWeek * 0.35 * 52 / 1000;
+
+    // Beef is counted using the real Poore & Nemecek factor (27 kgCO2e/kg).
+    // The diet baseline already embeds an average beef intake, so we only add
+    // (or subtract) the servings that deviate from that assumed average — this
+    // avoids double counting while making each serving reflect its true 27×
+    // impact. beefExtra (t/yr) = ΔservingsPerWeek × portionKg × beef × 52 / 1000.
+    final avgServings =
+        EmissionFactors.beefAvgServingsByDiet[diet] ?? 3;
+    final deltaServings = beefServingsPerWeek - avgServings;
+    final beefExtra = deltaServings *
+        EmissionFactors.beefPortionKg *
+        EmissionFactors.beef *
+        52 /
+        1000;
+
     final localDiscount = localFood ? -0.1 : 0.0;
-    final wasteExtra = foodWaste * 0.3;
+
+    // Avoidable food waste, proportional to the diet footprint rather than a
+    // flat number. foodWaste is a 0–1 level; at its max it adds ~30 % of base.
+    final wasteExtra =
+        base * foodWaste * EmissionFactors.foodWasteShareOfBaseline;
+
     return base + beefExtra + localDiscount + wasteExtra;
   }
 
@@ -133,6 +152,7 @@ class HomeData {
   int householdMembers;
   bool hasAC;
   double acHoursPerDay;
+  String country;
 
   HomeData({
     this.energySource = 'grid',
@@ -140,12 +160,21 @@ class HomeData {
     this.householdMembers = 3,
     this.hasAC = false,
     this.acHoursPerDay = 0,
+    this.country = 'co',
   });
 
+  /// Emission factor (kgCO2e/kWh) applied to household energy, based on the
+  /// energy source and — for grid/mixed electricity — the selected country.
+  double get energyFactor {
+    if (energySource == 'solar') return EmissionFactors.solarLca;
+    if (energySource == 'gas') return EmissionFactors.naturalGasPerKwh;
+    // grid / mixed → country grid factor (fallback to world average).
+    return EmissionFactors.gridFactorByCountry[country] ??
+        EmissionFactors.electricityWorld;
+  }
+
   double get annualCO2 {
-    double factor = EmissionFactors.electricityColombia;
-    if (energySource == 'solar') factor = EmissionFactors.solarLca;
-    if (energySource == 'gas') factor = EmissionFactors.naturalGas / 10;
+    final factor = energyFactor;
 
     final perPersonKwh = monthlyKwh / householdMembers;
     double base = (perPersonKwh * 12 * factor) / 1000;
@@ -162,6 +191,7 @@ class HomeData {
         'householdMembers': householdMembers,
         'hasAC': hasAC,
         'acHoursPerDay': acHoursPerDay,
+        'country': country,
       };
 
   factory HomeData.fromJson(Map<String, dynamic> j) => HomeData(
@@ -170,6 +200,7 @@ class HomeData {
         householdMembers: j['householdMembers'] ?? 3,
         hasAC: j['hasAC'] ?? false,
         acHoursPerDay: (j['acHoursPerDay'] ?? 0).toDouble(),
+        country: j['country'] ?? 'co',
       );
 }
 
@@ -191,7 +222,8 @@ class ShoppingData {
         clothingItemsPerMonth * 12 * EmissionFactors.clothingItem / 1000;
     final electronics =
         electronicsPerYear * EmissionFactors.smartphone / 1000;
-    final packages = onlinePackagesPerMonth * 12 * 0.5 / 1000;
+    final packages =
+        onlinePackagesPerMonth * 12 * EmissionFactors.onlinePackageKg / 1000;
     final secondHandDiscount = buysSecondHand ? -0.1 : 0.0;
     return clothing + electronics + packages + secondHandDiscount;
   }

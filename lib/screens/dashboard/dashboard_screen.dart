@@ -355,8 +355,10 @@ class _EquivalencesCard extends StatelessWidget {
                 const SizedBox(width: 12),
                 _EquivItem(
                   emoji: '📱',
-                  value: _compactInt(
-                      (footprint.totalCO2 * 1000 / 0.082).round()),
+                  value: _compactInt((footprint.totalCO2 *
+                          1000 /
+                          EmissionFactors.phoneChargeKg)
+                      .round()),
                   label: l10n.phoneChargesLabel,
                 ),
               ],

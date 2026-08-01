@@ -318,6 +318,18 @@
   "energyGas": "Gas natural",
   "energyMixed": "Mixto",
 
+  "homeQCountry": "¿En qué país vives?",
+  "countryWorld": "Otro (promedio mundial)",
+  "countryCo": "Colombia",
+  "countryUs": "Estados Unidos",
+  "countryMx": "México",
+  "countryBr": "Brasil",
+  "countryEs": "España",
+  "countryDe": "Alemania",
+  "countryAr": "Argentina",
+  "countryCl": "Chile",
+  "countryPe": "Perú",
+
   "shoppingModuleTitle": "Consumo",
   "shoppingModuleWeight": "10–15% de tu huella",
   "shoppingQ1": "¿Cuántas prendas de ropa compras al mes?",

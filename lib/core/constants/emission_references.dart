@@ -164,9 +164,14 @@ class EmissionReferences {
       description:
           'Base de datos de factores de emisión de CO₂ por generación eléctrica para '
           'países de la OCDE y economías seleccionadas. El factor mundial promedio '
-          'de 2022 es 0.459 kgCO₂/kWh (actualizado de 0.475 en versiones anteriores).',
+          'de 2022 es 0.459 kgCO₂/kWh (actualizado de 0.475 en versiones anteriores).\n\n'
+          'La app permite seleccionar país (gridFactorByCountry) para aplicar el factor '
+          'de red correspondiente en lugar del muy bajo factor colombiano. Valores '
+          'representativos (kgCO₂/kWh, IEA 2023): EE.UU. 0.369, México 0.423, '
+          'Brasil 0.120, España 0.156, Alemania 0.381, Argentina 0.310, Chile 0.330, '
+          'Perú 0.230. "Mundial" (0.459) es el valor por defecto/fallback.',
       url: 'https://www.iea.org/data-and-statistics/data-product/emissions-factors-2023',
-      appliesTo: ['electricityWorld'],
+      appliesTo: ['electricityWorld', 'gridFactorByCountry'],
     ),
 
     EmissionReference(
