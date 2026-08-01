@@ -53,6 +53,12 @@ class _FoodModuleState extends State<FoodModule> {
       color: context.palette.food,
       weight: l10n.foodModuleWeight,
       onSave: _save,
+      liveEstimate: FoodData(
+        diet: _diet,
+        beefServingsPerWeek: _beefServings.round(),
+        localFood: _localFood,
+        foodWaste: _foodWaste,
+      ).annualCO2,
       children: [
         QuestionCard(
           question: l10n.foodQ1,
@@ -175,15 +181,6 @@ class _FoodModuleState extends State<FoodModule> {
             activeColor: context.palette.food,
           ),
         ),
-        _Co2Preview(
-          value: FoodData(
-            diet: _diet,
-            beefServingsPerWeek: _beefServings.round(),
-            localFood: _localFood,
-            foodWaste: _foodWaste,
-          ).annualCO2,
-          color: context.palette.food,
-        ),
       ],
     );
   }
@@ -197,40 +194,3 @@ class _DietOption {
   const _DietOption(this.id, this.label, this.emoji, this.sub);
 }
 
-class _Co2Preview extends StatelessWidget {
-  final double value;
-  final Color color;
-  const _Co2Preview({required this.value, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: color.withAlpha(15),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withAlpha(60)),
-      ),
-      child: Row(
-        children: [
-          Icon(Icons.co2_rounded, color: color, size: 32),
-          const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${value.toStringAsFixed(2)} ${l10n.co2Unit}',
-                style: TextStyle(
-                    fontSize: 20, fontWeight: FontWeight.w800, color: color),
-              ),
-              Text(l10n.moduleEstimate,
-                  style: TextStyle(
-                      fontSize: 12, color: context.palette.textSecondary)),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}

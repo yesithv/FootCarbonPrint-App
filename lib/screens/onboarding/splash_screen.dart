@@ -67,25 +67,32 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primary,
-      body: Center(
-        child: FadeTransition(
-          opacity: _fadeAnim,
-          child: ScaleTransition(
-            scale: _scaleAnim,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(30),
-                    shape: BoxShape.circle,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [AppColors.primary, Color(0xFF43A047)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: FadeTransition(
+            opacity: _fadeAnim,
+            child: ScaleTransition(
+              scale: _scaleAnim,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 110,
+                    height: 110,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withAlpha(40),
+                      borderRadius: BorderRadius.circular(34),
+                    ),
+                    child: const Icon(Icons.eco_rounded,
+                        size: 60, color: Colors.white),
                   ),
-                  child: const Icon(Icons.eco_rounded,
-                      size: 56, color: Colors.white),
-                ),
                 const SizedBox(height: 24),
                 Text(
                   'FootCarbonPrint',
@@ -102,7 +109,8 @@ class _SplashScreenState extends State<SplashScreen>
                   style: GoogleFonts.inter(
                       fontSize: 14, color: Colors.white70),
                 ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -175,6 +183,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Column(
           children: [
+            SizedBox(
+              height: 44,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 200),
+                  opacity: _currentPage < slides.length - 1 ? 1 : 0,
+                  child: TextButton(
+                    onPressed:
+                        _currentPage < slides.length - 1 ? _finish : null,
+                    child: Text(l10n.skip,
+                        style: TextStyle(color: context.palette.textSecondary)),
+                  ),
+                ),
+              ),
+            ),
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
@@ -214,14 +238,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           : l10n.startTest,
                     ),
                   ),
-                  if (_currentPage < slides.length - 1) ...[
-                    const SizedBox(height: 12),
-                    TextButton(
-                      onPressed: _finish,
-                      child: Text(l10n.skip,
-                          style: TextStyle(color: context.palette.textHint)),
-                    ),
-                  ],
                 ],
               ),
             ),
@@ -256,13 +272,14 @@ class _SlideView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 140,
-            height: 140,
+            width: 200,
+            height: 200,
             decoration: BoxDecoration(
               color: slide.color.withAlpha(20),
-              shape: BoxShape.circle,
+              borderRadius: BorderRadius.circular(28),
+              border: Border.all(color: slide.color.withAlpha(40)),
             ),
-            child: Icon(slide.icon, size: 72, color: slide.color),
+            child: Icon(slide.icon, size: 92, color: slide.color),
           ),
           const SizedBox(height: 48),
           Text(
