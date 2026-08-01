@@ -993,6 +993,21 @@ class AppLocalizationsPt extends AppLocalizations {
   String get themeDark => 'Escuro';
 
   @override
+  String get settingsTitle => 'Configurações';
+
+  @override
+  String get settingsTheme => 'Tema';
+
+  @override
+  String get settingsLanguage => 'Idioma';
+
+  @override
+  String get settingsName => 'Nome';
+
+  @override
+  String get languageAuto => 'Automático (dispositivo)';
+
+  @override
   String get addYourName => 'Adicione seu nome';
 
   @override

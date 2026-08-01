@@ -993,6 +993,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get themeDark => 'Dark';
 
   @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsTheme => 'Theme';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get settingsName => 'Name';
+
+  @override
+  String get languageAuto => 'Automatic (device)';
+
+  @override
   String get addYourName => 'Add your name';
 
   @override

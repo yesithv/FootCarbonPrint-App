@@ -1001,6 +1001,21 @@ class AppLocalizationsDe extends AppLocalizations {
   String get themeDark => 'Dunkel';
 
   @override
+  String get settingsTitle => 'Einstellungen';
+
+  @override
+  String get settingsTheme => 'Erscheinungsbild';
+
+  @override
+  String get settingsLanguage => 'Sprache';
+
+  @override
+  String get settingsName => 'Name';
+
+  @override
+  String get languageAuto => 'Automatisch (Gerät)';
+
+  @override
   String get addYourName => 'Deinen Namen hinzufügen';
 
   @override
