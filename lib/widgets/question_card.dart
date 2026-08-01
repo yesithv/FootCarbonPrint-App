@@ -18,7 +18,10 @@ class QuestionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+        side: BorderSide(color: context.palette.border),
+      ),
       color: context.palette.cardBg,
       child: Padding(
         padding: const EdgeInsets.all(18),

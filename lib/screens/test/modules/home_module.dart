@@ -79,7 +79,7 @@ class _HomeModuleState extends State<HomeModule> {
         QuestionCard(
           question: l10n.homeQCountry,
           child: DropdownButtonFormField<String>(
-            initialValue: _country,
+            value: _country,
             isExpanded: true,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),

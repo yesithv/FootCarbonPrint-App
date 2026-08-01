@@ -46,12 +46,21 @@ class _TransportModuleState extends State<TransportModule> {
       _VehicleOption('walking', l10n.vehicleWalking, Icons.directions_walk_rounded),
     ];
 
+    final liveEstimate = TransportData(
+      vehicle: _vehicle,
+      weeklyKm: _weeklyKm,
+      shortFlights: _shortFlights,
+      mediumFlights: _mediumFlights,
+      longFlights: _longFlights,
+    ).annualCO2;
+
     return ModuleScaffold(
       title: l10n.transportModuleTitle,
       icon: Icons.directions_car_rounded,
       color: context.palette.transport,
       weight: l10n.transportModuleWeight,
       onSave: _save,
+      liveEstimate: liveEstimate,
       children: [
         QuestionCard(
           question: l10n.transportQ1,
@@ -120,16 +129,6 @@ class _TransportModuleState extends State<TransportModule> {
             ],
           ),
         ),
-        _Co2Preview(
-          value: TransportData(
-            vehicle: _vehicle,
-            weeklyKm: _weeklyKm,
-            shortFlights: _shortFlights,
-            mediumFlights: _mediumFlights,
-            longFlights: _longFlights,
-          ).annualCO2,
-          color: context.palette.transport,
-        ),
       ],
     );
   }
@@ -184,43 +183,3 @@ class _FlightCounter extends StatelessWidget {
   }
 }
 
-class _Co2Preview extends StatelessWidget {
-  final double value;
-  final Color color;
-  const _Co2Preview({required this.value, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: color.withAlpha(15),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withAlpha(60)),
-      ),
-      child: Row(
-        children: [
-          Icon(Icons.co2_rounded, color: color, size: 32),
-          const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${value.toStringAsFixed(2)} ${l10n.co2Unit}',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                  color: color,
-                ),
-              ),
-              Text(l10n.moduleEstimate,
-                  style: TextStyle(
-                      fontSize: 12, color: context.palette.textSecondary)),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
