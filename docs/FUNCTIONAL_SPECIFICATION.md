@@ -3,9 +3,10 @@
 > **Purpose of this document.** This is a complete, category-by-category inventory of **everything FootCarbonPrint does today**, written as **functional requirements**, **non-functional requirements**, and a description of the **design system as built**. It reflects the current implemented behavior of the app — not a future vision or redesign.
 
 - **Product:** FootCarbonPrint — *"Know your footprint. Change your world."*
+- **Release stage:** **MVP v1.0** — everything marked ✅ below is built and shipping today.
 - **Platform:** Flutter (iOS · Android · Web). Currently deployed as a web app.
 - **Current version:** 1.0.0+1
-- **Languages supported:** English, Spanish, Portuguese, German.
+- **Languages supported:** English, Spanish, French, Portuguese, German (5). Auto-detected from the device, with a manual override in Settings.
 - **Persistence:** Local-only (device storage / `SharedPreferences`), offline-first. No backend or account required today.
 
 **Status legend used throughout:**
@@ -51,7 +52,8 @@ It layers **gamification** (points, levels, badges, weekly challenges), **progre
 Splash (animated)
   └─ Onboarding (3 slides, skippable)   [first run only]
        └─ Main Shell  (bottom navigation, 3 tabs)
-            ├─ Tab 1: Home            → Test Hub (modal) → 6 Test Modules → Results
+            ├─ Tab 1: Home            → Settings (screen: name · theme · language)
+            │                          → Test Hub (modal) → 6 Test Modules → Results
             │                          → Learn Guide (modal)
             ├─ Tab 2: Dashboard       → Export Result (sheet)
             │                          → Profile / Eco Card (screen)
@@ -88,6 +90,7 @@ Ongoing tracking, challenges & gamification → Share
 | 14 | Action Plan | `action_plan_screen.dart` | Personalized actions + commitments + challenges. |
 | 15 | Learn Guide | `learn_screen.dart` | 6-lesson educational carousel. |
 | 16 | Profile / Eco Card | `profile_card_screen.dart` | Shareable identity card + PNG export. |
+| 17 | Settings | `settings_screen.dart` | Display name, theme (System/Light/Dark), language (Automatic + 5 languages). |
 
 ---
 
@@ -262,7 +265,9 @@ Requirements are grouped by functional category. Each has a stable ID (`FR-<area
 | FR-14.1 | Theme selector: System / Light / Dark, persisted. | ✅ |
 | FR-14.2 | Set/edit the user's display name (used in greeting and Eco Card). | ✅ |
 | FR-14.3 | Personalized greeting on Home (with or without name). | ✅ |
-| FR-14.4 | Reset all data to start over (`resetAll` exists in the provider; no UI entry point is wired yet). | 🔶 |
+| FR-14.4 | Dedicated **Settings screen** (opened from Home) grouping name, theme, and language in one place. | ✅ |
+| FR-14.5 | Manual **language selector**: Automatic (device) + the 5 supported languages, persisted (see FR-16.2). | ✅ |
+| FR-14.6 | Reset all data to start over (`resetAll` exists in the provider; no UI entry point is wired yet). | 🔶 |
 
 ### FR-15 — Data, Persistence & Privacy
 
@@ -276,8 +281,8 @@ Requirements are grouped by functional category. Each has a stable ID (`FR-<area
 
 | ID | Requirement | Status |
 |---|---|---|
-| FR-16.1 | Support English, Spanish, Portuguese, German with full string localization. | ✅ |
-| FR-16.2 | Auto-select language from the device locale (among de/en/es/pt), falling back to English. Language is not user-selectable and is not persisted. | ✅ |
+| FR-16.1 | Support English, Spanish, French, Portuguese, German (5) with full string localization. | ✅ |
+| FR-16.2 | Auto-select language from the device locale (among de/en/es/fr/pt), falling back to English; and let the user override it manually in Settings (Automatic + the 5 languages), persisting the choice. | ✅ |
 | FR-16.3 | Localize category names, level names, badge names/descriptions, and challenge copy. | ✅ |
 | FR-16.4 | Accessibility baseline: semantic-friendly Material widgets, light/dark contrast; a full screen-reader/dynamic-text/contrast audit is not yet done. | 🔶 |
 
@@ -399,16 +404,18 @@ Two-directional check: (A) every implemented capability in the code maps to a re
 | Share text + export result image | FR-12.1, FR-12.2, FR-12.4 |
 | Profile/Eco Card + photo + PNG export | FR-13.1–FR-13.5, FR-12.3 |
 | Theme provider + name dialog + greeting | FR-14.1–FR-14.3 |
-| `resetAll` in provider | FR-14.4 |
+| Settings screen (name + theme + language) (`settings_screen.dart`) | FR-14.4, FR-14.5 |
+| `LocaleProvider` manual language override + persistence | FR-14.5, FR-16.2 |
+| `resetAll` in provider | FR-14.6 |
 | `SharedPreferences` persistence + safe decode | FR-15.1–FR-15.3 |
-| 4-language l10n + locale resolution | FR-16.1–FR-16.3 |
+| 5-language l10n + device resolution + manual override | FR-16.1–FR-16.3 |
 
 **Result:** No implemented capability is left undocumented. ✅
 
 ### 6.2 B → A: Requirement → Implementation status
 
 - All FR items marked ✅ correspond to a concrete screen/behavior listed in §2.3 and §6.1.
-- FR items marked 🔶 exist partially: `resetAll` without a UI entry (FR-14.4); the emissions gauge concept (FR-7.11); the fixed-palette/Spanish export image (FR-12.5); and the accessibility baseline (FR-16.4).
+- FR items marked 🔶 exist partially: `resetAll` without a UI entry (FR-14.6); the emissions gauge concept (FR-7.11); the fixed-palette/Spanish export image (FR-12.5); and the accessibility baseline (FR-16.4).
 
 **Result:** Every requirement maps to current behavior; none is orphaned. ✅
 

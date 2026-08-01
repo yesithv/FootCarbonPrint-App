@@ -4,23 +4,53 @@
 
 ---
 
+> ## 🟢 Estado del producto: **MVP v1.0 (disponible ahora)**
+>
+> Este documento describe **el producto tal como existe hoy**. Todo lo que aparece
+> bajo la sección **"✅ Qué hace el MVP"** está **desarrollado, funcionando y disponible**
+> en la aplicación actual. Todo lo que aparece bajo **"🔜 Qué NO hace todavía (v2.0+)"**
+> está **planeado para después del MVP** y **aún no existe** en la app.
+>
+> Si esta documentación se publica en la página web del producto, **la separación
+> MVP / futuro debe respetarse**: no anunciar como disponible nada que esté en la
+> lista de futuras versiones.
+>
+> **En una frase:** el MVP es una **app Flutter (desplegada como aplicación web)** que,
+> **100% offline y sin cuenta ni registro**, te permite autodiagnosticar tu huella de
+> carbono anual con un test visual de 6 módulos, ver resultados y comparativas,
+> recibir un plan de acción personalizado, jugar con puntos/niveles/insignias/retos,
+> aprender con una guía educativa, calcular tu compensación y compartir tu resultado.
+
+---
+
 ## ¿Qué es FootCarbonPrint?
 
 **FootCarbonPrint** es una app de autodiagnóstico de huella de carbono que convierte datos cotidianos en conciencia real y acción concreta. No es un tracker más: es un diagnóstico visual, emocional y personalizado que le dice al usuario exactamente qué está pasando, por qué importa, y qué puede hacer hoy.
 
-En menos de **7 minutos**, el usuario conoce su impacto ambiental anual en CO₂, lo compara con promedios globales y recibe un plan de acción ordenado por impacto real — no por culpa, sino por posibilidad.
+En pocos minutos, el usuario conoce su impacto ambiental anual en CO₂, lo compara con promedios locales y globales y recibe un plan de acción ordenado por impacto real — no por culpa, sino por posibilidad.
+
+**Características del MVP como producto:**
+
+| Atributo | Estado actual |
+|----------|---------------|
+| Plataforma | Flutter · desplegado como **aplicación web** (el mismo código apunta también a iOS/Android) |
+| Cuenta / registro | **No requiere** cuenta, login ni conexión |
+| Datos | **Locales en el dispositivo** (`SharedPreferences`); nada sale del equipo salvo que el usuario comparta |
+| Conectividad | **Funciona 100% offline** |
+| Idiomas | **5**: Español, Inglés, Francés, Portugués, Alemán (automático por dispositivo + selección manual) |
+| Versión | 1.0.0 |
 
 ---
 
 ## El Problema que Resuelve
 
-| Problema | Cómo lo resuelve FootCarbonPrint |
-|----------|----------------------------------|
-| "No sé cuánto contamino" | Test inteligente en ≤7 min con valores por defecto |
-| "Los datos ambientales son aburridos" | Equivalencias visuales e interactivas ("70 árboles talados/año") |
-| "Sé que debo cambiar, pero no sé por dónde" | Plan de acción ordenado por impacto y dificultad |
-| "Llené el formulario y lo olvidé" | Gamificación, retos semanales y seguimiento en el tiempo |
-| "No quiero pagar datos si no los uso" | Modo offline básico disponible |
+| Problema | Cómo lo resuelve el MVP |
+|----------|-------------------------|
+| "No sé cuánto contamino" | Test visual de 6 módulos con valores por defecto inteligentes |
+| "Los datos ambientales son aburridos" | Equivalencias visuales ("= 70 árboles/año", planeta y aguja que cambian de color) |
+| "Sé que debo cambiar, pero no sé por dónde" | Plan de acción **personalizado** ordenado por impacto real de cada acción |
+| "Llené el formulario y lo olvidé" | Gamificación (puntos, niveles, insignias), retos semanales e historial de mediciones |
+| "No quiero depender de la conexión ni dar mis datos" | Experiencia **totalmente offline y local**, sin cuenta |
 
 ---
 
@@ -30,141 +60,208 @@ En menos de **7 minutos**, el usuario conoce su impacto ambiental anual en CO₂
 |--------|------------|
 | 🧑‍🎓 Joven urbano consciente | Quiere saber su impacto sin ser experto |
 | 👩‍💼 Profesional ocupado | Prefiere respuestas rápidas y visuales |
-| 🌱 Usuario comprometido | Busca metas, seguimiento y comunidad |
-| 🏢 Empresas con ESG | Panel para medir impacto de equipos |
+| 🌱 Usuario comprometido | Busca metas, seguimiento y retos |
+| 🏢 Empresas con ESG *(futuro)* | Panel para equipos — **planeado para v2.5, no está en el MVP** |
 
 ---
 
-## Flujo de Usuario Principal
+# ✅ Qué hace el MVP (funcionalidades disponibles hoy)
 
-```
-Bienvenida (30s)
-    ↓
-Perfil inicial → País / Ciudad / Personas en hogar
-    ↓
-Auto-Test por Módulos (≤35 preguntas · ≤7 minutos)
-    ↓
-Motor de Cálculo CO₂ (IPCC · EPA · GHG Protocol)
-    ↓
-Dashboard de Resultados → Huella total + desglose + comparativa
-    ↓
-Plan de Acción Personalizado → Top 5 acciones por impacto
-    ↓
-Seguimiento + Retos + Gamificación
-    ↓
-Compensación (Opcional / Premium)
-```
+Esta es la lista **completa y verificada** de lo que la aplicación hace en este momento.
 
----
+## 1. 🧭 Inicio y Onboarding
 
-## Módulos Funcionales
+- **Splash animado** con logo y tagline al abrir la app.
+- **Onboarding de 3 diapositivas** (medir tu impacto → dashboard visual → logros/gamificación), con opción de **saltar**. Se muestra solo la primera vez.
+- Tras el onboarding, se entra al **contenedor principal con navegación inferior de 3 pestañas**: **Inicio**, **Mi Huella (Dashboard)** y **Plan de Acción**.
 
-### 1. 🧭 Onboarding Inteligente
-- Bienvenida con analogía visual: *"Tu huella = árboles que necesitarías plantar para compensarla"*
-- Selector de perfil: **Urbano / Rural / Mixto** (ajusta factores de emisión locales)
-- Selector de país (en el módulo de Hogar) → aplica el factor de emisión de red eléctrica del país elegido: Colombia, EE.UU., México, Brasil, España, Alemania, Argentina, Chile, Perú o promedio mundial (fallback)
-- Meta inicial opcional: *¿Qué te motivó? → Ahorrar dinero / Cuidar el planeta / Compensar*
-- Registro en 1 tap: Email, Google o Apple ID
+## 2. 📋 Auto-Test por Módulos (el corazón de la app)
 
----
+Formato **Swipe & Tap**: selectores visuales, sliders y contadores — sin formularios de texto.
+El test se divide en **6 módulos independientes** que se pueden completar **en cualquier orden** y **volver a editar** cuando se quiera. Cada módulo muestra una **estimación de CO₂ en vivo** que se actualiza a medida que el usuario responde, y queda marcado como completado al guardar.
 
-### 2. 📋 Auto-Test Dinámico (Corazón de la App)
+Preguntas **realmente implementadas** en cada módulo:
 
-Formato **Swipe & Tap**: sliders, selectores visuales, iconos — sin formularios aburridos.  
-Dividido en **6 módulos independientes** que el usuario puede completar por separado:
-
-#### 🚗 Transporte *(28–35% de la huella)*
+#### 🚗 Transporte
 | Pregunta | Input |
 |----------|-------|
-| Medio principal (auto, moto, bus, bici, pie) | Selector visual |
-| Tipo de combustible | Selector |
-| Km recorridos por semana | Slider |
-| Vuelos al año (corto / medio / largo radio) | Contador por tipo |
-| Uso de transporte compartido | Frecuencia |
+| Medio principal (gasolina, diésel, híbrido, eléctrico, moto, bus, bici, a pie) | Selector visual (8 opciones) |
+| Km recorridos por semana | Slider (0–500) |
+| Vuelos al año por tipo (corto / medio / largo radio) | Contadores +/− |
 
-> Cálculo: `kgCO₂/km × distancia semanal × 52 semanas`
-
-#### 🍔 Alimentación *(25–30% de la huella)*
+#### 🍔 Alimentación
 | Pregunta | Input |
 |----------|-------|
-| Tipo de dieta (omnívora, flexitariana, vegetariana, vegana) | Selector visual |
-| Consumo de carne roja (veces/semana) | Slider |
-| Consumo de lácteos | Frecuencia |
-| % de alimentos locales / de temporada | Slider estimado |
-| Desperdicio de comida | Selector |
+| Tipo de dieta (vegana, vegetariana, flexitariana, omnívora, carnívora) | Selector visual |
+| Porciones de carne roja por semana | Slider (0–14) |
+| Nivel de desperdicio de comida | Selector de 4 niveles |
+| ¿Consumes alimentos locales / de temporada? | Interruptor |
 
-> Dato clave: La carne de res emite ~27 kgCO₂/kg producido. El desperdicio duplica la huella de ese alimento.
-
-#### 🏠 Hogar y Energía *(20–25% de la huella)*
+#### 🏠 Hogar y Energía
 | Pregunta | Input |
 |----------|-------|
-| Tipo de vivienda y m² | Selector + número |
-| Fuente de energía (red eléctrica, solar, gas, leña) | Selector |
-| Consumo mensual (kWh o valor factura) | Input + **OCR de factura** |
-| Climatización AC / calefacción (horas/día) | Slider |
-| Personas en el hogar | Contador |
+| Personas en el hogar | Slider (1–10) |
+| **País** (ajusta el factor de red eléctrica) | Selector de 10 opciones |
+| Fuente de energía (red, solar, gas, mixta) | Selector |
+| Consumo mensual (kWh) | Slider (50–800) |
+| Aire acondicionado y horas/día | Interruptor + slider |
 
-> **OCR Inteligente:** El usuario puede fotografiar su recibo de luz/gas y la app extrae los kWh automáticamente.
-
-#### 🛍️ Consumo y Compras *(10–15% de la huella)*
+#### 🛍️ Consumo y Compras
 | Pregunta | Input |
 |----------|-------|
 | Prendas nuevas por mes | Slider |
-| % de ropa de segunda mano | Slider |
-| Electrónicos nuevos por año | Contador |
-| Paquetes de e-commerce por mes | Contador |
-| Uso de plásticos de un solo uso | Frecuencia |
+| Electrónicos nuevos por año | Slider |
+| Paquetes de e-commerce por mes | Slider |
+| ¿Compras de segunda mano? | Interruptor |
 
-#### ♻️ Residuos *(5–8% de la huella)*
+#### ♻️ Residuos
 | Pregunta | Input |
 |----------|-------|
-| ¿Separas residuos para reciclaje? | Sí / No / Parcial |
-| Bolsas de basura por semana | Selector |
-| ¿Compostas residuos orgánicos? | Sí / No |
-| Disposición de electrónicos (e-waste) | Frecuencia |
+| Bolsas de basura por semana | Slider |
+| ¿Separas residuos para reciclaje? | Interruptor |
+| ¿Compostas residuos orgánicos? | Interruptor |
 
-#### 💧 Agua *(módulo diferenciador)*
+#### 💧 Agua
 | Pregunta | Input |
 |----------|-------|
-| Minutos promedio de ducha | Slider |
+| Minutos promedio de ducha | Slider (2–30) |
 | Temperatura del agua (fría / tibia / caliente) | Selector |
-| Riego de jardín / zonas verdes | Sí/No + frecuencia |
+| ¿Riegas jardín / zonas verdes? | Interruptor |
+
+> **Nota:** al completar los 6 módulos por primera vez, la app abre automáticamente la pantalla de **Resultados**.
+
+## 3. ⚙️ Motor de Cálculo CO₂
+
+- Calcula el CO₂ anual (tCO₂/año) **por categoría** y el total, con **factores de emisión basados en la ciencia** (IPCC · EPA · GHG Protocol — ver *Metodología* más abajo).
+- **Factor de red eléctrica seleccionable por país** en tiempo de ejecución: Colombia, EE.UU., México, Brasil, España, Alemania, Argentina, Chile, Perú y **promedio mundial** (fallback). Colombia por defecto.
+- **Valores por defecto inteligentes** para completar el test rápido.
+- Clasifica la huella en **5 niveles** (Campeón Verde → Consciente → En Camino → Alto Impacto → Crítico), cada uno con emoji y color.
+
+## 4. 🎉 Pantalla de Resultados
+
+- **Avatar de planeta** y **aguja (gauge)** que reflejan tu nivel, con **animación de confeti**.
+- Valor total de huella con su **insignia de nivel** y color.
+- **Comparativa** en barras: Tú vs Meta París vs Colombia vs Mundo.
+- **Top 3 fuentes de emisión** ordenadas, con valor y porcentaje.
+- Tarjeta de **logros** (puntos, nivel, insignias ganadas/bloqueadas).
+- Botones para ir al Dashboard, al Plan de Acción o **compartir**.
+
+## 5. 📊 Dashboard "Mi Huella"
+
+- Cabecera con huella total, nivel y color.
+- **Equivalencias reales:** árboles necesarios, años de bombilla encendida, cargas de smartphone.
+- **Gráfico de torta/dona interactivo** de las 6 categorías, con leyenda y toque para expandir.
+- **Benchmark** en barras: Tú vs Meta París vs Colombia vs Mundo.
+- **Historial temporal:** guarda una medición por día (hasta 52), dibuja una **línea de tendencia** con ≥2 mediciones y muestra la variación % (mejoró/empeoró). Con estados vacío / una medición / varias.
+- **Calculadora de compensación:** árboles necesarios y **costo estimado** (USD anual/mensual) para neutralizar tu huella, con advertencia *"reduce primero, luego compensa"* y **enlaces a plataformas certificadas** (Gold Standard, Pachama, atmosfair).
+- **Exportar resultado como imagen PNG** y acceso a la **tarjeta de perfil / Eco Card**.
+
+## 6. 💡 Plan de Acción Personalizado
+
+- Genera acciones **calculadas a partir de tus propios datos** (no una lista fija).
+- **Omite acciones que ya realizas** (p. ej. si ya reciclas).
+- Calcula el **ahorro de CO₂ realista** de cada acción y las ordena por impacto (top ~6).
+- Cada acción muestra categoría, color, ahorro estimado (−t) y descripción.
+- Cabecera con la **reducción potencial total** y su % sobre tu huella actual.
+- Botón **"Me comprometo"** (toggle) que otorga puntos y **se guarda** entre sesiones.
+- Lista de **retos** al final del plan.
+
+## 7. 🎮 Gamificación y Retos
+
+- **EcoPoints** calculados por: módulos completados, bonus por completar los 6, terminar la guía educativa, acciones a las que te comprometes, retos completados y bonus por huella baja.
+- **5 niveles Eco** (Principiante → Aprendiz → Consciente → Activista → Eco-Campeón) con emoji, color y rangos de puntos.
+- **8 insignias** con condiciones de logro (primer paso, explorador, completista, educado, consciente, huella ligera, comprometido, activista); se muestran ganadas o bloqueadas.
+- **Reto semanal** en Inicio que **rota automáticamente por semana del año** (4 retos), se puede marcar como cumplido (otorga puntos) y **se persiste por semana**.
+- *(Detalle de diseño):* la pantalla de Inicio es **gamificación-primero** y no muestra el número de CO₂; ese valor aparece en Resultados, Dashboard, la vista previa de cada módulo y las tarjetas compartibles.
+
+## 8. 📚 Guía Educativa
+
+- **Guía de 6 lecciones** deslizables: bases del clima → efecto invernadero → huellas → categorías → comparación entre países → acciones.
+- Cada lección tiene título, cuerpo, un dato destacado y una **visual gráfica animada** propia.
+- Barra de progreso, navegación anterior/siguiente y **marca de completado** (otorga insignia + puntos).
+- Accesible desde el Test Hub mediante un banner (copy distinto para primera vez vs. regreso).
+
+## 9. 🔗 Compartir y Exportar
+
+- Compartir el resultado como **texto** vía la hoja de compartir nativa/web (nivel + tCO₂ + enlace).
+- Exportar el resultado como **imagen de marca (PNG)**.
+- Generar y compartir una **Tarjeta de Perfil / Eco Card** (avatar o **foto** elegida por el usuario, nombre, nivel, puntos y estadísticas) como PNG de alta resolución.
+- Las opciones de compartir se ocultan con elegancia donde la plataforma no las soporta.
+
+## 10. ⚙️ Ajustes y Personalización
+
+- **Nombre** de usuario (usado en el saludo y la Eco Card).
+- **Tema**: Sistema / Claro / Oscuro (paridad completa light/dark), persistido.
+- **Idioma**: **Automático (según el dispositivo)** + selección manual entre **Español, Inglés, Francés, Portugués y Alemán**, persistido.
+
+## 11. 🔒 Datos, Privacidad y Offline
+
+- **Todo se guarda localmente** en el dispositivo (huella, módulos, compromisos, historial, retos, nombre, tema, idioma).
+- **Funciona completamente offline**; sin cuenta ni red.
+- Serialización segura con recuperación ante datos corruptos.
+- **Privacy-first:** ningún dato personal sale del dispositivo salvo que el usuario decida compartir explícitamente. Las fotos de la Eco Card se quedan locales.
 
 ---
 
-### 3. ⚙️ Motor de Cálculo CO₂
+## Flujo de Usuario (MVP)
 
-- Algoritmo basado en estándares internacionales: **IPCC · EPA · GHG Protocol**
-- Factor de emisión **ajustado por país** vía selector (la red eléctrica de Colombia, basada en hidroeléctrica ≈ 0.175 kgCO₂/kWh, es muy diferente a la de Alemania ≈ 0.381); 9 países + promedio mundial como fallback
-- Valores por defecto inteligentes para usuarios que no conocen sus consumos exactos
-
-**Output:**
 ```
-Huella total: 3.2 tCO₂eq/año
-
-Desglose:
-  🚗 Transporte    → 45%   (1.44 t)
-  🍔 Alimentación  → 25%   (0.80 t)
-  🏠 Hogar         → 20%   (0.64 t)
-  🛍️ Consumo       → 10%   (0.32 t)
+Splash animado
+    ↓
+Onboarding (3 diapositivas, se puede saltar)   [solo la primera vez]
+    ↓
+Inicio (nivel, logros, reto semanal, progreso del test)
+    ↓
+Test Hub → 6 módulos (Transporte, Alimentación, Hogar, Consumo, Residuos, Agua)
+    ↓
+Motor de Cálculo CO₂ (IPCC · EPA · GHG Protocol · factor de red por país)
+    ↓
+Resultados (planeta + aguja + comparativa + top 3 + logros)
+    ↓
+Dashboard (equivalencias + torta + benchmark + historial + compensación + export)
+    ↓
+Plan de Acción (acciones personalizadas + compromisos + retos)
+    ↓
+Seguimiento en el tiempo · Gamificación · Compartir
 ```
 
 ---
 
-### Metodología de Cálculo — Fórmulas y Ecuaciones
+# 🔜 Qué NO hace el MVP todavía (planeado para v2.0 y posteriores)
 
-Todas las categorías siguen la ecuación base universal que definen las entidades
-oficiales mundiales — **GHG Protocol** (WRI/WBCSD), **ISO 14064/14067** e **IPCC**:
+> ⚠️ **Importante para la página web:** las siguientes funcionalidades **no existen aún**
+> en la aplicación. Se documentan como visión/roadmap y **no deben presentarse como
+> disponibles**.
+
+| Funcionalidad futura | Estado |
+|----------------------|--------|
+| **OCR de facturas** de luz/gas (foto del recibo → kWh automáticos) | ❌ No implementado |
+| **Sincronización GPS / Google Maps / Apple Maps** para transporte automático | ❌ No implementado |
+| **Compensación real**: compra de créditos de carbono, "Monedero Verde", donar EcoPoints a proyectos | ❌ Solo existe una **calculadora** + enlaces externos; no hay compra ni monedero |
+| **Componente social**: comparar con amigos, retos grupales, comunidad dentro de la app | ❌ No implementado (solo compartir imagen/texto) |
+| **Notificaciones push inteligentes** | ❌ No implementado |
+| **Cuentas de usuario / login social** (Email, Google, Apple) y sincronización en la nube | ❌ No implementado (la app es local y sin cuenta) |
+| **Backend propio** (Spring Boot) + **PostgreSQL** + **Panel admin** (Angular) para factores por región | ❌ No implementado |
+| **Integración con apps bancarias** | ❌ No implementado |
+| **Analytics de producto** (Mixpanel / Amplitude) | ❌ No implementado |
+| **Versión empresarial / ESG** para equipos | ❌ No implementado |
+| Preguntas adicionales del test: tipo de vivienda y m², plásticos de un solo uso, lácteos por separado, frecuencia de transporte compartido, selector de perfil Urbano/Rural/Mixto | ❌ No implementadas en el MVP |
+
+---
+
+## Metodología de Cálculo — Fórmulas y Ecuaciones
+
+Todas las categorías del MVP siguen la ecuación base universal que definen las
+entidades oficiales — **GHG Protocol** (WRI/WBCSD), **ISO 14064/14067** e **IPCC**:
 
 ```
 Emisiones = Dato de actividad × Factor de emisión
 Huella total = Σ categorías, expresada en toneladas de CO₂e/año
 
-  · Dato de actividad: km, kWh, m³, porciones, minutos de ducha, etc.
+  · Dato de actividad: km, kWh, porciones, minutos de ducha, bolsas, etc.
   · Factor de emisión: kgCO₂e por unidad de actividad (fuentes oficiales).
-  · CO₂e: todos los gases se convierten a CO₂ equivalente con los GWP del IPCC
-          (CO₂ = 1); los factores usados ya incorporan CH₄, N₂O y forzamiento
-          radiativo cuando aplica (p. ej. vuelos de largo alcance).
+  · CO₂e: los factores usados ya incorporan CH₄, N₂O y forzamiento radiativo
+          cuando aplica (p. ej. vuelos de largo alcance).
 ```
 
 #### 🚗 Transporte
@@ -183,14 +280,13 @@ CO₂_alim (tCO₂) = base_dieta
                   − 0.1 (si alimentos locales)
                   + base_dieta × desperdicio × 0.30
 
-  Δporciones_res = porciones_res/semana − promedio_dieta
+  Δporciones_res = porciones_res/semana − promedio de la dieta
   base_dieta [tCO₂/año]     ←  Springmann et al. (2018), Nature
   factor res: 27 kgCO₂/kg   ←  Poore & Nemecek (2018), Science
 
   La línea base de cada dieta ya incluye un consumo promedio de res, por lo que
-  solo se aplica el factor 27 a las porciones que se DESVÍAN de ese promedio
-  (promedio asumido: carnívora 6, omnívora 3, flexitariana 1, veg. 0). Esto
-  evita el doble conteo y corrige el bug previo que omitía el factor 27.
+  el factor 27 se aplica solo a las porciones que se DESVÍAN de ese promedio
+  (carnívora 6, omnívora 3, flexitariana 1, veg. 0), evitando el doble conteo.
 ```
 
 #### 🏠 Hogar y Energía
@@ -207,8 +303,6 @@ CO₂_hogar (tCO₂) = (kWh_mes ÷ personas × 12 × factor_energía) ÷ 1000
     Colombia 0.175 · EE.UU. 0.369 · México 0.423 · Brasil 0.120 ·
     España 0.156 · Alemania 0.381 · Argentina 0.310 · Chile 0.330 ·
     Perú 0.230 · Mundial 0.459
-  factor_solar   ←  IPCC SRREN (2011)
-  factor_gas     ←  IPCC 2006, Vol. 2 Tabla 1.4 (56.1 kgCO₂/GJ → 2.04 kgCO₂/m³)
 ```
 
 #### 💧 Agua
@@ -217,9 +311,7 @@ CO₂_agua (tCO₂) = minutos_ducha × 365 × factor_temperatura ÷ 1000
                  + 0.05 (si tiene jardín)
 
   factor_temperatura [kgCO₂/min]:
-    Fría:    0.000  (sin energía de calentamiento)
-    Tibia:   0.030  (ducha eléctrica 5.5 kW al 70 %, red Colombia)
-    Caliente:0.060  (ducha eléctrica 7 kW al 100 %, red Colombia)
+    Fría:    0.000   ·   Tibia: 0.030   ·   Caliente: 0.060
   ← SSPD Colombia; UPME 2023; Carbon Trust shower data
 ```
 
@@ -239,25 +331,15 @@ CO₂_consumo (tCO₂) = ropa/mes × 12 × 10 ÷ 1000
                     + paquetes/mes × 12 × 0.5 ÷ 1000
                     − 0.1 (si compra segunda mano)
 
-  10 kgCO₂/prenda   ←  Global Fashion Agenda — Pulse 2017
-  70 kgCO₂/smartphone ← Apple Environmental Progress Report 2023
+  10 kgCO₂/prenda    ←  Global Fashion Agenda — Pulse 2017
+  70 kgCO₂/smartphone ←  Apple Environmental Progress Report 2023
 ```
 
 ---
 
-### 4. 📊 Dashboard de Resultados
+## Sistema de Niveles e Insignias (MVP)
 
-#### Visualización del Impacto Real
-Los datos fríos no mueven emociones. FootCarbonPrint traduce toneladas de CO₂ en imágenes que impactan:
-
-- 🌲 *"Tu impacto equivale a talar **70 árboles** al año"*
-- 💡 *"O a dejar una bombilla encendida durante **15 años**"*
-- 📱 *"O a cargar **847 smartphones** sin parar"*
-
-#### Avatar Interactivo
-Un planeta Tierra (o huella visual) que **cambia de color en tiempo real** según el resultado: de verde vibrante a rojo crítico.
-
-#### Sistema de Medallas
+#### Niveles de Huella (según tCO₂/año)
 | Nivel | Rango | Ícono |
 |-------|-------|-------|
 | Campeón Verde | < 1.5 tCO₂/año | 🌿 |
@@ -266,191 +348,90 @@ Un planeta Tierra (o huella visual) que **cambia de color en tiempo real** segú
 | Alto Impacto | 5 – 8 t | 🔴 |
 | Crítico | > 8 t | 💀 |
 
-#### Comparativa Contextual
-```
-Tu huella:          3.2 t CO₂/año
-Promedio Colombia:  1.8 t CO₂/año   ↑ +78%
-Promedio mundial:   4.7 t CO₂/año   ↓ -32%
-Meta París 2050:    2.0 t CO₂/año   ↑ +60%
-```
-
----
-
-### 5. 💡 Plan de Acción Personalizado
-
-La app no solo mide — **dice qué hacer y calcula el impacto exacto de cada acción.**
-
-Top 5 recomendaciones ordenadas por impacto, con su dificultad y ahorro estimado:
-
-| Acción | Reducción | Dificultad |
-|--------|-----------|------------|
-| Eliminar 1 vuelo largo al año | −1.5 tCO₂ | Media |
-| Adoptar dieta flexitariana | −0.8 tCO₂/año | Media |
-| Dejar de comer carne 3 días/semana | −0.4 tCO₂/año | Baja |
-| Usar transporte público 2 días/semana | −0.3 tCO₂/año | Baja |
-| Instalar ducha de bajo flujo | −0.1 tCO₂/año | Baja |
-
-Cada acción incluye: descripción, recurso externo y botón **"Me comprometo"** con recordatorio automático.
-
-**Calculadora en tiempo real:** Al marcar un reto como cumplido, el usuario ve cómo baja su aguja de emisiones — y cuánto dinero ahorra.
-
----
-
-### 6. 🎮 Gamificación y Seguimiento
-
-#### Sistema de Puntos — EcoPoints
-- Cada reto cumplido suma puntos
-- Los puntos desbloquean niveles y badges
-
+#### Niveles de EcoPoints (gamificación)
 | Nivel | Nombre | Requisito |
 |-------|--------|-----------|
-| 🌱 | Novato Verde | Completar el test |
-| 🌍 | Consciente | 100 EcoPoints |
-| 🌳 | Experto Verde | 500 EcoPoints + reducir 10% huella |
-| 🦋 | Transformador | 1000 EcoPoints + completar 1 módulo de compensación |
+| 🌱 | Principiante | 0–49 pts |
+| 🔎 | Aprendiz | 50–149 pts |
+| 💚 | Consciente | 150–299 pts |
+| ✊ | Activista | 300–449 pts |
+| 🏆 | Eco-Campeón | 450+ pts |
 
-#### Retos Semanales
-- *"Semana sin plástico de un solo uso"*
-- *"7 días sin carne roja"*
-- *"Viaja en bici o caminando 3 días esta semana"*
-- *"Ducha de máximo 5 minutos por 5 días"*
-
-#### Seguimiento Temporal
-- Gráfico de línea de tendencia mensual/anual
-- Alertas inteligentes: *"Tu huella aumentó un 12% este mes en transporte"*
-- Diario de acciones: registra acciones concretas y ve el CO₂ acumulado ahorrado
-- Test recurrente: mensual / trimestral / anual con comparativa histórica
-
----
-
-### 7. 🤖 Automatización Pasiva (Nivel Avanzado)
-
-Para el usuario que no quiere registrar todo manualmente:
-
-- **Sincronización GPS / Google Maps / Apple Maps** → detecta si caminó, usó bici o auto → calcula el impacto del transporte del día sin intervención manual
-- **OCR de facturas** → foto del recibo de luz o gas → extracción automática de kWh
-- **Integración con apps bancarias** → análisis de patrones de consumo (con consentimiento)
-- **Notificaciones eco-inteligentes:**
-  - *"Esta semana usaste más el carro. ¿Puedes combinar viajes?"*
-  - *"Con el calor de esta semana, el AC puede representar el 40% de tu consumo"*
-
----
-
-### 8. 🌳 Módulo de Compensación *(Opcional / Premium)*
-
-Para lo que no se puede reducir, se puede compensar:
-
-- Calculadora de cuántos árboles necesitas plantar para ser carbono neutro
-- **Monedero Verde:** Los EcoPoints ganados se pueden donar a proyectos verificados
-- Integración con iniciativas certificadas:
-  - 🇨🇴 Colombia: Visión Amazonía, Fondo Acción
-  - 🌐 Global: Gold Standard, Verra VCS, atmosfair
-- Cálculo del costo estimado para neutralizar tu huella completamente
-
----
-
-### 9. 📚 Módulo Educativo
-
-- **Tooltips contextuales** en cada pregunta: *"¿Por qué importa esto?"*
-- **Micro-contenidos** por categoría:
-  - *"¿Por qué la carne genera más CO₂ que el pollo?"*
-  - *"El impacto real de un vuelo transatlántico"*
-  - *"Cómo la matriz energética de Colombia afecta tu huella"*
-- Tips diarios en el home
-- Equivalencias visuales y emotivas que contextualizan los datos
-
----
-
-### 10. 🌐 Componente Social *(Opcional)*
-
-- Compararte con amigos de forma anónima o consensuada
-- Retos grupales: *"Este mes, el grupo reduce un 10% en transporte"*
-- Compartir tu progreso en redes con gráfico generado por la app
-
----
-
-## Principios de Diseño UX
-
-| Principio | Implementación |
-|-----------|----------------|
-| **Rápido** | ≤7 min, ≤35 preguntas totales, valores por defecto inteligentes |
-| **Visual** | Sliders, iconos, animaciones — cero formularios |
-| **Emocional** | Equivalencias en la vida real, no solo números fríos |
-| **No culpabilizador** | Lenguaje de posibilidades, no de juicio |
-| **Privacy First** | Datos sensibles, opción de uso completamente offline |
-| **Accesible** | Diseño inclusivo, lenguaje simple, sin jerga técnica |
-| **Local** | Datos calibrados para Colombia (altitud, red eléctrica, clima, cultura) |
+#### Comparativas de referencia
+```
+Meta París 2050:    2.0 t CO₂/año
+Promedio Colombia:  1.9 t CO₂/año
+Promedio mundial:   4.7 t CO₂/año
+```
 
 ---
 
 ## Stack Tecnológico
 
-| Capa | Tecnología | Razón |
-|------|-----------|-------|
-| **App Móvil** | Flutter | Multiplataforma (iOS + Android + Web) |
-| **Backend API** | Spring Boot | API REST de cálculo y gestión de usuarios |
-| **Base de datos** | PostgreSQL (multi-tenant) | Historial de tests aislado por usuario |
-| **Panel Admin** | Angular + PrimeNG | Configuración de factores de emisión por región |
-| **Autenticación** | Firebase Auth | Login social rápido |
-| **Notificaciones** | Firebase Cloud Messaging | Push notifications multiplataforma |
-| **OCR Facturas** | ML Kit / Google Vision | Extracción de datos de recibos |
-| **Factores de emisión** | Base propia (IPCC + Ecoinvent) | Actualizable por región sin redespliegue |
-| **Analytics** | Mixpanel / Amplitude | Seguimiento de engagement y retención |
-| **Compensación** | APIs Gold Standard / Verra | Proyectos certificados |
+### ✅ En uso hoy (MVP)
+| Capa | Tecnología | Rol |
+|------|-----------|-----|
+| App | **Flutter** | Un solo código para Web (desplegado) + iOS/Android |
+| Estado | **provider** | Gestión de estado reactiva |
+| Persistencia | **shared_preferences** | Almacenamiento local en el dispositivo |
+| Gráficos | **fl_chart** | Torta e historial de tendencia |
+| Tipografía | **google_fonts** (Inter) | Sistema tipográfico |
+| Fotos / export | **image_picker** + captura de widget a PNG | Foto de la Eco Card y exportación de imágenes |
+| i18n | **flutter_localizations** + ARB | 5 idiomas |
 
----
-
-## Diferenciadores Clave vs. Competencia
-
-| App Competidora | Qué le falta | Lo que FootCarbonPrint agrega |
-|----------------|-------------|-------------------------------|
-| Sustainably | Solo tracking básico | Plan de acción + gamificación + OCR |
-| Klima | Solo compensación | Diagnóstico + educación + seguimiento |
-| WWF Footprint | Test simple, sin seguimiento | Avatar interactivo + tracker temporal |
-| Oroeco | Bancario, sin personalización | Contexto local Colombia + factores regionales |
-
-> **FootCarbonPrint no es solo un tracker: es diagnóstico + educación + acción + seguimiento + comunidad.**
+### 🔜 Planeado (no está en el MVP)
+| Capa | Tecnología prevista | Para |
+|------|---------------------|------|
+| Backend API | Spring Boot | Cálculo y gestión de usuarios en la nube |
+| Base de datos | PostgreSQL | Historial multi-usuario |
+| Panel Admin | Angular + PrimeNG | Configurar factores por región |
+| Autenticación | Firebase Auth | Login social |
+| Notificaciones | Firebase Cloud Messaging | Push |
+| OCR | ML Kit / Google Vision | Lectura de facturas |
+| Analytics | Mixpanel / Amplitude | Engagement y retención |
+| Compensación | APIs Gold Standard / Verra | Compra de créditos verificados |
 
 ---
 
 ## Roadmap de Desarrollo
 
-### MVP (v1.0) — 3 meses
-- [x] Especificación funcional completa
-- [ ] App Flutter (6 módulos de test + motor de cálculo)
-- [ ] Dashboard básico con gráficos
-- [ ] Plan de acción personalizado
-- [ ] Autenticación y perfil de usuario
+### ✅ MVP (v1.0) — **Completado y disponible**
+- [x] App Flutter con los **6 módulos de test** + **motor de cálculo** (factor de red por país)
+- [x] **Resultados** (planeta, aguja, confeti, comparativa, top 3, logros)
+- [x] **Dashboard** (equivalencias, torta, benchmark, historial, calculadora de compensación, export)
+- [x] **Plan de acción personalizado** + compromisos
+- [x] **Gamificación** (EcoPoints, 5 niveles, 8 insignias, reto semanal)
+- [x] **Guía educativa** (6 lecciones)
+- [x] **Compartir/exportar** (texto, PNG, Eco Card)
+- [x] **Ajustes** (nombre, tema, idioma) + **5 idiomas** con detección automática
+- [x] **Offline y local-first** (sin cuenta ni backend)
 
-### v1.5 — Mes 4-5
-- [ ] Gamificación (EcoPoints + niveles + retos semanales)
-- [ ] Seguimiento temporal (gráfico de tendencia)
-- [ ] Notificaciones push inteligentes
-- [ ] Módulo educativo (tooltips + micro-contenidos)
-
-### v2.0 — Mes 6-8
+### 🔜 v2.0 — Datos automáticos y compensación real
 - [ ] OCR de facturas de luz/gas
 - [ ] Sincronización GPS para transporte automático
-- [ ] Módulo de compensación con proyectos certificados
-- [ ] Componente social (retos grupales + compartir)
+- [ ] Módulo de compensación con **compra** de proyectos certificados y Monedero Verde
+- [ ] Componente social (retos grupales + comparar con amigos)
+- [ ] Notificaciones push inteligentes
 
-### v2.5 — Mes 9-12
-- [ ] Panel admin (Angular) para configurar factores de emisión
+### 🔜 v2.5 — Nube, cuentas y empresa
+- [ ] Cuentas de usuario / login social + sincronización en la nube
+- [ ] Backend (Spring Boot + PostgreSQL) y panel admin (Angular) de factores por región
 - [ ] Integración con apps bancarias
 - [ ] Versión empresarial / ESG para equipos
-- [ ] Internacionalización (Latam primero, luego global)
+- [ ] Analytics de producto
 
 ---
 
-## Métricas de Éxito
+## Diferenciadores Clave vs. Competencia
 
-| Métrica | Objetivo (6 meses) |
-|---------|-------------------|
-| Tests completados | > 10,000 |
-| Retención D30 | > 25% |
-| Reducción promedio huella (usuarios activos) | > 8% |
-| NPS | > 50 |
-| Conversión a Premium (compensación) | > 5% |
+| App Competidora | Qué le falta | Lo que FootCarbonPrint (MVP) agrega |
+|----------------|-------------|-------------------------------------|
+| Sustainably | Solo tracking básico | Plan de acción personalizado + gamificación + educación |
+| Klima | Solo compensación | Diagnóstico + educación + seguimiento + calculadora de compensación |
+| WWF Footprint | Test simple, sin seguimiento | Avatar/planeta interactivo + historial + insignias |
+| Oroeco | Bancario, sin personalización | Factor de red por país + acciones calculadas con tus datos |
+
+> **FootCarbonPrint no es solo un tracker: en su MVP ya combina diagnóstico + educación + acción personalizada + seguimiento + gamificación, 100% offline y sin cuenta.**
 
 ---
 
@@ -469,33 +450,12 @@ Equivalente a:
 
 ---
 
-## Síntesis de Inteligencias Artificiales
-
-Este documento consolida las especificaciones generadas por **cuatro modelos de IA** consultados en la fase de ideación:
-
-| Modelo | Aporte Principal |
-|--------|----------------|
-| **Claude (Anthropic)** | Metodología de cálculo por categoría, contexto colombiano, módulo de compensación con organizaciones certificadas, arquitectura Spring Boot + Flutter + Angular |
-| **GitHub Copilot** | Gamificación con EcoPoints y niveles, OCR de facturas, integración con Google Maps y apps bancarias, modo offline, datos calibrados para Bogotá |
-| **Google Gemini** | UX "Swipe & Tap", avatar/planeta interactivo con cambio de color, equivalencias emocionales de la vida real, "Monedero Verde", automatización pasiva por GPS |
-| **Claude Sonnet** | Módulo de Agua como categoría adicional, límite de 7 min / 35 preguntas, estándares IPCC/EPA/GHG Protocol, badge system (🌿🟡🔴💀), privacy-first, stack técnico detallado |
-
----
-
-## Diseño y Estilo
-
-La guía completa de diseño —paleta de color (light/dark), tipografía, iconografía,
-espaciado, componentes y especificaciones listas para entregar a una herramienta de
-diseño (Figma / Penpot)— está en
-[`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md).
-
----
-
 ## Referencias Científicas
 
-Todos los factores de emisión y ecuaciones del motor de cálculo están respaldados
-por fuentes oficiales e internacionalmente reconocidas. La documentación completa
-está en [`lib/core/constants/emission_references.dart`](lib/core/constants/emission_references.dart).
+Todos los factores de emisión y ecuaciones del motor de cálculo del MVP están
+respaldados por fuentes oficiales e internacionalmente reconocidas. La
+documentación completa está en
+[`lib/core/constants/emission_references.dart`](lib/core/constants/emission_references.dart).
 
 ### Transporte
 
@@ -509,7 +469,7 @@ está en [`lib/core/constants/emission_references.dart`](lib/core/constants/emis
 
 | Referencia | Año | Uso en la app |
 |-----------|-----|--------------|
-| [Poore & Nemecek — *Science* 360(6392):987](https://doi.org/10.1126/science.aaq0216) | 2018 | Factores por kg de alimento: res 27, cerdo 7.6, pollo 6.9, pescado 6.1, lácteos 3.2 kgCO₂/kg. El factor de res (27) se aplica sobre la **desviación** de porciones respecto al promedio de la dieta |
+| [Poore & Nemecek — *Science* 360(6392):987](https://doi.org/10.1126/science.aaq0216) | 2018 | Factores por kg de alimento (res 27, cerdo 7.6, pollo 6.9…). El factor de res se aplica sobre la **desviación** respecto al promedio de la dieta |
 | [Springmann et al. — *Nature* 562:519](https://doi.org/10.1038/s41586-018-0594-0) | 2018 | Líneas base anuales por tipo de dieta (0.7–2.5 tCO₂/año) |
 | [Scarborough et al. — *Nature Food* 4:565](https://doi.org/10.1038/s43016-023-00795-w) | 2023 | Validación de baselines: vegana 0.50 t → carnívora 1.32 t/año |
 
@@ -517,9 +477,9 @@ está en [`lib/core/constants/emission_references.dart`](lib/core/constants/emis
 
 | Referencia | Año | Uso en la app |
 |-----------|-----|--------------|
-| [XM / UPME — Factor Emisión SIN Colombia](https://www.xm.com.co/noticias/en-colombia-factor-de-emision-de-co2-por-generacion-electrica-del-sistema-interconectado) | 2020–2024 | Red eléctrica Colombia: **0.175 kgCO₂/kWh** (promedio 2020–2023) |
-| [IEA — Emission Factors 2023](https://www.iea.org/data-and-statistics/data-product/emissions-factors-2023) | 2023 | Factor de red **por país** (selector): Colombia 0.175 · EE.UU. 0.369 · México 0.423 · Brasil 0.120 · España 0.156 · Alemania 0.381 · Argentina 0.310 · Chile 0.330 · Perú 0.230 · **Mundial 0.459 (fallback)** kgCO₂/kWh |
-| [IPCC 2006 Guidelines — Vol. 2 Energy, Tabla 1.4](https://www.ipcc-nggip.iges.or.jp/public/2006gl/vol2.html) | 2006 | Gas natural: 2.04 kgCO₂/m³ → **0.193 kgCO₂/kWh** (÷ 10.55 kWh/m³ para consumos en kWh) |
+| [XM / UPME — Factor Emisión SIN Colombia](https://www.xm.com.co/noticias/en-colombia-factor-de-emision-de-co2-por-generacion-electrica-del-sistema-interconectado) | 2020–2024 | Red eléctrica Colombia: **0.175 kgCO₂/kWh** |
+| [IEA — Emission Factors 2023](https://www.iea.org/data-and-statistics/data-product/emissions-factors-2023) | 2023 | Factor de red **por país** (selector de 10 opciones) |
+| [IPCC 2006 Guidelines — Vol. 2 Energy, Tabla 1.4](https://www.ipcc-nggip.iges.or.jp/public/2006gl/vol2.html) | 2006 | Gas natural: 2.04 kgCO₂/m³ → **0.193 kgCO₂/kWh** |
 | [IPCC SRREN](https://www.ipcc.ch/report/renewable-energy-sources-and-climate-change-mitigation/) | 2011 | Solar fotovoltaico: 0.020 kgCO₂/kWh (ciclo de vida) |
 
 ### Residuos y Agua
@@ -541,22 +501,25 @@ está en [`lib/core/constants/emission_references.dart`](lib/core/constants/emis
 
 ---
 
+## Documentación Relacionada
+
+- **Especificación funcional detallada** (inventario requisito-a-requisito de todo lo que hace el MVP):
+  [`docs/FUNCTIONAL_SPECIFICATION.md`](docs/FUNCTIONAL_SPECIFICATION.md)
+- **Sistema de diseño** (paleta light/dark, tipografía, componentes, listo para Figma/Penpot):
+  [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md)
+
+---
+
 ## Testing y Calidad
 
 El motor de cálculo (funciones puras por categoría en `lib/models/carbon_footprint.dart`)
 está cubierto por pruebas unitarias en
 [`test/carbon_footprint_test.dart`](test/carbon_footprint_test.dart):
 
-- **Pruebas por categoría** — transporte, alimentación, hogar, consumo, residuos y agua:
-  verifican que cada fórmula aplique `actividad × factor` y las conversiones a tCO₂e/año.
-- **Alimentación** — comprueban que el factor de res (27 kgCO₂e/kg) se aplique de verdad
-  sobre la desviación del promedio de la dieta, que el omnívoro por defecto se mantenga
-  cerca de su línea base y que el desperdicio sea proporcional al footprint.
-- **Hogar** — factor de red correcto según el país seleccionado, gas per-kWh, fallback
-  mundial para países desconocidos y round-trip de JSON (incluido el nuevo campo `country`).
-- **Test de conformidad** — fija factores clave (res 27, red mundial ≈ 0.459, gas per-kWh
-  ≈ 0.18–0.20, árbol EPA 60) a los valores publicados por las fuentes oficiales, para que
-  no puedan cambiar silenciosamente.
+- **Pruebas por categoría** — transporte, alimentación, hogar, consumo, residuos y agua.
+- **Alimentación** — el factor de res (27 kgCO₂e/kg) se aplica sobre la desviación del promedio de la dieta.
+- **Hogar** — factor de red correcto según el país, gas per-kWh, fallback mundial y round-trip de JSON.
+- **Test de conformidad** — fija factores clave a los valores publicados por las fuentes oficiales.
 
 **Quality gates (CI, `.github/workflows/ci.yml`, Flutter 3.32.2):**
 
@@ -570,12 +533,11 @@ flutter test --platform chrome
 
 ## Contribuir
 
-Este proyecto está en fase de especificación y desarrollo activo.
-
 ```bash
 git clone https://github.com/yesithv/footcarbonprint-app.git
 cd footcarbonprint-app
-# Ver CONTRIBUTING.md para instrucciones de setup
+flutter pub get
+flutter run   # -d chrome para la web
 ```
 
 ---
