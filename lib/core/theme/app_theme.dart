@@ -86,6 +86,11 @@ class AppTheme {
         ),
         iconTheme: IconThemeData(color: palette.textPrimary),
       ),
+      dividerTheme: DividerThemeData(
+        color: palette.border,
+        thickness: 1,
+        space: 1,
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: colorScheme.primary,
@@ -100,11 +105,26 @@ class AppTheme {
           ),
         ),
       ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: colorScheme.primary,
+          minimumSize: const Size(double.infinity, 52),
+          side: BorderSide(color: colorScheme.primary, width: 1.5),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          textStyle: GoogleFonts.inter(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
       cardTheme: CardThemeData(
         color: palette.cardBg,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
+          side: BorderSide(color: palette.border),
         ),
       ),
       sliderTheme: SliderThemeData(
@@ -112,6 +132,7 @@ class AppTheme {
         thumbColor: colorScheme.primary,
         overlayColor: colorScheme.primary.withAlpha(30),
         inactiveTrackColor: palette.accent,
+        trackHeight: 6,
       ),
     );
   }

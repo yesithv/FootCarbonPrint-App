@@ -11,6 +11,11 @@ class ModuleScaffold extends StatelessWidget {
   final VoidCallback onSave;
   final List<Widget> children;
 
+  /// When provided, the save bar shows a compact "live estimate" (left) next to
+  /// the save button (right), per the design. When null, the classic
+  /// full-width save button is used (keeps modules not yet migrated working).
+  final double? liveEstimate;
+
   const ModuleScaffold({
     super.key,
     required this.title,
@@ -19,55 +24,89 @@ class ModuleScaffold extends StatelessWidget {
     required this.weight,
     required this.onSave,
     required this.children,
+    this.liveEstimate,
   });
 
   @override
   Widget build(BuildContext context) {
+    final onColor = context.palette.onCategory;
     return Scaffold(
       backgroundColor: context.palette.background,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 140,
+            expandedHeight: 148,
             pinned: true,
-            stretch: true,
+            automaticallyImplyLeading: false,
             backgroundColor: color,
-            leading: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_rounded,
-                  color: context.palette.onCategory),
-            ),
             flexibleSpace: FlexibleSpaceBar(
-              titlePadding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
-              title: Row(
-                children: [
-                  Icon(icon, color: context.palette.onCategory, size: 20),
-                  const SizedBox(width: 8),
-                  Text(
-                    title,
-                    style: GoogleFonts.inter(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: context.palette.onCategory,
-                    ),
-                  ),
-                ],
-              ),
-              background: Container(
-                color: color,
-                child: Center(
+              titlePadding: EdgeInsets.zero,
+              title: null,
+              background: SafeArea(
+                bottom: false,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 4, 12, 14),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Icon(icon,
-                          color: context.palette.onCategory.withAlpha(140),
-                          size: 48),
-                      const SizedBox(height: 8),
-                      Text(
-                        weight,
-                        style: GoogleFonts.inter(
-                            fontSize: 13,
-                            color: context.palette.onCategory.withAlpha(160)),
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: Icon(Icons.arrow_back_rounded, color: onColor),
+                            visualDensity: VisualDensity.compact,
+                          ),
+                          const Spacer(),
+                          IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: Icon(Icons.close_rounded, color: onColor),
+                            visualDensity: VisualDensity.compact,
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Row(
+                          children: [
+                            Icon(icon, color: onColor, size: 34),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    title,
+                                    style: GoogleFonts.inter(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      color: onColor,
+                                    ),
+                                  ),
+                                  Text(
+                                    weight,
+                                    style: GoogleFonts.inter(
+                                      fontSize: 12.5,
+                                      fontWeight: FontWeight.w500,
+                                      color: onColor.withAlpha(210),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      // Accent rule at the base of the header band.
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 12),
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: onColor.withAlpha(60),
+                          borderRadius: BorderRadius.circular(999),
+                        ),
                       ),
                     ],
                   ),
@@ -89,17 +128,82 @@ class ModuleScaffold extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: SafeArea(
+      bottomNavigationBar: _SaveBar(
+        color: color,
+        onSave: onSave,
+        liveEstimate: liveEstimate,
+      ),
+    );
+  }
+}
+
+class _SaveBar extends StatelessWidget {
+  final Color color;
+  final VoidCallback onSave;
+  final double? liveEstimate;
+  const _SaveBar({
+    required this.color,
+    required this.onSave,
+    required this.liveEstimate,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final onColor = context.palette.onCategory;
+
+    final saveButton = ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        foregroundColor: onColor,
+        minimumSize: liveEstimate == null
+            ? const Size(double.infinity, 52)
+            : const Size(150, 52),
+      ),
+      onPressed: onSave,
+      child: Text(l10n.saveModule),
+    );
+
+    return Container(
+      decoration: BoxDecoration(
+        color: context.palette.cardBg,
+        border: Border(top: BorderSide(color: context.palette.border)),
+      ),
+      child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: color,
-              foregroundColor: context.palette.onCategory,
-            ),
-            onPressed: onSave,
-            child: Text(context.l10n.saveModule),
-          ),
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
+          child: liveEstimate == null
+              ? saveButton
+              : Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            l10n.moduleEstimate,
+                            style: GoogleFonts.inter(
+                              fontSize: 12,
+                              color: context.palette.textSecondary,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            '${liveEstimate!.toStringAsFixed(2)} ${l10n.co2Unit}',
+                            style: GoogleFonts.inter(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w800,
+                              color: color,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    saveButton,
+                  ],
+                ),
         ),
       ),
     );

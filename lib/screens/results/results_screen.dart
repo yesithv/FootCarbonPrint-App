@@ -8,6 +8,8 @@ import '../../core/utils/web_share.dart';
 import '../../providers/footprint_provider.dart';
 import '../../models/gamification.dart';
 import '../../core/constants/emission_factors.dart';
+import '../../widgets/planet_avatar.dart';
+import '../../widgets/footprint_gauge.dart';
 
 class ResultsScreen extends StatefulWidget {
   const ResultsScreen({super.key});
@@ -42,16 +44,10 @@ class _ResultsScreenState extends State<ResultsScreen> {
         children: [
           CustomScrollView(
             slivers: [
-              SliverToBoxAdapter(child: _HeroHeader()),
+              SliverToBoxAdapter(child: _ResultHero(provider: provider)),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: _MainResultCard(provider: provider),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                   child: _ComparisonCard(provider: provider),
                 ),
               ),
@@ -103,173 +99,77 @@ class _ResultsScreenState extends State<ResultsScreen> {
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Hero header
+// Result hero — planet avatar + gauge (the "wow" moment)
 // ──────────────────────────────────────────────────────────────────────────────
 
-class _HeroHeader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFF1B5E20), Color(0xFF2E7D32), Color(0xFF43A047)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: SafeArea(
-        bottom: false,
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
-              ),
-            ),
-            const SizedBox(height: 4),
-            const Text('🎉', style: TextStyle(fontSize: 52)),
-            const SizedBox(height: 14),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Text(
-                l10n.resultsTitle,
-                style: GoogleFonts.inter(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white,
-                  height: 1.2,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Text(
-                l10n.resultsSub,
-                style: GoogleFonts.inter(fontSize: 14, color: Colors.white70),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(height: 36),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-// Main CO₂ result card (overlaps hero)
-// ──────────────────────────────────────────────────────────────────────────────
-
-class _MainResultCard extends StatelessWidget {
+class _ResultHero extends StatelessWidget {
   final FootprintProvider provider;
-  const _MainResultCard({required this.provider});
-
-  Color _levelColor(BuildContext context, String level) {
-    switch (level) {
-      case 'champion':
-        return context.palette.green;
-      case 'conscious':
-        return context.palette.secondary;
-      case 'ontrack':
-        return context.palette.yellow;
-      case 'high':
-        return context.palette.orange;
-      default:
-        return context.palette.red;
-    }
-  }
+  const _ResultHero({required this.provider});
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final fp = provider.footprint;
-    final color = _levelColor(context, fp.level);
+    final color = context.palette.stateColor(fp.level);
 
-    return Transform.translate(
-      offset: const Offset(0, -24),
-      child: Container(
-        decoration: BoxDecoration(
-          color: context.palette.cardBg,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: color.withAlpha(70), width: 2),
-          boxShadow: [
-            BoxShadow(
-              color: color.withAlpha(40),
-              blurRadius: 20,
-              offset: const Offset(0, 8),
+    return SafeArea(
+      bottom: false,
+      child: Column(
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: Icon(Icons.arrow_back_rounded,
+                  color: context.palette.textPrimary),
             ),
-          ],
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
-        child: Column(
-          children: [
-            Text(
-              l10n.resultsYourFootprint,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Text(
+              '${l10n.resultsTitle} 🎉',
               style: GoogleFonts.inter(
-                fontSize: 13,
-                color: context.palette.textSecondary,
-                fontWeight: FontWeight.w500,
+                fontSize: 22,
+                fontWeight: FontWeight.w800,
+                color: context.palette.textPrimary,
+                height: 1.2,
               ),
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
+          ),
+          const SizedBox(height: 20),
+          PlanetAvatar(level: fp.level, size: 120),
+          const SizedBox(height: 8),
+          FootprintGauge(
+            value: fp.totalCO2,
+            unit: l10n.co2Unit,
+            size: 240,
+          ),
+          const SizedBox(height: 14),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+            decoration: BoxDecoration(
+              color: color.withAlpha(22),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: color.withAlpha(70)),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
+                Text(fp.levelEmoji, style: const TextStyle(fontSize: 18)),
+                const SizedBox(width: 8),
                 Text(
-                  fp.totalCO2.toStringAsFixed(1),
+                  l10n.localizedFootprintLevel(fp.level),
                   style: GoogleFonts.inter(
-                    fontSize: 64,
-                    fontWeight: FontWeight.w900,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
                     color: color,
-                    height: 1.0,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10, left: 6),
-                  child: Text(
-                    l10n.co2Unit,
-                    style: GoogleFonts.inter(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: context.palette.textSecondary,
-                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-              decoration: BoxDecoration(
-                color: color.withAlpha(18),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: color.withAlpha(60)),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(fp.levelEmoji, style: const TextStyle(fontSize: 18)),
-                  const SizedBox(width: 8),
-                  Text(
-                    l10n.localizedFootprintLevel(fp.level),
-                    style: GoogleFonts.inter(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: color,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -283,13 +183,8 @@ class _ComparisonCard extends StatelessWidget {
   final FootprintProvider provider;
   const _ComparisonCard({required this.provider});
 
-  Color _userColor(BuildContext context, double v) {
-    if (v < 1.5) return context.palette.green;
-    if (v < 3.0) return context.palette.secondary;
-    if (v < 5.0) return context.palette.yellow;
-    if (v < 8.0) return context.palette.orange;
-    return context.palette.red;
-  }
+  Color _userColor(BuildContext context, double v) =>
+      context.palette.stateColorForValue(v);
 
   @override
   Widget build(BuildContext context) {

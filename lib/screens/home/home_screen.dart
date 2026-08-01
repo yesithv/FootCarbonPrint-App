@@ -493,50 +493,31 @@ class _AchievementsCard extends StatelessWidget {
               crossAxisCount: 4,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+              crossAxisSpacing: 14,
+              mainAxisSpacing: 14,
               children: GamificationData.allBadges.map((badge) {
                 final isEarned = earned.contains(badge.id);
+                final ring = isEarned
+                    ? context.palette.primary
+                    : context.palette.textHint;
                 return Tooltip(
                   message: isEarned
                       ? l10n.localizedBadgeName(badge.id)
                       : l10n.badgeLocked(l10n.localizedBadgeDesc(badge.id)),
                   child: AnimatedOpacity(
-                    opacity: isEarned ? 1.0 : 0.3,
+                    opacity: isEarned ? 1.0 : 0.35,
                     duration: const Duration(milliseconds: 300),
                     child: Container(
                       decoration: BoxDecoration(
+                        shape: BoxShape.circle,
                         color: isEarned
-                            ? context.palette.primary.withAlpha(12)
+                            ? context.palette.primary.withAlpha(15)
                             : context.palette.background,
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: isEarned
-                              ? context.palette.primary.withAlpha(60)
-                              : context.palette.textHint.withAlpha(60),
-                        ),
+                        border: Border.all(color: ring.withAlpha(120), width: 2),
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(badge.emoji,
-                              style: const TextStyle(fontSize: 24)),
-                          const SizedBox(height: 4),
-                          Text(
-                            l10n.localizedBadgeName(badge.id),
-                            textAlign: TextAlign.center,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.inter(
-                              fontSize: 9,
-                              fontWeight: FontWeight.w600,
-                              color: isEarned
-                                  ? context.palette.textPrimary
-                                  : context.palette.textSecondary,
-                            ),
-                          ),
-                        ],
-                      ),
+                      alignment: Alignment.center,
+                      child: Text(badge.emoji,
+                          style: const TextStyle(fontSize: 26)),
                     ),
                   ),
                 );

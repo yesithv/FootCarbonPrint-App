@@ -17,7 +17,12 @@ class AppColors {
   static const textSecondary = Color(0xFF555555);
   static const textHint = Color(0xFF9E9E9E);
 
+  static const border = Color(0xFFE0E7DA);
+
+  // Footprint state scale (see DESIGN_SYSTEM §2.3). `green`/`aware`/`yellow`/
+  // `orange`/`red` map to champion/conscious/onTrack/high/critical.
   static const green = Color(0xFF2E7D32);
+  static const aware = Color(0xFF7CB342);
   static const yellow = Color(0xFFF9A825);
   static const orange = Color(0xFFE65100);
   static const red = Color(0xFFB71C1C);
@@ -45,7 +50,9 @@ class AppPalette extends ThemeExtension<AppPalette> {
     required this.textPrimary,
     required this.textSecondary,
     required this.textHint,
+    required this.border,
     required this.green,
+    required this.aware,
     required this.yellow,
     required this.orange,
     required this.red,
@@ -68,7 +75,15 @@ class AppPalette extends ThemeExtension<AppPalette> {
   final Color textPrimary;
   final Color textSecondary;
   final Color textHint;
+
+  /// Subtle border / divider (used for card outlines, esp. in dark mode).
+  final Color border;
+
   final Color green;
+
+  /// "Consciente" state (green-lime) in the footprint scale.
+  final Color aware;
+
   final Color yellow;
   final Color orange;
   final Color red;
@@ -94,7 +109,9 @@ class AppPalette extends ThemeExtension<AppPalette> {
     textPrimary: AppColors.textPrimary,
     textSecondary: AppColors.textSecondary,
     textHint: AppColors.textHint,
+    border: AppColors.border,
     green: AppColors.green,
+    aware: AppColors.aware,
     yellow: AppColors.yellow,
     orange: AppColors.orange,
     red: AppColors.red,
@@ -118,7 +135,9 @@ class AppPalette extends ThemeExtension<AppPalette> {
     textPrimary: Color(0xFFE6EBE4),
     textSecondary: Color(0xFFADB6AC),
     textHint: Color(0xFF7F8A7F),
+    border: Color(0xFF2C3B2E),
     green: Color(0xFF81C784),
+    aware: Color(0xFFAED581),
     yellow: Color(0xFFFBC02D),
     orange: Color(0xFFFB8C00),
     red: Color(0xFFEF5350),
@@ -143,7 +162,9 @@ class AppPalette extends ThemeExtension<AppPalette> {
     Color? textPrimary,
     Color? textSecondary,
     Color? textHint,
+    Color? border,
     Color? green,
+    Color? aware,
     Color? yellow,
     Color? orange,
     Color? red,
@@ -166,7 +187,9 @@ class AppPalette extends ThemeExtension<AppPalette> {
       textPrimary: textPrimary ?? this.textPrimary,
       textSecondary: textSecondary ?? this.textSecondary,
       textHint: textHint ?? this.textHint,
+      border: border ?? this.border,
       green: green ?? this.green,
+      aware: aware ?? this.aware,
       yellow: yellow ?? this.yellow,
       orange: orange ?? this.orange,
       red: red ?? this.red,
@@ -194,7 +217,9 @@ class AppPalette extends ThemeExtension<AppPalette> {
       textPrimary: Color.lerp(textPrimary, other.textPrimary, t)!,
       textSecondary: Color.lerp(textSecondary, other.textSecondary, t)!,
       textHint: Color.lerp(textHint, other.textHint, t)!,
+      border: Color.lerp(border, other.border, t)!,
       green: Color.lerp(green, other.green, t)!,
+      aware: Color.lerp(aware, other.aware, t)!,
       yellow: Color.lerp(yellow, other.yellow, t)!,
       orange: Color.lerp(orange, other.orange, t)!,
       red: Color.lerp(red, other.red, t)!,
@@ -206,6 +231,35 @@ class AppPalette extends ThemeExtension<AppPalette> {
       water: Color.lerp(water, other.water, t)!,
       onCategory: Color.lerp(onCategory, other.onCategory, t)!,
     );
+  }
+
+  /// Maps a footprint level key (`champion`/`conscious`/`ontrack`/`high`/
+  /// `critical`, as produced by `CarbonFootprint.level`) to its state color.
+  /// Single source of truth for the gauge, planet avatar, level chips and
+  /// benchmark bars.
+  Color stateColor(String level) {
+    switch (level) {
+      case 'champion':
+        return green;
+      case 'conscious':
+        return aware;
+      case 'ontrack':
+        return yellow;
+      case 'high':
+        return orange;
+      default:
+        return red;
+    }
+  }
+
+  /// Same scale resolved from a raw tCO₂ value (matches the thresholds in
+  /// `CarbonFootprint.level`).
+  Color stateColorForValue(double tco2) {
+    if (tco2 < 1.5) return green;
+    if (tco2 < 3.0) return aware;
+    if (tco2 < 5.0) return yellow;
+    if (tco2 < 8.0) return orange;
+    return red;
   }
 }
 
