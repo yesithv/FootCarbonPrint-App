@@ -135,7 +135,7 @@ Requirements are grouped by functional category. Each has a stable ID (`FR-<area
 
 | ID | Requirement | Status |
 |---|---|---|
-| FR-3.1 | Compute annual CO₂ (tCO₂/yr) per category from science-based emission factors (IPCC/EPA/GHG Protocol, Colombia-calibrated). | ✅ |
+| FR-3.1 | Compute annual CO₂ (tCO₂/yr) per category from science-based emission factors (IPCC/EPA/GHG Protocol), with runtime country selection for the electricity-grid factor (9 countries + world-average fallback; Colombia default). | ✅ |
 | FR-3.2 | Compute total annual CO₂ as the sum of all six categories. | ✅ |
 | FR-3.3 | Produce a category breakdown map for charts and ranking. | ✅ |
 | FR-3.4 | Classify the footprint into 5 levels (Champion → Conscious → On Track → High Impact → Critical) with emoji + color. | ✅ |
@@ -361,7 +361,10 @@ Beyond the vision already captured in FR items marked 🟡, these are **addition
 - Consistent iconography and category color coding across every screen.
 
 ### NFR-9 — Quality & Observability
-- Deterministic, testable calculation engine (pure functions per category).
+- Deterministic, testable calculation engine (pure functions per category), covered by
+  unit + conformance tests in `test/carbon_footprint_test.dart` (per-category formulas,
+  the beef-over-average model, per-country grid factors, and key factors pinned to
+  official published values). CI runs `flutter analyze` and `flutter test --platform chrome`.
 - Graceful empty, loading, single-item, and error states for every data-driven view.
 - (Future) opt-in, privacy-respecting analytics for engagement/retention.
 

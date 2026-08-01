@@ -62,7 +62,7 @@ Compensación (Opcional / Premium)
 ### 1. 🧭 Onboarding Inteligente
 - Bienvenida con analogía visual: *"Tu huella = árboles que necesitarías plantar para compensarla"*
 - Selector de perfil: **Urbano / Rural / Mixto** (ajusta factores de emisión locales)
-- Selector de país/región → Colombia, con factor de emisión de red eléctrica propio (≠ Alemania)
+- Selector de país (en el módulo de Hogar) → aplica el factor de emisión de red eléctrica del país elegido: Colombia, EE.UU., México, Brasil, España, Alemania, Argentina, Chile, Perú o promedio mundial (fallback)
 - Meta inicial opcional: *¿Qué te motivó? → Ahorrar dinero / Cuidar el planeta / Compensar*
 - Registro en 1 tap: Email, Google o Apple ID
 
@@ -135,7 +135,7 @@ Dividido en **6 módulos independientes** que el usuario puede completar por sep
 ### 3. ⚙️ Motor de Cálculo CO₂
 
 - Algoritmo basado en estándares internacionales: **IPCC · EPA · GHG Protocol**
-- Factor de emisión **ajustado por país** (la red eléctrica de Colombia, basada en hidroeléctrica, es muy diferente a la de Alemania)
+- Factor de emisión **ajustado por país** vía selector (la red eléctrica de Colombia, basada en hidroeléctrica ≈ 0.175 kgCO₂/kWh, es muy diferente a la de Alemania ≈ 0.381); 9 países + promedio mundial como fallback
 - Valores por defecto inteligentes para usuarios que no conocen sus consumos exactos
 
 **Output:**
@@ -417,7 +417,7 @@ Para lo que no se puede reducir, se puede compensar:
 
 ### MVP (v1.0) — 3 meses
 - [x] Especificación funcional completa
-- [ ] App Flutter (5 módulos de test + motor de cálculo)
+- [ ] App Flutter (6 módulos de test + motor de cálculo)
 - [ ] Dashboard básico con gráficos
 - [ ] Plan de acción personalizado
 - [ ] Autenticación y perfil de usuario
@@ -500,7 +500,7 @@ está en [`lib/core/constants/emission_references.dart`](lib/core/constants/emis
 
 | Referencia | Año | Uso en la app |
 |-----------|-----|--------------|
-| [Poore & Nemecek — *Science* 360(6392):987](https://doi.org/10.1126/science.aaq0216) | 2018 | Factores por kg de alimento: res 27, cerdo 7.6, pollo 6.9, pescado 6.1, lácteos 3.2 kgCO₂/kg |
+| [Poore & Nemecek — *Science* 360(6392):987](https://doi.org/10.1126/science.aaq0216) | 2018 | Factores por kg de alimento: res 27, cerdo 7.6, pollo 6.9, pescado 6.1, lácteos 3.2 kgCO₂/kg. El factor de res (27) se aplica sobre la **desviación** de porciones respecto al promedio de la dieta |
 | [Springmann et al. — *Nature* 562:519](https://doi.org/10.1038/s41586-018-0594-0) | 2018 | Líneas base anuales por tipo de dieta (0.7–2.5 tCO₂/año) |
 | [Scarborough et al. — *Nature Food* 4:565](https://doi.org/10.1038/s43016-023-00795-w) | 2023 | Validación de baselines: vegana 0.50 t → carnívora 1.32 t/año |
 
@@ -509,8 +509,8 @@ está en [`lib/core/constants/emission_references.dart`](lib/core/constants/emis
 | Referencia | Año | Uso en la app |
 |-----------|-----|--------------|
 | [XM / UPME — Factor Emisión SIN Colombia](https://www.xm.com.co/noticias/en-colombia-factor-de-emision-de-co2-por-generacion-electrica-del-sistema-interconectado) | 2020–2024 | Red eléctrica Colombia: **0.175 kgCO₂/kWh** (promedio 2020–2023) |
-| [IEA — Emission Factors 2023](https://www.iea.org/data-and-statistics/data-product/emissions-factors-2023) | 2023 | Red mundial: 0.459 kgCO₂/kWh |
-| [IPCC 2006 Guidelines — Vol. 2 Energy, Tabla 1.4](https://www.ipcc-nggip.iges.or.jp/public/2006gl/vol2.html) | 2006 | Gas natural: 2.04 kgCO₂/m³ (56.1 kgCO₂/GJ × 36.4 MJ/m³) |
+| [IEA — Emission Factors 2023](https://www.iea.org/data-and-statistics/data-product/emissions-factors-2023) | 2023 | Factor de red **por país** (selector): Colombia 0.175 · EE.UU. 0.369 · México 0.423 · Brasil 0.120 · España 0.156 · Alemania 0.381 · Argentina 0.310 · Chile 0.330 · Perú 0.230 · **Mundial 0.459 (fallback)** kgCO₂/kWh |
+| [IPCC 2006 Guidelines — Vol. 2 Energy, Tabla 1.4](https://www.ipcc-nggip.iges.or.jp/public/2006gl/vol2.html) | 2006 | Gas natural: 2.04 kgCO₂/m³ → **0.193 kgCO₂/kWh** (÷ 10.55 kWh/m³ para consumos en kWh) |
 | [IPCC SRREN](https://www.ipcc.ch/report/renewable-energy-sources-and-climate-change-mitigation/) | 2011 | Solar fotovoltaico: 0.020 kgCO₂/kWh (ciclo de vida) |
 
 ### Residuos y Agua
@@ -529,6 +529,33 @@ está en [`lib/core/constants/emission_references.dart`](lib/core/constants/emis
 | [World Bank / Our World in Data — Colombia](https://ourworldindata.org/co2/country/colombia) | 2023 | Promedio Colombia: **1.9 tCO₂/persona/año** |
 | [IPCC Special Report 1.5 °C (SR15)](https://www.ipcc.ch/sr15/) | 2018 | Meta París 2050: **≤ 2.0 tCO₂/persona/año** |
 | [EPA — GHG Equivalencies Calculator](https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator-calculations-and-references) | 2023 | Árbol urbano maduro: **60 kgCO₂/año** → 16.7 árboles/tCO₂ |
+
+---
+
+## Testing y Calidad
+
+El motor de cálculo (funciones puras por categoría en `lib/models/carbon_footprint.dart`)
+está cubierto por pruebas unitarias en
+[`test/carbon_footprint_test.dart`](test/carbon_footprint_test.dart):
+
+- **Pruebas por categoría** — transporte, alimentación, hogar, consumo, residuos y agua:
+  verifican que cada fórmula aplique `actividad × factor` y las conversiones a tCO₂e/año.
+- **Alimentación** — comprueban que el factor de res (27 kgCO₂e/kg) se aplique de verdad
+  sobre la desviación del promedio de la dieta, que el omnívoro por defecto se mantenga
+  cerca de su línea base y que el desperdicio sea proporcional al footprint.
+- **Hogar** — factor de red correcto según el país seleccionado, gas per-kWh, fallback
+  mundial para países desconocidos y round-trip de JSON (incluido el nuevo campo `country`).
+- **Test de conformidad** — fija factores clave (res 27, red mundial ≈ 0.459, gas per-kWh
+  ≈ 0.18–0.20, árbol EPA 60) a los valores publicados por las fuentes oficiales, para que
+  no puedan cambiar silenciosamente.
+
+**Quality gates (CI, `.github/workflows/ci.yml`, Flutter 3.32.2):**
+
+```bash
+flutter pub get
+flutter analyze --no-fatal-infos
+flutter test --platform chrome
+```
 
 ---
 
