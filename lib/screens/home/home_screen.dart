@@ -5,7 +5,7 @@ import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../models/gamification.dart';
 import '../../providers/footprint_provider.dart';
-import '../../providers/theme_provider.dart';
+import '../settings/settings_screen.dart';
 import '../shell/main_shell.dart';
 import '../test/test_hub_screen.dart';
 
@@ -25,13 +25,11 @@ class HomeScreen extends StatelessWidget {
             return _EmptyHome(
               userName: provider.userName,
               onStartTest: () => _openTest(context),
-              onEditName: () => _showNameDialog(context, provider),
             );
           }
           return _HomeContent(
             provider: provider,
             onOpenTest: () => _openTest(context),
-            onEditName: () => _showNameDialog(context, provider),
           );
         },
       ),
@@ -51,44 +49,6 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-  void _showNameDialog(BuildContext context, FootprintProvider provider) {
-    final l10n = context.l10n;
-    final ctrl = TextEditingController(text: provider.userName);
-    showDialog<void>(
-      context: context,
-      builder: (_) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Text(l10n.nameDialogTitle,
-            style: GoogleFonts.inter(fontWeight: FontWeight.w800, fontSize: 18)),
-        content: TextField(
-          controller: ctrl,
-          autofocus: true,
-          textCapitalization: TextCapitalization.words,
-          decoration: InputDecoration(
-            hintText: l10n.nameDialogHint,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-            prefixIcon: const Icon(Icons.person_rounded),
-          ),
-          onSubmitted: (v) {
-            provider.setUserName(v);
-            Navigator.pop(context);
-          },
-        ),
-        actions: [
-          TextButton(
-              onPressed: () => Navigator.pop(context), child: Text(l10n.cancel)),
-          ElevatedButton(
-            onPressed: () {
-              provider.setUserName(ctrl.text);
-              Navigator.pop(context);
-            },
-            child: Text(l10n.save),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 // ─── Empty state ──────────────────────────────────────────────────────────────
@@ -96,18 +56,14 @@ class HomeScreen extends StatelessWidget {
 class _EmptyHome extends StatelessWidget {
   final String userName;
   final VoidCallback onStartTest;
-  final VoidCallback onEditName;
-  const _EmptyHome(
-      {required this.userName,
-      required this.onStartTest,
-      required this.onEditName});
+  const _EmptyHome({required this.userName, required this.onStartTest});
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return CustomScrollView(
       slivers: [
-        _HomeAppBar(userName: userName, onEditName: onEditName),
+        _HomeAppBar(userName: userName),
         SliverFillRemaining(
           hasScrollBody: false,
           child: Padding(
@@ -165,66 +121,9 @@ class _EmptyHome extends StatelessWidget {
 
 // ─── App Bar ──────────────────────────────────────────────────────────────────
 
-class _ThemeMenuButton extends StatelessWidget {
-  const _ThemeMenuButton();
-
-  static const _options = [
-    (ThemeMode.system, Icons.brightness_auto_rounded),
-    (ThemeMode.light, Icons.light_mode_rounded),
-    (ThemeMode.dark, Icons.dark_mode_rounded),
-  ];
-
-  String _label(BuildContext context, ThemeMode mode) => switch (mode) {
-        ThemeMode.system => context.l10n.themeSystem,
-        ThemeMode.light => context.l10n.themeLight,
-        ThemeMode.dark => context.l10n.themeDark,
-      };
-
-  @override
-  Widget build(BuildContext context) {
-    final themeProvider = context.watch<ThemeProvider>();
-    final mode = themeProvider.mode;
-    final currentIcon =
-        _options.firstWhere((o) => o.$1 == mode, orElse: () => _options.first).$2;
-
-    return PopupMenuButton<ThemeMode>(
-      tooltip: context.l10n.themeTooltip,
-      icon: Icon(currentIcon, color: Colors.white70, size: 20),
-      initialValue: mode,
-      onSelected: themeProvider.setMode,
-      itemBuilder: (context) => [
-        for (final (option, icon) in _options)
-          PopupMenuItem(
-            value: option,
-            child: Row(
-              children: [
-                Icon(
-                  icon,
-                  size: 18,
-                  color: option == mode
-                      ? context.palette.primary
-                      : context.palette.textSecondary,
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  _label(context, option),
-                  style: GoogleFonts.inter(
-                    fontWeight:
-                        option == mode ? FontWeight.w700 : FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-      ],
-    );
-  }
-}
-
 class _HomeAppBar extends StatelessWidget {
   final String userName;
-  final VoidCallback onEditName;
-  const _HomeAppBar({required this.userName, required this.onEditName});
+  const _HomeAppBar({required this.userName});
 
   @override
   Widget build(BuildContext context) {
@@ -240,15 +139,14 @@ class _HomeAppBar extends StatelessWidget {
       centerTitle: false,
       backgroundColor: AppColors.primary,
       actions: [
-        const _ThemeMenuButton(),
         IconButton(
-          onPressed: onEditName,
-          icon: Icon(
-            userName.isEmpty ? Icons.person_add_rounded : Icons.edit_rounded,
-            color: Colors.white70,
-            size: 20,
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const SettingsScreen()),
           ),
-          tooltip: userName.isEmpty ? l10n.addYourName : l10n.nameDialogTitle,
+          icon: const Icon(Icons.settings_rounded,
+              color: Colors.white70, size: 20),
+          tooltip: l10n.settingsTitle,
         ),
       ],
       title: Row(
@@ -298,17 +196,13 @@ class _HomeAppBar extends StatelessWidget {
 class _HomeContent extends StatelessWidget {
   final FootprintProvider provider;
   final VoidCallback onOpenTest;
-  final VoidCallback onEditName;
-  const _HomeContent(
-      {required this.provider,
-      required this.onOpenTest,
-      required this.onEditName});
+  const _HomeContent({required this.provider, required this.onOpenTest});
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        _HomeAppBar(userName: provider.userName, onEditName: onEditName),
+        _HomeAppBar(userName: provider.userName),
         SliverPadding(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
           sliver: SliverList(
