@@ -482,6 +482,15 @@ Este documento consolida las especificaciones generadas por **cuatro modelos de 
 
 ---
 
+## Diseño y Estilo
+
+La guía completa de diseño —paleta de color (light/dark), tipografía, iconografía,
+espaciado, componentes y especificaciones listas para entregar a una herramienta de
+diseño (Figma / Penpot)— está en
+[`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md).
+
+---
+
 ## Referencias Científicas
 
 Todos los factores de emisión y ecuaciones del motor de cálculo están respaldados
